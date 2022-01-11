@@ -14,7 +14,7 @@ This module extends TrainPlayers control of turntables and transfer tables. By u
 ### SaveTimer
 This script starts when a user begins switching and ends when the switching event is completed. It is intended as a companion script to John Allen's Time Saver switching puzzle, but is generalized to accompany other switching puzzles as well.
 ### LinkedLayouts
-TrainPlayer has a feature which allows multiple layouts to be linked together to form a bigger meta-layout. The LinkedLayouts script was written to work around some of the early deficiencies of TrainPlayers linking scheme. These issues are being addressed by the programmers and it is expected that this script will fade into obsolesence.
+TrainPlayer has a feature which allows multiple layouts to be linked together to form a bigger meta-layout. The LinkedLayouts script was written to work around some of the early issues of TrainPlayers linking scheme. These issues are being addressed by the programmers and it is expected that this script will fade into obsolesence.
 ### O2O
 O2O, or Ops to Ops, is a set of scripts which allows JMRI, the Java Model Railroad Interface to be used as the operations engine for TrainPlayer. All of the advanced features of JMRI Operations Pro are leveraged by these scripts. Additionally, one script sits on the JMRI side to facilitate the export of train build data. The scripts on the TrainPlayer side then integrate the JMRI data into TrainPlayers Advanced Ops interface. The level of integration, or dependency, on JMRI Ops Pro can be chosen by the user, and is easily toggled.
 ### Web sites
