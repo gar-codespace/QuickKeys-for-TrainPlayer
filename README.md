@@ -21,4 +21,10 @@ O2O, or Ops to Ops, is a set of scripts which allows JMRI, the Java Model Railro
 [TrainPlayer](http://trainplayer.com/)  
 [JMRI Operations Pro](https://www.jmri.org/help/en/package/jmri/jmrit/operations/Operations.shtml)
 ### Videos
-[QuickKeys](https://youtu.be/nV8g_2UXFsU)
+[QuickKeys Install](https://youtu.be/nV8g_2UXFsU)  
+[QuickKeys How To](https://youtu.be/htDPEsgWwQI)  
+[SpeedSwitching](https://youtu.be/5_l3F8FqsZ0)  
+[PhakePhysics](https://youtu.be/qM0VkDgiU6Q)  
+[DropKick](https://youtu.be/_VV3hHayh6s)  
+[TurnTable](https://youtu.be/Xcqcyivq_04)
+[O2O](https://youtu.be/pX_H_gtGYQA)
