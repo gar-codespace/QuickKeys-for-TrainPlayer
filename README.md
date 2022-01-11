@@ -18,6 +18,6 @@ TrainPlayer has a feature which allows multiple layouts to be linked together to
 ### O2O
 O2O, or Ops to Ops, is a set of scripts which allows JMRI, the Java Model Railroad Interface to be used as the operations engine for TrainPlayer. All of the advanced features of JMRI Operations Pro are leveraged by these scripts. Additionally, one script sits on the JMRI side to facilitate the export of train build data. The scripts on the TrainPlayer side then integrate the JMRI data into TrainPlayers Advanced Ops interface. The level of integration, or dependency, on JMRI Ops Pro can be chosen by the user, and is easily toggled.
 ### Web sites
-(TrainPlayer)[http://trainplayer.com/]  
+[TrainPlayer](http://trainplayer.com/)  
 (JMRI Operations Pro)[https://www.jmri.org/help/en/package/jmri/jmrit/operations/Operations.shtml]
 
