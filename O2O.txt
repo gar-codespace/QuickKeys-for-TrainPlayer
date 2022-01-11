@@ -1,0 +1,472 @@
+** Ops 2 Ops (O2O) Workevent Switching - Version 2
+Let version = 20220105
+
+Proc Unschedule
+
+Echo Set previous WorkEvent cars to their current track
+While($Set(%1, Count) <> 0)
+  Let jCar = $String(%1, NextToken)
+  Let jTemp = $Car(@jCar, Track)
+  Let jTemp = $Track(@jTemp, Label)
+  If(@jTemp = "")
+    Let jTemp = "~"
+  EndIf
+  Let $Car(@jCar, Dest) = @jTemp
+  Let $Car(@jCar, ExcludeOps) = 0
+EndWhile
+View Refresh
+
+EndProc
+****************************************************************************
+
+Proc CreateReportHeader
+
+Echo Find the number of WorkEvents for the manifest
+** And extract the manifest header
+
+Let jManifestCopy = %1
+Let j = 1
+Let jEventSet = ""
+
+Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** RR name
+If($String(@jTemp, StartsWith, "HN") = 1)
+  Call $String(@jTemp, NextToken)
+Else
+  Let jTemp = "Railroad name not found"
+Endif
+Let jHeader = @jTemp
+
+Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Train name
+If($String(@jTemp, StartsWith, "HT") = 1)
+  Call $String(@jTemp, NextToken)
+Else
+  Let jTemp = "Train name not found"
+Endif
+Let jHeader = @jHeader + \n@jTemp
+
+Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Train description
+If($String(@jTemp, StartsWith, "HD") = 1)
+  Call $String(@jTemp, NextToken)
+Else
+  Let jTemp = "Train description not found"
+Endif
+Let jHeader = @jHeader + \n@jTemp
+
+Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Train description
+If($String(@jTemp, StartsWith, "HC") = 1)
+  Call $String(@jTemp, NextToken)
+Else
+  Let jTemp = "Train comment not found"
+Endif
+Let jHeader = @jHeader + \n@jTemp
+
+Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Train description
+If($String(@jTemp, StartsWith, "HV") = 1)
+  Call $String(@jTemp, NextToken)
+Else
+  Let jTemp = "Train time stamp not found"
+Endif
+Let jHeader = @jHeader + \n@jTemp
+
+Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Train description
+If($String(@jTemp, StartsWith, "WT") = 1)
+  Call $String(@jTemp, NextToken)
+  Let jWETotal = @jTemp
+Else
+  Echo = "Total number of work events unknown"
+  Let jWETotal = 0
+Endif
+
+Echo There are @jWETotal WorkEvents
+
+EndProc
+****************************************************************************
+
+Proc ParseManifest ** Parse the whole manifest from JMRI
+
+Let y = 0 ** pickup count
+Let z = 0 ** setout count
+Let jMText = "" ** Reset jMessage text
+Let jManifestCopy = %1
+
+While($Set(@jmanifestCopy, Count) <> 0)
+  Let jLine = $String(@jManifestCopy, NextToken, @xCR)
+  Let j1 = $String(@jLine, NextToken) ** action to be taken WE PU SO PL SL
+  If(@j1 = "WE")
+    Let jWE = $String(@jLine, NextToken)
+    Let jWL = $String(@jLine, NextToken)
+    Echo WorkEvent @jWE @jWL
+    Continue
+  EndIf
+  If(@jWE = %2)
+    Call ParseLine @jLine
+    If(@j1 = "PC")
+      Call PickUpCar
+      Call LoadCar
+      Let y = @y + 1
+    EndIf
+    If(@j1 = "SC")
+      Call SetOutCar
+      Call LoadCar
+      Let z = @z + 1
+    EndIf
+    If(@j1 = "PL")
+      Call PickUpLoco
+    EndIf
+    If(@j1 = "SL")
+      Call SetOutLoco
+    EndIf
+  EndIf
+
+EndWhile
+Echo Current WorkEvent processed
+
+EndProc
+****************************************************************************
+
+Proc ParseLine ** (All Cars) parse out all variables for each car in the manifest and format for switch list
+
+** jNumbers are for switchlist
+Let j0 = " " ** create spaces in switch list
+Let j2 = $String(@jLine, NextToken) ** ID
+Let jID = @j2
+Let j2 = @j2 + "       "
+Let j2 = $Substr(0, 7, @j2) ** truncate to 8 char
+Let j3 = $String(@jLine, NextToken) ** RR
+Let j4 = $String(@jLine, NextToken) ** Number
+Let j5 = $String(@jLine, NextToken) ** Load
+Let jLoad = @j5
+If (@j5 = "Empty")
+  Let j5 = "E"
+ElseIf (@j5 = "O")
+  ** do nothing
+Else
+  Let j5 = "L"
+EndIf
+
+Let j6 = $String(@jLine, NextToken) ** From locale
+Let jFromLoc = @j6
+Let j6 = @j6 + "                             "
+Let j6 = $Substr(0, 29, @j6) ** truncate to 30 char
+Let j7 = $String(@jLine, NextToken) ** To locale
+Let jToLoc = @j7
+Let j7 = @j7 + "                             "
+Let j7 = $Substr(0, 29, @j7) ** truncate to 30 char
+Let j8 = $String(@jLine, NextToken) ** FD locale
+Let jFDLoc = @j8
+Let j8 = @j8 + "                             "
+Let j8 = $Substr(0, 29, @j8) ** truncate to 30 char
+
+EndProc
+****************************************************************************
+
+Proc PickupCar ** Tag the TP car to be picked up
+
+
+Let jMText = @jMText + \n$Set(@jMessageSet, Get, 29) @j2 @j0 @j5 @j0 $Set(@jMessageSet, Get, 14) @j6
+
+Let jTemp = $Set(@jLocaleSet, Find, @jFDLoc) ** returns an index
+Let jTemp = $Set(@jIndustrySet, Get, @jTemp)
+If(@jTemp = "")
+  Let jTemp = $Set(@jLocaleSet, Find, @jToLoc) ** returns an index
+  Let jTemp = $Set(@jIndustrySet, Get, @jTemp)
+EndIf
+
+If(@j5 = "O")
+  Let $Car(@jID, Dest) = ""
+Else
+  Let $Car(@jID, Dest) = @jTemp
+EndIf
+Let $Car(@jID, ExcludeOps) = 0
+Let jFromList = $Set(@jFromList, Add, @jID)
+
+EndProc
+****************************************************************************
+
+Proc SetoutCar ** Tag the TP car to be set out
+
+Let jMText = @jMText + \n$Set(@jMessageSet, Get, 30) @j2 @j0 @j5 @j0 $Set(@jMessageSet, Get, 15) @j7
+Let $Car(@jID, ExcludeOps) = 1
+Let jTemp = $Set(@jLocaleSet, Find, @jToLoc) ** returns an index
+Let jTemp = $Set(@jIndustrySet, Get, @jTemp)
+Let $Car(@jID, Dest) = @jTemp
+Let jFromList = $Set(@jFromList, Add, @jID)
+
+EndProc
+****************************************************************************
+
+Proc PickUpLoco ** Tag the engine to be picked up
+
+Let jMText = @jMText + \n$Set(@jMessageSet, Get, 29) @j2 @j0 @j5 @j0 $Set(@jMessageSet, Get, 14) @j6
+Let $Car(@jID, ExcludeOps) = 0
+Let $Car(@jID, Dest) = ""
+Let jFromList = $Set(@jFromList, Add, @jID)
+
+EndProc
+****************************************************************************
+
+Proc SetOutLoco ** Tag the engine to be set out
+
+Let jMText = @jMText + \n$Set(@jMessageSet, Get, 30) @j2 @j0 @j5 @j0 $Set(@jMessageSet, Get, 15) @j7
+Let $Car(@jID, ExcludeOps) = 1
+Let jTemp = $Set(@jLocaleSet, Find, @jToLoc) ** returns an index
+Let jTemp = $Set(@jIndustrySet, Get, @jTemp)
+Let $Car(@jID, Dest) = @jTemp
+Let jFromList = $Set(@jFromList, Add, @jID)
+
+EndProc
+****************************************************************************
+
+Proc LoadCar
+
+** if using JMRI custom loads
+If(@x6 = 1)
+  Let $Car(@jID, Loaded) = 1
+  Let $Car(@jID, LoadName) = @jLoad
+EndIf
+
+** If using AO loads
+If(@x6 = 0)
+  Let $Car(@jID, Loaded) = 0
+
+  ** First, try to load from current location
+  Let jIndexLocs = $Ops(Find, Industries.Locale, @jFromLoc) ** set of indeces
+  While($Set(@jIndexLocs, Count) <> 0)
+    Let jIndex = $String(@jIndexLocs, NextToken)
+    Let jAAR = $Ops(Get, Industries.AAR, @jIndex)
+    If($Car(@jID, AAR) = @jAAR)
+      Let jSR = $Ops(Get, Industries.S/R, @jIndex)
+      If(@jSR = "S")
+      If(@j5 = "L")
+        Let $Car(@jID, LoadName) = $Ops(Get, Industries.Load, @jIndex)
+        Let $Car(@jID, Loaded) = 1
+        ** Echo Load car @jID with $Ops(Get, Industries.Load, @jIndex)
+      EndIf
+      EndIf
+    EndIf
+  EndWhile
+
+  ** Second, try to load from next location
+  Let jIndexLocs = $Ops(Find, Industries.Locale, @jToLoc) ** set of indeces
+  While($Set(@jIndexLocs, Count) <> 0)
+    Let jIndex = $String(@jIndexLocs, NextToken)
+    Let jAAR = $Ops(Get, Industries.AAR, @jIndex)
+    If($Car(@jID, AAR) = @jAAR)
+      Let jSR = $Ops(Get, Industries.S/R, @jIndex)
+      If(@jSR = "R")
+        Let $Car(@jID, LoadName) = $Ops(Get, Industries.Load, @jIndex)
+        Let $Car(@jID, Loaded) = 1
+        ** Echo Load car @jID with $Ops(Get, Industries.Load, @jIndex)
+      Else
+        ** Let $Car(@jID, Loaded) = 0
+      EndIf
+    EndIf
+  EndWhile
+
+  ** Third, try to load from the cars FD
+  Let jIndexLocs = $Ops(Find, Industries.Locale, @jFDLoc) ** set of indeces
+  While($Set(@jIndexLocs, Count) <> 0)
+    Let jIndex = $String(@jIndexLocs, NextToken)
+    Let jAAR = $Ops(Get, Industries.AAR, @jIndex)
+    If($Car(@jID, AAR) = @jAAR)
+      Let jSR = $Ops(Get, Industries.S/R, @jIndex)
+      If(@jSR = "R")
+        Let $Car(@jID, LoadName) = $Ops(Get, Industries.Load, @jIndex)
+        Let $Car(@jID, Loaded) = 1
+        ** Echo Load car @jID with $Ops(Get, Industries.Load, @jIndex)
+      Else
+        ** Let $Car(@jID, Loaded) = 0
+      EndIf
+    EndIf
+  EndWhile
+EndIf
+
+
+EndProc
+****************************************************************************
+
+Proc ReadLocations
+
+Echo Read the JMRI locations file or AO industry matrix for this layout
+
+Let jLocaleSet = ""
+Let jIndustrySet = ""
+
+If(@x6 = 1) ** using JMRI locations
+
+  Let jLocationsFile = $DataDir + "\Reports\JMRI - Locations.csv"
+  Let jFile = $File(@jLocationsFile, Exists)
+  If (@jFile = 1)
+    Let jLocations = $File(@jLocationsFile, Open)
+    Let jLocationList = $File(@jLocations, ReadAll)
+    Call $File(@jLocationsFile, Close)
+
+    ** Call $String(@jLocationList, NextToken, @xCR) ** Strip off the header
+    While($Set(@jLocationList, Count) <> 0)
+      Let jLocLine = $String(@jLocationList, NextToken, @xCR)
+      Let jLocaleSet = @jLocaleSet + $String(@jLocLine, NextToken) + "," ** set of locations
+      Let jIndustrySet = @jIndustrySet + @jLocLine + "," ** set of tracks
+    EndWhile
+  Else
+    Let jMessage = $Set(@jMessageSet, Get, 20) ** Locations file does not exist
+    Let jVersion = $Msgbox(@jMessage)
+    Exit
+  EndIf
+EndIf
+
+If(@x6 = 0) ** using AO Locales
+  Let jTemp = $Ops(Find, Locations.Locale, All) ** returns indices
+  Let jLocaleSet = $Ops(Get, Locations.Locale, @jTemp) ** set of all locales
+  Let jIndustrySet = $Ops(Find, Locations.Track, All, Track) ** set of all industries
+EndIf
+
+EndProc
+****************************************************************************
+
+Proc IncrementWE
+
+** use either Unschedule or Initcars
+** Call Unschedule  @jFromList
+Call InitCars @jFromList
+Let jFromList = ""
+
+Call ParseManifest @jManifestAll @jIndexWE
+Let jNote = @jHeader \n$Set(@jMessageSet, Get, 4) @jWL  $Set(@jMessageSet, Get, 12) @jIndexWE $Set(@jMessageSet, Get, 13) @jWETotal \n@jMText \n\n@y $Set(@jMessageSet, Get, 5) @z $Set(@jMessageSet, Get, 6) \n
+Call NoteWindow @jNote 1
+Let L = 1
+
+EndProc
+****************************************************************************
+
+If (%1 = SetUp)
+
+  Let x5 = 1
+  Let x6 = 0 ** Local industries = 0 JMRI industries = 1
+  If (%2 = "Remote")
+    Let x6 = 1
+  EndIf
+  Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5,@x6,@x7
+  Call $System(MD "%homepath%\JMRI\TrainPlayer")
+
+  Let jFromList = $Car($Car, label)
+  Let jManifestAll = ""
+  Let jLocList = "Location List,"
+  Call $View(Hide, "Track Labels")
+  Call $View(Show,"car ids")
+  View Refresh
+  Echo "O2O is Active"
+
+EndIf
+****************************************************************************
+
+If($Set(@xMatrix, Get, 0) = 1) ** quick keys turned on
+If($Set(@xMatrix, Get, 5) = 1)
+
+  If ($Key = 76) ** key l for list
+    If(@jManifestAll = "") ** if manifest is not read in, set to default.
+      Let jNote = \n$Set(@jMessageSet, Get, 0)\n\n$Set(@jMessageSet, Get, 1)\n\n$Set(@jMessageSet, Get, 2) \n
+    EndIf
+    If (@L = 0)
+      Let L = 1
+      Call NoteWindow @jNote 1
+    Else
+      Let L = 0
+      Call NoteWindow
+    EndIf
+    Let H = 0
+    Let U = 0
+    Let P = 0
+  EndIf
+  ****************************************************************************
+
+  If($Key = 77) ** key m for manifest
+    Let jMessage = $Set(@jMessageSet, Get, 19) ** Read in jManifest
+    Let jManifest = $Msgbox(YN, @jMessage)
+    If (@jManifest = 0)
+      Let $Key = 0
+      Exit
+    Endif
+
+    Call ReadLocations ** Loactions file export from JMRI
+
+    Let jReportManifest = $DataDir + "\Reports\JMRI - Manifest.csv"
+    Let jManifest = $File(@jReportManifest, Open)
+    Let jManifestAll = $File(@jManifest, ReadAll)
+    Call $File(@jReportManifest, Close)
+    Call CreateReportHeader @jManifestAll
+
+    Let jNote = \n$Set(@jMessageSet, Get, 0)\n\n$Set(@jMessageSet, Get, 3) \n
+    Call NoteWindow @jNote 1
+    Echo Read in manifest
+    Let jIndexWE = 1
+    Call IncrementWE
+    View Refresh
+  EndIf
+  ****************************************************************************
+
+  If($Key = 33) ** Page Up key
+    If(@jIndexWE = 1)
+      Let jMessage = $Set(@jMessageSet, Get, 17)
+      Call $Msgbox(@jMessage)
+    Else
+      Let jNote = @jHeader \n\n$Set(@jMessageSet, Get, 9)\n\n$Set(@jMessageSet, Get, 11) \n
+      Call NoteWindow @jNote 1
+      Echo Move to previous WorkEvent
+      Let jIndexWE = @jIndexWE - 1
+
+      Call IncrementWE
+      View Refresh
+    EndIf
+  EndIf
+  ****************************************************************************
+
+  If($Key = 34) ** Page Down key
+    If(@jIndexWE = @jWETotal)
+      Let jMessage = $Set(@jMessageSet, Get, 18)
+      Call $Msgbox(@jMessage)
+    Else
+      Let jNote = @jHeader \n\n$Set(@jMessageSet, Get, 8)\n\n$Set(@jMessageSet, Get, 11) \n
+      Call NoteWindow @jNote 1
+      Echo Move to next WorkEvent
+      Let jIndexWE = @jIndexWE + 1
+
+      Call IncrementWE
+      View Refresh
+    EndIf
+  EndIf
+  ****************************************************************************
+
+  If ($Key = 35) ** End key
+    If(@jIndexWE = @jWETotal)
+      Let jMessage = $Set(@jMessageSet, Get, 18)
+      Call $Msgbox(@jMessage)
+    Else
+      Let jNote = @jHeader \n\n$Set(@jMessageSet, Get, 10)\n\n$Set(@jMessageSet, Get, 11) \n
+      Call NoteWindow @jNote 1
+      Echo Move to last WorkEvent
+      Let jIndexWE = @jWETotal
+
+      Call IncrementWE
+      View Refresh
+    EndIf
+  EndIf
+  ****************************************************************************
+
+  If ($Key = 36) ** Home key
+    If(@jIndexWE = 1)
+      Let jMessage = $Set(@jMessageSet, Get, 17)
+      Call $Msgbox(@jMessage)
+    Else
+      Let jNote = @jHeader \n\n$Set(@jMessageSet, Get, 7)\n\n$Set(@jMessageSet, Get, 11) \n
+      Call NoteWindow @jNote 1
+      Echo Move to first WorkEvent
+      Let jIndexWE = 1
+
+      Call IncrementWE
+      View Refresh
+    EndIf
+  EndIf
+  ****************************************************************************
+
+EndIf
+EndIf

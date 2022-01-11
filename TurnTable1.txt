@@ -1,0 +1,128 @@
+** TurnTable Version 1
+Let version = 20220105
+
+Proc CullTheHerd ** make a sub matrix of tracks connected to the selected turntable
+
+  Let tMatrixCopy = ""
+  Let i = 0
+  While(@i < $Set(@tmatrix, Count))
+    Let tTemp = $Set(@tMatrix, Get, @i)
+    If(@tTemp = @tTable)
+      Let tMatrixCopy = @tMatrixCopy + $Set(@tMatrix, Get, @i) +, ** TurnTable ID
+      Let i = @i + 1
+      Let tMatrixCopy = @tMatrixCopy + $Set(@tMatrix, Get, @i) +, ** Lead Track
+      Let i = @i + 1
+      Let tMatrixCopy = @tMatrixCopy + $Set(@tMatrix, Get, @i) +, ** Junction ID
+    EndIf
+    Let i = @i + 1
+  EndWhile
+
+EndProc
+****************************************************************************
+
+Proc SetUpTurntable
+
+Let tMatrix = ""
+** Make a dictionary
+Let tAlpha = 0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,
+Let tNumeric = 48,49,50,51,52,53,54,55,56,57,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,
+Let tNoteText = $Note(@tScriptID)
+While(@tNoteText <> "")
+  Let tLine = $String(@tNoteText, NextToken, " ")
+  If($String(@tLine, Contains, "rotate") = 1)
+    Let tL = $String(@tNoteText, NextToken, " ") ** the alpha character of the track Lead in tNoteText
+    Let tL = $Set(@tAlpha, Find, @tL) ** the index of the alpha character
+    Let tL = $Set(@tNumeric, Get, @tL) ** the key number of the alpha character
+    Let tT = "T" + $String(@tNoteText, NextToken, " ") ** add a 'T' to the Table ID number
+    Let tJ = $String(@tNoteText, NextToken, " ") ** the junction number of a connected Lead
+    Let tJ = "J" + $String(@tJ, NextToken, @xCR) ** add a 'J' and strip the CR off the end
+    Let tMatrix = $Set(@tMatrix, Add, @tT)
+    Let tMatrix = $Set(@tMatrix, Add, @tL)
+    Let tMatrix = $Set(@tMatrix, Add, @tJ) ** write the matrix Table,Lead,Junction
+  EndIf
+EndWhile
+*** Echo @tMatrix
+EndProc
+****************************************************************************
+
+If (%1 = SetUp)
+
+  Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5,@x6,@x7 ** update QK
+  Let TTableSpeedDivisor = 5
+  Let tScriptID = %2
+  Call SetUpTurntable
+  Let T = 1 ** turntable sub on
+  Echo TurnTable subroutine is active.
+EndIf
+****************************************************************************
+
+If($Key > 47) ** a number is pressed
+If($Key < 58)
+If(@T = 1) ** turntable sub on
+If(@x0 = 1) ** all QK active
+  Let H = 1
+  Let U = 1
+  Let T = 0
+  Let x0 = 0 ** shut off QK
+  Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5,@x6,@x7 ** update QK
+  Let tTable = $Key ** key number of TT lead
+  If ($Set(@tMatrix, Contains, @tTable) = 1) ** is a valid lead selected
+    Let tTable = $Set(@tMatrix, Find, @tTable) ** index of TT lead
+    Let tTable = @tTable - 1 ** index of TT
+    Let tTable = $Set(@tMatrix, Get, @tTable) ** TT ID in matrix
+    Call CullTheHerd
+    Echo The table lead is selected. Select a stall track.
+    On Key
+      Let x0 = 0 ** shut off QK
+      Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5,@x6,@x7 ** update QK
+      Let tTrack = $Key
+      If($Set(@tMatrixCopy, Contains, @tTrack) = 1)
+        Let tTrack = $Set(@tMatrixCopy, Find, @tTrack) ** track index
+        Let tTrack = @tTrack + 1 ** junction index
+        Let tTrack = $Set(@tMatrixCopy, Get, @tTrack) ** junction id
+        Echo Track selected. Press 'a' or 'c'
+        TryAgain:
+        On Key
+          Let x0 = 0 ** shut off QK
+          Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5,@x6,@x7 ** update QK
+          If ($Key = 65)
+            Rotate @tTable @tTrack CCW
+          ElseIf ($Key = 67)
+            Rotate @tTable @tTrack CW
+          Else
+            Echo Press 'a' for anticlockwise or 'c' for clockwise
+            GoTo TryAgain
+          EndIf
+          On TableStop
+            Echo Turntable aligned to track.
+            Let x0 = 1
+            Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5,@x6,@x7
+            Let H = 0
+            Let U = 0
+            Let T = 1
+            View Refresh
+            Exit
+      Else
+        Echo Stall track not found. Select a turntable lead.
+        Let x0 = 1
+        Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5,@x6,@x7
+        Let H = 0
+        Let U = 0
+        Let T = 1
+        Exit
+      EndIf
+  Else
+    Echo Not a valid table lead.
+    Let x0 = 1
+    Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5,@x6,@x7
+    Let H = 0
+    Let U = 0
+    Let T = 1
+    Exit
+  EndIf
+
+EndIf
+EndIf
+EndIf
+EndIf
+****************************************************************************

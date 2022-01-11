@@ -1,0 +1,72 @@
+"
+*** Quick Keys ***
+
+h es de ayuda. Presione 'h' para abrir y cerrar esta ventana.
+u es para servicios públicos. Presione 'u' para abrir el menú de utilidades.
+f es para pantalla completa. Presione 'f' para ingresar o salir del modo de pantalla completa.
+z es para pauZe. Presione 'z' para pausar la acción. (Configuración del sistema)
+j es para Job Timer. Presione 'j' para iniciar y detener el temporizador.
+"
+,
+"
+*** Speed Switching ***
+
+a es para Seguimiento automático. Presione 'a' para activar o desactivar el seguimiento automático.
+Es para Throttle. Presione 't' para agregar 1 mph (kph) cada vez que presione la tecla.
+g es para Go. Presione 'g' una vez para la velocidad de la yarda, nuevamente para la velocidad máxima.
+r es para inversor. Presione 'r' para cambiar la dirección del tren, incluso mientras está en movimiento.
+s es para Slow / Stop. Presione 's' para reducir la velocidad de acoplamiento, nuevamente para detener.
+
+Presione 'u' para seleccionar Phake Physics.
+"
+,
+"
+*** Phake Physics ***
+
+a es para Seguimiento automático. Presione 'a' para activar o desactivar el seguimiento automático.
+Es para Throttle. La tasa de aceleración aumenta cada vez que se presiona 't'.
+b es para freno. La presión de frenado aumenta cada vez que se presiona la tecla 'b'.
+n es para Neutral. Presione 'n' para mantener la velocidad actual.
+r es para inversor. Cuando se detiene, 'r' cambia la dirección del tren.
+e es para Emergencia. Presione 'e' para detenerse ahora mismo.
+
+Presione 'u' para seleccionar Cambio de velocidad.
+"
+,
+"
+*** Drop Kick ***
+
+c es para Cortar. Presione 'c' para cortar el automóvil seleccionado. (Configuración del sistema)
+k es para Kick. Presiona 'k' para patear algunos autos. (Patéalos)
+d es para Drop. Presione 'd' para dejar caer algunos autos. (Déjalos ir)
+
+Presione 'k' o 'd' con el tren detenido para limpiar los motores.
+"
+,
+"
+*** Phast Phunctions ***
+
+p es para programa. Presione 'p' para entrar y salir del modo de programa.
+yo es para identificación. Seleccione un motor, presione 'i' para mostrar / ocultar la identificación.
+
+"
+,
+"
+*** O2O - Jmri Advanced ops Workevent Switching ***
+
+m es para Manifiesto. Presione 'm' para leer el manifiesto de JMRI.
+Yo soy de List. Presione 'l' para mostrar u ocultar la lista de interruptores.
+u es para utilidad. Presione la tecla 'u' para ejecutar una utilidad O2O.
+Presione la tecla 'Inicio' para ir a la parte superior del manifiesto.
+Presione la tecla 'Finalizar' para ir al final del manifiesto.
+Presione 'Page Down' para el próximo evento de trabajo.
+Presione 'Re Pág' para el evento de trabajo anterior.
+"
+,
+"
+********** Todas las Quick Keys están desactivadas **********
+
+h es de ayuda. Presione 'h' para abrir y cerrar esta ventana.
+u es para servicios públicos. Presione 'u' para abrir el menú de utilidades.
+"
+,

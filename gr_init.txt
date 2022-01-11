@@ -1,0 +1,16 @@
+
+call $view(hide,tracks)
+call $view(hide,rails)
+call $view(hide,ties)
+call $view(hide,roadbed)
+  tools run
+call $view(hide,clock)
+
+
+
+
+
+set $layout(readonly) 0
+set $layout(savevars) 0
+
+Echo gr_init complete

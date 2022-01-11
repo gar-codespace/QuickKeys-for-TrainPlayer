@@ -1,0 +1,59 @@
+"Phake Physics est actif"
+,
+"Speed Switching est active"
+,
+"Nettoyer les moteurs de coup de pied?"
+,
+"Entrez le nom du libellé de la piste à partir duquel changer"
+,
+"Entrez le nom du libellé de la piste pour changer en"
+,
+"est affecté à la touche de fonction"
+,
+"ne reçoit pas de touche de fonction"
+,
+"Locomotive"
+,
+"Le mode de programmation est activé
+Sélectionnez un moteur en cliquant dessus.
+Appuyez ensuite sur une touche de fonction. F1 - F9 sont disponibles.
+Ou appuyez à nouveau sur la touche 'p' pour quitter le mode de programmation. "
+,
+"Une locomotive doit être sélectionnée."
+,
+"Le temps écoulé est"
+,
+"Nombre de coups:"
+,
+"Disponible"
+,
+"Disponible"
+,
+"Disponible"
+,
+"Disponible"
+,
+"*** Utilitaires de Quick Keys ***
+
+Toutes les Quick Keys sont désactivées.
+
+Appuyez sur 1 pour activer toutes les Quick Keys. "
+,
+"*** Utilitaires de Quick Keys ***
+
+Appuyez sur 1 pour désactiver les Quick Keys.
+Appuyez sur 2 pour activer Phake Physics. "
+,
+"*** Utilitaires de Quick Keys ***
+
+Appuyez sur 1 pour désactiver les Quick Keys.
+Appuyez sur 2 pour activer la Speed Switching. "
+,
+"Press 3 for english.
+Drücken Sie 4 für Deutsch von Google.
+Presione 5 para español de Google. "
+,
+" Disponible "
+,
+"Appuyez à nouveau sur 'u' pour quitter cette fenêtre."
+,
