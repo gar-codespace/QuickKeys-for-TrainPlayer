@@ -1,0 +1,39 @@
+"*** Quick Keys Utilities ***
+
+Press 1 to turn Quick Keys off.
+Appuyez sur 2 pour le français par Google.
+Drücken Sie 3 für Deutsch von Google.
+Presione 4 para español de Google.
+"
+,
+"Press 5 to activate Phake Physics.
+"
+,
+"Press 5 to activate Speed Switching.
+"
+,
+""
+,
+""
+,
+"Press 6 to export TP car and loco rosters.
+Press 7 to toggle JMRI service flag.
+Press 8 to make a JMRI consist or kernel.
+Press 9 to set cars to their current location.
+"
+,
+"x6
+"
+,
+"x7
+"
+,
+"*** Quick Keys Utilities ***
+
+All Quick Keys are turned off.
+
+Press 1 to turn all Quick Keys on.
+"
+,
+"Press u again to exit this window."
+,

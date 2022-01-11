@@ -1,0 +1,59 @@
+"Phake Physics está activa"
+,
+"El Speed Switching está activo"
+,
+"¿Limpiar los Kick Motors?"
+,
+"Ingresa el nombre de la etiqueta de la pista para cambiar de"
+,
+"Ingresa el nombre de la etiqueta de la pista para cambiar a"
+,
+"está asignado a la tecla de función"
+,
+"no tiene asignada una tecla de función"
+,
+"Locomotora"
+,
+"El modo de programación está activado
+Seleccione un motor haciendo clic en él.
+Luego presione una tecla de función. F1 - F9 están disponibles.
+O presione la tecla 'p' nuevamente para salir del modo de programación. "
+,
+"Debe seleccionarse una locomotora"
+,
+"El tiempo transcurrido es"
+,
+"Numero de movimientos:"
+,
+"Disponible"
+,
+"Disponible"
+,
+"Disponible"
+,
+"Disponible"
+,
+"*** Utilidades de Quick Keys ***
+
+Todas las Quick Keys están desactivadas.
+
+Presione 1 para activar todas las Quick Keys "
+,
+"*** Utilidades de Quick Keys ***
+
+Presione 1 para desactivar las Quick Keys.
+Pulsa 2 para activar Phake Physics "
+,
+"*** Utilidades de Quick Keys ***
+
+Presione 1 para desactivar las Quick Keys.
+Presione 2 para activar el Speed Switching "
+,
+"Appuyez sur 3 pour le français par Google.
+Drücken Sie 4 für Deutsch von Google.
+Press 5 for english"
+,
+" Disponible "
+,
+"Presione 'u' otra vez para salir de esta ventana"
+,

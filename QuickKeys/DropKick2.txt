@@ -1,0 +1,212 @@
+** DropKick Version 2
+Let version = 20220105
+
+Proc Scrubber
+
+Echo Delete the KickMotors.
+Let kKickMotors = $Ops(find,Cars.AAR,"EQDK",Car)
+Let i = $Set(@kKickMotors, Count)
+While ($Set(@kKickMotors, Count) <> 0)
+  Let kTemp = $String(@kKickMotors, NextToken)
+  Train @kTemp
+  Train car @kTemp
+  "Train" "Car" "Delete Car"
+EndWhile
+Echo @i KickMotors deleted.
+
+EndProc
+****************************************************************************
+
+Proc CleanLayout
+
+If (%1 = 1)
+  Let kCleanToggle = %1
+Else ** Put up guard rails
+  Let xMessage = $Set(@xMessageSet, Get, 2)
+  Let kCleanToggle = $MsgBox(yn, @xMessage)
+EndIf
+
+If (@kCleanToggle = 1)
+  Call Scrubber
+  Let kCleanToggle = 0
+EndIf
+
+EndProc
+****************************************************************************
+
+Proc FindEngine
+
+  Let kTemp = $Train($Train, CarLabels)
+  Let i = 0
+  While (@i < $Set(@kTemp, Count))
+    Let kEngineLabel = $Set(@kTemp, Get, @i)
+    IF ($String(@kEngineLabel, StartsWith, "E") = 1)
+      Break
+    EndIf
+    Let i = @i + 1
+  EndWhile
+
+EndProc
+****************************************************************************
+
+Proc PreKick
+
+If ($Train($Train, Speed) = 0)
+  Let kTrain = $Train
+  Call CleanLayout
+  Train @kTrain
+  Exit
+EndIf
+
+IF ($String(@kKickCar, StartsWith, "E") = 1)
+  Echo Can't do that.
+  Exit
+EndIf
+
+IF ($String(@kKickCar, StartsWith, "ST") = 1)
+  Echo Can't do that.
+  Exit
+EndIf
+
+EndProc
+****************************************************************************
+
+Proc EngineCar
+
+** Find engine/car relationship.
+
+Let i = 0
+Let E = $Set(@kTemp, Count) ** E is position of Engine in train, last car is default
+While (@i < $Set(@kTemp, Count))
+  let kCarLabel = $Set(@kTemp, Get, @i)
+  If (@kCarLabel = @kKickCar)
+    Let C = @i ** C is position of selected Car in train
+    Break
+  EndIf
+  IF ($String(@kCarLabel, StartsWith, "E") = 1)
+    Let E = @i ** E is position of Engine in train
+  EndIf
+  Let i = @i + 1
+EndWhile
+** Echo kCarPos  @kCarPos kLitmus @kLitmus $Train(%1, Direction)
+
+EndProc
+****************************************************************************
+
+Proc CutOffCars
+
+Train "Add Car" "diesel"
+Let $Car($Car, ShowLabel) = 0
+** Let $Car($Car, Dest) = "~"
+Let $Car($Car, Label) = "."
+Train Car $Set(@kTemp, Get, @kCarPos)
+train "uncouple"
+
+EndProc
+****************************************************************************
+
+If (%1 = SetUp)
+
+  Let x3 = 1
+  Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5,@x6,@x7
+  Let Uncouple Gap = 20 ** make bigger if dropped cars re-couple
+  Let Min Coupling Dist = 1
+  Let CarBarRecentCollection = DropKick
+  Let DefaultCarColl = DropKick
+  Echo DropKick 1 subroutine is active.
+EndIf
+****************************************************************************
+
+If($Set(@xMatrix, Get, 0) = 1) ** All on
+If($Set(@xMatrix, Get, 3) = 1) ** DK on
+
+  If ($Key = 71) ** key g
+
+    Call FindEngine
+  EndIf
+  ****************************************************************************
+
+  If ($Key = 84) ** key t
+
+    Call FindEngine
+  EndIf
+  ****************************************************************************
+
+  If ($Key = 75) ** the k key
+
+    Let kKickCar = $Car
+
+    Call PreKick
+    Call EngineCar
+
+    If (@C - @E < 0) ** Engine behind Car
+    If ($Train($Train, Direction) = F)
+      Echo Kick 'Em!
+      Let kCarPos = @C + 1
+      Call CutOffCars
+    Else
+      Echo Wrong direction to kick.
+      Exit
+    Endif
+    EndIf
+
+    If (@C - @E > 0) ** Car behind Engine
+    If ($Train($Train, Direction) = R)
+      Echo Kick 'Em!
+      Let kCarPos = @C - 1
+      Call CutOffCars
+    Else
+      Echo Wrong direction to kick.
+      Exit
+    Endif
+    EndIf
+
+    Train @kEngineLabel
+  EndIf
+  ***************************************************************************
+
+  If ($Key = 68) ** key d
+
+    Let kKickCar = $Car
+    Let kSpeed = $Train($Train, Speed) - 1
+
+    Call PreKick
+    Call FindEngine
+    Call EngineCar
+
+    If (@C - @E < 0) ** Engine behind Car
+    If ($Train($Train, Direction) = R)
+      Echo Let 'Em Go!
+      Let kCarPos = @C + 1
+      Call CutOffCars
+    Else
+      Echo Wrong direction to drop.
+      Exit
+    EndIf
+    EndIf
+
+    If (@C - @E > 0) ** Car behind Engine
+    If ($Train($Train, Direction) = F)
+      Echo Let 'Em Go!
+      Let kCarPos = @C - 1
+      Call CutOffCars
+    Else
+      Echo Wrong direction to drop.
+      Exit
+    EndIf
+    EndIf
+
+    Let $Train(@kKickCar, Speed) = @kSpeed
+
+  EndIf
+  ***************************************************************************
+
+  If ($Key = 67) ** the c key
+
+    Train Uncouple
+  EndIf
+  ***************************************************************************
+
+EndIf
+EndIf
+***************************************************************************
