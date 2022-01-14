@@ -1,32 +1,35 @@
 
-
 Let $Key = 0
 
 ** Set Up the Subroutines
-NoteBox "Please wait. Setting up sub routines."
-Call QuickKeys1 Setup
-Call SpeedSwitching2 Setup
-Call DropKick1 Setup 1
-** Call JAWS1 Setup
-** Call LinkedLayouts2 Setup
-** Call PhastPhunctions2 Setup
-NoteBox
+
+** Call O2Osupport
+Call QuickKeys Setup
+Call SpeedSwitching Setup
+Call DropKick Setup
+** Call PhastPhunctions Setup
+** Call O2O Setup
+** Call TurnTable Setup 2
+Call HelpLanguage @xLanguage
+Call NoteWindow
 
 StartingPoint:
 
 On Key
 
-Let sMaxSpeed = 15 
-Let sCoupleSpeed = 4 
+Let sMaxSpeed = 40
+Let sCoupleSpeed = 4
 
 Drive $Train($Train)
 
-Call QuickKeys1
-Call SpeedSwitching2 $Train $Car $Speed
-Call DropKick1 $Train $Car $Speed
-** Call JAWS1
-** Call LinkedLayouts2
-** Call PhastPhunctions2
+** Call TurnTable
+Call QuickKeys
+Call SpeedSwitching $Train $Car $Speed
+Call DropKick $Train $Car $Speed
+** Call PhastPhunctions
+** Call O2O
+** Call O2Osupport
+** Call jTimer
 
 EndDrive
 

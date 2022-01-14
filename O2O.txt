@@ -1,6 +1,23 @@
 ** Ops 2 Ops (O2O) Workevent Switching - Version 2
 Let version = 20220105
 
+Proc O2Oinit ** Re sets up TP Advanced Ops layouts
+
+call $view(hide,tracks)
+call $view(hide,rails)
+call $view(hide,ties)
+call $view(hide,roadbed)
+call $view(hide,clock)
+tools run
+
+set $layout(readonly) 0
+set $layout(savevars) 0
+
+Echo O2Oinit complete
+
+EndProc
+****************************************************************************
+
 Proc Unschedule
 
 Echo Set previous WorkEvent cars to their current track
@@ -347,14 +364,14 @@ If (%1 = SetUp)
   EndIf
   Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5,@x6,@x7
   Call $System(MD "%homepath%\JMRI\TrainPlayer")
-
+  Call O2Oinit
   Let jFromList = $Car($Car, label)
   Let jManifestAll = ""
   Let jLocList = "Location List,"
   Call $View(Hide, "Track Labels")
   Call $View(Show,"car ids")
   View Refresh
-  Echo "O2O is Active"
+  Echo O2O @version
 
 EndIf
 ****************************************************************************
