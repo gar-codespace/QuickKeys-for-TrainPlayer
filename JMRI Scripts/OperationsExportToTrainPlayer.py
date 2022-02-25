@@ -1,12 +1,13 @@
+# No restrictions on use
+# © 2021 Greg Ritacco
 
 import jmri
+import json
+import time
 import csv
-# import codecs
 from HTMLParser import HTMLParser
 from codecs import open as codecsOpen
 from os import mkdir as osMakeDir
-import json
-import time
 
 scriptName ='OperationsExportToTrainPlayer'
 scriptRev = 20220105
@@ -137,7 +138,7 @@ class ManifestForTrainPlayer(jmri.jmrit.automat.AbstractAutomaton):
             if jBuildCount == 0:
                 jNewestManifest = None
                 jTrainComment = 'No trains are built'
-                
+
         return jNewestManifest, jTrainComment
 
     def writeManifest(self, jManifest, jComment):
@@ -207,4 +208,4 @@ class ManifestForTrainPlayer(jmri.jmrit.automat.AbstractAutomaton):
 CheckDestinationDirectory().start()
 LocationsForTrainPlayer().start()
 ManifestForTrainPlayer().start()
-print('Done')
+print(scriptName + ' ' + str(scriptRev))

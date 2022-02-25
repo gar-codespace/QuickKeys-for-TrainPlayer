@@ -311,7 +311,7 @@ Let jIndustrySet = ""
 
 If(@x6 = 1) ** using JMRI locations
 
-  Let jLocationsFile = $DataDir + "\Reports\JMRI - Locations.csv"
+  Let jLocationsFile = $DataDir + "\Reports\JMRI Export - Locations.csv"
   Let jFile = $File(@jLocationsFile, Exists)
   If (@jFile = 1)
     Let jLocations = $File(@jLocationsFile, Open)
@@ -406,7 +406,7 @@ If($Set(@xMatrix, Get, 5) = 1)
 
     Call ReadLocations ** Loactions file export from JMRI
 
-    Let jReportManifest = $DataDir + "\Reports\JMRI - Manifest.csv"
+    Let jReportManifest = $DataDir + "\Reports\JMRI Export - Work Events.csv"
     Let jManifest = $File(@jReportManifest, Open)
     Let jManifestAll = $File(@jManifest, ReadAll)
     Call $File(@jReportManifest, Close)
