@@ -112,10 +112,11 @@ While($Set(@jmanifestCopy, Count) <> 0)
   If(@j1 = "WE")
     Let jWE = $String(@jLine, NextToken)
     Let jWL = $String(@jLine, NextToken)
-    Echo WorkEvent @jWE @jWL
+    Echo WorkEvents @jWE @jWL
     Continue
   EndIf
   If(@jWE = %2)
+    Let jWEN = @jWL
     Call ParseLine @jLine
     If(@j1 = "PC")
       Call PickUpCar
@@ -343,12 +344,12 @@ EndProc
 Proc IncrementWE
 
 ** use either Unschedule or Initcars
-** Call Unschedule  @jFromList
-Call InitCars @jFromList
+Call Unschedule  @jFromList
+** Call InitCars @jFromList ** don't use this, get popup to reset all sometimes
 Let jFromList = ""
 
 Call ParseManifest @jManifestAll @jIndexWE
-Let jNote = @jHeader \n$Set(@jMessageSet, Get, 4) @jWL  $Set(@jMessageSet, Get, 12) @jIndexWE $Set(@jMessageSet, Get, 13) @jWETotal \n@jMText \n\n@y $Set(@jMessageSet, Get, 5) @z $Set(@jMessageSet, Get, 6) \n
+Let jNote = @jHeader \n$Set(@jMessageSet, Get, 4) @jWEN $Set(@jMessageSet, Get, 12) @jIndexWE $Set(@jMessageSet, Get, 13) @jWETotal \n@jMText \n\n@y $Set(@jMessageSet, Get, 5) @z $Set(@jMessageSet, Get, 6) \n
 Call NoteWindow @jNote 1
 Let L = 1
 
