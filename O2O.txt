@@ -1,7 +1,7 @@
 ** Ops 2 Ops (O2O) Workevent Switching - Version 2
 Let version = 20220105
 
-Proc O2Oinit ** Re sets up TP Advanced Ops layouts
+Proc O2Oinit ** Re sets up TP Advanced Ops layouts 
 
 call $view(hide,tracks)
 call $view(hide,rails)
