@@ -1,9 +1,39 @@
-** Ops 2 Ops (O2O) Workevent Switching - Version 1
+** Ops 2 Ops (o2o) Workevent Switching - Version 1
 Let version = 20220105
+
+Proc UpdateJMRIInventory
+
+Echo o2o Utility - Report of location of all rolling stock
+
+Echo Working on it......
+
+Let jAllRS = $Layout(IDSet, CarLabels)
+Let jExcludeList = $Ops(Find,Cars.Dest,"~",Car)
+Let jInventoryRS = $Set(@jAllRS, Difference, @jExcludeList)
+
+Let rsCount = $Set(@jInventoryRS, Count)
+
+Let i = 1
+Let inventory = ""
+While($Set(@jInventoryRS, Count) <> 0)
+  Let jCar = $String(@jInventoryRS, NextToken)
+  Let TrackId = $Car(@jCar, Location)
+  Let jTrackLabel = $track(@TrackId, Label)
+  Let inventory = @inventory + $Car(@jCar, Label),@jTrackLabel \n
+EndWhile
+
+
+
+Let jInventoryLoc = $DataDir + "\Reports\TrainPlayer Export - Inventory.txt"
+Call $Write(@jInventoryLoc, @inventory)
+
+Echo Rolling stock count: @rsCount
+
+EndProc
 
 Proc OpsExportRosters
 
-Echo O2O Utility - Export TP cars and locos into something JMRI can use
+Echo o2o Utility - Export TP cars and locos into something JMRI can use
 
 Let jXmessage = $Set(@jMessageSet, Get, 33)
 Let jX = $Msgbox("YN", @jXmessage)
@@ -12,7 +42,7 @@ Echo Working on it......
 
 Call $system("MD %homepath%\JMRI\TrainPlayer")
 Let jExportCars = $FindStr("AppData" , $DataDir)
-Let jExportCars = $SubStr(0, @jExportCars, $DataDir) + "JMRI\TrainPlayer\O2O - ExportCars.csv"
+Let jExportCars = $SubStr(0, @jExportCars, $DataDir) + "JMRI\TrainPlayer\o2o - ExportCars.csv"
 Call $Write(@jExportCars, "Number,Road,Type,Length,Weight,Color,Owner,Built,Location,-,Track,Load,Kernel,Moves,Value,Comment,Miscellaneous,Extensions,Wait,Pick up,Last,RWE Location,-,Track,RWE Load,Train,Destination,-,Track,Final Destination,-,Track")
 
 ** Make a dictionary
@@ -74,7 +104,7 @@ EndWhile
 Echo Exported @i cars
 
 Let jExportLocos = $FindStr("AppData" , $DataDir)
-Let jExportLocos = $SubStr(0, @jExportLocos, $DataDir) + "JMRI\TrainPlayer\O2O - ExportLocos.csv"
+Let jExportLocos = $SubStr(0, @jExportLocos, $DataDir) + "JMRI\TrainPlayer\o2o - ExportLocos.csv"
 Let jTemp = "Number,Road,Model,Length,Owner,Built,Location,-0,Track,Consist,Moves,Last,Value,HP,Tons,Type,Comment,Miscellaneous"
 Call $Write(@jExportLocos, @jTemp)
 
@@ -121,8 +151,8 @@ While($Set(@jJMRIlocos, Count) <> 0)
 EndWhile
 Echo Exported @i engines
 
-** Call $System(xcopy "%homepath%\AppData\Roaming\TrainPlayer\Reports\O2O - ExportCars.csv" "%homepath%\JMRI\TrainPlayer\" /Y)
-** Call $System(xcopy "%homepath%\AppData\Roaming\TrainPlayer\Reports\O2O - ExportLocos.csv" "%homepath%\JMRI\TrainPlayer\" /Y)
+** Call $System(xcopy "%homepath%\AppData\Roaming\TrainPlayer\Reports\o2o - ExportCars.csv" "%homepath%\JMRI\TrainPlayer\" /Y)
+** Call $System(xcopy "%homepath%\AppData\Roaming\TrainPlayer\Reports\o2o - ExportLocos.csv" "%homepath%\JMRI\TrainPlayer\" /Y)
 
 EndProc
 ****************************************************************************
@@ -136,7 +166,7 @@ EndProc
 
 Proc InitTracks
 
-Echo O2O Utility - Set all <> or ~ tracks to null
+Echo o2o Utility - Set all <> or ~ tracks to null
 Let jIDs = $Layout(IDSet, TrackIDs)
 Let i = 0
 While(@i < $Set(@jIDs, Count))
@@ -156,7 +186,7 @@ EndProc
 
 Proc SynchronizeLocations
 
-Echo O2O Utility - Import the JMRI locations csv export
+Echo o2o Utility - Import the JMRI locations csv export
 Let jImportLocs = $DataDir + "\Reports\JMRI - Locations.csv"
 Let jLocFile = $File(@jImportLocs, Open)
 let jLocationList = $File(@jLocFile, ReadAll)
@@ -186,13 +216,13 @@ EndWhile
 Let jTList = $Layout(IDSet, TrackLabels) ** List of TP tracks
 Let jTList = $Set(@jTList, Dedupe)
 
-Echo O2O Utility - Find TP Tracks not in JMRI
+Echo o2o Utility - Find TP Tracks not in JMRI
 Let jTJList = $Set(@jTList, Difference, @jJList)
 If(@jTJList = "")
   Let jTJList = $Set(@jMessageSet, Get, 28)
 EndIf
 
-Echo O2O Utility - Find JMRI tracks not in TP
+Echo o2o Utility - Find JMRI tracks not in TP
 Let jJTList = $Set(@jJList, Difference, @jTList)
 If(@jJTList = "")
   Let jJTList = $Set(@jMessageSet, Get, 28)
@@ -207,7 +237,7 @@ EndProc
 
 Proc FindDupes
 
-Echo O2O Utility - Find duplicate car labels.
+Echo o2o Utility - Find duplicate car labels.
 Let jAllLabels = $Layout(IDSet, CarLabels)
 Let jDeDupe = $Set(@jAllLabels, Dedupe)
 Let jDupeSet = $Set(@jAllLabels, Difference, @jDeDupe)
@@ -238,7 +268,7 @@ EndProc
 
 Proc InitCars
 
-Echo O2O Utility - set all or train rolling stock destinations
+Echo o2o Utility - set all or train rolling stock destinations
 
 If(%1 = "")
   Let jXmessage = $Set(@jMessageSet, Get, 34)
@@ -300,7 +330,7 @@ EndProc
 
 Proc SynchronizeCars
 
-Echo O2O Utility - Synchronize all TP cars to their JMRI location.
+Echo o2o Utility - Synchronize all TP cars to their JMRI location.
 
 Echo Part 1, find all the JMRI cars on the TP layout
 Let jReportManifest = $DataDir + "\Reports\JMRI - CarLocations.csv"
@@ -356,7 +386,7 @@ EndProc
 
 Proc RelabelTracks
 
-Echo O2O Utility - Relabel tracks from %1 to %2
+Echo o2o Utility - Relabel tracks from %1 to %2
 Let jTrackIDs = $Layout(IDset, TrackIDs)
 Let i = 0
 Let j = 0
@@ -383,7 +413,7 @@ Else
   Let jAllCars = $Train($Train, CarLabels)
 EndIf
 
-Echo O2O Utility - Initialize just the JMRI cars
+Echo o2o Utility - Initialize just the JMRI cars
 While($Set(@jAllCars, Count) <> 0)
   Let jTemp = $String(@jAllCars, NextToken)
   Let jTrackLoc = $Car(@jTemp, Track)

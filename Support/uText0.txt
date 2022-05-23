@@ -17,7 +17,7 @@ Presione 4 para español de Google.
 ""
 ,
 "Press 6 to export TP car and loco rosters.
-Press 7 to toggle JMRI service flag.
+Press 7 to export rolling stock inventory.
 Press 8 to make a JMRI consist or kernel.
 Press 9 to set cars to their current location.
 "

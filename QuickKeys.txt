@@ -349,7 +349,7 @@ If($Set(@xMatrix, Get, 0) = 1) ** QK is active
     ****************************************************************************
 
     If ($Key = 55) ** 7 key
-      Call ToggleService
+      Call UpdateJMRIInventory
       Let U = 0
       Let L = 0
       Let P = 0
