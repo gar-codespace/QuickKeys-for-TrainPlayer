@@ -13,13 +13,16 @@ Let jInventoryRS = $Set(@jAllRS, Difference, @jExcludeList)
 
 Let rsCount = $Set(@jInventoryRS, Count)
 
-Let i = 1
 Let inventory = ""
-While($Set(@jInventoryRS, Count) <> 0)
-  Let jCar = $String(@jInventoryRS, NextToken)
+While($Set(@jAllRS, Count) <> 0)
+  Let jCar = $String(@jAllRS, NextToken)
   Let TrackId = $Car(@jCar, Location)
   Let jTrackLabel = $track(@TrackId, Label)
-  Let inventory = @inventory + $Car(@jCar, Label),@jTrackLabel \n
+  IF(@jTrackLabel = "~")
+    echo $Car(@jCar, Label) not included in inventory
+  Else
+    Let inventory = @inventory + $Car(@jCar, Label),@jTrackLabel \n
+  EndIf
 EndWhile
 
 
