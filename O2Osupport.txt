@@ -8,21 +8,17 @@ Echo o2o Utility - Report of location of all rolling stock
 Echo Working on it......
 
 Let jAllRS = $Layout(IDSet, CarLabels)
-Let jExcludeList = $Ops(Find,Cars.Dest,"~",Car)
-Let jInventoryRS = $Set(@jAllRS, Difference, @jExcludeList)
+** Let jExcludeList = $Ops(Find,Cars.Dest,"~",Car)
+** Let jInventoryRS = $Set(@jAllRS, Difference, @jExcludeList)
 
-Let rsCount = $Set(@jInventoryRS, Count)
+Let rsCount = $Set(@jAllRS, Count)
 
 Let inventory = ""
 While($Set(@jAllRS, Count) <> 0)
   Let jCar = $String(@jAllRS, NextToken)
   Let TrackId = $Car(@jCar, Location)
   Let jTrackLabel = $track(@TrackId, Label)
-  IF(@jTrackLabel = "~")
-    echo $Car(@jCar, Label) not included in inventory
-  Else
-    Let inventory = @inventory + $Car(@jCar, Label),@jTrackLabel \n
-  EndIf
+  Let inventory = @inventory + $Car(@jCar, Label),@jTrackLabel \n
 EndWhile
 
 
