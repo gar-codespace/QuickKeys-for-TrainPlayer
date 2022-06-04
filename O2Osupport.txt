@@ -3,7 +3,7 @@ Let version = 20220105
 
 Proc UpdateJMRIInventory
 
-Echo o2o Utility - Report of location of all rolling stock
+Echo o2o Utility - Report of TrainPlayer rolling stock inventory
 
 Echo Working on it......
 
@@ -21,12 +21,36 @@ While($Set(@jAllRS, Count) <> 0)
   Let inventory = @inventory + $Car(@jCar, Label),@jTrackLabel \n
 EndWhile
 
-
-
 Let jInventoryLoc = $DataDir + "\Reports\TrainPlayer Export - Inventory.txt"
 Call $Write(@jInventoryLoc, @inventory)
 
 Echo Rolling stock count: @rsCount
+
+EndProc
+
+Proc UpdateJMRILocations
+
+Echo o2o Utility - Report of all TrainPlayer locations
+
+Let jID = $ops(find, Locs.Class, All, ID)
+Let jCount = $Set(@jID, Count)
+
+Let inventory = ""
+
+Let i = 1
+While (i <= @jCount)
+
+  Let inventory = @inventory + $Ops(Get, Locs.Track, @i),$Ops(Get, Locs.Locale, @i),$Ops(Get, Locs.Class, @i),$Ops(Get, Locs.VacantSpots, @i),\n
+  Let i = @i + 1
+
+EndWhile
+
+
+Let jInventoryLoc = $DataDir + "\Reports\TrainPlayer Export - Locations.txt"
+Call $Write(@jInventoryLoc, @inventory)
+
+Echo Location count: @jCount
+
 
 EndProc
 
