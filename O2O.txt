@@ -167,9 +167,7 @@ Let jLoad = @j5
 
 If(@j5 = "Empty")
   Let j5 = "E"
-Endif
-
-If(@j5 = "Load")
+Else
   Let j5 = "L"
 EndIf
 
@@ -194,7 +192,6 @@ Proc TagCar
 
 Let carAAR = $Car(@jID, AAR)
 If($Set(@occupiedCarCodes, Contains, @carAAR) = 1)
-  echo Yipee @jID
   Let j5 = "O"
 EndIf
 

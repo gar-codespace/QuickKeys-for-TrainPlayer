@@ -13,12 +13,12 @@ Let jAllRS = $Layout(IDSet, CarLabels)
 
 Let rsCount = $Set(@jAllRS, Count)
 
-Let inventory = ""
+Let inventory = "Car Label,Track Label"
 While($Set(@jAllRS, Count) <> 0)
   Let jCar = $String(@jAllRS, NextToken)
   Let TrackId = $Car(@jCar, Location)
   Let jTrackLabel = $track(@TrackId, Label)
-  Let inventory = @inventory + $Car(@jCar, Label),@jTrackLabel \n
+  Let inventory = @inventory + \n$Car(@jCar, Label),@jTrackLabel
 EndWhile
 
 Let jInventoryLoc = $DataDir + "\Reports\TrainPlayer Export - Inventory.txt"
