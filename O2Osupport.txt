@@ -1,5 +1,5 @@
-** Ops 2 Ops (o2o) Workevent Switching - Version 1
-Let version = 20220105
+** o2o utilities currently in use
+
 
 Proc UpdateJMRIInventory
 
@@ -27,6 +27,8 @@ Call $Write(@jInventoryLoc, @inventory)
 Echo Rolling stock count: @rsCount
 
 EndProc
+****************************************************************************
+
 
 Proc UpdateJMRILocations
 
@@ -53,241 +55,24 @@ Echo Location count: @jCount
 
 
 EndProc
+****************************************************************************
 
-Proc OpsExportRosters
 
-Echo o2o Utility - Export TP cars and locos into something JMRI can use
+Proc AddKernels
 
-Let jXmessage = $Set(@jMessageSet, Get, 33)
-Let jX = $Msgbox("YN", @jXmessage)
+Echo o2o Utility - Group equipment together into a JMRI like consist or kernel
 
-Echo Working on it......
-
-Call $system("MD %homepath%\JMRI\TrainPlayer")
-Let jExportCars = $FindStr("AppData" , $DataDir)
-Let jExportCars = $SubStr(0, @jExportCars, $DataDir) + "JMRI\TrainPlayer\o2o - ExportCars.csv"
-Call $Write(@jExportCars, "Number,Road,Type,Length,Weight,Color,Owner,Built,Location,-,Track,Load,Kernel,Moves,Value,Comment,Miscellaneous,Extensions,Wait,Pick up,Last,RWE Location,-,Track,RWE Load,Train,Destination,-,Track,Final Destination,-,Track")
-
-** Make a dictionary
-Let jTPclass = industry,interchange,class yard,staging,XO reserved,
-Let jJMRItype = Siding,Interchange,Yard,Staging,reserved,
-Let jCarCode = "ES,ED,EE,EP,"
-Let jLocoType = "Steam - Edit,Diesel - Edit,Electric - Edit,Self Propelled - Edit,"
-
-If(@jX = 1)
-  Let jAllCars = $Layout(IDSet, CarLabels)
-  Let jExcludeList = $Ops(Find,Cars.Dest,"~",Car)
-  Let jJMRIcars = $Set(@jAllCars, Difference, @jExcludeList)
-Else
-  Let jJMRIcars = $Train($Train, CarLabels)
-  Let jJMRIlocos = $Train($Train, CarLabels)
-EndIf
-
-Let i = 0
-While($Set(@jJMRIcars, Count) <> 0)
-  Let jCar = $String(@jJMRIcars, NextToken)
-  Let jAAR = $Car(@jCar, AAR)
-  Let jTest = $String(@jAAR, StartsWith, "E")
-  If(@jTest = 0) ** not an engine
-    let jDash = "-"
-    Let jRoad = $Substr(0, 1, @jCar)
-    Let jNumber = $Substr(1, -1, @jCar)
-    Let jType = $Car(@jCar, AAR)
-    Let jKernel = $Car(@jCar, kernel)
-    Let jOOS = $Car(@jCar, jOOS) ** out of service flag
-    Let jComment = $Car(@jCar, Track) ** track ID of jCar
-    Let jComment = $Track(@jComment, Label) ** label of track ID
-    Let jIndex = $Ops(Find, Locations.Track, @jComment) ** find index of track label
-    Let jTrack = $Ops(Get, Locations.Locale, @jIndex) ** Find locale and track of the index
-    Let jLocation = $String(@jTrack, NextToken, ;) ** strip off location
-    Let jClass = $Ops(Get, Locations.Class, @jIndex) ** class of track
-
-    If ($Car(@jCar, Loaded) = 1)
-      Let jLoad = "Load"
-    Else
-      Let jLoad = "Empty"
-    EndIf
-    If (@jClass = "staging")
-      Let jLoad = "E"
-    EndIf
-    If(@jLocation = "EOL")
-      Let jLocation = "Unknown"
-      Let jTrack = "Not Defined"
-    EndIf
-*    If($Car(@jCar, jOOS) = "Out of Service")
-*      Let jLocation = "Out of Service"
-*      Let jTrack = "OOS"
-*    EndIf
-    Let jCarLine = "@jNumber","@jRoad","@jType",40,3.8,"Color","","","@jLocation",@jDash,"@jTrack","@jLoad","@jKernel",0,"","",@jOOS,,0,"",,"",@jDash,"","E","","",@jDash,"","",@jDash,""
-    Call $Write(@jExportCars, Append, @jCarLine)
-    Let i = @i + 1
-  EndIf
-
+Let jKernelSet = $Train($Train, CarLabels)
+Input jK What is the kernel name?
+While($Set(@jKernelSet, Count) <> 0)
+  Let jCar = $String(@jKernelSet,  NextToken)
+  Let $Car(@jCar, kernel) = @jK
+  Echo @jK @jCar
 EndWhile
-Echo Exported @i cars
-
-Let jExportLocos = $FindStr("AppData" , $DataDir)
-Let jExportLocos = $SubStr(0, @jExportLocos, $DataDir) + "JMRI\TrainPlayer\o2o - ExportLocos.csv"
-Let jTemp = "Number,Road,Model,Length,Owner,Built,Location,-0,Track,Consist,Moves,Last,Value,HP,Tons,Type,Comment,Miscellaneous"
-Call $Write(@jExportLocos, @jTemp)
-
-Let i = 0
-While($Set(@jJMRIlocos, Count) <> 0)
-  Let jLoco = $String(@jJMRIlocos, NextToken) ** loco label
-  Let jAAR = $Car(@jLoco, AAR)
-  Let jTest = $String(@jAAR, StartsWith, "E")
-  If(@jTest = 1) ** is an engine
-  If(@jAAR <> "ET") ** is not a tender
-    Let j1 = $Substr(1, -1, @jLoco) ** number
-    Let j2 = $Substr(0, 1, @jLoco) ** road
-    Let j3 = "Edit" ** model
-    Let j4 = 50 ** length
-    Let j5 = " " ** owner
-    Let j6 = " " ** built
-    Let jTemp = $Car(@jLoco, Track) ** track id
-    Let jTemp = $Track(@jTemp, Label) ** track label
-    Let jTemp = $Ops(Find, Locations.Track, @jTemp) ** index
-    Let jTemp = $Ops(Get, Locations.Locale, @jTemp) ** locale
-    Let j7 = $String(@jTemp, NextToken, ";") ** location
-    Let j8 = "-0"
-    Let j9 = @jTemp ** track
-    Let j10 = $Car(@jLoco, Kernel) ** consist
-    Let j11 = "0" ** moves
-    Let j12 = " " ** last
-    Let j13 = " " ** value
-    Let j14 = 3000 ** HP
-    Let j15 = 100 ** tons
-    Let j16 = $Set(@jCarCode, Find, @jAAR)
-    Let j16 = $Set(@jLocoType, Get, @j16)
-    ** Let j16 = $Car(@jLoco, Class)  ** type
-    Let j17 = " "
-    Let j18 = $Car(@jLoco, jOOS)
-    If(@j7 = "EOL")
-      Let j7 = "Unknown"
-      Let j9 = "Not Defined"
-    EndIf
-    Let i = @i + 1
-    Let jCarLine = "@j1","@j2","@j3","@j4","@j5","@j6","@j7","@j8","@j9","@j10","@j11","@j12","@j13","@j14","@j15","@j16","@j17","@j18"
-    Call $Write(@jExportLocos, Append, @jCarLine)
-  EndIf
-  EndIf
-EndWhile
-Echo Exported @i engines
-
-** Call $System(xcopy "%homepath%\AppData\Roaming\TrainPlayer\Reports\o2o - ExportCars.csv" "%homepath%\JMRI\TrainPlayer\" /Y)
-** Call $System(xcopy "%homepath%\AppData\Roaming\TrainPlayer\Reports\o2o - ExportLocos.csv" "%homepath%\JMRI\TrainPlayer\" /Y)
 
 EndProc
 ****************************************************************************
 
-Proc OpsExportLocs
-
-
-
-EndProc
-****************************************************************************
-
-Proc InitTracks
-
-Echo o2o Utility - Set all <> or ~ tracks to null
-Let jIDs = $Layout(IDSet, TrackIDs)
-Let i = 0
-While(@i < $Set(@jIDs, Count))
-  Let jTrackID = $Set(@jIDs, Get, @i)
-  If($TRACK(@jTrackID, Label) = "~")
-    Let $TRACK(@jTrackID, Label) = ""
-  EndIf
-  If($TRACK(@jTrackID, Label) = "<>")
-    Let $TRACK(@jTrackID, Label) = ""
-  EndIf
-  Let i = @i + 1
-EndWhile
-Echo InitTracks Complete
-
-EndProc
-****************************************************************************
-
-Proc SynchronizeLocations
-
-Echo o2o Utility - Import the JMRI locations csv export
-Let jImportLocs = $DataDir + "\Reports\JMRI - Locations.csv"
-Let jLocFile = $File(@jImportLocs, Open)
-let jLocationList = $File(@jLocFile, ReadAll)
-Call $File(@jImportLocs, Close)
-Let jPath = $Layout(Path)
-Let jPathLen = $Strlen(@jPath) - 3
-Let jPath = $Substr(0, @jPathLen, @jPath) + "csv"
-Call $Write(@jPath, @jLocationList)
-Echo Import locations finished.
-
-** Make a list of JMRI tracks
-Let jJMRITrackList = @jLocationList
-Call $String(@jJMRITrackList, NextToken, "
-") ** strip off the header
-Let jJList = ""
-While($Set(@jJMRITrackList, Count) <> 0)
-  Let jTemp = $String(@jJMRITrackList, NextToken, "
-")
-  Call $String(@jTemp, NextToken)
-  Call $String(@jTemp, NextToken)
-  Call $String(@jTemp, NextToken)
-  Call $String(@jTemp, NextToken)
-  Let jJList = $Set(@jJList, Add, @jTemp) ** only want the jmri track comment
-EndWhile
-
-** Make a list of TP tracks
-Let jTList = $Layout(IDSet, TrackLabels) ** List of TP tracks
-Let jTList = $Set(@jTList, Dedupe)
-
-Echo o2o Utility - Find TP Tracks not in JMRI
-Let jTJList = $Set(@jTList, Difference, @jJList)
-If(@jTJList = "")
-  Let jTJList = $Set(@jMessageSet, Get, 28)
-EndIf
-
-Echo o2o Utility - Find JMRI tracks not in TP
-Let jJTList = $Set(@jJList, Difference, @jTList)
-If(@jJTList = "")
-  Let jJTList = $Set(@jMessageSet, Get, 28)
-EndIf
-
-Let xMessage = $Set(@jMessageSet, Get, 26) \n@jTJList \n\n$Set(@jMessageSet, Get, 27) \n@jJTList \n\n$Set(@xUtilSet, Get, 9)
-Call NoteWindow @xMessage 1
-View Refresh
-
-EndProc
-****************************************************************************
-
-Proc FindDupes
-
-Echo o2o Utility - Find duplicate car labels.
-Let jAllLabels = $Layout(IDSet, CarLabels)
-Let jDeDupe = $Set(@jAllLabels, Dedupe)
-Let jDupeSet = $Set(@jAllLabels, Difference, @jDeDupe)
-If(@jDupeSet = "")
-  Echo No duplicates found
-  Let jMessage = $Set(@jMessageSet, Get, 25)
-  Call $MsgBox(@jMessage)
-  Call NoteWindow
-  Exit
-EndIf
-
-Let jAllIDs = $Layout(IDSet, CarIDs) ** tag the duplicate car labels
-While($Set(@jAllIDs, Count) <> 0)
-  Let jTempID = $String(@jAllIDs, NextToken)
-  Let i = 0
-  While(@i < $Set(@jDupeSet, Count))
-    If($Car(@jTempID, Label) = $Set(@jDupeSet, Get, @i))
-      Let $Car(@jTempID, Dest) = "Dupe"
-      Let $Car(@jTempID, ExcludeOps) = 1
-    EndIf
-  Let i = @i + 1
-  EndWhile
-EndWhile
-View Refresh
-Echo Duplicate cars are displayed
-EndProc
-****************************************************************************
 
 Proc InitCars
 
@@ -330,166 +115,10 @@ Echo InitCars Complete
 EndProc
 ****************************************************************************
 
-Proc ToggleService
-
-Let jLabels = $TRAIN($Train, CarIDs) ** selected train
-Let i = 0
-Let j = 0
-While($Set(@jLabels, Count) <> 0)
-  Let jTemp = $String(@jLabels, NextToken)
-  If($Car(@jTemp, jOOS) = "Out of Service")
-    Let $Car(@jTemp, jOOS) = ""
-    Let i = @i + 1
-  Else
-    Let $Car(@jTemp, jOOS) = "Out of Service"
-    Let j = @j + 1
-  EndIf
-EndWhile
-View Refresh
-Echo @j cars marked Out Of Service, @i cars marked in service
-
-EndProc
-****************************************************************************
-
-Proc SynchronizeCars
-
-Echo o2o Utility - Synchronize all TP cars to their JMRI location.
-
-Echo Part 1, find all the JMRI cars on the TP layout
-Let jReportManifest = $DataDir + "\Reports\JMRI - CarLocations.csv"
-Let jManifest = $File(@jReportManifest, Open)
-Let jCarRoster = $file(@jManifest, ReadAll)
-Call $File(@jReportManifest, Close)
-
-Let jJMRIRoster = ""
-Call $String(@jCarRoster, NextToken,"
-") ** Remove the header from the JMRI list
-While($Set(@jCarRoster, Count) <> 0)
-  Let jLine = $String(@jCarRoster, NextToken,"
-")
-  Let jCar = $String(@jLine, NextToken)
-  Let jJMRIRoster = $Set(@jJMRIRoster, Add, @jCar)
-  Call $String(@jLine, NextToken); Call $String(@jLine, NextToken); Call $String(@jLine, NextToken); Call $String(@jLine, NextToken)
-  Let $Car(@jCar, Dest) = $String(@jLine, NextToken)
-  Let $Car(@jCar, LoadName) = $String(@jLine, NextToken)
-EndWhile
-
-Echo Part 2, find any TP cars not in JMRI
-Let jTPRoster = $Layout(IDSet, CarLabels, Loaded)
-Let jTJ = $Set(@jTPRoster, Difference, @jJMRIRoster)
-Let jTJList = $Set(@jMessageSet, Get, 28) \n ** no errors found
-If(@jTJ <> "")
-  Let jTJList = ""
-  While($Set(@jTJ, Count) <> 0) ** reformat list of cars to vertical display
-    Let jTemp = $String(@jTJ, NextToken)
-    Let jTJList = @jTJList + @jTemp \n
-    Let $Car(@jTemp, Dest) = ""
-    Let $Car(@jTemp, ExcludeOps) = 1
-  EndWhile
-EndIf
-
-Echo Part 3, find any JMRI cars not in TP
-Let jJT = $Set(@jJMRIRoster, Difference, @jTPRoster)
-Let jJTList = $Set(@jMessageSet, Get, 28) \n ** no errors found
-If(@jJT <> "")
-  Let jJTList = ""
-  While($Set(@jJT, Count) <> 0) ** reformat list of cars to vertical display
-    Let jTemp = $String(@jJT, NextToken)
-    Let jJTList = @jJTList + @jTemp \n
-  EndWhile
-EndIf
-
-View Refresh
-Let xMessage = $Set(@jMessageSet, Get, 23) \n@jTJList \n$Set(@jMessageSet, Get, 24) \n@jJTList \n$Set(@xUtilSet, Get, 9) \n
-Call NoteWindow @xMessage 1
-Echo All cars are set to their JMRI location.
-
-EndProc
-****************************************************************************
-
-Proc RelabelTracks
-
-Echo o2o Utility - Relabel tracks from %1 to %2
-Let jTrackIDs = $Layout(IDset, TrackIDs)
-Let i = 0
-Let j = 0
-While (i < $Set(@jTrackIDs, Count))
-  Let jTrack = $Set(@jTrackIDs, Get, @i)
-  If($Track(@jTrack, Label) = %1)
-    Let $Track(@jTrack, Label) = %2
-    ** Echo Track label changed from %1 to %2
-    Let j = @j + 1
-  EndIf
-  Let i = @i + 1
-EndWhile
-View Refresh
-Echo RelabelTracks done, @j tracks were relabeled
-
-EndProc
-****************************************************************************
-
-Proc AddJMRItag
-
-If(%1 = "All")
-  Let jAllCars = $Layout(IDSet, CarLabels)
-Else
-  Let jAllCars = $Train($Train, CarLabels)
-EndIf
-
-Echo o2o Utility - Initialize just the JMRI cars
-While($Set(@jAllCars, Count) <> 0)
-  Let jTemp = $String(@jAllCars, NextToken)
-  Let jTrackLoc = $Car(@jTemp, Track)
-  Let jTrackLoc = $Track(@jTrackLoc, Label)
-  Let jAOindexSet = $Ops(Find, Industries.Industry, @jTrackLoc) ** this variable is a set
-  If($Track(@jTrackLoc, Label) <> "") ** not blank
-    Let $Car(@jTemp, Dest) = @jTrackLoc
-    Let i = 0
-    While(@i < $Set(@jAOindexSet, Count))
-      Let jAOindex = $Set(@jAOindexSet, Get, @i)
-      Echo @jAOindex
-      If($Car(@jTemp, AAR) = $Ops(Get, Industries.AAR, @jAOindex))
-      If($Ops(Get, Industries.S/R, @jAOindex) = "R")
-        Let jLoad = $Ops(Get, Industries.Load, @jAOindex)
-        Echo @jLoad
-        Let $Car(@jTemp, LoadName) = @jLoad
-        Let $Car(@jTemp, Loaded) = 1
-      Else
-        Let $Car(@jTemp, Loaded) = 0
-      EndIf
-      EndIf
-      Let i = @i + 1
-    EndWhile
-
-  Else
-    Let $Car(@jTemp, Dest) = "~"
-    ** Let $Car(@jTemp, ExcludeOps) = 1
-    Let $Car(@jTemp, Loaded) = 0
-  EndIf
-EndWhile
-View Refresh
-** Let jAllCars = $Layout(IDSet, CarLabels)
-** Let jExcludeList = $Ops(find,Cars.Dest,"~",Car)
-** Let jJMRIcars = $Set(@jAllCars, Difference, @jExcludeList)
-Echo $Set(@jJMRIcars, Count) cars were tagged
-
-EndProc
-****************************************************************************
-
-Proc AddKernels
-
-Let jKernelSet = $Train($Train, CarLabels)
-Input jK What is the kernel name?
-While($Set(@jKernelSet, Count) <> 0)
-  Let jCar = $String(@jKernelSet,  NextToken)
-  Let $Car(@jCar, kernel) = @jK
-  Echo @jK @jCar
-EndWhile
-
-EndProc
-****************************************************************************
 
 Proc AutoLabel
+
+Echo Attach to loco to automatically label tracks
 
 Middle:
 After 00:00:01

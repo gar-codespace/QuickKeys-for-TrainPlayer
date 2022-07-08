@@ -20,9 +20,11 @@ Echo o2oInit complete
 EndProc
 ****************************************************************************
 
+
 Proc Unschedule
 
-Echo Set previous WorkEvent cars to their current track
+Echo Reset previous WorkEvent cars
+
 While($Set(%1, Count) <> 0)
   Let jCar = $String(%1, NextToken)
   Let jTemp = $Car(@jCar, Track)
@@ -37,6 +39,7 @@ View Refresh
 
 EndProc
 ****************************************************************************
+
 
 Proc CreateReportHeader
 
@@ -101,6 +104,7 @@ Echo There are @jWETotal WorkEvents
 EndProc
 ****************************************************************************
 
+
 Proc ParseManifest ** Parse the whole manifest from JMRI
 
 Let y = 0 ** pickup count
@@ -123,6 +127,9 @@ While($Set(@jmanifestCopy, Count) <> 0)
   If(@jWE = %2)
     Let jWEN = @jWL
     Call ParseLine @jLine
+    Let jLocaleIndex = $Set(@jLocaleSet, Find, @jToLoc)
+    Let jTag = $Set(@jTrackLabelSet, Get, @jLocaleIndex)
+
     If(@j1 = "PC")
       Call TagCar
       Call PickUpCar
@@ -150,6 +157,7 @@ Echo Current WorkEvent processed
 
 EndProc
 ****************************************************************************
+
 
 Proc ParseLine ** (All Cars) parse out all variables for each car in the manifest and format for switch list
 
@@ -183,10 +191,10 @@ Let j8 = $String(@jLine, NextToken) ** FD locale
 Let jFDLoc = @j8
 Let j8 = @j8 + "                             "
 Let j8 = $Substr(0, 29, @j8) ** truncate to 30 char
-Let jTag =  @jLine
 
 EndProc
 ****************************************************************************
+
 
 Proc TagCar
 
@@ -198,9 +206,9 @@ EndIf
 Let $Car(@jID, Dest) = @jTag
 Let jFromList = $Set(@jFromList, Add, @jID)
 
-
 EndProc
 ****************************************************************************
+
 
 Proc PickupCar ** Tag the TP car to be picked up
 
@@ -210,6 +218,7 @@ Let $Car(@jID, ExcludeOps) = 0 ** set the tags color
 EndProc
 ****************************************************************************
 
+
 Proc SetoutCar ** Tag the TP car to be set out
 
 Let jMText = @jMText + \n$Set(@jMessageSet, Get, 30) @j2 @j0 @j5 @j0 $Set(@jMessageSet, Get, 15) @j7
@@ -217,6 +226,7 @@ Let $Car(@jID, ExcludeOps) = 1
 
 EndProc
 ****************************************************************************
+
 
 Proc PickUpLoco ** Tag the engine to be picked up
 
@@ -226,6 +236,7 @@ Let $Car(@jID, ExcludeOps) = 0 ** set the tags color
 EndProc
 ****************************************************************************
 
+
 Proc SetOutLoco ** Tag the engine to be set out
 
 Let jMText = @jMText + \n$Set(@jMessageSet, Get, 30) @j2 @j0 @j5 @j0 $Set(@jMessageSet, Get, 15) @j7
@@ -233,6 +244,7 @@ Let $Car(@jID, ExcludeOps) = 1 ** set the tags color
 
 EndProc
 ****************************************************************************
+
 
 Proc LoadCar
 
@@ -298,48 +310,21 @@ If(@x6 = 0)
   EndWhile
 EndIf
 
+EndProc
+****************************************************************************
 
+
+Proc ReadAoLocations
+
+Echo Read the AO location dataset for this layout
+
+Let jTemp = $Ops(Find, Locations.Locale, All) ** returns indices
+Let jLocaleSet = $Ops(Get, Locations.Locale, @jTemp) ** set of all locales
+Let jTrackLabelSet = $Ops(Find, Locations.Track, All, Track) ** set of all track labels
 
 EndProc
 ****************************************************************************
 
-Proc ReadLocations
-
-Echo Read the JMRI locations file or AO industry matrix for this layout
-
-Let jLocaleSet = ""
-Let jIndustrySet = ""
-
-If(@x6 = 1) ** using JMRI locations
-
-  Let jLocationsFile = $DataDir + "\Reports\JMRI Export - Locations.csv"
-  Let jFile = $File(@jLocationsFile, Exists)
-  If (@jFile = 1)
-    Let jLocations = $File(@jLocationsFile, Open)
-    Let jLocationList = $File(@jLocations, ReadAll)
-    Call $File(@jLocationsFile, Close)
-
-    ** Call $String(@jLocationList, NextToken, @xCR) ** Strip off the header
-    While($Set(@jLocationList, Count) <> 0)
-      Let jLocLine = $String(@jLocationList, NextToken, @xCR)
-      Let jLocaleSet = @jLocaleSet + $String(@jLocLine, NextToken) + "," ** set of locations
-      Let jIndustrySet = @jIndustrySet + @jLocLine + "," ** set of tracks
-    EndWhile
-  Else
-    Let jMessage = $Set(@jMessageSet, Get, 20) ** Locations file does not exist
-    Let jVersion = $Msgbox(@jMessage)
-    Exit
-  EndIf
-EndIf
-
-If(@x6 = 0) ** using AO Locales
-  Let jTemp = $Ops(Find, Locations.Locale, All) ** returns indices
-  Let jLocaleSet = $Ops(Get, Locations.Locale, @jTemp) ** set of all locales
-  Let jIndustrySet = $Ops(Find, Locations.Track, All, Track) ** set of all industries
-EndIf
-
-EndProc
-****************************************************************************
 
 Proc IncrementWE
 
@@ -355,6 +340,7 @@ Let L = 1
 
 EndProc
 ****************************************************************************
+
 
 If (%1 = SetUp)
 
@@ -377,6 +363,7 @@ If (%1 = SetUp)
 EndIf
 ****************************************************************************
 
+
 If($Set(@xMatrix, Get, 0) = 1) ** quick keys turned on
 If($Set(@xMatrix, Get, 5) = 1)
 
@@ -397,6 +384,7 @@ If($Set(@xMatrix, Get, 5) = 1)
   EndIf
   ****************************************************************************
 
+
   If($Key = 77) ** key m for manifest
     Let jMessage = $Set(@jMessageSet, Get, 19) ** Read in jManifest
     Let jManifest = $Msgbox(YN, @jMessage)
@@ -405,7 +393,8 @@ If($Set(@xMatrix, Get, 5) = 1)
       Exit
     Endif
 
-    Call ReadLocations ** Loactions file export from JMRI
+    ** Create a location matrix from the AO location dataset
+    Call ReadAoLocations
 
     Let jReportManifest = $DataDir + "\Reports\JMRI Export - Work Events.csv"
     Let jManifest = $File(@jReportManifest, Open)
@@ -421,6 +410,7 @@ If($Set(@xMatrix, Get, 5) = 1)
     View Refresh
   EndIf
   ****************************************************************************
+
 
   If($Key = 33) ** Page Up key
     If(@jIndexWE = 1)
@@ -438,6 +428,7 @@ If($Set(@xMatrix, Get, 5) = 1)
   EndIf
   ****************************************************************************
 
+
   If($Key = 34) ** Page Down key
     If(@jIndexWE = @jWETotal)
       Let jMessage = $Set(@jMessageSet, Get, 18)
@@ -453,6 +444,7 @@ If($Set(@xMatrix, Get, 5) = 1)
     EndIf
   EndIf
   ****************************************************************************
+
 
   If ($Key = 35) ** End key
     If(@jIndexWE = @jWETotal)
@@ -470,6 +462,7 @@ If($Set(@xMatrix, Get, 5) = 1)
   EndIf
   ****************************************************************************
 
+
   If ($Key = 36) ** Home key
     If(@jIndexWE = 1)
       Let jMessage = $Set(@jMessageSet, Get, 17)
@@ -485,6 +478,7 @@ If($Set(@xMatrix, Get, 5) = 1)
     EndIf
   EndIf
   ****************************************************************************
+
 
 EndIf
 EndIf
