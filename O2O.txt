@@ -345,9 +345,7 @@ EndProc
 If (%1 = SetUp)
 
   Let x5 = 1
-  Let x6 = 0 ** Local industries = 0 JMRI industries = 1
-  If (%2 = "Remote")
-    Let x6 = 1
+
   EndIf
   Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5,@x6,@x7
   Call $System(MD "%homepath%\JMRI\TrainPlayer")
