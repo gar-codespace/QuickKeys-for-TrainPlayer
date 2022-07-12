@@ -1,0 +1,35 @@
+Let $Key = 0
+
+** Set Up the Subroutines
+
+Call o2o Setup 0 ** use TrainPlayer loads
+Call o2o Setup 1 ** use JMRI loads
+Call QuickKeys Setup
+Call SpeedSwitching Setup
+Call DropKick Setup
+Call PhastPhunctions Setup
+Call o2oSupport
+Call TurnTable Setup 2
+Call HelpLanguage @xLanguage
+Call NoteWindow
+
+StartingPoint:
+
+On Key
+
+Let sMaxSpeed = 40
+Let sCoupleSpeed = 4
+
+Drive $Train($Train)
+
+Call TurnTable
+Call QuickKeys
+Call SpeedSwitching $Train $Car $Speed
+Call DropKick $Train $Car $Speed
+Call PhastPhunctions
+Call o2o
+Call jTimer
+
+EndDrive
+
+GoTo StartingPoint

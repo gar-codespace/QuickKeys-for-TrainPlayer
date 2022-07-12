@@ -3,28 +3,28 @@
 
 Proc UpdateJMRIInventory
 
-Echo o2o Utility - Report of TrainPlayer rolling stock inventory
+  Echo o2o Utility - Report of TrainPlayer rolling stock inventory
 
-Echo Working on it......
+  Echo Working on it......
 
-Let jAllRS = $Layout(IDSet, CarLabels)
-** Let jExcludeList = $Ops(Find,Cars.Dest,"~",Car)
-** Let jInventoryRS = $Set(@jAllRS, Difference, @jExcludeList)
+  Let jAllRS = $Layout(IDSet, CarLabels)
+  ** Let jExcludeList = $Ops(Find,Cars.Dest,"~",Car)
+  ** Let jInventoryRS = $Set(@jAllRS, Difference, @jExcludeList)
 
-Let rsCount = $Set(@jAllRS, Count)
+  Let rsCount = $Set(@jAllRS, Count)
 
-Let inventory = "Car Label,Track Label"
-While($Set(@jAllRS, Count) <> 0)
-  Let jCar = $String(@jAllRS, NextToken)
-  Let TrackId = $Car(@jCar, Location)
-  Let jTrackLabel = $track(@TrackId, Label)
-  Let inventory = @inventory + \n$Car(@jCar, Label),@jTrackLabel
-EndWhile
+  Let inventory = "Car Label,Track Label"
+  While($Set(@jAllRS, Count) <> 0)
+    Let jCar = $String(@jAllRS, NextToken)
+    Let TrackId = $Car(@jCar, Location)
+    Let jTrackLabel = $track(@TrackId, Label)
+    Let inventory = @inventory + \n$Car(@jCar, Label),@jTrackLabel
+  EndWhile
 
-Let jInventoryLoc = $DataDir + "\Reports\TrainPlayer Export - Inventory.txt"
-Call $Write(@jInventoryLoc, @inventory)
+  Let jInventoryLoc = $DataDir + "\Reports\TrainPlayer Export - Inventory.txt"
+  Call $Write(@jInventoryLoc, @inventory)
 
-Echo Rolling stock count: @rsCount
+  Echo Rolling stock count: @rsCount
 
 EndProc
 ****************************************************************************
@@ -32,27 +32,26 @@ EndProc
 
 Proc UpdateJMRILocations
 
-Echo o2o Utility - Report of all TrainPlayer locations
+  Echo o2o Utility - Report of all TrainPlayer locations
 
-Let jID = $ops(find, Locs.Class, All, ID)
-Let jCount = $Set(@jID, Count)
+  Let jID = $ops(find, Locs.Class, All, ID)
+  Let jCount = $Set(@jID, Count)
 
-Let inventory = ""
+  Let inventory = ""
 
-Let i = 1
-While (i <= @jCount)
+  Let i = 1
+  While (i <= @jCount)
 
-  Let inventory = @inventory + $Ops(Get, Locs.Track, @i),$Ops(Get, Locs.Locale, @i),$Ops(Get, Locs.Class, @i),$Ops(Get, Locs.VacantSpots, @i),\n
-  Let i = @i + 1
+    Let inventory = @inventory + $Ops(Get, Locs.Track, @i),$Ops(Get, Locs.Locale, @i),$Ops(Get, Locs.Class, @i),$Ops(Get, Locs.VacantSpots, @i),\n
+    Let i = @i + 1
 
-EndWhile
+  EndWhile
 
 
-Let jInventoryLoc = $DataDir + "\Reports\TrainPlayer Export - Locations.txt"
-Call $Write(@jInventoryLoc, @inventory)
+  Let jInventoryLoc = $DataDir + "\Reports\TrainPlayer Export - Locations.txt"
+  Call $Write(@jInventoryLoc, @inventory)
 
-Echo Location count: @jCount
-
+  Echo Location count: @jCount
 
 EndProc
 ****************************************************************************
@@ -60,15 +59,15 @@ EndProc
 
 Proc AddKernels
 
-Echo o2o Utility - Group equipment together into a JMRI like consist or kernel
+  Echo o2o Utility - Group equipment together into a JMRI like consist or kernel
 
-Let jKernelSet = $Train($Train, CarLabels)
-Input jK What is the kernel name?
-While($Set(@jKernelSet, Count) <> 0)
-  Let jCar = $String(@jKernelSet,  NextToken)
-  Let $Car(@jCar, kernel) = @jK
-  Echo @jK @jCar
-EndWhile
+  Let jKernelSet = $Train($Train, CarLabels)
+  Input jK What is the kernel name?
+  While($Set(@jKernelSet, Count) <> 0)
+    Let jCar = $String(@jKernelSet,  NextToken)
+    Let $Car(@jCar, kernel) = @jK
+    Echo @jK @jCar
+  EndWhile
 
 EndProc
 ****************************************************************************
@@ -76,41 +75,41 @@ EndProc
 
 Proc InitCars
 
-Echo o2o Utility - set all or train rolling stock destinations
+  Echo o2o Utility - set all or train rolling stock destinations
 
-If(%1 = "")
-  Let jXmessage = $Set(@jMessageSet, Get, 34)
-  Let jX = $Msgbox("YN", @jXmessage)
-  If (@jX = 1)
-    Let jLabels = $Layout(IDSet, CarLabels) ** all trains on layout
+  If(%1 = "")
+    Let jXmessage = $Set(@jMessageSet, Get, 34)
+    Let jX = $Msgbox("YN", @jXmessage)
+    If (@jX = 1)
+      Let jLabels = $Layout(IDSet, CarLabels) ** all trains on layout
+    Else
+      Let jLabels = $Train($Train, CarIDs) ** selected train
+    EndIf
   Else
-    Let jLabels = $Train($Train, CarIDs) ** selected train
-  EndIf
-Else
-  Let jLabels = %1 ** passed in train label set
-  Let jX = 0
-EndIf
-
-While($Set(@jLabels, Count) <> 0)
-  Let jTemp = $String(@jLabels, NextToken) ** car label
-  ** Let jAAR = $Car(@jTemp, AAR)
-  ** Let $Car(@jTemp, ExcludeOps) = 0
-  ** Let $Car(@jTemp, Loaded) = 0
-  Let jCarLoc = $Car(@jTemp, Track) ** track ID
-  Let jCarLoc = $Track(@jCarLoc, Label) ** track label
-  Let $Car(@jTemp, Dest) = @jCarLoc
-  If (@jCarLoc = "") ** track is unlabeled
-    Let $Car(@jTemp, Dest) = "~"
-    Continue
-  EndIf
-  If ($Car(@jTemp, LoadName) = "") ** car is unloadable
-    Let $Car(@jTemp, Dest) = "~"
-    Continue
+    Let jLabels = %1 ** passed in train label set
+    Let jX = 0
   EndIf
 
-EndWhile
-View Refresh
-Echo InitCars Complete
+  While($Set(@jLabels, Count) <> 0)
+    Let jTemp = $String(@jLabels, NextToken) ** car label
+    ** Let jAAR = $Car(@jTemp, AAR)
+    ** Let $Car(@jTemp, ExcludeOps) = 0
+    ** Let $Car(@jTemp, Loaded) = 0
+    Let jCarLoc = $Car(@jTemp, Track) ** track ID
+    Let jCarLoc = $Track(@jCarLoc, Label) ** track label
+    Let $Car(@jTemp, Dest) = @jCarLoc
+    If (@jCarLoc = "") ** track is unlabeled
+      Let $Car(@jTemp, Dest) = "~"
+      Continue
+    EndIf
+    If ($Car(@jTemp, LoadName) = "") ** car is unloadable
+      Let $Car(@jTemp, Dest) = "~"
+      Continue
+    EndIf
+
+  EndWhile
+  View Refresh
+  Echo InitCars Complete
 
 EndProc
 ****************************************************************************
@@ -118,18 +117,18 @@ EndProc
 
 Proc AutoLabel
 
-Echo Attach to loco to automatically label tracks
+  Echo Attach to loco to automatically label tracks
 
-Middle:
-After 00:00:01
-If($Speed = 0)
- Input xLabel "Enter the Track Label"
- Speed 1
-Endif
-Let xTrack = $Car($Car, Track)
-Let $Track(@xTrack, Label) = @xLabel
-View Refresh
-GoTo Middle
+  Middle:
+  After 00:00:01
+  If($Speed = 0)
+   Input xLabel "Enter the Track Label"
+   Speed 1
+  Endif
+  Let xTrack = $Car($Car, Track)
+  Let $Track(@xTrack, Label) = @xLabel
+  View Refresh
+  GoTo Middle
 
 EndProc
 ****************************************************************************
