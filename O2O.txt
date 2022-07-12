@@ -164,33 +164,46 @@ Proc ParseLine ** (All Cars) parse out all variables for each car in the manifes
 ** jNumbers are for switchlist
 
 Let j0 = " " ** create spaces in switch list
+
 Let j2 = $String(@jLine, NextToken) ** ID
 Let jID = @j2
 Let j2 = @j2 + "       "
 Let j2 = $Substr(0, 7, @j2) ** truncate to 8 char
+
 Let j3 = $String(@jLine, NextToken) ** RR
+Let j3 = @j3 + "          "
+Let j3 = $Substr(0, 4, @j3) ** truncate to 5 char
+
 Let j4 = $String(@jLine, NextToken) ** Number
-Let j5 = $String(@jLine, NextToken) ** Load
-Let jLoad = @j5
+Let j4 = @j4 + "          "
+Let j4 = $Substr(0, 5, @j4) ** truncate to 6 char
 
-If(@j5 = "Empty")
-  Let j5 = "E"
-Else
-  Let j5 = "L"
-EndIf
+Let j5 = $String(@jLine, NextToken) ** Load Type 1 char
 
-Let j6 = $String(@jLine, NextToken) ** From locale
-Let jFromLoc = @j6
-Let j6 = @j6 + "                             "
-Let j6 = $Substr(0, 29, @j6) ** truncate to 30 char
-Let j7 = $String(@jLine, NextToken) ** To locale
-Let jToLoc = @j7
+Let j6c = $String(@jLine, NextToken) ** Load
+Let j6c = @j6c + "                    "
+Let j6c = $Substr(0, 11, @j6c) ** truncate to 12 char
+let j6l = "           " ** Blank 12 char string
+
+Let j7 = $String(@jLine, NextToken) ** From locale
+Let jFromLoc = @j7
 Let j7 = @j7 + "                             "
-Let j7 = $Substr(0, 29, @j7) ** truncate to 30 char
-Let j8 = $String(@jLine, NextToken) ** FD locale
-Let jFDLoc = @j8
-Let j8 = @j8 + "                             "
-Let j8 = $Substr(0, 29, @j8) ** truncate to 30 char
+Let j7 = $Substr(0, 19, @j7) ** truncate to 20 char
+
+
+
+
+
+
+
+Let j7z = $String(@jLine, NextToken) ** To locale
+Let jToLoc = @j7z
+Let j7z = @j7z + "                             "
+Let j7z = $Substr(0, 29, @j7z) ** truncate to 30 char
+Let j8z = $String(@jLine, NextToken) ** FD locale
+Let jFDLoc = @j8z
+Let j8z = @j8z + "                             "
+Let j8z = $Substr(0, 29, @j8z) ** truncate to 30 char
 
 EndProc
 ****************************************************************************
@@ -212,7 +225,9 @@ EndProc
 
 Proc PickupCar ** Tag the TP car to be picked up
 
-Let jMText = @jMText + \n$Set(@jMessageSet, Get, 29) @j2 @j0 @j5 @j0 $Set(@jMessageSet, Get, 14) @j6
+** Note adding a whitespace between variables adds a whitespace to the report, @j0 is not needed
+
+Let jMText = @jMText + \n$Set(@jMessageSet, Get, 29) @j3 @j4 @j5 @j6c $Set(@jMessageSet, Get, 14) @j7
 Let $Car(@jID, ExcludeOps) = 0 ** set the tags color
 
 EndProc
@@ -221,7 +236,7 @@ EndProc
 
 Proc SetoutCar ** Tag the TP car to be set out
 
-Let jMText = @jMText + \n$Set(@jMessageSet, Get, 30) @j2 @j0 @j5 @j0 $Set(@jMessageSet, Get, 15) @j7
+Let jMText = @jMText + \n$Set(@jMessageSet, Get, 30) @j3 @j4 @j5 @j6c $Set(@jMessageSet, Get, 15)
 Let $Car(@jID, ExcludeOps) = 1
 
 EndProc
@@ -230,7 +245,7 @@ EndProc
 
 Proc PickUpLoco ** Tag the engine to be picked up
 
-Let jMText = @jMText + \n$Set(@jMessageSet, Get, 29) @j2 @j0 @j5 @j0 $Set(@jMessageSet, Get, 14) @j6
+Let jMText = @jMText + \n$Set(@jMessageSet, Get, 29) @j3 @j4 @j5 @j6l $Set(@jMessageSet, Get, 14) @j7
 Let $Car(@jID, ExcludeOps) = 0 ** set the tags color
 
 EndProc
@@ -239,7 +254,7 @@ EndProc
 
 Proc SetOutLoco ** Tag the engine to be set out
 
-Let jMText = @jMText + \n$Set(@jMessageSet, Get, 30) @j2 @j0 @j5 @j0 $Set(@jMessageSet, Get, 15) @j7
+Let jMText = @jMText + \n$Set(@jMessageSet, Get, 30) @j3 @j4 @j5 @j6l $Set(@jMessageSet, Get, 15)
 Let $Car(@jID, ExcludeOps) = 1 ** set the tags color
 
 EndProc

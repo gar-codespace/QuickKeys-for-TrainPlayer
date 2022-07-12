@@ -118,33 +118,33 @@ EndProc
 
 If (%1 = SetUp)
 
-Let xMessage = "\nPlease wait... Setting up subroutines.\nVeuillez patienter ... Configuration des sous-programmes.\nBitte warten ... Unterprogramme einrichten.\nEspere ... Configurando subrutinas. \n"
-Call NoteWindow @xMessage 1
+  Let xMessage = "\nPlease wait... Setting up subroutines.\nVeuillez patienter ... Configuration des sous-programmes.\nBitte warten ... Unterprogramme einrichten.\nEspere ... Configurando subrutinas. \n"
+  Call NoteWindow @xMessage 1
 
-Let x0 = 1 ** All Quick keys are on or off
-Let x1 = 0 ** Speed Switching on or off
-Let x2 = 0 ** Phake Physics on or off
-Let x3 = 0 ** DK on or off
-Let x4 = 0 ** Phast on or off
-Let x5 = 0 **  o2o on or off
+  Let x0 = 1 ** All Quick keys are on or off
+  Let x1 = 0 ** Speed Switching on or off
+  Let x2 = 0 ** Phake Physics on or off
+  Let x3 = 0 ** DK on or off
+  Let x4 = 0 ** Phast on or off
+  Let x5 = 0 **  o2o on or off
 
-Let x7 = 0 ** ?
-Let xCR = "
+  Let x7 = 0 ** ?
+  Let xCR = "
 "
-Let NoteDownOnEsc = 1
-Let xHelpLan = (En, Fr, De, Es, Du) ** language support
-Let xLanguage = "En"
-Let H = 0 ** Help Menu
-Let U = 0 ** Utility menu
-Let L = 0 **  o2o Switch List
-Let P = 0 ** Phast Phunctions
+  Let NoteDownOnEsc = 1
+  Let xHelpLan = (En, Fr, De, Es, Du) ** language support
+  Let xLanguage = "En"
+  Let H = 0 ** Help Menu
+  Let U = 0 ** Utility menu
+  Let L = 0 **  o2o Switch List
+  Let P = 0 ** Phast Phunctions
 
-Call GregsPrefs
-Call $system("MD "%homepath%\AppData\Roaming\TrainPlayer\Reports"")
+  Call GregsPrefs
+  Call $system("MD "%homepath%\AppData\Roaming\TrainPlayer\Reports"")
 
-Call HelpLanguage @xLanguage
+  Call HelpLanguage @xLanguage
 
-Echo QuickKeys @version
+  Echo QuickKeys @version
 EndIf
 ***************************************************************************
 
