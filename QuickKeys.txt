@@ -127,7 +127,7 @@ If (%1 = SetUp)
   Let x3 = 0 ** DK on or off
   Let x4 = 0 ** Phast on or off
   Let x5 = 0 **  o2o on or off
-
+  ** x6 = 0 for TP loads, 1 for JMRI loads
   Let x7 = 0 ** ?
   Let xCR = "
 "

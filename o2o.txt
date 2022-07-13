@@ -114,16 +114,20 @@ Proc ParseManifest ** Parse the whole manifest from JMRI
 
   While($Set(@jmanifestCopy, Count) <> 0)
     Let jLine = $String(@jManifestCopy, NextToken, @xCR)
-    If (@jLine = "EOF")
+
+    If(@jLine = "EOF")
       Break
     EndIf
+
     Let j1 = $String(@jLine, NextToken) ** action to be taken WE PU SO PL SL
+
     If(@j1 = "WE")
       Let jWE = $String(@jLine, NextToken)
       Let jWL = $String(@jLine, NextToken)
       Echo WorkEvents @jWE @jWL
       Continue
     EndIf
+
     If(@jWE = %2)
       Let jWEN = @jWL
       Call ParseLine @jLine
@@ -176,11 +180,14 @@ Proc ParseLine ** (All Cars) parse out all variables for each car in the manifes
   Let j4 = @j4 + "          "
   Let j4 = $Substr(0, 5, @j4) ** truncate to 6 char
 
-  Let j5 = $String(@jLine, NextToken) ** Load Type 1 char
+  Let j9 = $String(@jLine, NextToken) ** Car or Engine type
+
+  Let j5 = $String(@jLine, NextToken) ** Load Type
+
   If(@x6 = 0) ** Using AO loads
-    Let carAAR = $Car(@jID, AAR)
-    If($Set(@occupiedCarCodes, Contains, @carAAR) = 1)
+    If($Set(@occupiedCarCodes, Contains, @j9) = 1)
       Let j5 = "O"
+      Echo Yipee
     EndIf
   EndIf
 
