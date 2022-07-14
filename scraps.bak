@@ -1,5 +1,40 @@
 ** Procedures not currently being used
 
+Proc ProcessorInfo
+
+** Adjustment for processor speed
+** Call $System("wmic path win32_processor get CurrentClockSpeed, DeviceID, MaxClockSpeed, Name, NumberOfCores /format:LIST |more > %homepath%\AppData\Roaming\TrainPlayer\Reports\ProcessorInfo.txt")
+
+Call $System("%homepath%\AppData\Roaming\TrainPlayer\Subroutines\QuickKeys\ProcessorInfo.bat") ** This is the WMIC command
+
+Let xCSLoc = $DataDir + "\Reports\QK - ProcessorInfo.txt"
+If($File(@xCSLoc, Exists) = 1)
+  Let xCSFile = $File(@xCSLoc, Open)
+  While(1 = 1)
+    Let xLine = $File(@xCSFile, ReadLine)
+    If ($String(@xLine, StartsWith, "MaxClockSpeed") = 1)
+      Call $String(@xLine, NextToken, "=")
+      Let xPS = @xLine ** xPS is the processor speed
+    EndIf
+    If ($String(@xLine, StartsWith, "DeviceID") = 1)
+      Call $String(@xLine, NextToken, "=")
+      Let xCPU = @xCPU + 1 ** xCPU is the number of processors
+    EndIf
+    If (@xLine = "EOF")
+      Call $File(@xCSFile, Close)
+      Break
+    EndIf
+  EndWhile
+Else
+  Let xPS = 2500
+  Let xCPU = 1
+  Echo ProcessorInfo.txt is missing
+EndIf
+Let xCurve = 0,1.0,1.5,1.75,2.0,2.25,2.5,2.75,3.0, ** Power of computer as processors are added
+Let xCS = @xPS * $Set(@xCurve, Get, @xCPU)
+EndProc
+****************************************************************************
+
 
 Proc ReadJmriLocations
 

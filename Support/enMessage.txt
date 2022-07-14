@@ -1,0 +1,27 @@
+"Phake Physics is active"
+,
+"Speed Switching is active"
+,
+"Clean up the Kick Motors?"
+,
+""
+,
+""
+,
+"is assigned to function key"
+,
+"is not assigned a function key"
+,
+"Locomotive"
+,
+"Programming Mode is on
+Select an engine by clicking on it.
+Then press a Function key. F1 - F9 are available.
+Or press the 'p' key again to exit programming mode."
+,
+"A locomotive must be selected."
+,
+"Elapsed time is"
+,
+"Number of moves:"
+,

@@ -22,40 +22,6 @@ Set TrackLabelParams 1,"90,700,0,0,Arial"
 EndProc
 ***************************************************************************
 
-Proc ProcessorInfo
-
-** Adjustment for processor speed
-** Call $System("wmic path win32_processor get CurrentClockSpeed, DeviceID, MaxClockSpeed, Name, NumberOfCores /format:LIST |more > %homepath%\AppData\Roaming\TrainPlayer\Reports\ProcessorInfo.txt")
-
-Call $System("%homepath%\AppData\Roaming\TrainPlayer\Subroutines\QuickKeys\ProcessorInfo.bat") ** This is the WMIC command
-
-Let xCSLoc = $DataDir + "\Reports\QK - ProcessorInfo.txt"
-If($File(@xCSLoc, Exists) = 1)
-  Let xCSFile = $File(@xCSLoc, Open)
-  While(1 = 1)
-    Let xLine = $File(@xCSFile, ReadLine)
-    If ($String(@xLine, StartsWith, "MaxClockSpeed") = 1)
-      Call $String(@xLine, NextToken, "=")
-      Let xPS = @xLine ** xPS is the processor speed
-    EndIf
-    If ($String(@xLine, StartsWith, "DeviceID") = 1)
-      Call $String(@xLine, NextToken, "=")
-      Let xCPU = @xCPU + 1 ** xCPU is the number of processors
-    EndIf
-    If (@xLine = "EOF")
-      Call $File(@xCSFile, Close)
-      Break
-    EndIf
-  EndWhile
-Else
-  Let xPS = 2500
-  Let xCPU = 1
-  Echo ProcessorInfo.txt is missing
-EndIf
-Let xCurve = 0,1.0,1.5,1.75,2.0,2.25,2.5,2.75,3.0, ** Power of computer as processors are added
-Let xCS = @xPS * $Set(@xCurve, Get, @xCPU)
-EndProc
-****************************************************************************
 
 Proc HelpUtilList ** Pass in xMatrix
 
@@ -85,30 +51,35 @@ EndIf
 EndProc
 ***************************************************************************
 
-Proc HelpLanguage
+
+Proc SetLanguage
 
 ** Read in text for help screen
-Let xHelpLoc = $DataDir + "\Subroutines\QuickKeys\Support\hText" + $Set(@xHelpLan, Find, %1) + ".txt"
+** Let xHelpLoc = $DataDir + "\Subroutines\QuickKeys\Support\hText" + $Set(@xHelpLan, Find, %1) + ".txt"
+Let xHelpLoc = $DataDir + "\Subroutines\QuickKeys\Support\" + %1 + "Help.txt"
 Let xHelpFile = $File(@xHelpLoc, Open)
 let xHelpSet = $file(@xHelpFile, ReadAll)
 Call $File(@xHelpLoc, Close)
 
 ** Read in text for  o2o messages
 If(@x5 = 1) **  o2o is active
-  Let jTextLoc = $DataDir + "\Subroutines\QuickKeys\Support\JText" + $Set(@xHelpLan, Find, %1) + ".txt"
+  ** Let jTextLoc = $DataDir + "\Subroutines\QuickKeys\Support\JText" + $Set(@xHelpLan, Find, %1) + ".txt"
+  Let jTextLoc = $DataDir + "\Subroutines\QuickKeys\Support\" + %1 + "o2o.txt"
   Let jTextFile = $File(@jTextLoc, Open)
   let  jMessageSet = $File(@jTextFile, ReadAll)
   Call $File(@jTextLoc, Close)
 EndIf
 
 ** Read in text for Quick Keys messages
-Let xMessageLoc = $DataDir + "\Subroutines\QuickKeys\Support\mText" + $Set(@xHelpLan, Find, %1) + ".txt"
+** Let xMessageLoc = $DataDir + "\Subroutines\QuickKeys\Support\mText" + $Set(@xHelpLan, Find, %1) + ".txt"
+Let xMessageLoc = $DataDir + "\Subroutines\QuickKeys\Support\" + %1 + "Message.txt"
 Let xMessageFile = $File(@xMessageLoc, Open)
 let xMessageSet = $file(@xMessageFile, ReadAll)
 Call $File(@xMessageLoc, Close)
 
 ** Read in text for Quick Keys utility menu
-Let xUtilLoc = $DataDir + "\Subroutines\QuickKeys\Support\uText" + $Set(@xHelpLan, Find, %1) + ".txt"
+** Let xUtilLoc = $DataDir + "\Subroutines\QuickKeys\Support\uText" + $Set(@xHelpLan, Find, %1) + ".txt"
+Let xUtilLoc = $DataDir + "\Subroutines\QuickKeys\Support\" + %1 + "Utility.txt"
 Let xUtilFile = $File(@xUtilLoc, Open)
 let xUtilSet = $file(@xUtilFile, ReadAll)
 Call $File(@xUtilLoc, Close)
@@ -132,8 +103,7 @@ If (%1 = SetUp)
   Let xCR = "
 "
   Let NoteDownOnEsc = 1
-  Let xHelpLan = (En, Fr, De, Es, Du) ** language support
-  Let xLanguage = "En"
+
   Let H = 0 ** Help Menu
   Let U = 0 ** Utility menu
   Let L = 0 **  o2o Switch List
@@ -141,8 +111,6 @@ If (%1 = SetUp)
 
   Call GregsPrefs
   Call $system("MD "%homepath%\AppData\Roaming\TrainPlayer\Reports"")
-
-  Call HelpLanguage @xLanguage
 
   Echo QuickKeys @version
 EndIf
@@ -271,7 +239,7 @@ If($Set(@xMatrix, Get, 0) = 1) ** QK is active
 
   If (U = 1) ** Utility menu is displayed
 
-    If($Key = 49) ** key 1, toggle all quick keys
+    If($Key = 49) ** 1 key, toggle all quick keys
       Let x0 = 0
       Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5,@x6,@x7
       Let U = 0
@@ -280,43 +248,7 @@ If($Set(@xMatrix, Get, 0) = 1) ** QK is active
     EndIf
     ****************************************************************************
 
-    If ($Key = 50) ** 2 key for French
-      If(@xLanguage <> "Fr")
-        Let xLanguage = "Fr"
-      Else
-        Let xLanguage = "En"
-      EndIf
-      Call HelpLanguage @xLanguage
-      Let U = 0
-      Call NoteWindow
-    EndIf
-    ****************************************************************************
-
-    If ($Key = 51) ** 3 key for German
-      If(@xLanguage <> "De")
-        Let xLanguage = "De"
-      Else
-        Let xLanguage = "En"
-      EndIf
-      Call HelpLanguage @xLanguage
-      Let U = 0
-      Call NoteWindow
-    EndIf
-    ****************************************************************************
-
-    If ($Key = 52) ** 4 key for Spanish
-      If(@xLanguage <> "Es")
-        Let xLanguage = "Es"
-      Else
-        Let xLanguage = "En"
-      EndIf
-      Call HelpLanguage @xLanguage
-      Let U = 0
-      Call NoteWindow
-    EndIf
-    ****************************************************************************
-
-    If ($Key = 53) ** key 5 toggle speed switching/phake physics
+    If ($Key = 50) ** 2 key, toggle speed switching/phake physics
       If(@x1 = 1) ** SS is active
         Let xBox = $Set(@xMessageSet, Get, 0)
         Call $MsgBox(@xBox)
@@ -334,6 +266,21 @@ If($Set(@xMatrix, Get, 0) = 1) ** QK is active
       Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5,@x6,@x7
       Let U = 0
       Call NoteWindow
+    EndIf
+    ****************************************************************************
+
+    If ($Key = 51) ** 3 key for
+
+    EndIf
+    ****************************************************************************
+
+    If ($Key = 52) ** 4 key for
+
+    EndIf
+    ****************************************************************************
+
+    If ($Key = 53) ** key 5
+
     EndIf
     ****************************************************************************
 

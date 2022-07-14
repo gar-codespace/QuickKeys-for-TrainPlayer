@@ -2,15 +2,16 @@ Let $Key = 0
 
 ** Set Up the Subroutines
 
-Call o2o Setup 0 ** use TrainPlayer loads
-Call o2o Setup 1 ** use JMRI loads
+Call o2oSupport
 Call QuickKeys Setup
 Call SpeedSwitching Setup
 Call DropKick Setup
-Call PhastPhunctions Setup
-Call o2oSupport
-Call TurnTable Setup 2
-Call HelpLanguage @xLanguage
+** Call PhastPhunctions Setup
+Call o2o Setup 0 ** use TrainPlayer loads
+** Call o2o Setup 1 ** use JMRI loads
+** Call TurnTable Setup 2
+** Language choices are: en, de, fr, sp
+Call SetLanguage en
 Call NoteWindow
 
 StartingPoint:
