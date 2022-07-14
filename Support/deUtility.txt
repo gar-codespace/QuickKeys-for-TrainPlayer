@@ -1,25 +1,25 @@
 "*** Quick Keys Utilities ***
 
-Press 1 to turn Quick Keys off.
-Press 2 to activate Phake Physics.
-Press 3
-Press 4
+Drücken Sie 1: Schalten Sie alle Quick Keys aus.
 "
 ,
-"Press 5
+"Drücken Sie 2: Wechseln Sie zu Phake Physics.
 "
 ,
-"Press 2 to activate Speed Switching.
+"Drücken Sie 2: Wechseln Sie zu Geschwindigkeitsumschaltung.
 "
 ,
 ""
 ,
 ""
 ,
-"Press 6: Report all TrainPlayer locations.
-Press 7: Report of TrainPlayer rolling stock inventory.
-Press 8: Make a JMRI consist or kernel.
-Press 9: Set cars to their current location.
+"Drücken Sie 3:
+Drücken Sie 4:
+Drücken Sie 5:
+Drücken Sie 6: Melden Sie alle TrainPlayer-Standorte.
+Drücken Sie 7: Bericht über den Rollmaterialbestand von TrainPlayer.
+Drücken Sie 8: Erstellen Sie einen JMRI-Consist oder -Kernel.
+Drücken Sie 9: Stellen Sie Autos auf ihren aktuellen Standort ein.
 "
 ,
 "x6
@@ -30,10 +30,8 @@ Press 9: Set cars to their current location.
 ,
 "*** Quick Keys Utilities ***
 
-All Quick Keys are turned off.
-
-Press 1 to turn all Quick Keys on.
+Drücken Sie 1: Schalten Sie alle Quick Keys ein.
 "
 ,
-"Press u again to exit this window."
+"Drücken Sie erneut u, um dieses Fenster zu verlassen."
 ,

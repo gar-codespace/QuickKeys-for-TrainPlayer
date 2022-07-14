@@ -1,7 +1,9 @@
 ** QuickKeys2
 Let version = 20220105
 
-Proc GregsPrefs
+
+** Personal adjustments to TrainPlayer's preferences
+Proc UpdatePreferences
 
 Let ScrollDistFactorx10 = 25
 Let AllowYardMode = 1
@@ -23,73 +25,14 @@ EndProc
 ***************************************************************************
 
 
-Proc HelpUtilList ** Pass in xMatrix
-
-Let xHelpAll = ""
-Let xUtilAll = ""
-Let i = 0
-While (i < $Set(%1, Count))
-  If ($Set(%1, Get, @i) = 1)
-    Let xHelpAll = @xHelpAll $Set(@xHelpSet, Get, @i)
-    Let xUtilAll = @xUtilAll + $Set(@xUtilSet, Get, @i)
-  EndIf
-  Let i = @i + 1
-EndWhile
-Let xUtilAll = @xUtilAll + \n\n$Set(@xUtilSet, Get, 9) \n
-
-EndProc
-***************************************************************************
-
-Proc NoteWindow ** Open or close the help window
-
-If (%2 = 1) ** force window open
-  Note %1
-Else
-  Note %1
-EndIf
-
-EndProc
-***************************************************************************
-
-
-Proc SetLanguage
-
-** Read in text for help screen
-** Let xHelpLoc = $DataDir + "\Subroutines\QuickKeys\Support\hText" + $Set(@xHelpLan, Find, %1) + ".txt"
-Let xHelpLoc = $DataDir + "\Subroutines\QuickKeys\Support\" + %1 + "Help.txt"
-Let xHelpFile = $File(@xHelpLoc, Open)
-let xHelpSet = $file(@xHelpFile, ReadAll)
-Call $File(@xHelpLoc, Close)
-
-** Read in text for  o2o messages
-If(@x5 = 1) **  o2o is active
-  ** Let jTextLoc = $DataDir + "\Subroutines\QuickKeys\Support\JText" + $Set(@xHelpLan, Find, %1) + ".txt"
-  Let jTextLoc = $DataDir + "\Subroutines\QuickKeys\Support\" + %1 + "o2o.txt"
-  Let jTextFile = $File(@jTextLoc, Open)
-  let  jMessageSet = $File(@jTextFile, ReadAll)
-  Call $File(@jTextLoc, Close)
-EndIf
-
-** Read in text for Quick Keys messages
-** Let xMessageLoc = $DataDir + "\Subroutines\QuickKeys\Support\mText" + $Set(@xHelpLan, Find, %1) + ".txt"
-Let xMessageLoc = $DataDir + "\Subroutines\QuickKeys\Support\" + %1 + "Message.txt"
-Let xMessageFile = $File(@xMessageLoc, Open)
-let xMessageSet = $file(@xMessageFile, ReadAll)
-Call $File(@xMessageLoc, Close)
-
-** Read in text for Quick Keys utility menu
-** Let xUtilLoc = $DataDir + "\Subroutines\QuickKeys\Support\uText" + $Set(@xHelpLan, Find, %1) + ".txt"
-Let xUtilLoc = $DataDir + "\Subroutines\QuickKeys\Support\" + %1 + "Utility.txt"
-Let xUtilFile = $File(@xUtilLoc, Open)
-let xUtilSet = $file(@xUtilFile, ReadAll)
-Call $File(@xUtilLoc, Close)
-
-EndProc
-***************************************************************************
-
 If (%1 = SetUp)
 
-  Let xMessage = "\nPlease wait... Setting up subroutines.\nVeuillez patienter ... Configuration des sous-programmes.\nBitte warten ... Unterprogramme einrichten.\nEspere ... Configurando subrutinas. \n"
+  Let xMessage = "\nPlease wait... Setting up subroutines.
+                  \nVeuillez patienter ... Configuration des sous-programmes.
+                  \nBitte warten ... Unterprogramme einrichten.
+                  \nEspere ... Configurando subrutinas.
+                  \n"
+
   Call NoteWindow @xMessage 1
 
   Let x0 = 1 ** All Quick keys are on or off
@@ -98,18 +41,21 @@ If (%1 = SetUp)
   Let x3 = 0 ** DK on or off
   Let x4 = 0 ** Phast on or off
   Let x5 = 0 **  o2o on or off
-  ** x6 = 0 for TP loads, 1 for JMRI loads
+  Let x6 = 0 ** 0 for TP loads, 1 for JMRI loads
   Let x7 = 0 ** ?
-  Let xCR = "
-"
+  Let x8 = 0 ** ?
+  Let x9 = 0 ** ?
+
   Let NoteDownOnEsc = 1
 
   Let H = 0 ** Help Menu
   Let U = 0 ** Utility menu
-  Let L = 0 **  o2o Switch List
+  Let L = 0 ** o2o Switch List
   Let P = 0 ** Phast Phunctions
+  Let T = 1 ** turntable sub on
 
-  Call GregsPrefs
+  Call DefineCarrageReturn
+  Call UpdatePreferences
   Call $system("MD "%homepath%\AppData\Roaming\TrainPlayer\Reports"")
 
   Echo QuickKeys @version
@@ -135,8 +81,8 @@ If($Set(@xMatrix, Get, 0) = 0) ** QK is not active
     If (@U = 0) ** Create message for utility menu
       Let U = 1
       Let T = 0
-      Let xUtilMenu = \n$Set(@xUtilSet, Get, 8) \n\n$Set(@xUtilSet, Get, 9) \n** All off
-      *** Let xUtilMenu = @xUtilMenu \n\n$Set(@xUtilSet, Get, 9) \n
+      Let xUtilMenu = \n$Set(@UtilitySet, Get, 8) \n\n$Set(@UtilitySet, Get, 9) \n** All off
+      *** Let xUtilMenu = @xUtilMenu \n\n$Set(@UtilitySet, Get, 9) \n
       Call NoteWindow @xUtilMenu 1
     Else
       Let U = 0
@@ -250,13 +196,13 @@ If($Set(@xMatrix, Get, 0) = 1) ** QK is active
 
     If ($Key = 50) ** 2 key, toggle speed switching/phake physics
       If(@x1 = 1) ** SS is active
-        Let xBox = $Set(@xMessageSet, Get, 0)
+        Let xBox = $Set(@MessageSet, Get, 0)
         Call $MsgBox(@xBox)
         Let x1 = 0 ** deactivate SS
         Let x2 = 1 ** activate phake physics
         Call ProcessorInfo
       Else
-        Let xBox = $Set(@xMessageSet, Get, 1)
+        Let xBox = $Set(@MessageSet, Get, 1)
         Call $MsgBox(@xBox)
         Let x1 = 1 ** activate speed switching
         Let x2 = 0 ** deactivate PP

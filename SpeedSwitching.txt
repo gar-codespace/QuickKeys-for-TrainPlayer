@@ -56,8 +56,8 @@ If (%1 = SetUp)
 
 View Refresh
 
-Let x1 = 1
-Let x2 = 0
+Let x1 = 1 ** Turn on speed switching
+Let x2 = 0 ** Turn off phake physics
 Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5,@x6,@x7
 Let sBumpSpeed = 0
 Let sB = 0 ** 0 is off

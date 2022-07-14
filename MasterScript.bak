@@ -2,16 +2,18 @@ Let $Key = 0
 
 ** Set Up the Subroutines
 
-Call o2oSupport
+Call QKSupport  ** Quick Keys support utilities
+Call SetLanguage en  ** Language choices are: en, de, fr, sp
+
 Call QuickKeys Setup
 Call SpeedSwitching Setup
 Call DropKick Setup
-** Call PhastPhunctions Setup
-Call o2o Setup 0 ** use TrainPlayer loads
-** Call o2o Setup 1 ** use JMRI loads
-** Call TurnTable Setup 2
-** Language choices are: en, de, fr, sp
-Call SetLanguage en
+Call PhastPhunctions Setup
+** for o20 setup: 0 = use TrainPlayer loads, 1 = use JMRI loads
+Call o2o Setup 0
+Call TurnTable Setup 2
+
+**Close the greeting message
 Call NoteWindow
 
 StartingPoint:

@@ -1,6 +1,77 @@
 ** Quick Keys support utilities currently in use
 
 
+Proc DefineCarrageReturn
+
+** Need to simulate ReadLine for text strings
+Let xCR = "
+"
+
+EndProc
+***************************************************************************
+
+
+Proc SetLanguage
+
+** Read in text for help page
+Let HelpLoc = $DataDir + "\Subroutines\QuickKeys\Support\" + %1 + "Help.txt"
+Let HelpFile = $File(@HelpLoc, Open)
+let HelpSet = $file(@HelpFile, ReadAll)
+Call $File(@HelpLoc, Close)
+
+** Read in text for o2o reports
+Let o2oLoc = $DataDir + "\Subroutines\QuickKeys\Support\" + %1 + "o2o.txt"
+Let o2oFile = $File(@o2oLoc, Open)
+Let o2oSet = $File(@o2oFile, ReadAll)
+echo o2oSet
+Call $File(@o2oLoc, Close)
+
+
+** Read in text for Quick Keys pop up messages
+Let MessageLoc = $DataDir + "\Subroutines\QuickKeys\Support\" + %1 + "Message.txt"
+Let MessageFile = $File(@MessageLoc, Open)
+let MessageSet = $file(@MessageFile, ReadAll)
+Call $File(@MessageLoc, Close)
+
+** Read in text for Quick Keys utility menu
+Let UtilityLoc = $DataDir + "\Subroutines\QuickKeys\Support\" + %1 + "Utility.txt"
+Let UtilityFile = $File(@UtilityLoc, Open)
+let UtilitySet = $file(@UtilityFile, ReadAll)
+Call $File(@UtilityLoc, Close)
+
+EndProc
+***************************************************************************
+
+
+Proc HelpUtilList ** Pass in xMatrix
+
+Let xHelpAll = ""
+Let xUtilAll = ""
+Let i = 0
+While (i < $Set(%1, Count))
+  If ($Set(%1, Get, @i) = 1)
+    Let xHelpAll = @xHelpAll $Set(@HelpSet, Get, @i)
+    Let xUtilAll = @xUtilAll + $Set(@UtilitySet, Get, @i)
+  EndIf
+  Let i = @i + 1
+EndWhile
+Let xUtilAll = @xUtilAll + \n\n$Set(@UtilitySet, Get, 9) \n
+
+EndProc
+***************************************************************************
+
+Proc NoteWindow ** Open or close the help window
+
+If (%2 = 1) ** force window open
+  Note %1
+Else
+  Note %1
+EndIf
+
+EndProc
+***************************************************************************
+
+
 Proc ProcessorInfo
 
 ** Adjustment for processor speed
@@ -114,7 +185,7 @@ Proc InitCars
   Echo o2o Utility - set all or train rolling stock destinations
 
   If(%1 = "")
-    Let jXmessage = $Set(@jMessageSet, Get, 34)
+    Let jXmessage = $Set(@o2oSet, Get, 34)
     Let jX = $Msgbox("YN", @jXmessage)
     If (@jX = 1)
       Let jLabels = $Layout(IDSet, CarLabels) ** all trains on layout

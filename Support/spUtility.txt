@@ -1,25 +1,25 @@
 "*** Quick Keys Utilities ***
 
-Press 1 to turn Quick Keys off.
-Appuyez sur 2 pour le français par Google.
-Drücken Sie 3 für Deutsch von Google.
-Presione 4 para español de Google.
+Presione 1: Apague todas las teclas rápidas.
 "
 ,
-"Press 5 to activate Phake Physics.
+"Presione 2: Cambia a Phake Physics.
 "
 ,
-"Press 5 to activate Speed Switching.
+"Presione 2: Cambie a Cambio de velocidad.
 "
 ,
 ""
 ,
 ""
 ,
-"Press 6: Report all TrainPlayer locations.
-Press 7: Report of TrainPlayer rolling stock inventory.
-Press 8: Make a JMRI consist or kernel.
-Press 9: Set cars to their current location.
+"Presione 3:
+Presione 4:
+Presione 5:
+Presione 6: Informe todas las ubicaciones de TrainPlayer.
+Presione 7: Informe del inventario de material rodante de TrainPlayer.
+Presione 8: Hacer un JMRI consist o kernel.
+Presione 9: Coloca los autos en su ubicación actual.
 "
 ,
 "x6
@@ -30,10 +30,8 @@ Press 9: Set cars to their current location.
 ,
 "*** Quick Keys Utilities ***
 
-All Quick Keys are turned off.
-
-Press 1 to turn all Quick Keys on.
+Presione 1: active todas las teclas rápidas.
 "
 ,
-"Press u again to exit this window."
+"Vuelva a pulsar u para salir de esta ventana."
 ,

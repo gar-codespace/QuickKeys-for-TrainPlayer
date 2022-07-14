@@ -22,7 +22,7 @@ Proc CleanLayout
 If (%1 = 1)
   Let kCleanToggle = %1
 Else ** Put up guard rails
-  Let xMessage = $Set(@xMessageSet, Get, 2)
+  Let xMessage = $Set(@MessageSet, Get, 2)
   Let kCleanToggle = $MsgBox(yn, @xMessage)
 EndIf
 

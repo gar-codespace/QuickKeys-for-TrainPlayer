@@ -1,4 +1,4 @@
-"Ops 2 Ops (O2O) Workevent Switching
+"ops 2 ops (o2o) Workevent Switching
 Version 2"
 ,
 "Das Manifest ist leer."

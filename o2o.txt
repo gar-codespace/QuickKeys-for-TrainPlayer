@@ -226,7 +226,7 @@ Proc PickupCar ** Tag the TP car to be picked up
 
   ** Note adding a whitespace between variables adds a whitespace to the report, @j0 is not needed
 
-  Let jMText = @jMText + \n$Set(@jMessageSet, Get, 29) @j3 @j4 @j5 @j6c $Set(@jMessageSet, Get, 14) @j7
+  Let jMText = @jMText + \n$Set(@o2oSet, Get, 29) @j3 @j4 @j5 @j6c $Set(@o2oSet, Get, 14) @j7
   Let $Car(@jID, ExcludeOps) = 0 ** set the tags color
 
 EndProc
@@ -235,7 +235,7 @@ EndProc
 
 Proc SetoutCar ** Tag the TP car to be set out
 
-  Let jMText = @jMText + \n$Set(@jMessageSet, Get, 30) @j3 @j4 @j5 @j6c $Set(@jMessageSet, Get, 15) @j8
+  Let jMText = @jMText + \n$Set(@o2oSet, Get, 30) @j3 @j4 @j5 @j6c $Set(@o2oSet, Get, 15) @j8
   Let $Car(@jID, ExcludeOps) = 1
 
 EndProc
@@ -244,7 +244,7 @@ EndProc
 
 Proc PickUpLoco ** Tag the engine to be picked up
 
-  Let jMText = @jMText + \n$Set(@jMessageSet, Get, 29) @j3 @j4 @j5 @j6l $Set(@jMessageSet, Get, 14) @j7
+  Let jMText = @jMText + \n$Set(@o2oSet, Get, 29) @j3 @j4 @j5 @j6l $Set(@o2oSet, Get, 14) @j7
   Let $Car(@jID, ExcludeOps) = 0 ** set the tags color
 
 EndProc
@@ -253,7 +253,7 @@ EndProc
 
 Proc SetOutLoco ** Tag the engine to be set out
 
-  Let jMText = @jMText + \n$Set(@jMessageSet, Get, 30) @j3 @j4 @j5 @j6l $Set(@jMessageSet, Get, 15) @j8
+  Let jMText = @jMText + \n$Set(@o2oSet, Get, 30) @j3 @j4 @j5 @j6l $Set(@o2oSet, Get, 15) @j8
   Let $Car(@jID, ExcludeOps) = 1 ** set the tags color
 
 EndProc
@@ -346,7 +346,7 @@ Proc IncrementWE
   Let jFromList = ""
 
   Call ParseManifest @jManifestAll @jIndexWE
-  Let jNote = @jHeader \n$Set(@jMessageSet, Get, 4) @jWEN $Set(@jMessageSet, Get, 12) @jIndexWE $Set(@jMessageSet, Get, 13) @jWETotal \n@jMText \n\n@y $Set(@jMessageSet, Get, 5) @z $Set(@jMessageSet, Get, 6) \n
+  Let jNote = @jHeader \n$Set(@o2oSet, Get, 4) @jWEN $Set(@o2oSet, Get, 12) @jIndexWE $Set(@o2oSet, Get, 13) @jWETotal \n@jMText \n\n@y $Set(@o2oSet, Get, 5) @z $Set(@o2oSet, Get, 6) \n
   Call NoteWindow @jNote 1
   Let L = 1
 
@@ -385,7 +385,7 @@ If($Set(@xMatrix, Get, 5) = 1)
 
   If ($Key = 76) ** key l for list
     If(@jManifestAll = "") ** if manifest is not read in, set to default.
-      Let jNote = \n$Set(@jMessageSet, Get, 0)\n\n$Set(@jMessageSet, Get, 1)\n\n$Set(@jMessageSet, Get, 2) \n
+      Let jNote = \n$Set(@o2oSet, Get, 0)\n\n$Set(@o2oSet, Get, 1)\n\n$Set(@o2oSet, Get, 2) \n
     EndIf
     If (@L = 0)
       Let L = 1
@@ -402,7 +402,7 @@ If($Set(@xMatrix, Get, 5) = 1)
 
 
   If($Key = 77) ** key m for manifest
-    Let jMessage = $Set(@jMessageSet, Get, 19) ** Read in jManifest
+    Let jMessage = $Set(@o2oSet, Get, 19) ** Read in jManifest
     Let jManifest = $Msgbox(YN, @jMessage)
     If (@jManifest = 0)
       Let $Key = 0
@@ -418,7 +418,7 @@ If($Set(@xMatrix, Get, 5) = 1)
     Call $File(@jReportManifest, Close)
     Call CreateReportHeader @jManifestAll
 
-    Let jNote = \n$Set(@jMessageSet, Get, 0)\n\n$Set(@jMessageSet, Get, 3) \n
+    Let jNote = \n$Set(@o2oSet, Get, 0)\n\n$Set(@o2oSet, Get, 3) \n
     Call NoteWindow @jNote 1
     Echo Read in manifest
     Let jIndexWE = 1
@@ -430,10 +430,10 @@ If($Set(@xMatrix, Get, 5) = 1)
 
   If($Key = 33) ** Page Up key
     If(@jIndexWE = 1)
-      Let jMessage = $Set(@jMessageSet, Get, 17)
+      Let jMessage = $Set(@o2oSet, Get, 17)
       Call $Msgbox(@jMessage)
     Else
-      Let jNote = @jHeader \n\n$Set(@jMessageSet, Get, 9)\n\n$Set(@jMessageSet, Get, 11) \n
+      Let jNote = @jHeader \n\n$Set(@o2oSet, Get, 9)\n\n$Set(@o2oSet, Get, 11) \n
       Call NoteWindow @jNote 1
       Echo Move to previous WorkEvent
       Let jIndexWE = @jIndexWE - 1
@@ -447,10 +447,10 @@ If($Set(@xMatrix, Get, 5) = 1)
 
   If($Key = 34) ** Page Down key
     If(@jIndexWE = @jWETotal)
-      Let jMessage = $Set(@jMessageSet, Get, 18)
+      Let jMessage = $Set(@o2oSet, Get, 18)
       Call $Msgbox(@jMessage)
     Else
-      Let jNote = @jHeader \n\n$Set(@jMessageSet, Get, 8)\n\n$Set(@jMessageSet, Get, 11) \n
+      Let jNote = @jHeader \n\n$Set(@o2oSet, Get, 8)\n\n$Set(@o2oSet, Get, 11) \n
       Call NoteWindow @jNote 1
       Echo Move to next WorkEvent
       Let jIndexWE = @jIndexWE + 1
@@ -464,10 +464,10 @@ If($Set(@xMatrix, Get, 5) = 1)
 
   If ($Key = 35) ** End key
     If(@jIndexWE = @jWETotal)
-      Let jMessage = $Set(@jMessageSet, Get, 18)
+      Let jMessage = $Set(@o2oSet, Get, 18)
       Call $Msgbox(@jMessage)
     Else
-      Let jNote = @jHeader \n\n$Set(@jMessageSet, Get, 10)\n\n$Set(@jMessageSet, Get, 11) \n
+      Let jNote = @jHeader \n\n$Set(@o2oSet, Get, 10)\n\n$Set(@o2oSet, Get, 11) \n
       Call NoteWindow @jNote 1
       Echo Move to last WorkEvent
       Let jIndexWE = @jWETotal
@@ -481,10 +481,10 @@ If($Set(@xMatrix, Get, 5) = 1)
 
   If ($Key = 36) ** Home key
     If(@jIndexWE = 1)
-      Let jMessage = $Set(@jMessageSet, Get, 17)
+      Let jMessage = $Set(@o2oSet, Get, 17)
       Call $Msgbox(@jMessage)
     Else
-      Let jNote = @jHeader \n\n$Set(@jMessageSet, Get, 7)\n\n$Set(@jMessageSet, Get, 11) \n
+      Let jNote = @jHeader \n\n$Set(@o2oSet, Get, 7)\n\n$Set(@o2oSet, Get, 11) \n
       Call NoteWindow @jNote 1
       Echo Move to first WorkEvent
       Let jIndexWE = 1
