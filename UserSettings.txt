@@ -1,0 +1,42 @@
+** UserSettings1
+Let version = 20220105
+
+
+Proc UpdatePreferences
+** Personal adjustments to TrainPlayer's preferences
+
+Let ScrollDistFactorx10 = 25
+Let AllowYardMode = 1
+Let InYardMode = 1
+Let BarrelThruMode = 0
+Let Coupling Speed = 5
+Let Car Gap = 0
+
+Let JunctionActions = 255
+Let DistFromSwitch =  0
+Let HiliteSize = 18
+
+Set CarLabelFont "-9,400,0,16777215,Arial"
+Set CarLabelsBkColor 13664326
+Set CarLabelsExclOpsColor 855525
+Set TrackLabelParams 1,"90,700,0,0,Arial"
+
+EndProc
+***************************************************************************
+
+
+Proc o2oInit
+** Reworks the Advanced Ops setup
+
+  call $view(hide,tracks)
+  call $view(hide,rails)
+  call $view(hide,ties)
+  call $view(hide,roadbed)
+  call $view(hide,clock)
+  tools run
+
+  set $layout(readonly) 0
+  set $layout(savevars) 0
+
+EndProc
+****************************************************************************

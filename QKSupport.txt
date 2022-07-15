@@ -1,9 +1,9 @@
 ** Quick Keys support utilities currently in use
-
+Let version = 20220105
 
 Proc DefineCarrageReturn
 
-** Need to simulate ReadLine for text strings
+** Simulate ReadLine for text strings
 Let xCR = "
 "
 
@@ -23,7 +23,6 @@ Call $File(@HelpLoc, Close)
 Let o2oLoc = $DataDir + "\Subroutines\QuickKeys\Support\" + %1 + "o2o.txt"
 Let o2oFile = $File(@o2oLoc, Open)
 Let o2oSet = $File(@o2oFile, ReadAll)
-echo o2oSet
 Call $File(@o2oLoc, Close)
 
 
@@ -120,12 +119,15 @@ Proc UpdateJMRIInventory
 
   Let rsCount = $Set(@jAllRS, Count)
 
-  Let inventory = "Car Label,Track Label"
+  Let inventory = "Car Label,Location;Track"
   While($Set(@jAllRS, Count) <> 0)
     Let jCar = $String(@jAllRS, NextToken)
+
     Let TrackId = $Car(@jCar, Location)
-    Let jTrackLabel = $track(@TrackId, Label)
-    Let inventory = @inventory + \n$Car(@jCar, Label),@jTrackLabel
+    Let LocaleRow = $Ops(Find, Locations.Track, @TrackId)
+    Let LocationTrack = $Ops(Get, Locations.Locale, @LocaleRow)
+    ** Use : as seperator since some types have commas
+    Let inventory = @inventory + \n$Car(@jCar, Label),@LocationTrack,$Car(@jCar, AAR),$Car(@jCar, Class),$Car(@jCar, Note)
   EndWhile
 
   Let jInventoryLoc = $DataDir + "\Reports\TrainPlayer Export - Inventory.txt"
@@ -199,9 +201,6 @@ Proc InitCars
 
   While($Set(@jLabels, Count) <> 0)
     Let jTemp = $String(@jLabels, NextToken) ** car label
-    ** Let jAAR = $Car(@jTemp, AAR)
-    ** Let $Car(@jTemp, ExcludeOps) = 0
-    ** Let $Car(@jTemp, Loaded) = 0
     Let jCarLoc = $Car(@jTemp, Track) ** track ID
     Let jCarLoc = $Track(@jCarLoc, Label) ** track label
     Let $Car(@jTemp, Dest) = @jCarLoc
@@ -224,7 +223,7 @@ EndProc
 
 Proc AutoLabel
 
-  Echo Attach to loco to automatically label tracks
+  ** Attach to loco to automatically label tracks
 
   Middle:
   After 00:00:01

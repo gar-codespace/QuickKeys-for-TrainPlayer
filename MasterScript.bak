@@ -2,6 +2,7 @@ Let $Key = 0
 
 ** Set Up the Subroutines
 
+Call UserSettings
 Call QKSupport  ** Quick Keys support utilities
 Call SetLanguage en  ** Language choices are: en, de, fr, sp
 

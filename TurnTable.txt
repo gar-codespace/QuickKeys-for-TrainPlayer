@@ -70,8 +70,15 @@ If(@x0 = 1) ** all QK active
     Let tTable = $Set(@tMatrix, Find, @tTable) ** index of TT lead
     Let tTable = @tTable - 1 ** index of TT
     Let tTable = $Set(@tMatrix, Get, @tTable) ** TT ID in matrix
+
     Call CullTheHerd
-    Echo The table lead is selected. Select a stall track.
+
+    Let xy = $Set(@tNumeric, Find, $Key)
+    Let xz = $Set(@tAlpha, Get, @xy)
+    Echo
+    Echo Turntable lead @xz is selected.
+    Echo Select an alignment track.
+
     On Key
       Let x0 = 0 ** shut off QK
       Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5,@x6,@x7 ** update QK
@@ -80,21 +87,28 @@ If(@x0 = 1) ** all QK active
         Let tTrack = $Set(@tMatrixCopy, Find, @tTrack) ** track index
         Let tTrack = @tTrack + 1 ** junction index
         Let tTrack = $Set(@tMatrixCopy, Get, @tTrack) ** junction id
-        Echo Track selected. Press 'a' or 'c'
+
+        Let xy = $Set(@tNumeric, Find, $Key)
+        Let xz = $Set(@tAlpha, Get, @xy)
+
+        Echo Align to track @xz
+        Echo Press 'a' for anticlockwise or 'c' for clockwise.
         TryAgain:
         On Key
           Let x0 = 0 ** shut off QK
           Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5,@x6,@x7 ** update QK
           If ($Key = 65)
             Rotate @tTable @tTrack CCW
+            Echo Running...
           ElseIf ($Key = 67)
             Rotate @tTable @tTrack CW
+            Echo Running...
           Else
-            Echo Press 'a' for anticlockwise or 'c' for clockwise
+            Echo Press 'a' for anticlockwise or 'c' for clockwise.
             GoTo TryAgain
           EndIf
           On TableStop
-            Echo Turntable aligned to track.
+            Echo Turntable aligned to track @xz
             Let x0 = 1
             Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5,@x6,@x7
             Let H = 0
@@ -103,7 +117,8 @@ If(@x0 = 1) ** all QK active
             View Refresh
             Exit
       Else
-        Echo Stall track not found. Select a turntable lead.
+        Echo Stall track not found.
+        Echo Select a turntable lead.
         Let x0 = 1
         Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5,@x6,@x7
         Let H = 0
