@@ -126,8 +126,13 @@ Proc UpdateJMRIInventory
     Let TrackId = $Car(@jCar, Location)
     Let LocaleRow = $Ops(Find, Locations.Track, @TrackId)
     Let LocationTrack = $Ops(Get, Locations.Locale, @LocaleRow)
-    ** Use : as seperator since some types have commas
-    Let inventory = @inventory + \n$Car(@jCar, Label),@LocationTrack,$Car(@jCar, AAR),$Car(@jCar, Class),$Car(@jCar, Note)
+    ** Use : as seperator since some fields use commas
+    Let inventory = @inventory +\n
+                               + $Car(@jCar, Label)
+                               + ":" + @LocationTrack
+                               + ":" + $Car(@jCar, AAR)
+                               + ":" + $Car(@jCar, Loaded)
+                               + ":" + $Car(@jCar, Kernel)
   EndWhile
 
   Let jInventoryLoc = $DataDir + "\Reports\TrainPlayer Export - Inventory.txt"
