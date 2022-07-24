@@ -119,7 +119,7 @@ Proc UpdateJMRIInventory
 
   Let rsCount = $Set(@jAllRS, Count)
 
-  Let inventory = "Car Label:AAR:Location;Track:Loaded:Kernel"
+  Let inventory = "Car Label;AAR;Location;Track;Loaded;Kernel,Type"
   While($Set(@jAllRS, Count) <> 0)
     Let jCar = $String(@jAllRS, NextToken)
 
@@ -133,7 +133,7 @@ Proc UpdateJMRIInventory
     EndIf
 
     ** Use : as seperator since some fields use commas
-    Let inventory = @inventory +\n + $Car(@jCar, Label) + ":" + $Car(@jCar, AAR) + ":" + @LocationTrack + ":" + $Car(@jCar, Loaded) + ":" + $Car(@jCar, Kernel)
+    Let inventory = @inventory +\n + $Car(@jCar, Label) + ";" + $Car(@jCar, AAR) + ";" + @LocationTrack + ";" + $Car(@jCar, Loaded) + ";" + $Car(@jCar, Kernel) + ";" + $Car(@jCar, Type)
 
   EndWhile
 
@@ -153,12 +153,12 @@ Proc UpdateJMRILocations
   Let jID = $ops(find, Locs.Class, All, ID)
   Let jCount = $Set(@jID, Count)
 
-  Let inventory = ""
+  Let inventory = "ID;Locale;Track;Type;Spaces"
 
   Let i = 1
   While (i <= @jCount)
 
-    Let inventory = @inventory + $Ops(Get, Locs.Track, @i),$Ops(Get, Locs.Locale, @i),$Ops(Get, Locs.Class, @i),$Ops(Get, Locs.VacantSpots, @i),\n
+    Let inventory = @inventory + \n$Ops(Get, Locs.ID, @i) + ";" + $Ops(Get, Locs.Locale, @i) + ";" + $Ops(Get, Locs.Class, @i) + ";" + $Ops(Get, Locs.VacantSpots, @i)
     Let i = @i + 1
 
   EndWhile
