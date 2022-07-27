@@ -145,33 +145,96 @@ Proc UpdateJMRIInventory
 EndProc
 ****************************************************************************
 
+Proc ReportJMRIInventory
 
-Proc UpdateJMRILocations
+  Echo o2o Utility - Report of TrainPlayer rolling stock inventory
 
-  Echo o2o Utility - Report of all TrainPlayer locations
+  Echo Working on it......
 
-  Let jID = $ops(find, Locs.Class, All, ID)
+  Let jID = $Ops(find, Cars.Car, All, Car)
   Let jCount = $Set(@jID, Count)
 
-  Let inventory = "ID;Locale;Track;Type;Spaces"
+  Let jInventory = "Car;Type;AAR;JMRI Location;JMRI Track;Load,Kernel"
 
   Let i = 1
   While (i <= @jCount)
 
-    Let inventory = @inventory + \n$Ops(Get, Locs.ID, @i) + ";" + $Ops(Get, Locs.Locale, @i) + ";" + $Ops(Get, Locs.Class, @i) + ";" + $Ops(Get, Locs.VacantSpots, @i)
+    Let jCar = $Ops(Get, Cars.Car, @i)
+    Let jKernel = $Car(@jCar, kernel)
+
+    Let jTrack = $Ops(Get, Cars.Location, @i)
+    Let jLocale = $Ops(Find, Locs.Track, @jTrack)
+    Let jLocale = $Ops(Get, Locs.Locale, @jLocale)
+    If(@jTrack = "~")
+      Let jLocale = "Undefined;~"
+    EndIf
+
+    Let jInventory = jInventory +\n@jCar + ";" + $Ops(Get, Cars.Type, @i) + ";" + $Ops(Get, Cars.AAR, @i) + ";" +  @jLocale + ";" + $Ops(Get, Cars.Load, @i) + ";" +  @jKernel
+    Let i = @i + 1
+
+  EndWhile
+
+  Let jInventoryLoc = $DataDir + "\Reports\TrainPlayer Export - Inventory.txt"
+  Call $Write(@jInventoryLoc, @jInventory)
+
+  Echo Rolling stock count: @jCount
+
+EndProc
+****************************************************************************
+
+
+Proc ReportTpLocations
+
+  Echo o2o Utility - Report of all TrainPlayer locations
+
+  Let jID = $Ops(find, Locs.Class, All, ID)
+  Let jCount = $Set(@jID, Count)
+
+  Let jLocation = "ID;Locale;Track;Class;Spaces"
+
+  Let i = 1
+  While (i < @jCount)
+
+    Let jLocation = @jLocation + \n$Ops(Get, Locations.ID, @i) + ";" + $Ops(Get, Locs.Locale, @i) + ";" + $Ops(Get, Locs.Class, @i) + ";" + $Ops(Get, Locs.VacantSpots, @i)
     Let i = @i + 1
 
   EndWhile
 
 
-  Let jInventoryLoc = $DataDir + "\Reports\TrainPlayer Export - Locations.txt"
-  Call $Write(@jInventoryLoc, @inventory)
+  Let jLocationLoc = $DataDir + "\Reports\TrainPlayer Export - Locations.txt"
+  Call $Write(@jLocationLoc, @jLocation)
 
   Echo Location count: @jCount
 
 EndProc
 ****************************************************************************
 
+
+Proc ReportTpIndustries
+
+  Echo o2o Utility - Report of all TrainPlayer industries
+
+  Let jID = $Ops(find, Industries.Locale, All, ID)
+  Let jCount = $Set(@jID, Count)
+
+  Let jIndustry = "ID;JMRI Location;JMRI Track;Industry;AAR;S/R;Load;Staging;ViaIn"
+
+  Let i = 1
+  While (i <= @jCount)
+
+    Let jIndustry = @jIndustry + \n$Ops(Get, ind.ID, @i) + ";" + $Ops(Get, ind.Locale, @i) + ";" + $Ops(Get, ind.Industry, @i) + ";" + $Ops(Get, ind.AAR, @i) + ";" + $Ops(Get, ind.S/R, @i) + ";" + $Ops(Get, ind.Load, @i) + ";" + $Ops(Get, ind.Staging, @i) + ";" + $Ops(Get, ind.ViaIn, @i)
+    Let i = @i + 1
+
+  EndWhile
+
+
+  Let jIndustryyLoc = $DataDir + "\Reports\TrainPlayer Export - Industries.txt"
+  Call $Write(@jIndustryyLoc, @jIndustry)
+
+  Echo Industry count: @jCount
+
+EndProc
+****************************************************************************
 
 Proc AddKernels
 
