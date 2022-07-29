@@ -190,12 +190,12 @@ Proc ReportTpLocations
   Let jID = $Ops(find, Locs.Class, All, ID)
   Let jCount = $Set(@jID, Count)
 
-  Let jLocation = "ID;Locale;Track;Class;Spaces"
+  Let jLocation = "TP ID;JMRI Location;JMRI Track;TP Track;TP Class;TPSpaces"
 
   Let i = 1
   While (i < @jCount)
 
-    Let jLocation = @jLocation + \n$Ops(Get, Locations.ID, @i) + ";" + $Ops(Get, Locs.Locale, @i) + ";" + $Ops(Get, Locs.Class, @i) + ";" + $Ops(Get, Locs.VacantSpots, @i)
+    Let jLocation = @jLocation + \n$Ops(Get, Locations.ID, @i) + ";" + $Ops(Get, Locs.Locale, @i) + ";" + $Ops(Get, Locs.Track, @i) + ";" + $Ops(Get, Locs.Class, @i) + ";" + $Ops(Get, Locs.VacantSpots, @i)
     Let i = @i + 1
 
   EndWhile
@@ -217,7 +217,7 @@ Proc ReportTpIndustries
   Let jID = $Ops(find, Industries.Locale, All, ID)
   Let jCount = $Set(@jID, Count)
 
-  Let jIndustry = "ID;JMRI Location;JMRI Track;Industry;AAR;S/R;Load;Staging;ViaIn"
+  Let jIndustry = "TP ID;JMRI Location;JMRI Track;TP Industry;TP AAR;TP S/R;Load;TP Staging;TP ViaIn"
 
   Let i = 1
   While (i <= @jCount)
