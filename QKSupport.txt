@@ -119,7 +119,10 @@ Proc UpdateJMRIInventory
 
   Let rsCount = $Set(@jAllRS, Count)
 
-  Let inventory = "Car Label;AAR;Location;Track;Loaded;Kernel,Type"
+  Let inventory = $Layout
+  Let inventory = @inventory +\n$Layout(Description)
+  Let inventory = @inventory +\n + "Car Label;AAR;Location;Track;Loaded;Kernel,Type"
+
   While($Set(@jAllRS, Count) <> 0)
     Let jCar = $String(@jAllRS, NextToken)
 
@@ -154,7 +157,10 @@ Proc ReportJMRIInventory
   Let jID = $Ops(find, Cars.Car, All, Car)
   Let jCount = $Set(@jID, Count)
 
-  Let jInventory = "Car;Type;AAR;JMRI Location;JMRI Track;Load,Kernel"
+
+  Let jInventory = $Layout
+  Let jInventory = @jInventory +\n$Layout(Description)
+  Let jInventory = @jInventory +\n + "Car;Type;AAR;JMRI Location;JMRI Track;Load,Kernel"
 
   Let i = 1
   While (i <= @jCount)
@@ -169,7 +175,7 @@ Proc ReportJMRIInventory
       Let jLocale = "Undefined;~"
     EndIf
 
-    Let jInventory = jInventory +\n@jCar + ";" + $Ops(Get, Cars.Type, @i) + ";" + $Ops(Get, Cars.AAR, @i) + ";" +  @jLocale + ";" + $Ops(Get, Cars.Load, @i) + ";" +  @jKernel
+    Let jInventory = @jInventory +\n@jCar + ";" + $Ops(Get, Cars.Type, @i) + ";" + $Ops(Get, Cars.AAR, @i) + ";" +  @jLocale + ";" + $Ops(Get, Cars.Load, @i) + ";" +  @jKernel
     Let i = @i + 1
 
   EndWhile
@@ -190,7 +196,9 @@ Proc ReportTpLocations
   Let jID = $Ops(find, Locs.Class, All, ID)
   Let jCount = $Set(@jID, Count)
 
-  Let jLocation = "TP ID;JMRI Location;JMRI Track;TP Track;TP Class;TPSpaces"
+  Let jLocation = $Layout
+  Let jLocation = @jLocation +\n$Layout(Description)
+  Let jLocation = @jLocation +\n + "TP ID;JMRI Location;JMRI Track;TP Track;TP Class;TPSpaces"
 
   Let i = 1
   While (i < @jCount)
@@ -217,7 +225,9 @@ Proc ReportTpIndustries
   Let jID = $Ops(find, Industries.Locale, All, ID)
   Let jCount = $Set(@jID, Count)
 
-  Let jIndustry = "TP ID;JMRI Location;JMRI Track;TP Industry;TP AAR;TP S/R;Load;TP Staging;TP ViaIn"
+  Let jIndustry = $Layout
+  Let jIndustry = @jIndustry +\n$Layout(Description)
+  Let jIndustry = @jIndustry +\n + "TP ID;JMRI Location;JMRI Track;TP Industry;TP AAR;TP S/R;Load;TP Staging;TP ViaIn"
 
   Let i = 1
   While (i <= @jCount)
