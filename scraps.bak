@@ -1,5 +1,50 @@
 ** Procedures not currently being used
 
+
+
+
+Proc UpdateJMRIInventory
+
+  Echo o2o Utility - Report of TrainPlayer rolling stock inventory
+
+  Echo Working on it......
+
+  Let jAllRS = $Layout(IDSet, CarLabels)
+  ** Let jExcludeList = $Ops(Find,Cars.Dest,"~",Car)
+  ** Let jInventoryRS = $Set(@jAllRS, Difference, @jExcludeList)
+
+  Let rsCount = $Set(@jAllRS, Count)
+
+  Let inventory = $Layout
+  Let inventory = @inventory +\n$Layout(Description)
+  Let inventory = @inventory +\n + "Car Label;AAR;Location;Track;Loaded;Kernel,Type"
+
+  While($Set(@jAllRS, Count) <> 0)
+    Let jCar = $String(@jAllRS, NextToken)
+
+    Let TrackId = $Car(@jCar, Location)
+    Let LocaleRow = $Ops(Find, Locations.Track, @TrackId)
+
+    If(@LocaleRow = '')
+      Let LocationTrack = "Undefined;~"
+    Else
+      Let LocationTrack = $Ops(Get, Locations.Locale, @LocaleRow)
+    EndIf
+
+    ** Use : as seperator since some fields use commas
+    Let inventory = @inventory +\n + $Car(@jCar, Label) + ";" + $Car(@jCar, AAR) + ";" + @LocationTrack + ";" + $Car(@jCar, Loaded) + ";" + $Car(@jCar, Kernel) + ";" + $Car(@jCar, Type)
+
+  EndWhile
+
+  Let jInventoryLoc = $DataDir + "\Reports\TrainPlayer Report - Inventory.txt"
+  Call $Write(@jInventoryLoc, @inventory)
+
+  Echo Rolling stock count: @rsCount
+
+EndProc
+****************************************************************************
+
+
 Proc ProcessorInfo
 
 ** Adjustment for processor speed
