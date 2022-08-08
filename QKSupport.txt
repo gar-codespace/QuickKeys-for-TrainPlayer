@@ -116,7 +116,8 @@ Proc ReportTpInventory
   Let jID = $Ops(find, Cars.Car, All, Car)
   Let jCount = $Set(@jID, Count)
 
-  Let jInventory = "TP Car; TP Type; TP AAR; JMRI Location; JMRI Track; TP Load; TP Kernel"
+  Let jInventory = $DATE + "-" + $TIME
+  Let jInventory = @jInventory + \n"TP Car; TP Type; TP AAR; JMRI Location; JMRI Track; TP Load; TP Kernel"
 
   Let i = 1
   While (i <= @jCount)
@@ -152,7 +153,8 @@ Proc ReportTpLocations
   Let jID = $Ops(find, Locs.Class, All, ID)
   Let jCount = $Set(@jID, Count)
 
-  Let jLocation = $Layout
+  Let jLocation = $DATE + "-" + $TIME
+  Let jLocation = @jLocation +\n$Layout
   Let jLocation = @jLocation +\n$Layout(Description)
   Let jLocation = @jLocation +\n + "TP ID;JMRI Location;JMRI Track;TP Track;TP Class;TP Spaces"
 
@@ -189,7 +191,8 @@ Proc ReportTpIndustries
   Let jID = $Ops(find, Industries.Locale, All, ID)
   Let jCount = $Set(@jID, Count)
 
-  Let jIndustry = "TP ID;JMRI Location;JMRI Track;TP Industry;TP AAR;TP S/R;Load;TP Staging;TP ViaIn"
+  Let jIndustry = $DATE + "-" + $TIME
+  Let jIndustry = @jIndustry + \n"TP ID;JMRI Location;JMRI Track;TP Industry;TP AAR;TP S/R;Load;TP Staging;TP ViaIn"
 
   Let i = 1
   While (i <= @jCount)
