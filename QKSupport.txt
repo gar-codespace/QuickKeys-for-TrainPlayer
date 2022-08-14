@@ -129,7 +129,7 @@ Proc ReportTpInventory
     Let jLocale = $Ops(Find, Locs.Track, @jTrack)
     Let jLocale = $Ops(Get, Locs.Locale, @jLocale)
     If(@jTrack = "~")
-      Let jLocale = "Undefined;~"
+      Let jLocale = "Unknown;~"
     EndIf
 
     Let jInventory = @jInventory +\n@jCar + ";" + $Ops(Get, Cars.Type, @i) + ";" + $Ops(Get, Cars.AAR, @i) + ";" +  @jLocale + ";" + $Ops(Get, Cars.Load, @i) + ";" +  @jKernel
@@ -159,7 +159,7 @@ Proc ReportTpLocations
   Let jLocation = @jLocation +\n + "TP ID;JMRI Location;JMRI Track;TP Track;TP Class;TP Spaces"
 
   Let i = 1
-  While (i < @jCount)
+  While (i <= @jCount)
 
     Let thisTrack = $Ops(Get, Locs.Track, @i)
 
