@@ -266,6 +266,27 @@ EndProc
 ****************************************************************************
 
 
+Proc InitTracks
+
+Echo o2o Utility - Set all <> or ~ tracks to null
+Let jIDs = $Layout(IDSet, TrackIDs)
+Let i = 0
+While(@i < $Set(@jIDs, Count))
+  Let jTrackID = $Set(@jIDs, Get, @i)
+  If($TRACK(@jTrackID, Label) = "")
+    Let $TRACK(@jTrackID, Label) = "~"
+  EndIf
+  If($TRACK(@jTrackID, Label) = "<>")
+    Let $TRACK(@jTrackID, Label) = ""
+  EndIf
+  Let i = @i + 1
+EndWhile
+Echo InitTracks Complete
+
+EndProc
+****************************************************************************
+
+
 Proc AutoLabel
 
   ** Attach to loco to automatically label tracks

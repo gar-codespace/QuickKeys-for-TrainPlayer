@@ -208,8 +208,7 @@ If($Set(@xMatrix, Get, 0) = 1) ** QK is active
     ****************************************************************************
 
     If ($Key = 54) ** 6 key
-      Call ReportTpLocations
-      Call ReportTpIndustries
+      Call InitTracks
       Let U = 0
       Let L = 0
       Let P = 0
@@ -220,7 +219,7 @@ If($Set(@xMatrix, Get, 0) = 1) ** QK is active
     ****************************************************************************
 
     If ($Key = 55) ** 7 key
-      Call ReportTpInventory
+      Call InitCars
       Let U = 0
       Let L = 0
       Let P = 0
@@ -242,7 +241,9 @@ If($Set(@xMatrix, Get, 0) = 1) ** QK is active
     ****************************************************************************
 
     If ($Key = 57) ** 9 key
-      Call InitCars
+      Call ReportTpLocations
+      Call ReportTpIndustries
+      Call ReportTpInventory
       Let U = 0
       Let L = 0
       Let P = 0

@@ -16,10 +16,10 @@ Press 1: Turn all Quick Keys off.
 "Press 3:
 Press 4:
 Press 5:
-Press 6: Report all TrainPlayer locations.
-Press 7: Report of TrainPlayer rolling stock inventory.
+Press 6: Initialize layout tracks.
+Press 7: Set cars to their current location.
 Press 8: Make a JMRI consist or kernel.
-Press 9: Set cars to their current location.
+Press 9: Export TrainPlayer layout.
 "
 ,
 "x6
