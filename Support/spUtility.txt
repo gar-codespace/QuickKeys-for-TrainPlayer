@@ -1,25 +1,25 @@
 "*** Quick Keys Utilities ***
 
-Presione 1: Apague todas las teclas rápidas.
+Pulsar 1: Desactivar todas las teclas rápidas.
 "
 ,
-"Presione 2: Cambia a Phake Physics.
+"Pulsar 2: Cambiar a Física de la Fusión.
 "
 ,
-"Presione 2: Cambie a Cambio de velocidad.
+"Pulsar 2: Cambiar a conmutación de velocidad.
 "
 ,
 ""
 ,
 ""
 ,
-"Presione 3:
-Presione 4:
-Presione 5:
-Presione 6: Informe todas las ubicaciones de TrainPlayer.
-Presione 7: Informe del inventario de material rodante de TrainPlayer.
-Presione 8: Hacer un JMRI consist o kernel.
-Presione 9: Coloca los autos en su ubicación actual.
+"
+*** o2o Utilities ***
+
+Pulsar 6: Inicializar las pistas de trazado.
+Pulsar 7: Fijar los coches en su ubicación actual.
+Pulsa 8: Haz una consistencia o núcleo JMRI.
+Pulse 9: Exportar el diseño de TrainPlayer.
 "
 ,
 "x6
@@ -30,7 +30,7 @@ Presione 9: Coloca los autos en su ubicación actual.
 ,
 "*** Quick Keys Utilities ***
 
-Presione 1: active todas las teclas rápidas.
+Pulsar 1: Activar todas las teclas rápidas.
 "
 ,
 "Vuelva a pulsar u para salir de esta ventana."

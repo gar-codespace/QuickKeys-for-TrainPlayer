@@ -13,13 +13,13 @@ Appuyez sur 1: Désactivez toutes les touches rapides.
 ,
 ""
 ,
-"Appuyez sur 3:
-Appuyez sur 4:
-Appuyez sur 5:
-Appuyez sur 6: Signaler tous les emplacements TrainPlayer.
-Appuyez sur 7: Rapport d'inventaire du matériel roulant TrainPlayer.
-Appuyez sur 8: Créez une consistance ou un noyau JMRI.
-Appuyez sur 9: Réglez les voitures à leur emplacement actuel.
+"
+*** o2o Utilities ***
+
+Appuyez sur 6 : Initialiser les pistes de mise en page.
+Appuyez sur 7 : les voitures se retrouvent à leur emplacement actuel.
+Pressez 8 : Faites un consistoire ou un noyau JMRI.
+Appuyez sur 9 : Exportation de la mise en page TrainPlayer.
 "
 ,
 "x6

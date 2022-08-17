@@ -13,13 +13,13 @@ Drücken Sie 1: Schalten Sie alle Quick Keys aus.
 ,
 ""
 ,
-"Drücken Sie 3:
-Drücken Sie 4:
-Drücken Sie 5:
-Drücken Sie 6: Melden Sie alle TrainPlayer-Standorte.
-Drücken Sie 7: Bericht über den Rollmaterialbestand von TrainPlayer.
-Drücken Sie 8: Erstellen Sie einen JMRI-Consist oder -Kernel.
-Drücken Sie 9: Stellen Sie Autos auf ihren aktuellen Standort ein.
+"
+*** o2o Utilities ***
+
+Drücken Sie 6: Initialisieren Sie die Layoutspuren.
+Drücken Sie 7: Setzen Sie die Fahrzeuge auf ihren aktuellen Standort.
+Drücken Sie 8: Machen Sie einen JMRI-Kern oder -Kern.
+Drücken Sie 9: TrainPlayer-Layout exportieren.
 "
 ,
 "x6
