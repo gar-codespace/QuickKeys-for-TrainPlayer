@@ -16,9 +16,10 @@ Drücken Sie 1: Schalten Sie alle Quick Keys aus.
 "
 *** o2o Utilities ***
 
-Drücken Sie 6: Initialisieren Sie die Layoutspuren.
-Drücken Sie 7: Setzen Sie die Fahrzeuge auf ihren aktuellen Standort.
-Drücken Sie 8: Machen Sie einen JMRI-Kern oder -Kern.
+Drücken Sie 5: Initialisieren Sie die Layoutspuren.
+Drücken Sie 6: Setzen Sie die Fahrzeuge auf ihren aktuellen Standort.
+Drücken Sie 7: Machen Sie einen JMRI-Kern oder -Kern.
+Drücken Sie 8: Weisen Sie den Geräten zufällige Straßennamen zu.
 Drücken Sie 9: TrainPlayer-Layout exportieren.
 "
 ,

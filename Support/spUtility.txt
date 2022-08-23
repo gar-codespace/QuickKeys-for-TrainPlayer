@@ -16,9 +16,10 @@ Pulsar 1: Desactivar todas las teclas rápidas.
 "
 *** o2o Utilities ***
 
-Pulsar 6: Inicializar las pistas de trazado.
-Pulsar 7: Fijar los coches en su ubicación actual.
-Pulsa 8: Haz una consistencia o núcleo JMRI.
+Pulsar 5: Inicializar las pistas de trazado.
+Pulsar 6: Fijar los coches en su ubicación actual.
+Pulsar 7: Haz una consistencia o núcleo JMRI.
+Pulsa 8: Asignar nombres de carreteras al azar a los equipos.
 Pulse 9: Exportar el diseño de TrainPlayer.
 "
 ,

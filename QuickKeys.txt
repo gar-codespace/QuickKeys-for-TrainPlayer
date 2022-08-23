@@ -203,11 +203,6 @@ If($Set(@xMatrix, Get, 0) = 1) ** QK is active
     ****************************************************************************
 
     If ($Key = 53) ** key 5
-
-    EndIf
-    ****************************************************************************
-
-    If ($Key = 54) ** 6 key
       Call InitTracks
       Let U = 0
       Let L = 0
@@ -218,7 +213,7 @@ If($Set(@xMatrix, Get, 0) = 1) ** QK is active
     EndIf
     ****************************************************************************
 
-    If ($Key = 55) ** 7 key
+    If ($Key = 54) ** 6 key
       Call InitCars
       Let U = 0
       Let L = 0
@@ -229,8 +224,19 @@ If($Set(@xMatrix, Get, 0) = 1) ** QK is active
     EndIf
     ****************************************************************************
 
-    If ($Key = 56) ** 8 key
+    If ($Key = 55) ** 7 key
       Call AddKernels
+      Let U = 0
+      Let L = 0
+      Let P = 0
+      Let H = 0
+      Let T = 1
+      Call NoteWindow
+    EndIf
+    ****************************************************************************
+
+    If ($Key = 56) ** 8 key
+      Call RandomRoads
       Let U = 0
       Let L = 0
       Let P = 0

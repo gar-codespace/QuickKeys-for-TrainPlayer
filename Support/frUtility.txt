@@ -16,9 +16,10 @@ Appuyez sur 1: Désactivez toutes les touches rapides.
 "
 *** o2o Utilities ***
 
-Appuyez sur 6 : Initialiser les pistes de mise en page.
-Appuyez sur 7 : les voitures se retrouvent à leur emplacement actuel.
-Pressez 8 : Faites un consistoire ou un noyau JMRI.
+Appuyez sur 5 : Initialiser les pistes de mise en page.
+Appuyez sur 6 : les voitures se retrouvent à leur emplacement actuel.
+Appuyez sur 7 : Faites un consistoire ou un noyau JMRI.
+Appuyez sur 8 : Attribuer des noms de route aléatoires aux équipements.
 Appuyez sur 9 : Exportation de la mise en page TrainPlayer.
 "
 ,

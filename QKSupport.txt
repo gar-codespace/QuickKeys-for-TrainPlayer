@@ -137,7 +137,7 @@ Proc ReportTpInventory
 
   EndWhile
 
-  Let jInventoryLoc = $DataDir + "\Reports\TrainPlayer Report - Inventory.txt"
+  Let jInventoryLoc = $DataDir + "\Reports\TrainPlayer Report - Rolling Stock.txt"
   Call $Write(@jInventoryLoc, @jInventory)
 
   Echo Rolling stock count: @jCount

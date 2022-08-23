@@ -16,9 +16,10 @@ Press 1: Turn all Quick Keys off.
 "
 *** o2o Utilities ***
 
-Press 6: Initialize layout tracks.
-Press 7: Set cars to their current location.
-Press 8: Make a JMRI consist or kernel.
+Press 5: Initialize layout tracks.
+Press 6: Set cars to their current location.
+Press 7: Make a JMRI consist or kernel.
+Press 8: Assign random road names to equipment.
 Press 9: Export TrainPlayer layout.
 "
 ,
