@@ -116,9 +116,9 @@ Proc ParseManifest ** Parse the whole manifest from JMRI
       Call ParseLine @jLine
 
       If(@j1 = "PC")
-        Call TagCar
         Call PickUpCar
         Call LoadCar
+        Call TagCar
         Let y = @y + 1
       EndIf
       If(@j1 = "SC")
@@ -165,7 +165,11 @@ Proc ParseLine ** (All Cars) parse out all variables for each car in the manifes
 
   Let j9 = $String(@jLine, NextToken) ** Car or Engine type
 
-  Let j5 = $String(@jLine, NextToken) ** Load Type
+  Let lt = $String(@jLine, NextToken) ** Load Type
+  Let j5 = "E"
+  If @lt = "Load"
+    Let j5 = "L"
+  EndIf
 
   If(@x6 = 0) ** Using AO loads
     If($Set(@occupiedCarCodes, Contains, @j9) = 1)
