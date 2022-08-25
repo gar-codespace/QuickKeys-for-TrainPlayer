@@ -151,13 +151,14 @@ Proc ParseLine ** (All Cars) parse out all variables for each car in the manifes
   Let j0 = " " ** create spaces in switch list
 
   Let j2 = $String(@jLine, NextToken) ** ID
+  Let jLabel = $Car(@j2, Label)
   Let jID = @j2
   Let j2 = @j2 + "       "
   Let j2 = $Substr(0, 7, @j2) ** truncate to 8 char
 
   Let j3 = $String(@jLine, NextToken) ** RR
   Let j3 = @j3 + "          "
-  Let j3 = $Substr(0, 4, @j3) ** truncate to 5 char
+  Let j3 = $Substr(0, 5, @j3) ** truncate to 6 char
 
   Let j4 = $String(@jLine, NextToken) ** Number
   Let j4 = @j4 + "          "
@@ -202,8 +203,9 @@ Proc TagCar
   Let jLocaleIndex = $Set(@jLocaleSet, Find, @jToLoc)
   Let jTag = $Set(@jTrackLabelSet, Get, @jLocaleIndex)
 
-  Let $Car(@jID, Dest) = @jTag
-  Let jFromList = $Set(@jFromList, Add, @jID)
+  Let $Car(@jLabel, Dest) = @jTag
+  Let jFromList = $Set(@jFromList, Add, "@jID")
+  ** Let jFromList = @jLabel + "," + @jFromList
 
 EndProc
 ****************************************************************************
@@ -214,7 +216,7 @@ Proc PickupCar ** Tag the TP car to be picked up
   ** Note adding a whitespace between variables adds a whitespace to the report, @j0 is not needed
 
   Let jMText = @jMText + \n$Set(@o2oSet, Get, 29) @j3 @j4 @j5 @j6c $Set(@o2oSet, Get, 14) @j7
-  Let $Car(@jID, ExcludeOps) = 0 ** set the tags color
+  Let $Car(@jLabel, ExcludeOps) = 0 ** set the tags color
 
 EndProc
 ****************************************************************************
@@ -223,7 +225,7 @@ EndProc
 Proc SetoutCar ** Tag the TP car to be set out
 
   Let jMText = @jMText + \n$Set(@o2oSet, Get, 30) @j3 @j4 @j5 @j6c $Set(@o2oSet, Get, 15) @j8
-  Let $Car(@jID, ExcludeOps) = 1
+  Let $Car(@jLabel, ExcludeOps) = 1
 
 EndProc
 ****************************************************************************
@@ -232,7 +234,7 @@ EndProc
 Proc PickUpLoco ** Tag the engine to be picked up
 
   Let jMText = @jMText + \n$Set(@o2oSet, Get, 29) @j3 @j4 @j5 @j6l $Set(@o2oSet, Get, 14) @j7
-  Let $Car(@jID, ExcludeOps) = 0 ** set the tags color
+  Let $Car(@jLabel, ExcludeOps) = 0 ** set the tags color
 
 EndProc
 ****************************************************************************
@@ -241,7 +243,7 @@ EndProc
 Proc SetOutLoco ** Tag the engine to be set out
 
   Let jMText = @jMText + \n$Set(@o2oSet, Get, 30) @j3 @j4 @j5 @j6l $Set(@o2oSet, Get, 15) @j8
-  Let $Car(@jID, ExcludeOps) = 1 ** set the tags color
+  Let $Car(@jLabel, ExcludeOps) = 1 ** set the tags color
 
 EndProc
 ****************************************************************************
@@ -251,26 +253,26 @@ Proc LoadCar
 
   ** if using JMRI custom loads
   If(@x6 = 1)
-    Let $Car(@jID, Loaded) = 1
-    Let $Car(@jID, LoadName) = @jLoad
+    Let $Car(@jLabel, Loaded) = 1
+    Let $Car(@jLabel, LoadName) = @jLoad
   EndIf
 
   ** If using AO loads
   If(@x6 = 0)
-    Let $Car(@jID, Loaded) = 0
+    Let $Car(@jLabel, Loaded) = 0
 
     ** First, try to load from current location
     Let jIndexLocs = $Ops(Find, Industries.Locale, @jFromLoc) ** set of indeces
     While($Set(@jIndexLocs, Count) <> 0)
       Let jIndex = $String(@jIndexLocs, NextToken)
       Let jAAR = $Ops(Get, Industries.AAR, @jIndex)
-      If($Car(@jID, AAR) = @jAAR)
+      If($Car(@jLabel, AAR) = @jAAR)
         Let jSR = $Ops(Get, Industries.S/R, @jIndex)
         If(@jSR = "S")
         If(@j5 = "L")
-          Let $Car(@jID, LoadName) = $Ops(Get, Industries.Load, @jIndex)
-          Let $Car(@jID, Loaded) = 1
-          ** Echo Load car @jID with $Ops(Get, Industries.Load, @jIndex)
+          Let $Car(@jLabel, LoadName) = $Ops(Get, Industries.Load, @jIndex)
+          Let $Car(@jLabel, Loaded) = 1
+          ** Echo Load car @jLabel with $Ops(Get, Industries.Load, @jIndex)
         EndIf
         EndIf
       EndIf
@@ -281,14 +283,14 @@ Proc LoadCar
     While($Set(@jIndexLocs, Count) <> 0)
       Let jIndex = $String(@jIndexLocs, NextToken)
       Let jAAR = $Ops(Get, Industries.AAR, @jIndex)
-      If($Car(@jID, AAR) = @jAAR)
+      If($Car(@jLabel, AAR) = @jAAR)
         Let jSR = $Ops(Get, Industries.S/R, @jIndex)
         If(@jSR = "R")
-          Let $Car(@jID, LoadName) = $Ops(Get, Industries.Load, @jIndex)
-          Let $Car(@jID, Loaded) = 1
-          ** Echo Load car @jID with $Ops(Get, Industries.Load, @jIndex)
+          Let $Car(@jLabel, LoadName) = $Ops(Get, Industries.Load, @jIndex)
+          Let $Car(@jLabel, Loaded) = 1
+          ** Echo Load car @jLabel with $Ops(Get, Industries.Load, @jIndex)
         Else
-          ** Let $Car(@jID, Loaded) = 0
+          ** Let $Car(@jLabel, Loaded) = 0
         EndIf
       EndIf
     EndWhile
@@ -298,14 +300,14 @@ Proc LoadCar
     While($Set(@jIndexLocs, Count) <> 0)
       Let jIndex = $String(@jIndexLocs, NextToken)
       Let jAAR = $Ops(Get, Industries.AAR, @jIndex)
-      If($Car(@jID, AAR) = @jAAR)
+      If($Car(@jLabel, AAR) = @jAAR)
         Let jSR = $Ops(Get, Industries.S/R, @jIndex)
         If(@jSR = "R")
-          Let $Car(@jID, LoadName) = $Ops(Get, Industries.Load, @jIndex)
-          Let $Car(@jID, Loaded) = 1
-          ** Echo Load car @jID with $Ops(Get, Industries.Load, @jIndex)
+          Let $Car(@jLabel, LoadName) = $Ops(Get, Industries.Load, @jIndex)
+          Let $Car(@jLabel, Loaded) = 1
+          ** Echo Load car @jLabel with $Ops(Get, Industries.Load, @jIndex)
         Else
-          ** Let $Car(@jID, Loaded) = 0
+          ** Let $Car(@jLabel, Loaded) = 0
         EndIf
       EndIf
     EndWhile

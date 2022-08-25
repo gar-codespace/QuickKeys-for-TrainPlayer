@@ -117,7 +117,8 @@ Proc ReportTpInventory
   Let jCount = $Set(@jID, Count)
 
   Let jInventory = $DATE + "-" + $TIME
-  Let jInventory = @jInventory + \n"TP Car; TP Type; TP AAR; JMRI Location; JMRI Track; TP Load; TP Kernel"
+  Let jKey = "TP Car; TP Type; TP AAR; JMRI Location; JMRI Track; TP Load; TP Kernel; Car ID"
+  Let jInventory = @jInventory + \n@jKey
 
   Let i = 1
   While (i <= @jCount)
@@ -132,7 +133,7 @@ Proc ReportTpInventory
       Let jLocale = "Unknown;~"
     EndIf
 
-    Let jInventory = @jInventory +\n@jCar + ";" + $Ops(Get, Cars.Type, @i) + ";" + $Ops(Get, Cars.AAR, @i) + ";" +  @jLocale + ";" + $Ops(Get, Cars.Load, @i) + ";" +  @jKernel
+    Let jInventory = @jInventory +\n@jCar + ";" + $Ops(Get, Cars.Type, @i) + ";" + $Ops(Get, Cars.AAR, @i) + ";" +  @jLocale + ";" + $Ops(Get, Cars.Load, @i) + ";" + @jKernel + ";" + $Car(@jCar, Car_ID)
     Let i = @i + 1
 
   EndWhile

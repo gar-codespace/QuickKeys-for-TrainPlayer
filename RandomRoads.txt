@@ -5,100 +5,156 @@
 
 Let version = 20220801
 
-Let HERITAGE_POOL = PRR WJ&S NYNH&H P&R B&A B&O NYC M&P SP AT&SF DL&W CNJ
-Let MODERN_POOL = CSX NS BNSF UP CP NdeM UTLX ATTX
-Let HERITAGE_REEFER = FGEX FGEX FGEX FGEX FGEX PFEX SFRD
+** Create pools of road names
+  Let HOME_POOL = CNJ
+  Let HERITAGE_POOL = PRR WJ&S NYNH&H P&R B&A B&O NYC M&P SP AT&SF DL&W CNJ ACL LV ER
+  Let HERITAGE_REEFER_POOL = FGEX FGEX FGEX FGEX FGEX FGEX PFEX SFRD HKH
+  Let HERITAGE_TANK_POOL = UTLX TCX PRR TELX
+  Let HERITAGE_HOPPER_POOL = PRR PGCC P&R B&O WCC
+  Let MODERN_POOL = CSX NS BNSF UP CP NdeM UTLX ATTX
 
-Let FREIGHT_LENGTH = 5 ** Length of digits for number
-Let HOME_LENGTH = 4
-Let PASS_LENGTH = 4
-Let MW_LENGTH = 3
+** Choose nothing, a space or a dash
+  Let SEPERATOR = " "
 
-Let homeNames = PRR
-Let poolNames = @HERITAGE_POOL
-Let reeferNames = @HERITAGE_REEFER
+** Set the length of the equipment number by type
+  Let FREIGHT_LENGTH = 4
+  Let HOME_LENGTH = 3
+  Let PASS_LENGTH = 4
+  Let MW_LENGTH = 3
+
+** Select which pools to use
+  Let homeNames = @HOME_POOL
+  Let passNames = @HOME_POOL
+  Let mwNames = @HOME_POOL
+  Let manifestNames = @HERITAGE_POOL
+  Let reeferNames = @HERITAGE_REEFER_POOL
+  Let tankNames = @HERITAGE_TANK_POOL
+  Let hopperNames = @HERITAGE_HOPPER_POOL
 
 *********************************************
 Proc RandomNumber
+** Generate a random road number
 
-Let result = ""
+  Let result = ""
 
-Local length
-Let length = %1
+  Local length
+  Let length = %1
 
-Local i
-Let i = 0
-While (@i < length)
-  Let a = $Rand(0, 9)
-  Let result = @a@@result
-  Let i = @i + 1
-EndWhile
+  Local i
+  Let i = 0
+  While (@i < length)
+    Let a = $Rand(0, 9)
+    Let result = @a@@result
+    Let i = @i + 1
+  EndWhile
+
+EndProc
+*********************************************
+Proc RelabelRollingStock
+** Relabel the rolling stock with the randomly generated road and number
+
+  Let randomRoadIndex = $Rand(0, @eqptNamesLen)
+  Let randomRoad = $Set(@workingPool, Get, @randomRoadIndex)
+  Call RandomNumber @roadNumberLength
+  Let suffix = %1
+  Let $Car(@rsLabel, Label) = @randomRoad@@suffix@@result
+
 EndProc
 *********************************************
 
 Echo Working on it......
 
+** This is just here as a reference
 Let ALL_AAR = E ES ED EE ET EP F FA FA6 FB FC FCA FD FL FM FS FW G GA GB GD GBH GE GS GT H HM HK HT LG LO LP LT O R RA RB RBL RP RS S SH SM T TA TG TL TM TW X XAR XMR XI XM XP M MWB MWC MWD MWG MWF MWK MWR MWX N NE NM B BE BH BM BMR BMT BP BR BX CA CS D DA DB DC DL DO DP DPA MA MB MR P PA PAS PB PBC PBO PC PL PO PS PSA
+Let ALL_AAR_UK = E ES ED EE ET EP F FA FA6 FB FC FCA FD FL FM FS FW G GA GB GD GBH GE GS GT H HM HK HT LG LO LP LT O R RA RB RBL RP RS S SH SM T TA TG TL TM TW X XAR XMR XI XM XP M MWB MWC MWD MWG MWF MWK MWR MWX N NE NM B BE BH BM BMR BMT BP BR BX CA CS D DA DB DC DL DO DP DPA MA MB MR P PA PAS PB PBC PBO PC PL PO PS PSA
 
-Let POOL_EQPT = F FA FA6 FB FC FCA FD FL FM FS FW G GA GB GD GBH GE GS GT H HM HK HT LG LO LP LT O R RA RB RBL RP S SH SM T TA TG TL TM TW X XAR XMR XI XM XP
-Let REEFER_EQPT = RS
-Let HOME_EQPT = E ES ED EE ET EP N NE NM
-Let PASS_EQPT = B BE BH BM BMR BMT BP BR BX CA CS D DA DB DC DL DO DP DPA MA MB MR P PA PAS PB PBC PBO PC PL PO PS PSA
-Let MW_EQPT = M MWB MWC MWD MWG MWF MWK MWR MWX
+** First cover all the basics
+** Note that ET is taken out, steam tenders are not relabled
+Let HOME_AAR = E ES ED EE EP N NE NM
+Let POOL_AAR = F FA FA6 FB FC FCA FD FL FM FS FW G GA GB GD GBH GE GS GT H HM LG LO LP LT O R RA RB RBL RP S SH SM T TA TL TW X XAR XMR XI XM XP
+Let PASS_AAR = B BE BH BM BMR BMT BP BR BX CA CS D DA DB DC DL DO DP DPA MA MB MR P PA PAS PB PBC PBO PC PL PO PS PSA
+Let MW_AAR = M MWB MWC MWD MWG MWF MWK MWR MWX
 
-Let AllCarLabels = $Layout(IDSet, CarLabels)
-Let homeLength = $Set(@homeNames, Count) - 1
-Let poolLength = $Set(@poolNames, Count) - 1
-Let reeferLength = $Set(@reeferNames, Count) - 1
+** Then cover granular cases
+Let REEFER_AAR = RS
+Let TANK_AAR = TG TM
+Let HOPPER_AAR = HT HK
 
-Let rsLength = $Set(@AllCarLabels, Count)
+** Run the script
+Let allCarLabels = $Layout(IDSet, CarLabels)
+Let rsLength = $Set(@allCarLabels, Count)
 Let i = 0
 While (i < @rsLength)
-  Let rsLabel = $Set(@AllCarLabels, Get, @i)
+  Let rsLabel = $Set(@allCarLabels, Get, @i)
   Let rsAar = $Car(@rsLabel, AAR)
 
-** Relabel pool equipment
-  If ($Set(@POOL_EQPT, Contains, @rsAar) = 1)
-    Let randomRoadIndex = $Rand(0, @poolLength)
-    Let randomRoad = $Set(@poolNames, Get, @randomRoadIndex)
-    Call RandomNumber @FREIGHT_LENGTH
-    Let $Car(@rsLabel, Label) = @randomRoad@@result
-  EndIf
-
-** Relabel reefer equipment
-  If ($Set(@REEFER_EQPT, Contains, @rsAar) = 1)
-    Let randomRoadIndex = $Rand(0, @reeferLength)
-    Let randomRoad = $Set(@reeferNames, Get, @randomRoadIndex)
-    Call RandomNumber @FREIGHT_LENGTH
-    Let $Car(@rsLabel, Label) = @randomRoad@@result
-  EndIf
-
+** First cover all the basics
 ** Relabel home equipment
-  If ($Set(@HOME_EQPT, Contains, @rsAar) = 1)
-    Let randomRoadIndex = $Rand(0, @homeLength)
-    Let randomRoad = $Set(@homeNames, Get, @randomRoadIndex)
-    Call RandomNumber @HOME_LENGTH
-    Let $Car(@rsLabel, Label) = @randomRoad@@result
+Let workingAAR = @HOME_AAR
+If ($Set(@workingAAR, Contains, @rsAar) = 1)
+  Let roadNumberLength = @HOME_LENGTH
+  Let workingPool = @homeNames
+  Let eqptNamesLen = $Set(@homeNames, Count) - 1
+  Call RelabelRollingStock @SEPERATOR
+EndIf
+
+** Relabel pool equipment
+  Let workingAAR = @POOL_AAR
+  If ($Set(@workingAAR, Contains, @rsAar) = 1)
+    Let roadNumberLength = @FREIGHT_LENGTH
+    Let workingPool = @manifestNames
+    Let eqptNamesLen = $Set(@manifestNames, Count) - 1
+    Call RelabelRollingStock @SEPERATOR
   EndIf
 
 ** Relabel passenger equipment
-  If ($Set(@PASS_EQPT, Contains, @rsAar) = 1)
-    Let randomRoadIndex = $Rand(0, @homeLength)
-    Let randomRoad = $Set(@homeNames, Get, @randomRoadIndex)
-    Call RandomNumber @PASS_LENGTH
-    Let $Car(@rsLabel, Label) = @randomRoad@@result
-  EndIf
+Let workingAAR = @PASS_AAR
+If ($Set(@workingAAR, Contains, @rsAar) = 1)
+  Let roadNumberLength = @PASS_LENGTH
+  Let workingPool = @passNames
+  Let eqptNamesLen = $Set(@passNames, Count) - 1
+  Call RelabelRollingStock @SEPERATOR
+EndIf
 
 ** Relabel MOW equipment
-  If ($Set(@MW_EQPT, Contains, @rsAar) = 1)
-    Let randomRoadIndex = $Rand(0, @homeLength)
-    Let randomRoad = $Set(@homeNames, Get, @randomRoadIndex)
-    Call RandomNumber @MW_LENGTH
-    Let mw = MW
-    Let $Car(@rsLabel, Label) = @randomRoad@@mw@@result
+Let workingAAR = @MW_AAR
+If ($Set(@workingAAR, Contains, @rsAar) = 1)
+  Let roadNumberLength = @MW_LENGTH
+  Let workingPool = @mwNames
+  Let eqptNamesLen = $Set(@mwNames, Count) - 1
+  Call RelabelRollingStock MW
+EndIf
+
+** Then cover granular cases
+** Relabel reefer equipment
+  Let workingAAR = @REEFER_AAR
+  If ($Set(@workingAAR, Contains, @rsAar) = 1)
+    Let roadNumberLength = @FREIGHT_LENGTH
+    Let workingPool = @reeferNames
+    Let eqptNamesLen = $Set(@reeferNames, Count) - 1
+    Call RelabelRollingStock @SEPERATOR
+  EndIf
+
+** Relabel tank equipment
+  Let workingAAR = @TANK_AAR
+  If ($Set(@workingAAR, Contains, @rsAar) = 1)
+    Let roadNumberLength = @FREIGHT_LENGTH
+    Let workingPool = @tankNames
+    Let eqptNamesLen = $Set(@tankNames, Count) - 1
+    Call RelabelRollingStock @SEPERATOR
+  EndIf
+
+** Relabel hopper equipment
+  Let workingAAR = @HOPPER_AAR
+  If ($Set(@workingAAR, Contains, @rsAar) = 1)
+    Let roadNumberLength = @FREIGHT_LENGTH
+    Let workingPool = @hopperNames
+    Let eqptNamesLen = $Set(@hopperNames, Count) - 1
+    Call RelabelRollingStock @SEPERATOR
   EndIf
 
   Let i = @i + 1
+
 EndWhile
 
 Echo RandomRoads @version
