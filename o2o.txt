@@ -98,8 +98,8 @@ Proc ParseManifest ** Parse the whole manifest from JMRI
   While($Set(@jmanifestCopy, Count) <> 0)
     Let jLine = $String(@jManifestCopy, NextToken, @xCR)
 
-    If(@jLine = "EOF")
-      Break
+    If($Set(@jLine, Contains, "EOF") = 1)
+      Echo Break
     EndIf
 
     Let j1 = $String(@jLine, NextToken) ** action to be taken WE PU SO PL SL
