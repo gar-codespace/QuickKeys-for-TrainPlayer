@@ -3,20 +3,20 @@ Let version = 20220105
 
 Let occupiedCarCodes = E,ES,ED,EE,ET,EP,NWC,MWX,B,BE,BH,CA,CS,N,NE,NM,D,DA,DB,DC,DL,DO,DP,DPA,MA,MB,MR,P,PA,PAS,PB,PBC,PBO,PC,PL,PO,PS,PSA
 
-
-Proc Unschedule
+****************************************************************************
+Proc ResetPreviousWorkEvent
 
   Echo Reset previous WorkEvent cars
 
-  While($Set(%1, Count) <> 0)
-    Let jCar = $String(%1, NextToken)
-    Let jTemp = $Car(@jCar, Track)
+  While($Set(@jResetCarIDs, Count) <> 0)
+    Let jCarID = $String(@jResetCarIDs, NextToken)
+    Let jTemp = $Car(@jCarID, Track)
     Let jTemp = $Track(@jTemp, Label)
     If(@jTemp = "")
       Let jTemp = "~"
     EndIf
-    Let $Car(@jCar, Dest) = @jTemp
-    Let $Car(@jCar, ExcludeOps) = 0
+    Let $Car(@jCarID, Dest) = @jTemp
+    Let $Car(@jCarID, ExcludeOps) = 0
   EndWhile
   View Refresh
 
@@ -29,7 +29,7 @@ Proc CreateReportHeader
   Echo Find the number of WorkEvents for the manifest
   ** And extract the manifest header
 
-  Let jManifestCopy = %1
+  Let jManifestCopy = @jManifestAll
   Let j = 1
   Let jEventSet = ""
 
@@ -90,42 +90,40 @@ EndProc
 
 Proc ParseManifest ** Parse the whole manifest from JMRI
 
-  Let y = 0 ** pickup count
-  Let z = 0 ** setout count
-  Let jMText = "" ** Reset jMessage text
-  Let jManifestCopy = %1
+  Let PickUpCount = 0
+  Let SetOutCount = 0
+  Let jMText = ""
+  Let jManifestCopy = @jManifestAll
+  Let jWE = ""
 
-  While($Set(@jmanifestCopy, Count) <> 0)
+  While($Set(@jmanifestCopy, Count) > 0)
+
     Let jLine = $String(@jManifestCopy, NextToken, @xCR)
-
-    If($Set(@jLine, Contains, "EOF") = 1)
-      Echo Break
-    EndIf
 
     Let j1 = $String(@jLine, NextToken) ** action to be taken WE PU SO PL SL
 
     If(@j1 = "WE")
-      Let jWE = $String(@jLine, NextToken)
-      Let jWL = $String(@jLine, NextToken)
-      Echo WorkEvents @jWE @jWL
+      Let jWE = $String(@jLine, NextToken) ** Work Event
+      Let jWL = $String(@jLine, NextToken) ** Work Location
+      Echo WorkEvent @jWE @jWL
       Continue
     EndIf
 
-    If(@jWE = %2)
+    If(@jWE = @jWEIndex)
       Let jWEN = @jWL
-      Call ParseLine @jLine
+      Call ParseLine
 
       If(@j1 = "PC")
         Call PickUpCar
         Call LoadCar
         Call TagCar
-        Let y = @y + 1
+        Let PickUpCount = @PickUpCount + 1
       EndIf
       If(@j1 = "SC")
         Call TagCar
         Call SetOutCar
         ** Call LoadCar
-        Let z = @z + 1
+        Let SetOutCount = @SetOutCount + 1
       EndIf
       If(@j1 = "PL")
         Call TagCar
@@ -138,6 +136,7 @@ Proc ParseManifest ** Parse the whole manifest from JMRI
     EndIf
 
   EndWhile
+
   Echo Current WorkEvent processed
 
 EndProc
@@ -175,7 +174,6 @@ Proc ParseLine ** (All Cars) parse out all variables for each car in the manifes
   If(@x6 = 0) ** Using AO loads
     If($Set(@occupiedCarCodes, Contains, @j9) = 1)
       Let j5 = "O"
-      Echo Yipee
     EndIf
   EndIf
 
@@ -204,8 +202,7 @@ Proc TagCar
   Let jTag = $Set(@jTrackLabelSet, Get, @jLocaleIndex)
 
   Let $Car(@jLabel, Dest) = @jTag
-  Let jFromList = $Set(@jFromList, Add, "@jID")
-  ** Let jFromList = @jLabel + "," + @jFromList
+  Let jResetCarIDs = $Set(@jResetCarIDs, Add, "@jID")
 
 EndProc
 ****************************************************************************
@@ -331,11 +328,12 @@ EndProc
 
 Proc IncrementWE
 
-  Call Unschedule  @jFromList
-  Let jFromList = ""
+  Call ResetPreviousWorkEvent
+  Let jResetCarIDs = ""
 
-  Call ParseManifest @jManifestAll @jIndexWE
-  Let jNote = @jHeader \n$Set(@o2oSet, Get, 4) @jWEN $Set(@o2oSet, Get, 12) @jIndexWE $Set(@o2oSet, Get, 13) @jWETotal \n@jMText \n\n@y $Set(@o2oSet, Get, 5) @z $Set(@o2oSet, Get, 6) \n
+  Call ParseManifest
+
+  Let jNote = @jHeader \n$Set(@o2oSet, Get, 4) @jWEN $Set(@o2oSet, Get, 12) @jWEIndex $Set(@o2oSet, Get, 13) @jWETotal \n@jMText \n\n@PickUpCount $Set(@o2oSet, Get, 5) @SetOutCount $Set(@o2oSet, Get, 6) \n
   Call NoteWindow @jNote 1
   Let L = 1
 
@@ -346,12 +344,12 @@ EndProc
 If (%1 = SetUp)
 
   Let x5 = 1
-  Let x6 = %2
+  Let x6 = 0
 
   Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5,@x6,@x7
   ** Call $System(MD "%homepath%\JMRI\TrainPlayer")
   Call o2oInit
-  Let jFromList = $Car($Car, label)
+  Let jResetCarIDs = ""
   Let jManifestAll = ""
   Let jLocList = "Location List,"
   Call $View(Hide, "Track Labels")
@@ -405,12 +403,12 @@ If($Set(@xMatrix, Get, 5) = 1)
     Let jManifest = $File(@jReportManifest, Open)
     Let jManifestAll = $File(@jManifest, ReadAll)
     Call $File(@jReportManifest, Close)
-    Call CreateReportHeader @jManifestAll
+    Call CreateReportHeader
 
     Let jNote = \n$Set(@o2oSet, Get, 0)\n\n$Set(@o2oSet, Get, 3) \n
     Call NoteWindow @jNote 1
     Echo Read in manifest
-    Let jIndexWE = 1
+    Let jWEIndex = 1
     Call IncrementWE
     View Refresh
   EndIf
@@ -418,14 +416,14 @@ If($Set(@xMatrix, Get, 5) = 1)
 
 
   If($Key = 33) ** Page Up key
-    If(@jIndexWE = 1)
+    If(@jWEIndex = 1)
       Let jMessage = $Set(@o2oSet, Get, 17)
       Call $Msgbox(@jMessage)
     Else
       Let jNote = @jHeader \n\n$Set(@o2oSet, Get, 9)\n\n$Set(@o2oSet, Get, 11) \n
       Call NoteWindow @jNote 1
       Echo Move to previous WorkEvent
-      Let jIndexWE = @jIndexWE - 1
+      Let jWEIndex = @jWEIndex - 1
 
       Call IncrementWE
       View Refresh
@@ -435,16 +433,17 @@ If($Set(@xMatrix, Get, 5) = 1)
 
 
   If($Key = 34) ** Page Down key
-    If(@jIndexWE = @jWETotal)
+    If(@jWEIndex = @jWETotal)
       Let jMessage = $Set(@o2oSet, Get, 18)
       Call $Msgbox(@jMessage)
     Else
       Let jNote = @jHeader \n\n$Set(@o2oSet, Get, 8)\n\n$Set(@o2oSet, Get, 11) \n
       Call NoteWindow @jNote 1
       Echo Move to next WorkEvent
-      Let jIndexWE = @jIndexWE + 1
+      Let jWEIndex = @jWEIndex + 1
 
       Call IncrementWE
+      Echo j work event Index @jWEIndex
       View Refresh
     EndIf
   EndIf
@@ -452,14 +451,14 @@ If($Set(@xMatrix, Get, 5) = 1)
 
 
   If ($Key = 35) ** End key
-    If(@jIndexWE = @jWETotal)
+    If(@jWEIndex = @jWETotal)
       Let jMessage = $Set(@o2oSet, Get, 18)
       Call $Msgbox(@jMessage)
     Else
       Let jNote = @jHeader \n\n$Set(@o2oSet, Get, 10)\n\n$Set(@o2oSet, Get, 11) \n
       Call NoteWindow @jNote 1
       Echo Move to last WorkEvent
-      Let jIndexWE = @jWETotal
+      Let jWEIndex = @jWETotal
 
       Call IncrementWE
       View Refresh
@@ -469,14 +468,14 @@ If($Set(@xMatrix, Get, 5) = 1)
 
 
   If ($Key = 36) ** Home key
-    If(@jIndexWE = 1)
+    If(@jWEIndex = 1)
       Let jMessage = $Set(@o2oSet, Get, 17)
       Call $Msgbox(@jMessage)
     Else
       Let jNote = @jHeader \n\n$Set(@o2oSet, Get, 7)\n\n$Set(@o2oSet, Get, 11) \n
       Call NoteWindow @jNote 1
       Echo Move to first WorkEvent
-      Let jIndexWE = 1
+      Let jWEIndex = 1
 
       Call IncrementWE
       View Refresh
