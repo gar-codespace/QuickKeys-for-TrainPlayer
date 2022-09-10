@@ -403,7 +403,7 @@ If($Set(@xMatrix, Get, 5) = 1)
     ** Create a location matrix from the AO location dataset
     Call ReadAoLocations
 
-    Let jReportManifest = $DataDir + "\Reports\JMRI Report o2o-Work-Events.csv"
+    Let jReportManifest = $DataDir + "\Reports\JMRI Report - o2o Work Events.csv"
     Let jManifest = $File(@jReportManifest, Open)
     Let jManifestAll = $File(@jManifest, ReadAll)
     Call $File(@jReportManifest, Close)
