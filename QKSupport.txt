@@ -193,12 +193,12 @@ Proc ReportTpIndustries
   Let jCount = $Set(@jID, Count)
 
   Let jIndustry = $DATE + "-" + $TIME
-  Let jIndustry = @jIndustry + \n"TP ID;JMRI Location;JMRI Track;TP Industry;TP AAR;TP S/R;Load;TP Staging;TP ViaIn"
+  Let jIndustry = @jIndustry + \n"TP ID;JMRI Location;JMRI Track;TP Industry;TP AAR;TP S/R;Load;TP Staging;TP ViaIn;TP Via Out"
 
   Let i = 1
   While (i <= @jCount)
 
-    Let jIndustry = @jIndustry + \n$Ops(Get, ind.ID, @i) + ";" + $Ops(Get, ind.Locale, @i) + ";" + $Ops(Get, ind.Industry, @i) + ";" + $Ops(Get, ind.AAR, @i) + ";" + $Ops(Get, ind.S/R, @i) + ";" + $Ops(Get, ind.Load, @i) + ";" + $Ops(Get, ind.Staging, @i) + ";" + $Ops(Get, ind.ViaIn, @i)
+    Let jIndustry = @jIndustry + \n$Ops(Get, ind.ID, @i) + ";" + $Ops(Get, ind.Locale, @i) + ";" + $Ops(Get, ind.Industry, @i) + ";" + $Ops(Get, ind.AAR, @i) + ";" + $Ops(Get, ind.S/R, @i) + ";" + $Ops(Get, ind.Load, @i) + ";" + $Ops(Get, ind.Staging, @i) + ";" + $Ops(Get, ind.ViaIn, @i) + ";" + $Ops(Get, ind.ViaOut, @i)
     Let i = @i + 1
 
   EndWhile
