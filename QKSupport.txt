@@ -132,6 +132,9 @@ Proc ReportTpInventory
     If(@jTrack = "~")
       Let jLocale = "Unknown;~"
     EndIf
+    If(@jTrack = "")
+      Let jLocale = "Unknown;~"
+    EndIf
 
     Let jInventory = @jInventory +\n@jCar + ";" + $Ops(Get, Cars.Type, @i) + ";" + $Ops(Get, Cars.AAR, @i) + ";" +  @jLocale + ";" + $Ops(Get, Cars.Load, @i) + ";" + @jKernel + ";" + $Car(@jCar, Car_ID)
     Let i = @i + 1
