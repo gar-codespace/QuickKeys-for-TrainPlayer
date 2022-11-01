@@ -19,7 +19,7 @@ TrainPlayer has a feature which allows multiple layouts to be linked together to
 o2o, or ops to ops, is a set of scripts which allows JMRI, the Java Model Railroad Interface to be used as the operations engine for TrainPlayer. All of the advanced features of JMRI Operations Pro are leveraged by these scripts, and are implemented through TrainPlayer's Advanced Ops interace. On the JMRI side, my Pattern Scripts plugin is used to facilitate the integration of JMRI with TrainPlayer, and a setting on the o2o script determines the level of dependency TrainPlayer has on JMRI Operations Pro output. The full Pattern Scripts plugin need not be implemented to work with TrainPlayer however. Part of it can be run as a script added to a train.
 ### Web sites
 [TrainPlayer](http://trainplayer.com/)  
-[JMRI Operations Pro](https://www.jmri.org/help/en/package/jmri/jmrit/operations/Operations.shtml)
+[JMRI Operations Pro](https://www.jmri.org/help/en/package/jmri/jmrit/operations/Operations.shtml)  
 [Operations Pattern Scripts for JMRI](https://github.com/GregRitacco/OperationsPatternScripts-for-JMRI)  
 ### Videos
 [QuickKeys Install](https://youtu.be/nV8g_2UXFsU)  
