@@ -30,3 +30,4 @@ o2o, or ops to ops, is a set of scripts which allows JMRI, the Java Model Railro
 [o2o](https://youtu.be/pX_H_gtGYQA)  
 ### License
 There is none. Use and abuse as you see fit.
+The name TrainPlayer is copyright Jim Dill and is used with permission.
