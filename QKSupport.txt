@@ -221,17 +221,31 @@ Proc ReportTpIndustries
   Let jID = $Ops(find, Industries.Locale, All, ID)
   Let jCount = $Set(@jID, Count)
 
-  Let jIndustry = $DATE + "-" + $TIME + ";;;;;;;;;"
-  Let jIndustry = @jIndustry + \n + "TP ID;JMRI Location;JMRI Track;TP Industry;TP AAR;TP S/R;Load;TP Staging;TP ViaIn;TP Via Out"
+  Let jIndustry = $DATE + "-" + $TIME + ";;;;;;;;;;"
+  Let jIndustry = @jIndustry + \n + "TP ID;JMRI Location;JMRI Track;TP Industry;TP AAR;TP S/R;Load;TP Staging;TP ViaIn;TP Via Out;"
 
   Let i = 1
   While (i <= @jCount)
 
-    Let jIndustry = @jIndustry + \n$Ops(Get, ind.ID, @i) + ";" + $Ops(Get, ind.Locale, @i) + ";" + $Ops(Get, ind.Industry, @i) + ";" + $Ops(Get, ind.AAR, @i) + ";" + $Ops(Get, ind.S/R, @i) + ";" + $Ops(Get, ind.Load, @i) + ";" + $Ops(Get, ind.Staging, @i) + ";" + $Ops(Get, ind.ViaIn, @i) + ";" + $Ops(Get, ind.ViaOut, @i)
+    Let jLine = $Ops(Get, ind.ID, @i) + ";" + $Ops(Get, ind.Locale, @i) + ";" + $Ops(Get, ind.Industry, @i) + ";" + $Ops(Get, ind.AAR, @i) + ";" + $Ops(Get, ind.S/R, @i) + ";" + $Ops(Get, ind.Load, @i) + ";" + $Ops(Get, ind.Staging, @i) + ";" + $Ops(Get, ind.ViaIn, @i) + ";" + $Ops(Get, ind.ViaOut, @i) + ";"
+
+** Test that the line has 9 semi colons
+    Let j = 0
+    Let jTest = @jLine
+    While (@jTest <> "")
+       Let token = $String(@jTest, NextToken, ";")
+       Let j = @j + 1
+    EndWhile
+
+    If (@j <> 10)
+      Let message = "Track label " + $Ops(Get, ind.Industry, @i) + " has an error:\ntrack has no locale."
+      Call $Msgbox(@message)
+    EndIf
+
+    Let jIndustry = @jIndustry + \n@jLine
     Let i = @i + 1
 
   EndWhile
-
 
   Let jIndustryyLoc = $DataDir + "\Reports\TrainPlayer Report - Industries.txt"
   Call $Write(@jIndustryyLoc, @jIndustry)
