@@ -157,9 +157,9 @@ Proc ReportTpLocations
   Let jID = $Ops(find, Locs.Class, All, ID)
   Let jCount = $Set(@jID, Count)
 
-  Let jLocation = $DATE + "-" + $TIME
-  Let jLocation = @jLocation +\n$Layout
-  Let jLocation = @jLocation +\n$Layout(Description)
+  Let jLocation = $DATE + "-" + $TIME + ";;;;;"
+  Let jLocation = @jLocation +\n$Layout + ";;;;;"
+  Let jLocation = @jLocation +\n$Layout(Description) + ";;;;;"
   Let jLocation = @jLocation +\n + "TP ID;JMRI Location;JMRI Track;TP Track;TP Class;TP Spaces"
 
   Let i = 1
@@ -173,11 +173,37 @@ Proc ReportTpLocations
       Let cap = $Capac(@thisTrack, all)
     EndIf
 
-    Let jLocation = @jLocation + \n$Ops(Get, Locations.ID, @i) + ";" + $Ops(Get, Locs.Locale, @i) + ";" + @thisTrack + ";" + $Ops(Get, Locs.Class, @i) + ";" + @cap
+    Let jLine = $Ops(Get, Locations.ID, @i) + ";" + $Ops(Get, Locs.Locale, @i) + ";" + @thisTrack + ";" + $Ops(Get, Locs.Class, @i) + ";" + @cap
+
+** Test that the semi colon is in a valid place
+  Let jTest = $Ops(Get, Locs.Locale, @i)
+  Let kTest = $String(@jTest, NextToken, ";")
+  If (@jTest = "")
+    Let message = $Ops(Get, Locs.Locale, @i) + " has an error:\nlocation but no track."
+    Call $Msgbox(@message)
+  EndIf
+  If (@kTest = "")
+    Let message = $Ops(Get, Locs.Locale, @i) + " has an error:\ntrack but no location."
+    Call $Msgbox(@message)
+  EndIf
+
+** Test that the line has 5 semi colons
+    Let j = 0
+    Let jTest = @jLine
+    While (@jTest <> "")
+       Let token = $String(@jTest, NextToken, ";")
+       Let j = @j + 1
+    EndWhile
+
+    If (@j <> 6)
+      Let message = $Ops(Get, Locs.Locale, @i) + " has an error:\nplease check for extra or missing semi colons."
+      Call $Msgbox(@message)
+    EndIf
+
+    Let jLocation = @jLocation + \n@jLine
     Let i = @i + 1
 
   EndWhile
-
 
   Let jLocationLoc = $DataDir + "\Reports\TrainPlayer Report - Locations.txt"
   Call $Write(@jLocationLoc, @jLocation)
@@ -195,8 +221,8 @@ Proc ReportTpIndustries
   Let jID = $Ops(find, Industries.Locale, All, ID)
   Let jCount = $Set(@jID, Count)
 
-  Let jIndustry = $DATE + "-" + $TIME
-  Let jIndustry = @jIndustry + \n"TP ID;JMRI Location;JMRI Track;TP Industry;TP AAR;TP S/R;Load;TP Staging;TP ViaIn;TP Via Out"
+  Let jIndustry = $DATE + "-" + $TIME + ";;;;;;;;;"
+  Let jIndustry = @jIndustry + \n + "TP ID;JMRI Location;JMRI Track;TP Industry;TP AAR;TP S/R;Load;TP Staging;TP ViaIn;TP Via Out"
 
   Let i = 1
   While (i <= @jCount)
