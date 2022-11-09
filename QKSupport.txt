@@ -109,7 +109,7 @@ EndProc
 
 Proc ReportTpInventory
 
-  Echo o2o Utility - Report of TrainPlayer rolling stock inventory
+  Echo o2o Utility - create TrainPlayer Report - Rolling Stock.txt
 
   Echo Working on it......
 
@@ -136,6 +136,10 @@ Proc ReportTpInventory
       Let jLocale = "Unknown;~"
     EndIf
 
+    If(@jLocale = "")
+      Let jLocale = "Unknown;~"
+    EndIf
+
     Let jInventory = @jInventory +\n@jCar + ";" + $Ops(Get, Cars.Type, @i) + ";" + $Ops(Get, Cars.AAR, @i) + ";" +  @jLocale + ";" + $Ops(Get, Cars.Load, @i) + ";" + @jKernel + ";" + $Car(@jCar, Car_ID)
     Let i = @i + 1
 
@@ -152,7 +156,7 @@ EndProc
 
 Proc ReportTpLocations
 
-  Echo o2o Utility - Report of all TrainPlayer locations
+  Echo o2o Utility - create TrainPlayer Report - Locations.txt
 
   Let jID = $Ops(find, Locs.Class, All, ID)
   Let jCount = $Set(@jID, Count)
@@ -216,7 +220,7 @@ EndProc
 
 Proc ReportTpIndustries
 
-  Echo o2o Utility - Report of all TrainPlayer industries
+  Echo o2o Utility - create TrainPlayer Report - Industries.txt
 
   Let jID = $Ops(find, Industries.Locale, All, ID)
   Let jCount = $Set(@jID, Count)
@@ -293,10 +297,33 @@ Proc InitCars
     Let jCarLoc = $Car(@jTemp, Track) ** track ID
     Let jCarLoc = $Track(@jCarLoc, Label) ** track label
     Let $Car(@jTemp, Dest) = @jCarLoc
+
+** Set the car to AO Industries load and state
+    Let jInds = $Ops(find, Industries.Industry, @jCarLoc)
+    If(@jinds = "")
+      Let $Car(@jTemp, Loaded) = 0
+    EndIf
+    While($String(@jInds, Length) <> 0)
+      Let id = $String(@jInds, NextToken)
+      let aar = $Ops(get, Industries.AAR, @id)
+      If($Car(@jTemp, AAR) = @aar)
+        Let jLoad = $Ops(get, Industries.Load, @id)
+        Let $Car(@jTemp, Loadname) = @jLoad
+        Let $Car(@jTemp, Loaded) = 1
+        Let sr = $Ops(get, Industries.S/R, @id)
+          If(@sr = "R")
+            Let $Car(@jTemp, Loaded) = 0
+          EndIf
+      EndIf
+    EndWhile
+
+** Set cars on unlabeled tracks
     If (@jCarLoc = "") ** track is unlabeled
       Let $Car(@jTemp, Dest) = "~"
       Continue
     EndIf
+
+** Set loccos and cabin cars
     If ($Car(@jTemp, LoadName) = "") ** car is unloadable
       Let $Car(@jTemp, Dest) = "~"
       Continue
@@ -312,15 +339,12 @@ EndProc
 
 Proc InitTracks
 
-Echo o2o Utility - Set all <> or ~ tracks to null
+Echo o2o Utility - Set all  ~ tracks to null
 Let jIDs = $Layout(IDSet, TrackIDs)
 Let i = 0
 While(@i < $Set(@jIDs, Count))
   Let jTrackID = $Set(@jIDs, Get, @i)
-  If($TRACK(@jTrackID, Label) = "")
-    Let $TRACK(@jTrackID, Label) = "~"
-  EndIf
-  If($TRACK(@jTrackID, Label) = "<>")
+  If($TRACK(@jTrackID, Label) = "~")
     Let $TRACK(@jTrackID, Label) = ""
   EndIf
   Let i = @i + 1
