@@ -161,9 +161,11 @@ Proc ReportTpLocations
   Let jID = $Ops(find, Locs.Class, All, ID)
   Let jCount = $Set(@jID, Count)
 
+  Let jName = $Layout(Name)
+
   Let jLocation = $DATE + "-" + $TIME + ";;;;;"
-  Let jLocation = @jLocation +\n$Layout + ";;;;;"
-  Let jLocation = @jLocation +\n$Layout(Description) + ";;;;;"
+  Let jLocation = @jLocation +\n@jName + ";Railroad Parent;Railroad Location;Railroad Year;;"
+
   Let jLocation = @jLocation +\n + "TP ID;JMRI Location;JMRI Track;TP Track;TP Class;TP Spaces"
 
   Let i = 1
