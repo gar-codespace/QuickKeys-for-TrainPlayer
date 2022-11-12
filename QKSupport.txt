@@ -164,7 +164,8 @@ Proc ReportTpLocations
   Let jName = $Layout(Name)
 
   Let jLocation = $DATE + "-" + $TIME + ";;;;;"
-  Let jLocation = @jLocation +\n@jName + ";Railroad Parent;Railroad Location;Railroad Year;;"
+
+  Let jLocation = @jLocation +\n$Layout(Name) + ";" + @railroadParent + ";" + @railroadDescription + ";" + @railroadYear + ";;"
 
   Let jLocation = @jLocation +\n + "TP ID;JMRI Location;JMRI Track;TP Track;TP Class;TP Spaces"
 
