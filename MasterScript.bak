@@ -1,3 +1,9 @@
+Let railroadParent = ""
+Let railroadLocation = ""
+Let railroadYear = ""
+Let railroadDivision1 = ""
+Let railroadDivision2 = ""
+
 Let $Key = 0
 
 ** Set Up the Subroutines
@@ -9,10 +15,7 @@ Call SetLanguage en  ** Language choices are: en, de, fr, sp
 Call QuickKeys Setup
 Call SpeedSwitching Setup
 Call DropKick Setup
-Call PhastPhunctions Setup
-** for o20 setup: 0 = use TrainPlayer loads, 1 = use JMRI loads
-Call o2o Setup 0
-Call TurnTable Setup 2
+Call o2o Setup 0  ** 0 = use TrainPlayer loads, 1 = use JMRI loads
 
 **Close the greeting message
 Call NoteWindow
@@ -21,18 +24,15 @@ StartingPoint:
 
 On Key
 
-Let sMaxSpeed = 40
+Let sMaxSpeed = 7
 Let sCoupleSpeed = 4
 
 Drive $Train($Train)
 
-Call TurnTable
 Call QuickKeys
 Call SpeedSwitching $Train $Car $Speed
 Call DropKick $Train $Car $Speed
-Call PhastPhunctions
 Call o2o
-Call jTimer
 
 EndDrive
 
