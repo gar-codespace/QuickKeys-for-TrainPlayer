@@ -1,8 +1,10 @@
-Let railroadParent = ""
-Let railroadLocation = ""
-Let railroadYear = ""
-Let railroadDivision1 = ""
-Let railroadDivision2 = ""
+** Optional railroad details
+Let OperatingRoad = ""
+Let Territory = ""
+Let Location = ""
+Let Year = ""
+Let Divisions = "" ** Separate division names with a comma, no spaces.
+Let ModelScale = "" ** Choose from: Z, N, HOn3, OO, HO, HOn3, Sn3, S, On3, O, G
 
 Let $Key = 0
 

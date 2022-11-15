@@ -165,7 +165,7 @@ Proc ReportTpLocations
 
   Let jLocation = $DATE + "-" + $TIME + ";;;;;"
 
-  Let jLocation = @jLocation +\n@Railroad + ";" + @Operation + ";" + @Location + ";" + @Year + ";" + @Divisions + ";" + @Scale
+  Let jLocation = @jLocation +\n@OperatingRoad + ";" + @Territory + ";" + @Location + ";" + @Year + ";" + @Divisions + ";" + @ModelScale
 
   Let jLocation = @jLocation +\n + "TP ID;JMRI Location;JMRI Track;TP Track;TP Class;TP Spaces"
 
