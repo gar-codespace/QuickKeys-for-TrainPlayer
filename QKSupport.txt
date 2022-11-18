@@ -163,7 +163,7 @@ Proc ReportTpLocations
 
   Let jName = $Layout(Name)
 
-  Let jLocation = $DATE + "-" + $TIME + ";;;;;"
+  Let jLocation = $DATE + "-" + $TIME + ";" + $Layout(Name) + ";;;;"
 
   Let jLocation = @jLocation +\n@OperatingRoad + ";" + @Territory + ";" + @Location + ";" + @Year + ";" + @Divisions + ";" + @ModelScale
 
