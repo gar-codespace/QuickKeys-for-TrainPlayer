@@ -39,7 +39,12 @@ Proc CreateReportHeader
   Else
     Let jTemp = "Railroad name not found"
   Endif
-  Let jHeader = @jTemp
+
+** The JMRI jPlus sub separates header items with a semi colon
+  Let jHeader = ""
+  While ($String(@jTemp, Length) <> 0)
+    Let jHeader = @jHeader + $String(@jTemp, NextToken, ";") + "\n"
+  EndWhile
 
   Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Train name
   If($String(@jTemp, StartsWith, "HT") = 1)
@@ -47,7 +52,9 @@ Proc CreateReportHeader
   Else
     Let jTemp = "Train name not found"
   Endif
-  Let jHeader = @jHeader + \n@jTemp
+  If($String(@jTemp, Length) <> 0)
+    Let jHeader = @jHeader + \n@jTemp
+  EndIf
 
   Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Train description
   If($String(@jTemp, StartsWith, "HD") = 1)
@@ -55,7 +62,9 @@ Proc CreateReportHeader
   Else
     Let jTemp = "Train description not found"
   Endif
-  Let jHeader = @jHeader + \n@jTemp
+  If($String(@jTemp, Length) <> 0)
+    Let jHeader = @jHeader + \n@jTemp
+  EndIf
 
   Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Train comment
   If($String(@jTemp, StartsWith, "HC") = 1)
@@ -63,7 +72,9 @@ Proc CreateReportHeader
   Else
     Let jTemp = "Train comment not found"
   Endif
-  Let jHeader = @jHeader + \n@jTemp
+  If($String(@jTemp, Length) <> 0)
+    Let jHeader = @jHeader + \n@jTemp
+  EndIf
 
   Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Valid time
   If($String(@jTemp, StartsWith, "HV") = 1)

@@ -130,14 +130,14 @@ Proc ReportTpInventory
     Let jLocale = $Ops(Find, Locs.Track, @jTrack)
     Let jLocale = $Ops(Get, Locs.Locale, @jLocale)
     If(@jTrack = "~")
-      Let jLocale = "Unknown;~"
+      Let jLocale = "Unreported;~"
     EndIf
     If(@jTrack = "")
-      Let jLocale = "Unknown;~"
+      Let jLocale = "Unreported;~"
     EndIf
 
     If(@jLocale = "")
-      Let jLocale = "Unknown;~"
+      Let jLocale = "Unreported;~"
     EndIf
 
     Let jInventory = @jInventory +\n@jCar + ";" + $Ops(Get, Cars.Type, @i) + ";" + $Ops(Get, Cars.AAR, @i) + ";" +  @jLocale + ";" + $Ops(Get, Cars.Load, @i) + ";" + @jKernel + ";" + $Car(@jCar, Car_ID)
@@ -164,6 +164,10 @@ Proc ReportTpLocations
   Let jName = $Layout(Name)
 
   Let jLocation = $DATE + "-" + $TIME + ";" + $Layout(Name) + ";;;;"
+
+  If ($String(@OperatingRoad, Length) = 0)
+    Let OperatingRoad = $Layout(Name)
+  EndIf
 
   Let jLocation = @jLocation +\n@OperatingRoad + ";" + @Territory + ";" + @Location + ";" + @Year + ";" + @Divisions + ";" + @ModelScale
 
