@@ -6,10 +6,13 @@
 Let version = 20220801
 
 ** Create pools of road names
-  Let HOME_POOL = CNJ
-  Let HERITAGE_MANIFEST_POOL = PRR WJ&S NYNH&H P&R B&A B&O NYC M&P SP AT&SF DL&W CNJ ACL LV ER
-  Let HERITAGE_REEFER_POOL = FGEX FGEX FGEX FGEX FGEX FGEX PFEX SFRD HKH
-  Let HERITAGE_TANK_POOL = UTLX TCX PRR TELX
+  Let HOME_POOL = WJ&S
+  Let HERITAGE_MANIFEST_POOL = PRR WJ&S WJ&S WJ&S WJ&S WJ&S WJ&S NYNH&H P&R B&A B&O NYC M&P SP AT&SF DL&W CNJ ACL LV ER
+  Let HERITAGE_REEFER_POOL = PFEX SFRD
+  Let PRR_REEFER_POOL = FGEX
+  Let HERITAGE_TANK_POOL = TCX PRR TELX
+  Let HERITAGE_HEINZ_POOL = HKH
+  Let HERITAGE_UNION_POOL = UTLX
   Let HERITAGE_HOPPER_POOL = PRR PGCC P&R B&O WCC
   Let MODERN_POOL = CSX NS BNSF UP CP NdeM UTLX ATTX
 
@@ -29,12 +32,16 @@ Let version = 20220801
 ** First cover all the basics
 ** Note that ET is taken out, steam tenders are not relabled
   Let HOME_AAR = E ES ED EE EP N NE NM
-  Let MANIFEST_AAR = F FA FA6 FB FC FCA FD FL FM FS FW G GA GB GD GBH GE GS GT H HM LG LO LP LT O R RA RB RBL RP S SH SM T TA TL TW X XAR XMR XI XM XP
+  Let MANIFEST_AAR = F FA FA6 FB FC FCA FD FL FM FS FW G GA GB GD GBH GE GS GT H HM LG LO LP LT O RA RB RBL RP S SH SM T TA TL TW X XAR XMR XI XM XP
   Let PASS_AAR = B BE BH BM BMR BMT BP BR BX CA CS D DA DB DC DL DO DP DPA MA MB MR P PA PAS PB PBC PBO PC PL PO PS PSA
   Let MW_AAR = M MWB MWC MWD MWG MWF MWK MWR MWX
 ** Then cover granular cases
-  Let REEFER_AAR = RS
+  Let REEFER_AAR = RS R
+  Let PRR_REEFER_POOL_AAR = R7 Rf
+  Let HEINZ_REEFER_AAR = RH
   Let TANK_AAR = TG TM
+  Let UNION_TANK_AAR = TO
+  Let VINEGAR_AAR = TV
   Let HOPPER_AAR = HT HK
 
 ** Select which pools to use
@@ -43,7 +50,11 @@ Let version = 20220801
   Let mwNames = @HOME_POOL
   Let manifestNames = @HERITAGE_MANIFEST_POOL
   Let reeferNames = @HERITAGE_REEFER_POOL
+  Let prrReeferNames = @PRR_REEFER_POOL
+  Let heinzReeferNames = @HERITAGE_HEINZ_POOL
   Let tankNames = @HERITAGE_TANK_POOL
+  Let unionTankNames = @HERITAGE_UNION_POOL
+  Let vinegarNames = @HERITAGE_HEINZ_POOL
   Let hopperNames = @HERITAGE_HOPPER_POOL
 
 *********************************************
@@ -126,6 +137,7 @@ If ($Set(@workingAAR, Contains, @rsAar) = 1)
 EndIf
 
 ** Then cover granular cases
+
 ** Relabel reefer equipment
   Let workingAAR = @REEFER_AAR
   If ($Set(@workingAAR, Contains, @rsAar) = 1)
@@ -141,6 +153,42 @@ EndIf
     Let roadNumberLength = @FREIGHT_LENGTH
     Let workingPool = @tankNames
     Let eqptNamesLen = $Set(@tankNames, Count) - 1
+    Call RelabelRollingStock @SEPERATOR
+  EndIf
+
+** Relabel union tank equipment
+  Let workingAAR = @UNION_TANK_AAR
+  If ($Set(@workingAAR, Contains, @rsAar) = 1)
+    Let roadNumberLength = @FREIGHT_LENGTH
+    Let workingPool = @unionTankNames
+    Let eqptNamesLen = $Set(@unionTankNames, Count) - 1
+    Call RelabelRollingStock @SEPERATOR
+  EndIf
+
+** Relabel PRR reefer equipment
+  Let workingAAR = @PRR_REEFER_POOL_AAR
+  If ($Set(@workingAAR, Contains, @rsAar) = 1)
+    Let roadNumberLength = @FREIGHT_LENGTH
+    Let workingPool = @prrReeferNames
+    Let eqptNamesLen = $Set(@prrReeferNames, Count) - 1
+    Call RelabelRollingStock @SEPERATOR
+  EndIf
+
+** Relabel heinz reefer equipment
+  Let workingAAR = @HEINZ_REEFER_AAR
+  If ($Set(@workingAAR, Contains, @rsAar) = 1)
+    Let roadNumberLength = @FREIGHT_LENGTH
+    Let workingPool = @heinzReeferNames
+    Let eqptNamesLen = $Set(@heinzReeferNames, Count) - 1
+    Call RelabelRollingStock @SEPERATOR
+  EndIf
+
+** Relabel vinegar equipment
+  Let workingAAR = @VINEGAR_AAR
+  If ($Set(@workingAAR, Contains, @rsAar) = 1)
+    Let roadNumberLength = @FREIGHT_LENGTH
+    Let workingPool = @vinegarNames
+    Let eqptNamesLen = $Set(@vinegarNames, Count) - 1
     Call RelabelRollingStock @SEPERATOR
   EndIf
 
