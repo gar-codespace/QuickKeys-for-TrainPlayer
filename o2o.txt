@@ -66,15 +66,15 @@ Proc CreateReportHeader
     Let jHeader = @jHeader + \n@jTemp
   EndIf
 
-  Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Train comment
-  If($String(@jTemp, StartsWith, "HC") = 1)
-    Call $String(@jTemp, NextToken)
-  Else
-    Let jTemp = "Train comment not found"
-  Endif
-  If($String(@jTemp, Length) <> 0)
-    Let jHeader = @jHeader + \n@jTemp
-  EndIf
+  * Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Train comment
+  * If($String(@jTemp, StartsWith, "HC") = 1)
+  *  Call $String(@jTemp, NextToken)
+  * Else
+  *   Let jTemp = "Train comment not found"
+  * Endif
+  * If($String(@jTemp, Length) <> 0)
+  *   Let jHeader = @jHeader + \n@jTemp
+  * EndIf
 
   Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Valid time
   If($String(@jTemp, StartsWith, "HV") = 1)
@@ -348,7 +348,7 @@ Proc IncrementWE
 
   Call ParseManifest
 
-  Let jNote = @jHeader \n$Set(@o2oSet, Get, 4) @jWEN $Set(@o2oSet, Get, 12) @jWEIndex $Set(@o2oSet, Get, 13) @jWETotal \n@jMText \n\n@PickUpCount $Set(@o2oSet, Get, 5) @SetOutCount $Set(@o2oSet, Get, 6) \n
+  Let jNote = @jHeader \n$Set(@o2oSet, Get, 4) @jWEN \n$Set(@o2oSet, Get, 12) @jWEIndex $Set(@o2oSet, Get, 13) @jWETotal \n@jMText \n\n@PickUpCount $Set(@o2oSet, Get, 5) @SetOutCount $Set(@o2oSet, Get, 6) \n
   Call NoteWindow @jNote 1
   Let L = 1
 
