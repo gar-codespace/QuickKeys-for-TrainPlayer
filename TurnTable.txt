@@ -1,5 +1,22 @@
-** TurnTable Version 1
-Let version = 20220105
+** TurnTable Version 2
+Let version = 20221212
+
+** How to:
+** Add a command box
+** Edit in script editor
+** press record
+** manually move the turntable around
+** copy from command box into Turntable Matrices note window
+** edit to add turntable lead number or letter, IE
+** Edit:
+** rotate 1 386
+** Into:
+** rotate d 1 386
+
+** after the Turntable matrices note is finished,
+** press apply
+** save the layout
+** restart the master script
 
 Proc CullTheHerd ** make a sub matrix of tracks connected to the selected turntable
 
@@ -28,17 +45,22 @@ Let tAlpha = 0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X
 Let tNumeric = 48,49,50,51,52,53,54,55,56,57,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,
 Let tNoteText = $Note(@tScriptID)
 While(@tNoteText <> "")
-  Let tLine = $String(@tNoteText, NextToken, " ")
+  Let tLine = $String(@tNoteText, NextToken, @xCR)
   If($String(@tLine, Contains, "rotate") = 1)
-    Let tL = $String(@tNoteText, NextToken, " ") ** the alpha character of the track Lead in tNoteText
+    Call $String(@tLine, NextToken, " ") ** Strip off the word 'rotate'
+
+    Let tL = $String(@tLine, NextToken, " ") ** the alpha character of the track Lead in tNoteText
     Let tL = $Set(@tAlpha, Find, @tL) ** the index of the alpha character
     Let tL = $Set(@tNumeric, Get, @tL) ** the key number of the alpha character
-    Let tT = "T" + $String(@tNoteText, NextToken, " ") ** add a 'T' to the Table ID number
-    Let tJ = $String(@tNoteText, NextToken, " ") ** the junction number of a connected Lead
-    Let tJ = "J" + $String(@tJ, NextToken, @xCR) ** add a 'J' and strip the CR off the end
+
+    Let tT = "T" + $String(@tLine, NextToken, " ") ** add a 'T' to the Table ID number
+
+    Let tJ = "J" + @tLine ** add a 'J' to the junction number
+  
     Let tMatrix = $Set(@tMatrix, Add, @tT)
     Let tMatrix = $Set(@tMatrix, Add, @tL)
-    Let tMatrix = $Set(@tMatrix, Add, @tJ) ** write the matrix Table,Lead,Junction
+    Let tMatrix = $Set(@tMatrix, Add, @tJ) ** write the matrix: Table,Lead,Junction
+
   EndIf
 EndWhile
 *** Echo @tMatrix
