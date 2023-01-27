@@ -66,9 +66,10 @@ Proc CreateReportHeader
     Let jHeader = @jHeader + \n@jTemp
   EndIf
 
+  **** Train comment is not in the JMRI train.json file.
   * Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Train comment
   * If($String(@jTemp, StartsWith, "HC") = 1)
-  *  Call $String(@jTemp, NextToken)
+  *   Call $String(@jTemp, NextToken)
   * Else
   *   Let jTemp = "Train comment not found"
   * Endif
@@ -77,6 +78,7 @@ Proc CreateReportHeader
   * EndIf
 
   Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Valid time
+  echo @jTemp
   If($String(@jTemp, StartsWith, "HV") = 1)
     Call $String(@jTemp, NextToken)
   Else
