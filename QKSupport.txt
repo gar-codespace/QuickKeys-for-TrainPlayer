@@ -181,7 +181,7 @@ Proc ReportTpLocations
     If($Ops(Get, Locs.Class, @i) = "industry")
       Let cap = $Ops(Get, Locs.VacantSpots, @i)
     Else
-      Let cap = $Capac(@thisTrack, all)
+      Let cap = $Capac(@thisTrack, occ)
     EndIf
 
     Let jLine = $Ops(Get, Locations.ID, @i) + ";" + $Ops(Get, Locs.Locale, @i) + ";" + @thisTrack + ";" + $Ops(Get, Locs.Class, @i) + ";" + @cap
