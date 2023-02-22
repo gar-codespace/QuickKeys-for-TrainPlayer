@@ -12,11 +12,18 @@ Echo o2o Utility - Assign random road names and numbers to rolling stock
 Input noteId "Enter the note ID for the 'Random Roads - Source Data' note"
 Let inputData = $Note(@noteId)
 
+Let toggleAll = $msgbox("YN", "Generate random roads for all cars?")
+
 Echo Working on it......
 
 Call NoteParser
 
-Let allCarIds = $Layout(IDSet, CarIds)
+If (@toggleAll = 1)
+  Let allCarIds = $Layout(IDSet, CarIds)
+EndIf
+If (@toggleAll = 0)
+  Let allCarIds = $Train($Train, CarIds)
+EndIf
 
 While ($Set(@allCarIds, Count) > 0)
 
