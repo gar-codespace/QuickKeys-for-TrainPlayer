@@ -1,10 +1,12 @@
+* Master script template
+
 ** Optional railroad details
 Let OperatingRoad = ""
 Let Territory = ""
 Let Location = ""
 Let Year = ""
-Let Divisions = "" ** Separate division names with a comma, no spaces.
-Let ModelScale = "" ** Choose from: Z, N, HOn3, OO, HO, HOn3, Sn3, S, On3, O, G
+Let Divisions = ""
+Let ModelScale = "HO" ** Choose from: Z, N, HOn3, OO, HO, HOn3, Sn3, S, On3, O, G
 
 Let $Key = 0
 
@@ -17,7 +19,9 @@ Call SetLanguage en  ** Language choices are: en, de, fr, sp
 Call QuickKeys Setup
 Call SpeedSwitching Setup
 Call DropKick Setup
-Call o2o Setup 0  ** 0 = use TrainPlayer loads, 1 = use JMRI loads
+** Call PhastPhunctions Setup
+** Call o2o Setup
+** Call TurnTable Setup
 
 **Close the greeting message
 Call NoteWindow
@@ -26,15 +30,18 @@ StartingPoint:
 
 On Key
 
-Let sMaxSpeed = 7
+Let sMaxSpeed = 40
 Let sCoupleSpeed = 4
 
 Drive $Train($Train)
 
+** Call TurnTable
 Call QuickKeys
 Call SpeedSwitching $Train $Car $Speed
 Call DropKick $Train $Car $Speed
-Call o2o
+** Call PhastPhunctions
+** Call o2o
+** Call jTimer
 
 EndDrive
 
