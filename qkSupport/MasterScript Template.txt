@@ -5,23 +5,24 @@ Let OperatingRoad = ""
 Let Territory = ""
 Let Location = ""
 Let Year = ""
-Let Divisions = ""
-Let ModelScale = "HO" ** Choose from: Z, N, HOn3, OO, HO, HOn3, Sn3, S, On3, O, G
+Let Divisions = "" ** Enter division names seperated by a comma without a space.
+Let ModelScale = "" ** Choose from: Z, N, HOn3, OO, HO, HOn3, Sn3, S, On3, O, G
 
 Let $Key = 0
 
 ** Set Up the Subroutines
 
 Call UserSettings
-Call QKSupport  ** Quick Keys support utilities
-Call SetLanguage en  ** Language choices are: en, de, fr, sp
+Call qkEntities ** Quick Keys support utilities
+Call o2oUtilities ** o2o support utilities
 
 Call QuickKeys Setup
 Call SpeedSwitching Setup
 Call DropKick Setup
-** Call PhastPhunctions Setup
-** Call o2o Setup
-** Call TurnTable Setup
+Call o2o Setup
+Call TurnTable Setup 445
+
+Call SetLanguage en  ** Language choices are: en, de, fr, sp
 
 **Close the greeting message
 Call NoteWindow
@@ -35,12 +36,11 @@ Let sCoupleSpeed = 4
 
 Drive $Train($Train)
 
-** Call TurnTable
+Call TurnTable
 Call QuickKeys
 Call SpeedSwitching $Train $Car $Speed
 Call DropKick $Train $Car $Speed
-** Call PhastPhunctions
-** Call o2o
+Call o2o
 ** Call jTimer
 
 EndDrive

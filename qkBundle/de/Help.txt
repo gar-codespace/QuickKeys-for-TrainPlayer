@@ -43,13 +43,7 @@ d steht für Drop. Drücken Sie 'd', um einige Autos fallen zu lassen. (Lass sie
 Drücken Sie bei angehaltenem Zug 'k' oder 'd', um die Kickmotoren zu reinigen.
 "
 ,
-"
-*** Phast Phunctions ***
-
-p ist für das Programm. Drücken Sie 'p', um den Programmiermodus aufzurufen und zu verlassen.
-Ich bin für ID. Wählen Sie eine Engine aus und drücken Sie 'i', um die ID ein- / auszublenden.
-
-"
+""
 ,
 "
 *** O2O - Jmri Advanced ops Workevent Switching ***

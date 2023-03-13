@@ -1,0 +1,24 @@
+"Phake Physics is active"
+,
+"Speed Switching is active"
+,
+"Clean up the Kick Motors?"
+,
+"Enter the note ID for the 'Random Roads - Source Data' note"
+,
+"Generate random roads for all cars?"
+,
+""
+,
+""
+,
+""
+,
+""
+,
+""
+,
+"Elapsed time is"
+,
+"Number of moves:"
+,

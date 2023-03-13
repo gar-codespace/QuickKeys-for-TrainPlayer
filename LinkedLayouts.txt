@@ -1,5 +1,4 @@
 ** LinkedLayouts Version 2
-Let version = 20220105
 
 Proc DupeCars
 ** find duplicates

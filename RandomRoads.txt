@@ -1,18 +1,15 @@
-** RandomRoads script
-** Randomly assign road names and numbers to freight cars
-** and home road names and numbers to home road eqpt
-** 2022 Greg Ritacco
-
-Let rrVersion = 20230110
+** RandomRoads Version 2
 
 Echo o2o Utility - Assign random road names and numbers to rolling stock
 
 ** Run the script
 
-Input noteId "Enter the note ID for the 'Random Roads - Source Data' note"
+
+Input noteId $Set(@messageBundle, Get, 3)
 Let inputData = $Note(@noteId)
 
-Let toggleAll = $msgbox("YN", "Generate random roads for all cars?")
+Let message = $Set(@messageBundle, Get, 4)
+Let toggleAll = $msgbox("YN", @message)
 
 Echo Working on it......
 
@@ -155,105 +152,105 @@ Call $String(@inputData, NextToken, @xCR)
 
 ** Get the road name sets for equipment types
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR00_OPERATING_ROAD = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR00_OPERATING_ROAD = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR01_HOME_ROADS = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR01_HOME_ROADS = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR02_MANIFEST_POOL = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR02_MANIFEST_POOL = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR03_REEFER_POOL = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR03_REEFER_POOL = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR04_TANK_POOL = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR04_TANK_POOL = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR05_HOPPER_POOL = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR05_HOPPER_POOL = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR06_SPECIAL_1_Pool = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR06_SPECIAL_1_Pool = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR07_SPECIAL_2_Pool = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR07_SPECIAL_2_Pool = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR08_SPECIAL_3_Pool = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR08_SPECIAL_3_Pool = @x
 
 ** Get the AAR sets for each equipment type
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR20_OPERATING_AAR = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR20_OPERATING_AAR = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR21_HOME_AAR = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR21_HOME_AAR = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR22_MANIFEST_AAR = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR22_MANIFEST_AAR = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR23_PASS_AAR = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR23_PASS_AAR = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR24_MW_AAR = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR24_MW_AAR = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR25_REEFER_AAR = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR25_REEFER_AAR = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR26_TANK_AAR = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR26_TANK_AAR = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR27_HOPPER_AAR = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR27_HOPPER_AAR = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR28_SPECIAL_1_AAR = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR28_SPECIAL_1_AAR = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR29_SPECIAL_2_AAR = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR29_SPECIAL_2_AAR = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR30_SPECIAL_3_AAR = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR30_SPECIAL_3_AAR = @x
 
 ** Get the equipmant number lengths
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR40_HOME_LENGTH = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR40_HOME_LENGTH = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR41_PASS_LENGTH = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR41_PASS_LENGTH = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR42_FREIGHT_LENGTH = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR42_FREIGHT_LENGTH = @x
 
-Let x = $String(@inputData, NextToken, @xCR)
-Call $String(@x, NextToken, " ")
-Let RR43_MW_LENGTH = @x
+  Let x = $String(@inputData, NextToken, @xCR)
+  Call $String(@x, NextToken, " ")
+  Let RR43_MW_LENGTH = @x
 
 EndProc
 *********************************************

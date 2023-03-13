@@ -1,5 +1,19 @@
 ** DropKick Version 2
-Let version = 20220105
+
+
+
+If (%1 = SetUp)
+
+  Let x3 = 1
+  Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5
+  Let Uncouple Gap = 20 ** make bigger if dropped cars re-couple
+  Let Min Coupling Dist = 1
+  Let CarBarRecentCollection = DropKick
+  Let DefaultCarColl = DropKick
+  Echo DropKick @version
+EndIf
+****************************************************************************
+
 
 Proc Scrubber
 
@@ -22,7 +36,7 @@ Proc CleanLayout
 If (%1 = 1)
   Let kCleanToggle = %1
 Else ** Put up guard rails
-  Let xMessage = $Set(@MessageSet, Get, 2)
+  Let xMessage = $Set(@messageBundle, Get, 2)
   Let kCleanToggle = $MsgBox(yn, @xMessage)
 EndIf
 
@@ -105,17 +119,6 @@ train "uncouple"
 EndProc
 ****************************************************************************
 
-If (%1 = SetUp)
-
-  Let x3 = 1
-  Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5,@x6,@x7
-  Let Uncouple Gap = 20 ** make bigger if dropped cars re-couple
-  Let Min Coupling Dist = 1
-  Let CarBarRecentCollection = DropKick
-  Let DefaultCarColl = DropKick
-  Echo DropKick @version
-EndIf
-****************************************************************************
 
 If($Set(@xMatrix, Get, 0) = 1) ** All on
 If($Set(@xMatrix, Get, 3) = 1) ** DK on

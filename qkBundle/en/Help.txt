@@ -44,15 +44,14 @@ Press 'k' or 'd' with the train stopped to clean up kick motors.
 "
 ,
 "
-*** Phast Phunctions ***
+*** Random Roads ***
 
-p is for program. Press 'p' to enter and exit program mode.
-i is for ID. Select an engine, press 'i' to show/hide the ID.
-
+In the box, enter the ID number of the Random Roads note.
+Select yes to relable the entire roster, no to relable the selected train.
 "
 ,
 "
-*** O2O - Ops to Ops Workevent Switching ***
+*** o2o - Ops to Ops Workevent Switching ***
 
 m is for Manifest. Press 'm' to read the JMRI manifest.
 l is for List. Press 'l' to show or hide the switch list.

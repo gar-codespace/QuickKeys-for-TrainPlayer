@@ -43,13 +43,7 @@ d es para Drop. Presione 'd' para dejar caer algunos autos. (Déjalos ir)
 Presione 'k' o 'd' con el tren detenido para limpiar los motores.
 "
 ,
-"
-*** Phast Phunctions ***
-
-p es para programa. Presione 'p' para entrar y salir del modo de programa.
-yo es para identificación. Seleccione un motor, presione 'i' para mostrar / ocultar la identificación.
-
-"
+""
 ,
 "
 *** O2O - Jmri Advanced ops Workevent Switching ***

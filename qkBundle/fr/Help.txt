@@ -43,13 +43,7 @@ d est pour Drop. Appuyez sur «d» pour déposer des voitures. (Laissez-les part
 Appuyez sur «k» ou «d» avec le train arrêté pour nettoyer les moteurs de coup de pied.
 "
 ,
-"
-*** Phast Phunctions ***
-
-p est pour le programme. Appuyez sur «p» pour entrer et sortir du mode programme.
-i est pour ID. Sélectionnez un moteur, appuyez sur «i» pour afficher / masquer l'ID.
-
-"
+""
 ,
 "
 *** O2O - Jmri Advanced ops Workevent Switching ***

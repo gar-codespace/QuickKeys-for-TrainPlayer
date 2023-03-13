@@ -1,0 +1,74 @@
+"
+*** Quick Keys Utilities ***
+
+Press 1: Turn all Quick Keys on.
+"
+,
+"
+*** Quick Keys Utilities ***
+
+Press 1: Turn all Quick Keys off.
+"
+,
+"Press 2: Change to Phake Physics.
+"
+,
+"Press 2: Change to Speed Switching.
+"
+,
+"Press 3: Assign random road names to equipment.
+"
+,
+"Press 4:
+"
+,
+"Press 5:
+"
+,
+"
+*** o2o Utilities ***
+
+Press 6: Initialize layout tracks.
+Press 7: Set cars to their current location.
+Press 8: Make a JMRI consist or kernel.
+Press 9: Export TrainPlayer layout.
+"
+,
+"Press 0:
+"
+,
+"Press u again to exit this window."
+,
+"
+a	      - Auto follow
+b	      - Brake
+c	      - Cut
+d	      - Drop cars
+e	      - Emergency (stop)
+f	      - Full screen
+g	      - Go (increase speed)
+h	      - Help menu
+I	      - 
+j	      - Job timer
+k	      - Kick cars
+l	      - List (o2o work list)
+m	      - Manifest
+n	      - Neutral
+o	      - 
+p	      - 
+q	      - 
+r	      - Reverser
+s	      - Slow/Stop
+t	      - Throttle
+u	      - Utilities menu
+v	      - 
+w	      - 
+x	      - 
+y	      - 
+z	      - pauZe
+Home	  - Beginning of worklist
+End	      - End of worklist
+Page Up	  - Previous work event
+Page Down - Next work event
+1 – 9	  - Turntable approach track
+"

@@ -1,5 +1,4 @@
 ** UserSettings1
-Let version = 20220105
 
 
 Proc UpdatePreferences

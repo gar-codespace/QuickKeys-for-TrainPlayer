@@ -1,5 +1,4 @@
 ** Job Timer
-Let version = 20220105
 
 If($Set(@xMatrix, Get, 0) = 1) ** quick keys turned on
 
@@ -48,7 +47,7 @@ If($Set(@xMatrix, Get, 0) = 1) ** quick keys turned on
   If(@jElapsedTime < 10)
     Let jElapsedTime = 0@jElapsedTime
   EndIf
-  Let jNote = $Set(@MessageSet, Get, 10) @jMinute + ":" + @jElapsedTime \n$Set(@MessageSet, Get, 11) @jMoveCount
+  Let jNote = $Set(@messageBundle, Get, 10) @jMinute + ":" + @jElapsedTime \n$Set(@messageBundle, Get, 11) @jMoveCount
   Call $msgbox(@jNote)
   Echo @jNote
 

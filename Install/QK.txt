@@ -1,4 +1,0 @@
-** Create the Master Script for this layout
-
-Call $View(Show, "Script Central")
-Call $system("CMD /c "%homepath%\AppData\Roaming\TrainPlayer\Subroutines\QuickKeys-Base\QK.bat"")

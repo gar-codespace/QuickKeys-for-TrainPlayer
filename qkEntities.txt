@@ -1,0 +1,161 @@
+** Quick Keys support utilities currently in use
+
+Proc DefineCarrageReturn
+
+** Simulate ReadLine for text strings
+Let xCR = "
+"
+
+EndProc
+***************************************************************************
+
+
+Proc SetLanguage
+
+** Read in text for help page
+Let HelpLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Help.txt"
+Let HelpFile = $File(@HelpLoc, Open)
+Let helpBundle = $file(@HelpFile, ReadAll)
+Call $File(@HelpLoc, Close)
+
+** Read in text for Quick Keys pop up messages
+Let MessageLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Message.txt"
+Let MessageFile = $File(@MessageLoc, Open)
+Let messageBundle = $file(@MessageFile, ReadAll)
+Call $File(@MessageLoc, Close)
+
+** Read in text for Quick Keys utility menu
+Let UtilityLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Utility.txt"
+Let UtilityFile = $File(@UtilityLoc, Open)
+Let utilityBundle = $file(@UtilityFile, ReadAll)
+Call $File(@UtilityLoc, Close)
+
+** Read in text for o2o reports
+Let o2oLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\o2o.txt"
+Let o2oFile = $File(@o2oLoc, Open)
+Let o2oBundle = $File(@o2oFile, ReadAll)
+Call $File(@o2oLoc, Close)
+
+EndProc
+***************************************************************************
+
+
+Proc makeHelpMenu ** Pass in xMatrix
+
+Let xHelpAll = ""
+
+Let i = 0
+While (i < $Set(%1, Count))
+  If ($Set(%1, Get, @i) = 1)
+    Let xHelpAll = @xHelpAll $Set(@helpBundle, Get, @i)
+  EndIf
+  Let i = @i + 1
+EndWhile
+
+
+EndProc
+***************************************************************************
+
+
+Proc makeUtilityMenu
+
+Let utilityMenu = ""
+
+If (@x0 = 0) ** All of Quick Keys is off
+
+  Let utilityMenu = \n$Set(@utilityBundle, Get, 0)
+
+EndIf
+
+If (@x0 = 1) ** All of Quick Keys is on
+
+  Let utilityMenu = $Set(@utilityBundle, Get, 1) ** Header
+
+  If (@x1 = 1) ** Speed Switching is activated
+    If (@x2 = 0) ** Phake Physics is off
+      Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 2)
+    EndIf
+    If (@x2 = 1) ** Phake Physics is on
+      Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 3)
+    EndIf
+  EndIf
+
+  Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 4) ** Add Random Roads
+
+  If (@x5 = 1)
+    Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 7)
+  EndIf
+
+EndIf
+
+Let utilityMenu = @utilityMenu + \n\n$Set(@utilityBundle, Get, 9) \n ** Footer
+
+EndProc
+***************************************************************************
+
+
+Proc NoteWindow ** Open or close the help window
+
+If (%2 = 1) ** force window open
+  Note %1
+Else
+  Note %1
+EndIf
+
+EndProc
+***************************************************************************
+
+
+Proc ProcessorInfo
+
+** Adjustment for processor speed
+** Call $System("wmic path win32_processor get CurrentClockSpeed, DeviceID, MaxClockSpeed, Name, NumberOfCores /format:LIST |more > %homepath%\AppData\Roaming\TrainPlayer\Reports\ProcessorInfo.txt")
+
+Call $System("%homepath%\AppData\Roaming\TrainPlayer\Subroutines\QuickKeys\ProcessorInfo.bat") ** This is the WMIC command
+
+Let xCSLoc = $DataDir + "\Reports\QK - ProcessorInfo.txt"
+If($File(@xCSLoc, Exists) = 1)
+  Let xCSFile = $File(@xCSLoc, Open)
+  While(1 = 1)
+    Let xLine = $File(@xCSFile, ReadLine)
+    If ($String(@xLine, StartsWith, "MaxClockSpeed") = 1)
+      Call $String(@xLine, NextToken, "=")
+      Let xPS = @xLine ** xPS is the processor speed
+    EndIf
+    If ($String(@xLine, StartsWith, "DeviceID") = 1)
+      Call $String(@xLine, NextToken, "=")
+      Let xCPU = @xCPU + 1 ** xCPU is the number of processors
+    EndIf
+    If (@xLine = "EOF")
+      Call $File(@xCSFile, Close)
+      Break
+    EndIf
+  EndWhile
+Else
+  Let xPS = 2500
+  Let xCPU = 1
+  Echo ProcessorInfo.txt is missing
+EndIf
+Let xCurve = 0,1.0,1.5,1.75,2.0,2.25,2.5,2.75,3.0, ** Power of computer as processors are added
+Let xCS = @xPS * $Set(@xCurve, Get, @xCPU)
+EndProc
+****************************************************************************
+
+
+Proc AutoLabel
+
+  ** Attach to loco to automatically label tracks
+
+  Middle:
+  After 00:00:01
+  If($Speed = 0)
+   Input xLabel "Enter the Track Label"
+   Speed 1
+  Endif
+  Let xTrack = $Car($Car, Track)
+  Let $Track(@xTrack, Label) = @xLabel
+  View Refresh
+  GoTo Middle
+
+EndProc
+****************************************************************************
