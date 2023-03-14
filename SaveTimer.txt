@@ -1,6 +1,6 @@
 ** Job Timer
 
-If($Set(@xMatrix, Get, 0) = 1) ** quick keys turned on
+If(@x0 = 1) ** quick keys turned on
 
   Proc TimeInSeconds
 

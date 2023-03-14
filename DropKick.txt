@@ -10,7 +10,7 @@ If (%1 = SetUp)
   Let Min Coupling Dist = 1
   Let CarBarRecentCollection = DropKick
   Let DefaultCarColl = DropKick
-  Echo DropKick @version
+  Echo DropKick Version 2
 EndIf
 ****************************************************************************
 

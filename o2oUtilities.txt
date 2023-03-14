@@ -24,7 +24,7 @@ Proc InitCars
   Echo o2o Utility - set all or train rolling stock destinations
 
   If(%1 = "")
-    Let jXmessage = $Set(@o2oBundle, Get, 34)
+    Let jXmessage = $Set(@messageBundle, Get, 8)
     Let jX = $Msgbox("YN", @jXmessage)
     If (@jX = 1)
       Let jLabels = $Layout(IDSet, CarLabels) ** all trains on layout
@@ -86,7 +86,7 @@ Proc AddKernels
   Echo o2o Utility - Group equipment together into a JMRI like consist or kernel
 
   Let jKernelSet = $Train($Train, CarLabels)
-  Input jK What is the kernel name?
+  Input jK $Set(@messageBundle, Get, 7)
   While($Set(@jKernelSet, Count) <> 0)
     Let jCar = $String(@jKernelSet,  NextToken)
     Let $Car(@jCar, kernel) = @jK

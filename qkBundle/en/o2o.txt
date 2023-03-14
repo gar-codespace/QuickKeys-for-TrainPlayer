@@ -1,17 +1,16 @@
-"ops 2 ops (o2o) Workevent Switching
-Version 2"
+"o2o Workevents - Version 2"
 ,
 "The manifest is empty."
 ,
-"Press 'm' to read in the manifest."
+"Press the m key to read in the manifest."
 ,
 "Reading the manifest."
 ,
 "Switching at"
 ,
-"railcars to pick up (blue), "
+"railcars to pick up (blue),"
 ,
-"railcars to set out (red). "
+"railcars to set out (red)."
 ,
 "Reading the first workevent."
 ,
@@ -21,8 +20,9 @@ Version 2"
 ,
 "Reading the last workevent."
 ,
-"Press Page Down for the next workevent.
-Press Page Up for the previous workevent."
+"Press Page Down for the next workevent."
+,
+"Press Page Up for the previous workevent."
 ,
 "Workevent number"
 ,
@@ -30,48 +30,8 @@ Press Page Up for the previous workevent."
 ,
 "From"
 ,
-"To  "
-,
-""
-,
-"The manifest is at the beginning."
-,
-"The manifest is at the end."
-,
-"Read in the JMRI manifest?"
-,
-"No locations file. Add OperationsExportAOLocations.py to JMRI, run train built script."
-,
-"O2O is active."
-,
-"O2O is NOT active."
-,
-"TrainPlayer - JMRI railcar synchronization results.
-
-1. On your model railroad, railcars with a blue label are off spot.
-
-2. On your model railroad, the following red label railcars have no entries in JMRI."
-,
-"3. In JMRI, the following JMRI railcars are not on this model railroad"
-,
-"No duplicates found."
-,
-"TrainPlayer - JMRI track synchronization results.
-
-1. On your model railroad, the following tracks have no JMRI entries"
-,
-"2. In JMRI, the following JMRI tracks are not on this model railroad"
-,
-"No errors found"
+"To"
 ,
 "Pick up"
 ,
 "Set out"
-,
-"Enter track label name to change from"
-,
-"Enter track label name to change to"
-,
-"Export all rolling stock?"
-,
-"Initialize all cars?"

@@ -1,66 +1,83 @@
 "
 *** Quick Keys ***
 
-h est pour l'aide. Appuyez sur «h» pour ouvrir et fermer cette fenêtre.
-u est pour les utilitaires. Appuyez sur «u» pour afficher le menu utilitaire.
-f est pour plein écran. Appuyez sur «f» pour entrer ou sortir du mode plein écran.
-z est pour pauZe. Appuyez sur «z» pour mettre l'action en pause. (Paramètres système)
-j est pour Job Timer. Appuyez sur «j» pour démarrer et arrêter la minuterie.
+h is for Help. Press 'h' to open and close this window.
+u is for Utilities. Press 'u' to bring up the utility menu.
+f is for Full screen. Press 'f' to enter or exit full screen mode.
+z is for pauZe. Press 'z' to pause the action. (System Setting)
+j is for Job Timer. Press 'j' to start and stop the timer.
 "
 ,
 "
 *** Speed Switching ***
 
-a est pour Auto-Follow. Appuyez sur «a» pour activer ou désactiver le suivi automatique.
-t est pour Throttle. Appuyez sur «t» pour ajouter 1 mph (km / h) chaque fois que vous appuyez sur la touche.
-g est pour Go. Appuyez une fois sur «g» pour la vitesse de chantier, à nouveau pour la vitesse maximale.
-r est pour Reverser. Appuyez sur «r» pour changer la direction du train, même en mouvement.
-s est pour Slow / Stop. Appuyez sur «s» pour ralentir à la vitesse de couplage, encore une fois pour arrêter.
+a is for Auto-Follow. Press 'a' to toggle Auto-Follow on or off.
+t is for Throttle. Press 't' to add 1 mph (kph) each time the key is pressed.
+g is for Go. Press 'g' once for Yard Speed, again for Max Speed.
+r is for Reverser. Press 'r' to change the train's direction, even while moving.
+s is for Slow/Stop. Press 's' to slow to coupling speed, again to stop.
 
-Appuyez sur «u» pour sélectionner Phake Physics.
+Press 'u' to select Phake Physics.
 "
 ,
 "
 *** Phake Physics ***
 
-a est pour Auto-Follow. Appuyez sur «a» pour activer ou désactiver le suivi automatique.
-t est pour Throttle. Le taux d'accélération est augmenté chaque fois que vous appuyez sur «t».
-b est pour le frein. La pression de freinage augmente chaque fois que vous appuyez sur la touche «b».
-n est pour Neutre. Appuyez sur «n» pour maintenir la vitesse actuelle.
-r est pour Reverser. À l'arrêt, «r» change la direction du train.
-e est pour l'urgence. Appuyez sur «e» pour arrêter tout de suite.
+a is for Auto-Follow. Press 'a' to toggle Auto-Follow on or off.
+t is for Throttle. Acceleration rate is increased each time 't' is pressed.
+b is for Brake. Braking pressure increases each time the 'b' key is pressed.
+n is for Neutral. Press 'n' to hold current speed.
+r is for Reverser. When stopped, 'r' changes train direction.
+e is for Emergency. Press 'e' to stop right now.
 
-Appuyez sur «u» pour sélectionner Changement de vitesse.
+Press 'u' to select Speed Switching.
 "
 ,
 "
 *** Drop Kick ***
 
-c est pour Cut. Appuyez sur «c» pour couper la voiture sélectionnée. (Paramètres système)
-k est pour Kick. Appuyez sur «k» pour donner un coup de pied à certaines voitures. (Frappez-les)
-d est pour Drop. Appuyez sur «d» pour déposer des voitures. (Laissez-les partir)
+c is for Cut. Press 'c' to cut off the selected car. (System Setting)
+k is for Kick. Press 'k' to kick some cars. (Kick 'Em)
+d is for Drop. Press 'd' to drop some cars. (Let 'Em Go)
 
-Appuyez sur «k» ou «d» avec le train arrêté pour nettoyer les moteurs de coup de pied.
-"
-,
-""
-,
-"
-*** O2O - Jmri Advanced ops Workevent Switching ***
-
-m est pour Manifest. Appuyez sur «m» pour lire le manifeste JMRI.
-Je suis pour List. Appuyez sur «l» pour afficher ou masquer la liste des commutateurs.
-u est pour Utility. Appuyez sur la touche «u» pour exécuter un utilitaire O2O.
-Appuyez sur la touche «Accueil» pour aller en haut du manifeste.
-Appuyez sur la touche «Fin» pour aller au bas du manifeste.
-Appuyez sur «Page suivante» pour le prochain événement de travail.
-Appuyez sur «Page précédente» pour l'événement de travail précédent.
+Press 'k' or 'd' with the train stopped to clean up kick motors.
 "
 ,
 "
-********** Tous les Quick Keys sont désactivés **********
+*** Random Roads ***
 
-h est pour l'aide. Appuyez sur «h» pour ouvrir et fermer cette fenêtre.
-u est pour les utilitaires. Appuyez sur «u» pour afficher le menu utilitaire.
+In the box, enter the ID number of the Random Roads note.
+Select yes to relable the entire roster, no to relable the selected train.
+"
+,
+"
+*** o2o - Ops to Ops Workevent Switching ***
+
+m is for Manifest. Press 'm' to read the JMRI manifest.
+l is for List. Press 'l' to show or hide the switch list.
+u is for Utility. Press the 'u' key to run a O2O utility.
+Press the 'Home' key to go to the top of the manifest.
+Press the 'End' key to go to the bottom of the manifest.
+Press 'Page Down' for the next workevent.
+Press 'Page Up' for the previous workevent.
+"
+,
+"
+*** Turntable ***
+
+Press a number, 0 - 9, that corresponds to a valid table lead track.
+Press a letter, a - z, that corresponds to a valid stall track.
+Press 'a' for anticlockwise, 'c' for clockwise.
+"
+,
+"
+Reserved for x7
+"
+,
+"
+**********  All QuickKeys are turned off **********
+
+h is for Help. Press 'h' to open and close this window.
+u is for Utilities. Press 'u' to bring up the utility menu.
 "
 ,

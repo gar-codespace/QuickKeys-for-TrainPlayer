@@ -1,4 +1,4 @@
-** o2o - ops 2 ops Workevent Switching - Version 2
+** o2o Workevents - Version 2
 
 
 If (%1 = SetUp)
@@ -12,13 +12,8 @@ If (%1 = SetUp)
   Call $View(Hide, "Track Labels")
   Call $View(Show,"car ids")
   View Refresh
-  If (@x6 = 0)
-    Echo Using AO Industry loads
-  Else
-    Echo Using JMRI custom loads
-  Endif
 
-  Echo o2o @version
+  Echo o2o Version 2
 
 EndIf
 
@@ -48,7 +43,7 @@ If($Set(@xMatrix, Get, 5) = 1)
 
 
   If($Key = 77) ** key m for manifest
-    Let jMessage = $Set(@o2oBundle, Get, 19) ** Read in jManifest
+    Let jMessage = $Set(@messageBundle, Get, 11) ** Read in jManifest
     Let jManifest = $Msgbox(YN, @jMessage)
     If (@jManifest = 0)
       Let $Key = 0
@@ -76,10 +71,10 @@ If($Set(@xMatrix, Get, 5) = 1)
 
   If($Key = 33) ** Page Up key
     If(@jWEIndex = 1)
-      Let jMessage = $Set(@o2oBundle, Get, 17)
+      Let jMessage = $Set(@messageBundle, Get, 9)
       Call $Msgbox(@jMessage)
     Else
-      Let jNote = @jHeader \n\n$Set(@o2oBundle, Get, 9)\n\n$Set(@o2oBundle, Get, 11) \n
+      Let jNote = @jHeader \n\n$Set(@o2oBundle, Get, 9)\n\n$Set(@o2oBundle, Get, 11)\n$Set(@o2oBundle, Get, 12)\n
       Call NoteWindow @jNote 1
       Echo Move to previous WorkEvent
       Let jWEIndex = @jWEIndex - 1
@@ -93,10 +88,10 @@ If($Set(@xMatrix, Get, 5) = 1)
 
   If($Key = 34) ** Page Down key
     If(@jWEIndex = @jWETotal)
-      Let jMessage = $Set(@o2oBundle, Get, 18)
+      Let jMessage = $Set(@messageBundle, Get, 10)
       Call $Msgbox(@jMessage)
     Else
-      Let jNote = @jHeader \n\n$Set(@o2oBundle, Get, 8)\n\n$Set(@o2oBundle, Get, 11) \n
+      Let jNote = @jHeader \n\n$Set(@o2oBundle, Get, 8)\n\n$Set(@o2oBundle, Get, 11)\n$Set(@o2oBundle, Get, 12)\n
       Call NoteWindow @jNote 1
       Echo Move to next WorkEvent
       Let jWEIndex = @jWEIndex + 1
@@ -111,10 +106,10 @@ If($Set(@xMatrix, Get, 5) = 1)
 
   If ($Key = 35) ** End key
     If(@jWEIndex = @jWETotal)
-      Let jMessage = $Set(@o2oBundle, Get, 18)
+      Let jMessage = $Set(@messageBundle, Get, 10)
       Call $Msgbox(@jMessage)
     Else
-      Let jNote = @jHeader \n\n$Set(@o2oBundle, Get, 10)\n\n$Set(@o2oBundle, Get, 11) \n
+      Let jNote = @jHeader \n\n$Set(@o2oBundle, Get, 10)\n\n$Set(@o2oBundle, Get, 11)\n$Set(@o2oBundle, Get, 12)\n
       Call NoteWindow @jNote 1
       Echo Move to last WorkEvent
       Let jWEIndex = @jWETotal
@@ -128,10 +123,10 @@ If($Set(@xMatrix, Get, 5) = 1)
 
   If ($Key = 36) ** Home key
     If(@jWEIndex = 1)
-      Let jMessage = $Set(@o2oBundle, Get, 17)
+      Let jMessage = $Set(@messageBundle, Get, 9)
       Call $Msgbox(@jMessage)
     Else
-      Let jNote = @jHeader \n\n$Set(@o2oBundle, Get, 7)\n\n$Set(@o2oBundle, Get, 11) \n
+      Let jNote = @jHeader \n\n$Set(@o2oBundle, Get, 7)\n\n$Set(@o2oBundle, Get, 11)\n$Set(@o2oBundle, Get, 12)\n
       Call NoteWindow @jNote 1
       Echo Move to first WorkEvent
       Let jWEIndex = 1
@@ -362,7 +357,7 @@ Proc PickupCar ** Tag the TP car to be picked up
 
   ** Note adding a whitespace between variables adds a whitespace to the report, @j0 is not needed
 
-  Let jMText = @jMText + \n$Set(@o2oBundle, Get, 29) @j3 @j4 @j5 @j6 @j7 $Set(@o2oBundle, Get, 14) @j8
+  Let jMText = @jMText + \n$Set(@o2oBundle, Get, 17) @j3 @j4 @j5 @j6 @j7 $Set(@o2oBundle, Get, 15) @j8
   Let $Car(@jID, ExcludeOps) = 0 ** set the tags color
 
 EndProc
@@ -371,7 +366,7 @@ EndProc
 
 Proc SetoutCar ** Tag the TP car to be set out
 
-  Let jMText = @jMText + \n$Set(@o2oBundle, Get, 30) @j3 @j4 @j5 @j6 @j7 $Set(@o2oBundle, Get, 15) @j9
+  Let jMText = @jMText + \n$Set(@o2oBundle, Get, 18) @j3 @j4 @j5 @j6 @j7 $Set(@o2oBundle, Get, 16) @j9
   Let $Car(@jID, ExcludeOps) = 1
 
 EndProc
@@ -380,7 +375,7 @@ EndProc
 
 Proc PickUpLoco ** Tag the engine to be picked up
 
-  Let jMText = @jMText + \n$Set(@o2oBundle, Get, 29) @j3 @j4 @j5 @j6 @j7 $Set(@o2oBundle, Get, 14) @j8
+  Let jMText = @jMText + \n$Set(@o2oBundle, Get, 17) @j3 @j4 @j5 @j6 @j7 $Set(@o2oBundle, Get, 15) @j8
   Let $Car(@jID, ExcludeOps) = 0 ** set the tags color
 
 EndProc
@@ -389,7 +384,7 @@ EndProc
 
 Proc SetOutLoco ** Tag the engine to be set out
 
-  Let jMText = @jMText + \n$Set(@o2oBundle, Get, 30) @j3 @j4 @j5 @j6 @j7 $Set(@o2oBundle, Get, 15) @j9
+  Let jMText = @jMText + \n$Set(@o2oBundle, Get, 18) @j3 @j4 @j5 @j6 @j7 $Set(@o2oBundle, Get, 16) @j9
   Let $Car(@jID, ExcludeOps) = 1 ** set the tags color
 
 EndProc
@@ -429,7 +424,7 @@ Proc IncrementWE
 
   Call ParseManifest
 
-  Let jNote = @jHeader \n$Set(@o2oBundle, Get, 4) @jWEN \n$Set(@o2oBundle, Get, 12) @jWEIndex $Set(@o2oBundle, Get, 13) @jWETotal \n@jMText \n\n@PickUpCount $Set(@o2oBundle, Get, 5) @SetOutCount $Set(@o2oBundle, Get, 6) \n
+  Let jNote = @jHeader \n$Set(@o2oBundle, Get, 4) @jWEN \n$Set(@o2oBundle, Get, 13) @jWEIndex $Set(@o2oBundle, Get, 14) @jWETotal \n@jMText \n\n@PickUpCount $Set(@o2oBundle, Get, 5) @SetOutCount $Set(@o2oBundle, Get, 6) \n
   Call NoteWindow @jNote 1
   Let L = 1
 

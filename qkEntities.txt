@@ -12,46 +12,66 @@ EndProc
 
 Proc SetLanguage
 
-** Read in text for help page
-Let HelpLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Help.txt"
-Let HelpFile = $File(@HelpLoc, Open)
-Let helpBundle = $file(@HelpFile, ReadAll)
-Call $File(@HelpLoc, Close)
+** Read in text for Quick Keys help page
+  Let HelpLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Help.txt"
+  Let HelpFile = $File(@HelpLoc, Open)
+  Let helpBundle = $file(@HelpFile, ReadAll)
+  Call $File(@HelpLoc, Close)
 
 ** Read in text for Quick Keys pop up messages
-Let MessageLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Message.txt"
-Let MessageFile = $File(@MessageLoc, Open)
-Let messageBundle = $file(@MessageFile, ReadAll)
-Call $File(@MessageLoc, Close)
+  Let MessageLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Message.txt"
+  Let MessageFile = $File(@MessageLoc, Open)
+  Let messageBundle = $file(@MessageFile, ReadAll)
+  Call $File(@MessageLoc, Close)
 
 ** Read in text for Quick Keys utility menu
-Let UtilityLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Utility.txt"
-Let UtilityFile = $File(@UtilityLoc, Open)
-Let utilityBundle = $file(@UtilityFile, ReadAll)
-Call $File(@UtilityLoc, Close)
+  Let UtilityLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Utility.txt"
+  Let UtilityFile = $File(@UtilityLoc, Open)
+  Let utilityBundle = $file(@UtilityFile, ReadAll)
+  Call $File(@UtilityLoc, Close)
 
 ** Read in text for o2o reports
-Let o2oLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\o2o.txt"
-Let o2oFile = $File(@o2oLoc, Open)
-Let o2oBundle = $File(@o2oFile, ReadAll)
-Call $File(@o2oLoc, Close)
+  Let o2oLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\o2o.txt"
+  Let o2oFile = $File(@o2oLoc, Open)
+  Let o2oBundle = $File(@o2oFile, ReadAll)
+  Call $File(@o2oLoc, Close)
 
 EndProc
 ***************************************************************************
 
 
-Proc makeHelpMenu ** Pass in xMatrix
+Proc makeHelpPage
 
-Let xHelpAll = ""
+Let helpPage = ""
 
-Let i = 0
-While (i < $Set(%1, Count))
-  If ($Set(%1, Get, @i) = 1)
-    Let xHelpAll = @xHelpAll $Set(@helpBundle, Get, @i)
+If (@x0 = 0) ** All of Quick Keys is off
+
+  Let helpPage = @helpPage \n$Set(@helpBundle, Get, 0)
+
+EndIf
+
+If (@x0 = 1) ** All of Quick Keys is on
+
+  Let helpPage = @helpPage \n$Set(@helpBundle, Get, 1)
+  If (@x1 = 1)
+    If (@x2 = 0)
+      Let helpPage = @helpPage $Set(@helpBundle, Get, 2)
+    EndIf
+    If (@x2 = 1)
+      Let helpPage = @helpPage $Set(@helpBundle, Get, 3)
+    EndIf
   EndIf
-  Let i = @i + 1
-EndWhile
+  If (@x3 = 1)
+    Let helpPage = @helpPage $Set(@helpBundle, Get, 4)
+  EndIf
+  If (@x4 = 1)
+    Let helpPage = @helpPage $Set(@helpBundle, Get, 5)
+  EndIf
+  If (@x5 = 1)
+    Let helpPage = @helpPage $Set(@helpBundle, Get, 6)
+  EndIf
 
+EndIf
 
 EndProc
 ***************************************************************************

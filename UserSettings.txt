@@ -4,6 +4,7 @@
 Proc UpdatePreferences
 ** Personal adjustments to TrainPlayer's preferences
 
+Let NoteDownOnEsc = 1
 Let ScrollDistFactorx10 = 25
 Let AllowYardMode = 1
 Let InYardMode = 1

@@ -1,38 +1,40 @@
-"*** Quick Keys Utilities ***
+"
+*** Quick Keys Utilities ***
 
-Appuyez sur 1: Désactivez toutes les touches rapides.
+Appuyer sur 1 : activer toutes les touches rapides.
 "
 ,
-"Appuyez sur 2: Passez à Phake Physics.
+"
+*** Quick Keys Utilities ***
+
+Appuyer sur 1 : Désactiver toutes les touches rapides.
 "
 ,
-"Appuyez sur 2: Passez à la commutation de vitesse.
+"Appuyez sur 2 : Passez à la physique du phake.
 "
 ,
-""
+"Appuyez sur 2 : Passez à la commutation de vitesse.
+"
 ,
-""
+"Appuyez sur 3 : Attribuez des noms de route aléatoires à l'équipement.
+"
+,
+"Appuyez sur 4 :
+"
+,
+"Appuyez sur 5 :
+"
 ,
 "
 *** o2o Utilities ***
 
-Appuyez sur 5 : Initialiser les pistes de mise en page.
-Appuyez sur 6 : les voitures se retrouvent à leur emplacement actuel.
-Appuyez sur 7 : Faites un consistoire ou un noyau JMRI.
-Appuyez sur 8 : Attribuer des noms de route aléatoires aux équipements.
-Appuyez sur 9 : Exportation de la mise en page TrainPlayer.
+Appuyer sur 6 : Initialiser les pistes de mise en page.
+Appuyez sur la touche 7 : pour ramener les voitures à leur emplacement actuel.
+Appuyer sur 8 : Faire un consist ou kernel JMRI.
+Appuyer sur 9 : Exporter la mise en page de TrainPlayer.
 "
 ,
-"x6
-"
-,
-"x7
-"
-,
-"*** Quick Keys Utilities ***
-
-Appuyez sur 1 : activez toutes les touches rapides..
+"Appuyez sur 0 :
 "
 ,
 "Appuyez à nouveau sur u pour quitter cette fenêtre."
-,

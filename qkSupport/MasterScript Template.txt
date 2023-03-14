@@ -19,12 +19,12 @@ Call o2oUtilities ** o2o support utilities
 Call QuickKeys Setup
 Call SpeedSwitching Setup
 Call DropKick Setup
-Call o2o Setup
-Call TurnTable Setup 445
+* Call TurnTable Setup 0
+* Call o2o Setup
 
 Call SetLanguage en  ** Language choices are: en, de, fr, sp
 
-**Close the greeting message
+** Close the greeting message
 Call NoteWindow
 
 StartingPoint:
@@ -36,12 +36,12 @@ Let sCoupleSpeed = 4
 
 Drive $Train($Train)
 
-Call TurnTable
+* Call TurnTable
 Call QuickKeys
 Call SpeedSwitching $Train $Car $Speed
 Call DropKick $Train $Car $Speed
-Call o2o
-** Call jTimer
+* Call o2o
+* Call jTimer
 
 EndDrive
 

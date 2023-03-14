@@ -1,59 +1,47 @@
-"Phake Physics est actif"
+"
+Phake Physics est actif
+"
 ,
-"Speed Switching est active"
+"
+La commutation de vitesse est active
+"
 ,
-"Nettoyer les moteurs de coup de pied?"
+"
+Nettoyer les Kick Motors ?
+"
 ,
-"Entrez le nom du libellé de la piste à partir duquel changer"
+"
+Saisir l'identifiant de la note : Random Roads - Source Data
+"
 ,
-"Entrez le nom du libellé de la piste pour changer en"
+"
+Générer des routes aléatoires pour toutes les voitures ?
+"
 ,
-"est affecté à la touche de fonction"
+"
+Le temps écoulé est
+"
 ,
-"ne reçoit pas de touche de fonction"
+"
+Nombre de mouvements :
+"
 ,
-"Locomotive"
+"
+Quel est le nom du noyau ?
+"
 ,
-"Le mode de programmation est activé
-Sélectionnez un moteur en cliquant dessus.
-Appuyez ensuite sur une touche de fonction. F1 - F9 sont disponibles.
-Ou appuyez à nouveau sur la touche 'p' pour quitter le mode de programmation. "
+"
+Initialiser tous les véhicules ?
+"
 ,
-"Une locomotive doit être sélectionnée."
+"
+Le manifeste se trouve au début.
+"
 ,
-"Le temps écoulé est"
+"
+Le manifeste se trouve à la fin.
+"
 ,
-"Nombre de coups:"
-,
-"Disponible"
-,
-"Disponible"
-,
-"Disponible"
-,
-"Disponible"
-,
-"*** Utilitaires de Quick Keys ***
-
-Toutes les Quick Keys sont désactivées.
-
-Appuyez sur 1 pour activer toutes les Quick Keys. "
-,
-"*** Utilitaires de Quick Keys ***
-
-Appuyez sur 1 pour désactiver les Quick Keys.
-Appuyez sur 2 pour activer Phake Physics. "
-,
-"*** Utilitaires de Quick Keys ***
-
-Appuyez sur 1 pour désactiver les Quick Keys.
-Appuyez sur 2 pour activer la Speed Switching. "
-,
-"Press 3 for english.
-Drücken Sie 4 für Deutsch von Google.
-Presione 5 para español de Google. "
-,
-" Disponible "
-,
-"Appuyez à nouveau sur 'u' pour quitter cette fenêtre."
-,
+"
+Lire dans le manifeste JMRI ?
+"

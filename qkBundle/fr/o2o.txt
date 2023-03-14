@@ -1,75 +1,37 @@
-"ops 2 ops (o2o) Workevent Switching
-Version 2"
+"o2o Workevents - Version 2"
 ,
 "Le manifeste est vide."
 ,
-"Appuyez sur" m "pour lire le manifeste."
+"Appuyez sur 'm' pour lire le manifeste."
 ,
 "Lire le manifeste."
 ,
 "Commutation à"
 ,
-"voitures à récupérer (bleu),"
+"wagons à prendre en charge (bleu),"
 ,
-"voitures à partir (rouge)."
+"wagons à sortir (rouge)."
 ,
-"Lire le premier événement de travail."
+"Lecture du premier événement de travail."
 ,
-"Lecture du prochain événement de travail."
+"Lecture du prochain événement professionnel."
 ,
 "Lecture de l'événement de travail précédent."
 ,
-"Lire le dernier événement de travail."
+"Lecture du dernier événement professionnel."
 ,
-"Appuyez sur Page suivante pour le prochain événement de travail.
-Appuyez sur Page précédente pour l'événement de travail précédent. "
+"Appuyez sur la touche Page Down pour accéder à l'événement suivant."
 ,
-"Numéro d'événement de travail"
+"Appuyez sur la touche Page Up pour accéder à l'événement précédent."
+,
+"Numéro de l'événement de travail"
 ,
 "de"
 ,
 "De"
 ,
-"À "
+"A"
 ,
-"Appuyez sur 6 pour synchroniser les emplacements TP avec JMRI.
-Appuyez sur 7 pour trouver les voitures en double.
-Appuyez sur 8 pour synchroniser les voitures TP avec JMRI.
-Appuyez sur 9 pour renommer les pistes.
-Appuyez sur 0 (réservé)
-"
+"Pick up"
 ,
-"Le manifeste est au début."
-,
-"Le manifeste est à la fin."
-,
-"Lire dans le manifeste JMRI?"
-,
-"Le fichier des emplacements est manquant."
-,
-"O2O est actif."
-,
-"O2O n'est PAS actif."
-,
-"TP - Résultats de synchronisation de voiture JMRI.
-
-1. Sur votre réseau, les voitures avec une étiquette bleue sont décalées.
-
-2. Sur votre maquette, les voitures d'étiquettes rouges suivantes n'ont aucune entrée dans JMRI."
-,
-"3. Dans JMRI, les voitures JMRI suivantes ne sont pas sur cette disposition"
-,
-"Aucun doublon trouvé."
-,
-"TP - JMRI Suivre les résultats de la synchronisation.
-
-1. Sur votre réseau, les pistes suivantes n'ont pas d'entrées JMRI "
-,
-"2. Dans JMRI, les pistes JMRI suivantes ne sont pas sur cette disposition"
-,
-"Aucune erreur trouvée"
-,
-"recevoir le wagon"
-,
-"livrer un wagon  "
-,
+"Set out"

@@ -1,24 +1,47 @@
-"Phake Physics is active"
+"
+Phake Physics is active
+"
 ,
-"Speed Switching is active"
+"
+Speed Switching is active
+"
 ,
-"Clean up the Kick Motors?"
+"
+Clean up the Kick Motors?
+"
 ,
-"Enter the note ID for the 'Random Roads - Source Data' note"
+"
+Enter the ID for the note: Random Roads - Source Data
+"
 ,
-"Generate random roads for all cars?"
+"
+Generate random roads for all cars?
+"
 ,
-""
+"
+Elapsed time is
+"
 ,
-""
+"
+Number of moves:
+"
 ,
-""
+"
+What is the kernel name?
+"
 ,
-""
+"
+Initialize all cars?
+"
 ,
-""
+"
+The manifest is at the beginning.
+"
 ,
-"Elapsed time is"
+"
+The manifest is at the end.
+"
 ,
-"Number of moves:"
-,
+"
+Read in the JMRI manifest?
+"

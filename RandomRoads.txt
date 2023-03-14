@@ -109,7 +109,7 @@ While ($Set(@allCarIds, Count) > 0)
 
 EndWhile
 
-Echo RandomRoads @rrVersion
+Echo RandomRoads Version 2
 
 *********************************************
 Proc RandomNumber

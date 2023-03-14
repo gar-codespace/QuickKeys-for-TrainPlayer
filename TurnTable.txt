@@ -18,6 +18,18 @@
 ** save the layout
 ** restart the master script
 
+If (%1 = SetUp)
+
+  Let x4 = 1
+  Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5 ** update QK
+  Let TTableSpeedDivisor = 5
+  Let tScriptID = %2
+  Call SetUpTurntable
+  Let T = 1 ** turntable sub on
+  Echo TurnTable Version 2
+EndIf
+****************************************************************************
+
 Proc CullTheHerd ** make a sub matrix of tracks connected to the selected turntable
 
   Let tMatrixCopy = ""
@@ -67,16 +79,6 @@ EndWhile
 EndProc
 ****************************************************************************
 
-If (%1 = SetUp)
-
-  Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5 ** update QK
-  Let TTableSpeedDivisor = 5
-  Let tScriptID = %2
-  Call SetUpTurntable
-  Let T = 1 ** turntable sub on
-  Echo TurnTable @version
-EndIf
-****************************************************************************
 
 If($Key > 47) ** a number is pressed
 If($Key < 58)

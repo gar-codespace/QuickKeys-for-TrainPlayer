@@ -1,5 +1,4 @@
 ** QuickKeys Version 2
-Let version = 20230303
 
 
 If (%1 = SetUp)
@@ -13,25 +12,22 @@ If (%1 = SetUp)
   Call NoteWindow @xMessage 1
 
   Let x0 = 1 ** All Quick keys are on or off
-  Let x1 = 0 ** Speed Switching on or off
-  Let x2 = 0 ** Phake Physics on or off
-  Let x3 = 0 ** DK on or off
-  Let x4 = 0 ** 
-  Let x5 = 0 ** o2o subroutine suite
-
-
-  Let NoteDownOnEsc = 1
+  Let x1 = 0 ** Speed Switching subroutine is being used
+  Let x2 = 0 ** Phake Physics overides SS controls
+  Let x3 = 0 ** Drop Kick subroutine is being used
+  Let x4 = 0 ** TurnTable subroutine is being used
+  Let x5 = 0 ** o2o subroutine is being used
 
   Let H = 0 ** Help Menu
   Let U = 0 ** Utility menu
   Let L = 0 ** o2o Switch List
-  Let T = 1 ** turntable sub on
+  Let T = 0 ** turntable sub off
 
   Call DefineCarrageReturn
   Call UpdatePreferences
   Call $system("MD "%homepath%\AppData\Roaming\TrainPlayer\Reports"")
 
-  Echo QuickKeys @version
+  Echo QuickKeys Version 2
 EndIf
 ***************************************************************************
 
@@ -47,32 +43,26 @@ EndIf
 
 ** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
 
-If($Set(@xMatrix, Get, 0) = 0) ** QK is not active
+If (@x0 = 0) ** QK is not active
 
   If ($Key = 85) ** key u for utilities
     If (@U = 0) ** Create message for utility menu
       Let U = 1
-      Let T = 0
       Call makeUtilityMenu
       Call NoteWindow @utilityMenu 1
     Else
       Let U = 0
-      Let T = 1
       Call NoteWindow
     EndIf
     ***************************************************************************
-    Let L = 0
-    Let H = 0
     
   EndIf
   ***************************************************************************
 
   If (@U = 1)
-    If($Key = 49) ** key 1, toggle all quick keys
-      Let x0 = 1
-      Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5
+    If($Key = 49) ** key 1
+      Let x0 = 1 ** activate all Quick keys
       Let U = 0
-      Let T = 1
       Call NoteWindow
     EndIf
   EndIf
@@ -81,14 +71,13 @@ If($Set(@xMatrix, Get, 0) = 0) ** QK is not active
   If ($Key = 72) ** key h for help
     If(@H = 0)
       Let H = 1
-      Let xMessage = $Set(@xHelpSet, Get, 8)
-      Call NoteWindow @xMessage 1
+      Call makeHelpPage
+      Call NoteWindow @helpPage 1
     Else
       Let H = 0
       Call NoteWindow
     EndIf
     Let U = 0
-    Let L = 0
     
   Endif
   ***************************************************************************
@@ -98,7 +87,7 @@ EndIf ** QK not active
 
 ** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
 
-If($Set(@xMatrix, Get, 0) = 1) ** QK is active
+If (@x0 = 1) ** QK is active
 
 
   If ($Key = 87) ** key w, Window or Wait?????
@@ -120,9 +109,8 @@ If($Set(@xMatrix, Get, 0) = 1) ** QK is active
     If(@H = 0)
       Let H = 1
       Let T = 0
-      Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5
-      Call makeHelpMenu @xMatrix
-      Call NoteWindow @xHelpAll 1
+      Call makeHelpPage
+      Call NoteWindow @helpPage 1
     Else
       Let H = 0
       Let T = 1 ** turntable sub on
@@ -157,29 +145,27 @@ If($Set(@xMatrix, Get, 0) = 1) ** QK is active
 
     If($Key = 49) ** 1 key, toggle all quick keys
       Let x0 = 0
-      Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5
       Let U = 0
       Let T = 0
       Call NoteWindow
     EndIf
     ****************************************************************************
 
-    If ($Key = 50) ** 2 key, toggle speed switching/phake physics
-      If(@x1 = 1) ** SS is active
+    If ($Key = 50) ** 2 key, toggle phake physics
+      If(@x1 = 1) ** SS is being used
+      If(@x2 = 0) ** PP is not active
         Let xBox = $Set(@messageBundle, Get, 0)
         Call $MsgBox(@xBox)
-        Let x1 = 0 ** deactivate SS
         Let x2 = 1 ** activate phake physics
         Call ProcessorInfo
       Else
         Let xBox = $Set(@messageBundle, Get, 1)
         Call $MsgBox(@xBox)
-        Let x1 = 1 ** activate speed switching
         Let x2 = 0 ** deactivate PP
         Let sB = 0
         Let sT = 0
       EndIf
-      Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5
+      EndIf
       Let U = 0
       Call NoteWindow
     EndIf
