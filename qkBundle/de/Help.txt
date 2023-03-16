@@ -1,66 +1,71 @@
 "
-*** Quick keys ***
+********** Alle QuickKeys sind ausgeschaltet **********
 
-h ist für Hilfe. Drücken Sie 'h', um dieses Fenster zu öffnen und zu schließen.
-u ist für Dienstprogramme. Drücken Sie 'u', um das Utility-Menü aufzurufen.
-f steht für Vollbild. Drücken Sie 'f', um den Vollbildmodus aufzurufen oder zu verlassen.
-z steht für pauZe. Drücken Sie 'z', um die Aktion anzuhalten. (Systemeinstellung)
-j steht für Job Timer. Drücken Sie 'j', um den Timer zu starten und zu stoppen.
+h steht für Help (Hilfe). Mit h können Sie dieses Fenster öffnen und schließen.
+u steht für Dienstprogramme. Drücken Sie u, um das Dienstprogrammmenü aufzurufen.
+"
+,
+"
+*** Quick Keys ***
+
+h steht für Help (Hilfe). Mit h können Sie dieses Fenster öffnen und schließen.
+u steht für Dienstprogramme. Drücken Sie u, um das Dienstprogrammmenü aufzurufen.
+f steht für Vollbild. f drücken, um den Vollbildmodus aufzurufen oder zu verlassen.
+z steht für Pause. z drücken, um die Aktion zu unterbrechen (Systemeinstellung)
+j steht für Job-Timer. j drücken, um den Timer zu starten und zu stoppen.
 "
 ,
 "
 *** Speed Switching ***
 
-a steht für Auto-Follow. Drücken Sie 'a', um Auto-Follow ein- oder auszuschalten.
-t ist für Gas. Drücken Sie 't', um bei jedem Drücken der Taste 1 km / h hinzuzufügen.
-g ist für Go. Drücken Sie einmal 'g' für Yard Speed, erneut für Max Speed.
-r ist für Reverser. Drücken Sie 'r', um die Richtung des Zuges zu ändern, auch während Sie sich bewegen.
-s ist für Slow / Stop. Drücken Sie 's', um die Kopplungsgeschwindigkeit zu verlangsamen, und erneut, um anzuhalten.
+a steht für Auto-Follow. a drücken, um Auto-Follow ein- oder auszuschalten.
+t steht für Throttle (Gas). t drücken, um bei jedem Tastendruck 1 mph (km/h) hinzuzufügen.
+g steht für "Go". g einmal für Yard Speed, ein zweites Mal für Max Speed drücken.
+r steht für Reverser: Drücken Sie r, um die Richtung des Zuges zu ändern, auch während der Fahrt.
+s steht für Slow/Stop. Drücken Sie s, um auf Kupplungsgeschwindigkeit zu verlangsamen, und erneut, um anzuhalten.
 
-Drücken Sie 'u', um Phake Physics auszuwählen.
+Drücken Sie u, um Phake Physics zu wählen.
 "
 ,
 "
 *** Phake Physics ***
 
-a steht für Auto-Follow. Drücken Sie 'a', um Auto-Follow ein- oder auszuschalten.
-t ist für Gas. Die Beschleunigungsrate wird jedes Mal erhöht, wenn 't' gedrückt wird.
-b ist für Bremse. Der Bremsdruck steigt jedes Mal an, wenn die Taste 'b' gedrückt wird.
-n steht für Neutral. Drücken Sie 'n', um die aktuelle Geschwindigkeit zu halten.
-r ist für Reverser. Wenn angehalten, ändert 'r' die Zugrichtung.
-e ist für den Notfall. Drücken Sie 'e', um sofort anzuhalten.
+a steht für Auto-Follow. a drücken, um Auto-Follow ein- oder auszuschalten.
+t steht für Throttle, d.h. die Beschleunigung wird bei jedem Drücken von t erhöht.
+b steht für Brake, d.h. der Bremsdruck erhöht sich bei jedem Drücken der Taste b.
+n steht für Neutral. n drücken, um die aktuelle Geschwindigkeit zu halten.
+r steht für Reverser, d. h., bei einem Halt ändert r die Zugrichtung.
+e steht für Notfall. e drücken, um sofort zu stoppen.
 
-Drücken Sie 'u', um die Geschwindigkeitsumschaltung auszuwählen.
+Drücken Sie u, um Geschwindigkeitsumschaltung zu wählen.
 "
 ,
 "
 *** Drop Kick ***
 
-c ist für Cut. Drücken Sie 'c', um das ausgewählte Auto abzuschneiden. (Systemeinstellung)
-k ist für Kick. Drücke 'k', um ein paar Autos zu treten. (Kick 'Em)
-d steht für Drop. Drücken Sie 'd', um einige Autos fallen zu lassen. (Lass sie gehen)
+c steht für Ausschneiden. c drücken, um das ausgewählte Auto auszuschneiden (Systemeinstellung).
+k steht für Kick. Drücken Sie k, um ein paar Autos zu treten (Kick Em).
+d steht für Drop. Drücken Sie d, um ein paar Autos fallen zu lassen (Let Em Go).
 
-Drücken Sie bei angehaltenem Zug 'k' oder 'd', um die Kickmotoren zu reinigen.
+Drücken Sie k oder d bei angehaltenem Zug, um die Kickmotoren zu reinigen.
 "
 ,
-""
-,
 "
-*** O2O - Jmri Advanced ops Workevent Switching ***
+*** Turntable ***
 
-m ist für Manifest. Drücken Sie 'm', um das JMRI-Manifest zu lesen.
-Ich bin für List. Drücken Sie 'l', um die Schalterliste ein- oder auszublenden.
-u ist für Utility. Drücken Sie die Taste 'u', um ein O2O-Dienstprogramm auszuführen.
-Drücken Sie die Home-Taste, um zum oberen Rand des Manifests zu gelangen.
-Drücken Sie die Taste 'Ende', um zum Ende des Manifests zu gelangen.
-Drücken Sie 'Bild ab' für das nächste Workevent.
-Drücken Sie 'Bild auf' für das vorherige Arbeitsereignis.
+Drücken Sie eine Nummer (0 - 9), die einer gültigen Tabellenführungsspur entspricht.
+Drücken Sie einen Buchstaben, a - z, der einem gültigen Stalltrack entspricht.
+Drücken Sie a für gegen den Uhrzeigersinn, c für im Uhrzeigersinn.
 "
 ,
 "
-********** Alle QuickKeys sind deaktiviert **********
+*** o2o Workevents ***
 
-h ist für Hilfe. Drücken Sie 'h', um dieses Fenster zu öffnen und zu schließen.
-u ist für Dienstprogramme. Drücken Sie 'u', um das Utility-Menü aufzurufen.
+m steht für Manifest: Drücken Sie m, um das JMRI-Manifest zu lesen.
+l steht für Liste. l drücken, um die Schalterliste ein- oder auszublenden.
+u steht für Dienstprogramm. Drücken Sie die Taste u, um ein O2O-Dienstprogramm auszuführen.
+Drücken Sie die Home-Taste, um an den Anfang des Manifests zu gelangen.
+Drücken Sie die Endetaste, um zum Ende des Manifests zu gelangen.
+Drücken Sie die Taste "Bild ab" für das nächste Arbeitsereignis.
+Drücken Sie die Taste Page Up, um zum vorherigen Arbeitsschritt zu gelangen.
 "
-,

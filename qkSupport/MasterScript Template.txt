@@ -22,7 +22,7 @@ Call DropKick Setup
 * Call TurnTable Setup 0
 * Call o2o Setup
 
-Call SetLanguage en  ** Language choices are: en, de, fr, sp
+Call SetLanguage en  ** Language choices are: en, de, fr, es
 
 ** Close the greeting message
 Call NoteWindow

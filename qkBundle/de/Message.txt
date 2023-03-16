@@ -1,59 +1,47 @@
-"Phake Physics ist aktiv"
+"
+Phake Physics ist aktiv
+"
 ,
-"Speed Switching ist aktiv"
+"
+Speed Switching ist aktiv
+"
 ,
-"Kick Motors aufräumen?"
+"
+Die Kick-Motoren aufräumen?
+"
 ,
-"Geben Sie den Namen der Titelbezeichnung ein, von der geändert werden soll."
+"
+Geben Sie die ID für die Notiz ein: Random Roads - Source Data
+"
 ,
-"Geben Sie den Namen der Titelbezeichnung ein, zu der geändert werden soll."
+"
+Zufällige Straßen für alle Autos generieren?
+"
 ,
-"ist der Funktionstaste zugeordnet"
+"
+Die verstrichene Zeit ist
+"
 ,
-"ist keine Funktionstaste zugeordnet"
+"
+Anzahl der Züge:
+"
 ,
-"Lokomotive"
+"
+Wie lautet der Name des Kernels?
+"
 ,
-"Der Programmiermodus ist eingeschaltet
-Wählen Sie eine Engine aus, indem Sie darauf klicken.
-Drücken Sie dann eine Funktionstaste. F1 - F9 sind verfügbar.
-Oder drücken Sie die 'p'-Taste erneut, um den Programmiermodus zu verlassen. "
+"
+Alle Fahrzeuge initialisieren?
+"
 ,
-"Eine Lok muss ausgewählt werden."
+"
+Das Manifest steht am Anfang.
+"
 ,
-"Verstrichene Zeit ist"
+"
+Das Manifest befindet sich am Ende.
+"
 ,
-"Anzahl der Züge:"
-,
-"Verfügbar"
-,
-"Verfügbar"
-,
-"Verfügbar"
-,
-"Verfügbar"
-,
-"*** Quick Keys Utilities ***
-
-Alle Quick Keys sind deaktiviert.
-
-Drücken Sie 1, um alle Quick Keys einzuschalten. "
-,
-"*** Quick Keys Utilities ***
-
-Drücken Sie 1, um die Quick Keys auszuschalten.
-Drücken Sie 2, um Phake Physics zu aktivieren. "
-,
-"*** Quick Keys Utilities ***
-
-Drücken Sie 1, um die Quick Keys auszuschalten.
-Drücken Sie 2, um die Speed Switching zu aktivieren. "
-,
-"Appuyez sur 3 pour le français par Google.
-Press 4 for english.
-Presione 5 para español de Google."
-,
-" Verfügbar "
-,
-"Drücken Sie erneut 'u', um dieses Fenster zu verlassen."
-,
+"
+Im JMRI-Manifest lesen?
+"

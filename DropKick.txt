@@ -72,13 +72,9 @@ If ($Train($Train, Speed) = 0)
   Exit
 EndIf
 
-IF ($String(@kKickCar, StartsWith, "E") = 1)
-  Echo Can't do that.
-  Exit
-EndIf
-
-IF ($String(@kKickCar, StartsWith, "ST") = 1)
-  Echo Can't do that.
+Let kAar = $Car(@kKickCar, AAR)
+IF ($String(@kAar, StartsWith, "E") = 1)
+  Echo Can't let an engine go!
   Exit
 EndIf
 
