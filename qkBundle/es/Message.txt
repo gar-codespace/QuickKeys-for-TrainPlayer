@@ -45,3 +45,11 @@ El manifiesto está al final.
 "
 ¿Leer en el manifiesto JMRI?
 "
+,
+"
+Duración total:
+"
+,
+"
+Número total de movimientos:
+"

@@ -45,3 +45,11 @@ The manifest is at the end.
 "
 Read in the JMRI manifest?
 "
+,
+"
+Total time:
+"
+,
+"
+Total number of moves:
+"

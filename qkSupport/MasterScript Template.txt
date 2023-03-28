@@ -13,14 +13,15 @@ Let $Key = 0
 ** Set Up the Subroutines
 
 Call UserSettings
-Call qkEntities ** Quick Keys support utilities
-Call o2oUtilities ** o2o support utilities
+Call qkEntities ** Quick Keys support
+* Call o2oUtilities ** o2o support
 
 Call QuickKeys Setup
 Call SpeedSwitching Setup
 Call DropKick Setup
 * Call TurnTable Setup 0
 * Call o2o Setup
+* Call JobTimer Setup
 
 Call SetLanguage en  ** Language choices are: en, de, fr, es
 
@@ -41,7 +42,7 @@ Call QuickKeys
 Call SpeedSwitching $Train $Car $Speed
 Call DropKick $Train $Car $Speed
 * Call o2o
-* Call jTimer
+* Call JobTimer
 
 EndDrive
 

@@ -69,3 +69,9 @@ Drücken Sie die Endetaste, um zum Ende des Manifests zu gelangen.
 Drücken Sie die Taste "Bild ab" für das nächste Arbeitsereignis.
 Drücken Sie die Taste Page Up, um zum vorherigen Arbeitsschritt zu gelangen.
 "
+,
+"
+*** JobTimer ***
+
+Drücken Sie j, um den Job-Timer zu starten und zu stoppen.
+"

@@ -2,7 +2,25 @@
 
 Echo o2o Utility - Assign random road names and numbers to rolling stock
 
-** Run the script
+
+If (@x0 = 1) ** QK is active
+If (U = 1) ** Utility menu is displayed
+
+  If ($Key = 51) ** 3 key for Random Roads
+    Call RandomRoads
+    Let U = 0
+    Let L = 0
+    Let H = 0
+    Let T = 1
+    Call NoteWindow
+  EndIf
+  ****************************************************************************
+
+EndIf
+EndIf
+
+
+****************************************************************************
 
 
 Input noteId $Set(@messageBundle, Get, 3)

@@ -69,3 +69,9 @@ Appuyez sur la touche Fin pour aller au bas du manifeste.
 Appuyer sur Page Down pour passer à l'événement suivant.
 Appuyez sur Page Up pour accéder à l'événement précédent.
 "
+,
+"
+*** JobTimer ***
+
+Appuyez sur j pour démarrer et arrêter la minuterie du travail.
+"

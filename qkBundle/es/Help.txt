@@ -69,3 +69,9 @@ Pulse la tecla Fin para ir al final del manifiesto.
 Pulse Av Pág para acceder al siguiente evento.
 Pulse Av Pág para ir al evento anterior.
 "
+,
+"
+*** JobTimer ***
+
+Pulse j para iniciar y detener el temporizador de trabajos.
+"

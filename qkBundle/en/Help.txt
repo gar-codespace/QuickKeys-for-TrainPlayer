@@ -69,3 +69,9 @@ Press the End key to go to the bottom of the manifest.
 Press Page Down for the next workevent.
 Press Page Up for the previous workevent.
 "
+,
+"
+*** JobTimer ***
+
+Press j to start and stop the job timer.
+"

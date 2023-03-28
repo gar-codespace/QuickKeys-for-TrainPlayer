@@ -1,4 +1,19 @@
-** Speed Switching/Phake Physics Version 3
+** Speed Switching/Phake Physics Version 4
+
+
+If (%1 = SetUp)
+
+View Refresh
+
+Let x1 = 1 ** Turn on speed switching
+Let x2 = 0 ** Turn off phake physics
+Let sBumpSpeed = 0
+Let sB = 0 ** 0 is off
+Let sT = 0 ** 0 is off
+Echo SpeedSwitching Version 4
+
+EndIf
+****************************************************************************
 
 
 Proc LineDelay
@@ -51,22 +66,8 @@ Proc Neutral
 EndProc
 ****************************************************************************
 
-If (%1 = SetUp)
 
-View Refresh
-
-Let x1 = 1 ** Turn on speed switching
-Let x2 = 0 ** Turn off phake physics
-Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5
-Let sBumpSpeed = 0
-Let sB = 0 ** 0 is off
-Let sT = 0 ** 0 is off
-Echo SpeedSwitching Version 3
-
-EndIf
-****************************************************************************
-
-If($Set(@xMatrix, Get, 0) = 1) ** All QK are active
+If(@x0 = 1) ** All QK are active
 
 
   If ($Key = 65) ** key a is common to both
@@ -84,7 +85,7 @@ If($Set(@xMatrix, Get, 0) = 1) ** All QK are active
   **                            Speed Switching                             **
   ** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
 
-  If($Set(@xMatrix, Get, 1) = 1) ** SS on
+  If(@x1 = 1) ** SS on
 
     Let sSpeed = $Speed
 
@@ -153,7 +154,7 @@ If($Set(@xMatrix, Get, 0) = 1) ** All QK are active
   **                             Phake Physics                              **
   ** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
 
-  If($Set(@xMatrix, Get, 2) = 1) ** Phake Physics
+  If(@x2 = 1) ** Phake Physics
 
     If ($Key = 69) ** key e, emergency stop
       Let $Train($Train, Speed) = 0

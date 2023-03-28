@@ -1,4 +1,16 @@
-** Job Timer
+** Job Timer version 1
+
+
+If (%1 = SetUp)
+
+View Refresh
+
+Let x6 = 1 ** Activate the job timer
+Echo JobTimer Version 1
+
+EndIf
+****************************************************************************
+
 
 If(@x0 = 1) ** quick keys turned on
 
@@ -47,9 +59,8 @@ If(@x0 = 1) ** quick keys turned on
   If(@jElapsedTime < 10)
     Let jElapsedTime = 0@jElapsedTime
   EndIf
-  Let jNote = $Set(@messageBundle, Get, 10) @jMinute + ":" + @jElapsedTime \n$Set(@messageBundle, Get, 11) @jMoveCount
+  Let jNote = $Set(@messageBundle, Get, 12) @jMinute + ":" + @jElapsedTime \n$Set(@messageBundle, Get, 13) @jMoveCount
   Call $msgbox(@jNote)
-  Echo @jNote
 
   EndProc
   ****************************************************************************

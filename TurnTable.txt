@@ -21,7 +21,6 @@
 If (%1 = SetUp)
 
   Let x4 = 1
-  Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5 ** update QK
   Let TTableSpeedDivisor = 5
   Let tScriptID = %2
   Call SetUpTurntable
@@ -88,7 +87,6 @@ If(@x0 = 1) ** all QK active
   Let U = 1
   Let T = 0
   Let x0 = 0 ** shut off QK
-  Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5 ** update QK
   Let tTable = $Key ** key number of TT lead
   If ($Set(@tMatrix, Contains, @tTable) = 1) ** is a valid lead selected
     Let tTable = $Set(@tMatrix, Find, @tTable) ** index of TT lead
@@ -105,7 +103,6 @@ If(@x0 = 1) ** all QK active
 
     On Key
       Let x0 = 0 ** shut off QK
-      Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5 ** update QK
       Let tTrack = $Key
       If($Set(@tMatrixCopy, Contains, @tTrack) = 1)
         Let tTrack = $Set(@tMatrixCopy, Find, @tTrack) ** track index
@@ -120,7 +117,6 @@ If(@x0 = 1) ** all QK active
         TryAgain:
         On Key
           Let x0 = 0 ** shut off QK
-          Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5 ** update QK
           If ($Key = 65)
             Rotate @tTable @tTrack CCW
             Echo Running...
@@ -134,7 +130,6 @@ If(@x0 = 1) ** all QK active
           On TableStop
             Echo Turntable aligned to track @xz
             Let x0 = 1
-            Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5
             Let H = 0
             Let U = 0
             Let T = 1
@@ -144,7 +139,6 @@ If(@x0 = 1) ** all QK active
         Echo Stall track not found.
         Echo Select a turntable lead.
         Let x0 = 1
-        Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5
         Let H = 0
         Let U = 0
         Let T = 1
@@ -153,7 +147,6 @@ If(@x0 = 1) ** all QK active
   Else
     Echo Not a valid table lead.
     Let x0 = 1
-    Let xMatrix = @x0,@x1,@x2,@x3,@x4,@x5
     Let H = 0
     Let U = 0
     Let T = 1

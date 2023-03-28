@@ -45,3 +45,11 @@ Le manifeste se trouve à la fin.
 "
 Lire dans le manifeste JMRI ?
 "
+,
+"
+Temps total :
+"
+,
+"
+Nombre total de mouvements :
+"
