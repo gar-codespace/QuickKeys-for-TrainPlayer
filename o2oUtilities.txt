@@ -1,56 +1,5 @@
 ** o2o - ops 2 ops Workevent Switching - Version 3
 
-If (@x0 = 1) ** QK is active
-If (U = 1) ** Utility menu is displayed
-
-    If ($Key = 54) ** 6 key
-      Call InitTracks
-      Let U = 0
-      Let L = 0
-      Let H = 0
-      Let T = 1
-      Call NoteWindow
-    EndIf
-    ****************************************************************************
-
-    If ($Key = 55) ** 7 key
-      Call InitCars
-      Let U = 0
-      Let L = 0
-      Let H = 0
-      Let T = 1
-      Call NoteWindow
-    EndIf
-    ****************************************************************************
-
-    If ($Key = 56) ** 8 key
-      Call AddKernels
-      Let U = 0
-      Let L = 0
-      Let H = 0
-      Let T = 1
-      Call NoteWindow
-    EndIf
-    ****************************************************************************
-
-    If ($Key = 57) ** 9 key export TP layout
-      Call ReportTpLocations
-      Call ReportTpIndustries
-      Call ReportTpInventory
-      Let U = 0
-      Let L = 0
-      Let H = 0
-      Let T = 1
-      Call NoteWindow
-    EndIf
-    ****************************************************************************
-
-EndIf
-EndIf
-
-
-****************************************************************************
-
 
 Proc InitTracks
 

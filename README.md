@@ -1,16 +1,16 @@
 ## QuickKeys
 QuickKeys is a suite of TrainPlayer scripts that map train commands to the keyboard. The scripts are written in TrainPlayer Programming Language,  or TPL, TrainPlayers native scripting language. These TPL scripts are contained in standard txt files, and can be copied directly into Subroutines folder in the users TrainPlayer folder. The following are a set of YouTube videos that cover the use of these scripts.  
 ### How To Videos
-[QuickKeys Setup]()  
-[QuickKeys How To]()  
-[SpeedSwitching]()  
-[PhakePhysics]()  
+[QuickKeys Setup]  
+[QuickKeys How To]  
+[SpeedSwitching]  
+[PhakePhysics]  
 [DropKick](https://youtu.be/_VV3hHayh6s)  
-[o2o]()  
+[o2o]  
 [o2o - schedules](https://youtu.be/v02FAXSr3ZE)  
-[RandomRoads]()  
-[TurnTable]()  
-[JobTimer]()  
+[RandomRoads]  
+[TurnTable]  
+[JobTimer]  
 
 ### QuickKeys version 3
 This is the 'main' component that links the other components together and provides language and help support.  
@@ -27,7 +27,7 @@ gets relabeled and the road names the rolling stock gets relabeled to. This subr
 ### TurnTable version 2
 This component extends TrainPlayers control of turntables and transfer tables. By using the keyboard, a turntables bridge can easily be aligned to any stall or approach track.  
 ### JobTimer version 1
-This script starts when a user begins switching and ends when the switching event is completed. It originated as a companion script to John Allen's Time Saver switching puzzle, but is generalized to accompany other switching puzzles as well.  
+This script is started when a user begins switching and is ended when the switching event is completed. Both total moves and total time are scored. It originated as a companion script to John Allen's Time Saver switching puzzle.  
 ### Web sites
 [TrainPlayer](http://trainplayer.com/)  
 [JMRI Operations Pro](https://www.jmri.org/help/en/package/jmri/jmrit/operations/Operations.shtml)  
