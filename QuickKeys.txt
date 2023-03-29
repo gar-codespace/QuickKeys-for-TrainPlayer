@@ -18,6 +18,7 @@ If (%1 = SetUp)
   Let x4 = 0 ** Activate the TurnTable subroutine
   Let x5 = 0 ** Activate the o2o subroutine
   Let x6 = 0 ** Activate the JobTimer subroutine
+  Let x7 = 0 ** Activate RandomRoads subroutine
 
   Let H = 0 ** Help Menu
   Let U = 0 ** Utility menu
@@ -172,6 +173,13 @@ If (@x0 = 1) ** QK is active
 
     If ($Key = 51) ** 3 key for Random Roads
 
+      Echo o2o Utility - Assign random road names and numbers to rolling stock 
+      Call RandomRoads
+      Let U = 0
+      Let L = 0
+      Let H = 0
+      Let T = 1
+      Call NoteWindow
 
     EndIf
     ****************************************************************************

@@ -29,5 +29,6 @@ Home	  - Beginning of worklist
 End	      - End of worklist
 Page Up	  - Previous work event
 Page Down - Next work event
-1 – 9	  - Turntable approach track
+0 – 9	  - Turntable approach track
+Backspace - Cancel Turntable
 "

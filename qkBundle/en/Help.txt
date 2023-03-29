@@ -54,7 +54,9 @@ Press k or d with the train stopped to clean up kick motors.
 *** Turntable ***
 
 Press a number, 0 - 9, that corresponds to a valid table lead track.
+Press 'Backspace' to cancel or:
 Press a letter, a - z, that corresponds to a valid stall track.
+Press 'Backspace' to cancel or:
 Press a for anticlockwise, c for clockwise.
 "
 ,

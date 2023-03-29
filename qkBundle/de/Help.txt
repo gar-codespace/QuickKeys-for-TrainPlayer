@@ -54,7 +54,9 @@ Drücken Sie k oder d bei angehaltenem Zug, um die Kickmotoren zu reinigen.
 *** Turntable ***
 
 Drücken Sie eine Nummer (0 - 9), die einer gültigen Tabellenführungsspur entspricht.
+Drücken Sie die 'Backspace', um den Vorgang abzubrechen oder:
 Drücken Sie einen Buchstaben, a - z, der einem gültigen Stalltrack entspricht.
+Drücken Sie die 'Backspace', um den Vorgang abzubrechen oder:
 Drücken Sie a für gegen den Uhrzeigersinn, c für im Uhrzeigersinn.
 "
 ,

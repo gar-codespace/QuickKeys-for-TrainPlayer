@@ -54,7 +54,9 @@ Pulse k o d con el tren parado para limpiar los motores de patada.
 *** Turntable ***
 
 Pulse un número, 0 - 9, que corresponda a una pista de avance de tabla válida.
+Pulsa 'Backspace' para cancelar o:
 Pulse una letra, a - z, que corresponda a una pista de parada válida.
+Pulsa 'Backspace' para cancelar o:
 Pulse a para las agujas del reloj, c para las agujas del reloj.
 "
 ,

@@ -54,7 +54,9 @@ Appuyez sur k ou d lorsque le train est à l'arrêt pour nettoyer les moteurs de
 *** Turntable ***
 
 Appuyez sur un chiffre, de 0 à 9, qui correspond à une piste de plomb de table valide.
+Appuyez sur 'Backspace' pour annuler ou :
 Appuyez sur une lettre, a - z, qui correspond à une piste de décrochage valide.
+Appuyez sur 'Backspace' pour annuler ou :
 Appuyez sur a pour le sens inverse des aiguilles d'une montre, sur c pour le sens des aiguilles d'une montre.
 "
 ,

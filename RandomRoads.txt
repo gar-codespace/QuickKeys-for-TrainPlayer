@@ -1,27 +1,5 @@
 ** RandomRoads Version 2
 
-Echo o2o Utility - Assign random road names and numbers to rolling stock
-
-
-If (@x0 = 1) ** QK is active
-If (U = 1) ** Utility menu is displayed
-
-  If ($Key = 51) ** 3 key for Random Roads
-    Call RandomRoads
-    Let U = 0
-    Let L = 0
-    Let H = 0
-    Let T = 1
-    Call NoteWindow
-  EndIf
-  ****************************************************************************
-
-EndIf
-EndIf
-
-
-****************************************************************************
-
 
 Input noteId $Set(@messageBundle, Get, 3)
 Let inputData = $Note(@noteId)
@@ -128,8 +106,9 @@ While ($Set(@allCarIds, Count) > 0)
 EndWhile
 
 Echo RandomRoads Version 2
-
 *********************************************
+
+
 Proc RandomNumber
 ** Generate a random road number
 
@@ -149,6 +128,7 @@ Proc RandomNumber
 EndProc
 *********************************************
 
+
 Proc RelabelRollingStock
 ** Relabel the rolling stock with the randomly generated road and number.
 ** For now seperator is hard coded as whitespace.
@@ -163,6 +143,7 @@ Proc RelabelRollingStock
 
 EndProc
 *********************************************
+
 
 Proc NoteParser
 

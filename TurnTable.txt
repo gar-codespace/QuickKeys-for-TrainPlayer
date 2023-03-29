@@ -102,7 +102,14 @@ If(@x0 = 1) ** all QK active
     Echo Select an alignment track.
 
     On Key
-      Let x0 = 0 ** shut off QK
+      If($Key = 8)
+        Let H = 0
+        Let U = 0
+        Let T = 1
+        Let x0 = 1
+        Echo Turntable canceled
+        Return
+      EndIf
       Let tTrack = $Key
       If($Set(@tMatrixCopy, Contains, @tTrack) = 1)
         Let tTrack = $Set(@tMatrixCopy, Find, @tTrack) ** track index
@@ -116,7 +123,14 @@ If(@x0 = 1) ** all QK active
         Echo Press 'a' for anticlockwise or 'c' for clockwise.
         TryAgain:
         On Key
-          Let x0 = 0 ** shut off QK
+          If($Key = 8)
+            Let H = 0
+            Let U = 0
+            Let T = 1
+            Let x0 = 1
+            Echo Turntable canceled
+            Return
+          EndIf
           If ($Key = 65)
             Rotate @tTable @tTrack CCW
             Echo Running...
