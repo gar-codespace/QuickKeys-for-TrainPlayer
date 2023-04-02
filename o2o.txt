@@ -4,7 +4,6 @@
 If (%1 = SetUp)
 
   Let x5 = 1
-  Call o2oInit
   Let jResetCarIDs = ""
   Let jManifestAll = ""
   Let jLocList = "Location List,"

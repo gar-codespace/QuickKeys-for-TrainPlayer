@@ -83,8 +83,8 @@ If($Key > 47) ** a number is pressed
 If($Key < 58)
 If(@T = 1) ** turntable sub on
 If(@x0 = 1) ** all QK active
-  Let H = 1
-  Let U = 1
+  Let H = 0
+  Let U = 0
   Let T = 0
   Let x0 = 0 ** shut off QK
   Let tTable = $Key ** key number of TT lead

@@ -12,9 +12,10 @@ Let $Key = 0
 
 ** Set Up the Subroutines
 
-Call UserSettings
-Call qkEntities ** Quick Keys support
-* Call o2oUtilities ** o2o support
+Call UserSettings UpdatePreferences
+Call qkEntities
+* Call o2oUtilities
+* Call UserSettings o2oInit
 
 Call QuickKeys Setup
 Call SpeedSwitching Setup
@@ -38,9 +39,9 @@ Let sCoupleSpeed = 4
 Drive $Train($Train)
 
 * Call TurnTable
-Call QuickKeys
-Call SpeedSwitching $Train $Car $Speed
 Call DropKick $Train $Car $Speed
+Call SpeedSwitching $Train $Car $Speed
+Call QuickKeys
 * Call o2o
 * Call JobTimer
 

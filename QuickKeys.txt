@@ -26,8 +26,8 @@ If (%1 = SetUp)
   Let T = 0 ** turntable sub off
 
   Call DefineCarrageReturn
-  Call UpdatePreferences
   Call $system("MD "%homepath%\AppData\Roaming\TrainPlayer\Reports"")
+  Call $System("%homepath%\AppData\Roaming\TrainPlayer\Subroutines\QuickKeys\qkSupport\ProcessorInfo.bat") ** This is the WMIC command
 
   Echo QuickKeys Version 3
 EndIf
@@ -64,6 +64,7 @@ If (@x0 = 0) ** QK is not active
     If($Key = 49) ** key 1
       Let x0 = 1 ** activate all Quick keys
       Let U = 0
+      Let T = 1
       Call NoteWindow
     EndIf
   EndIf
@@ -126,6 +127,7 @@ If (@x0 = 1) ** QK is active
   If ($Key = 85) ** key u for utilities
 
     If (@U = 0) ** Create message for utility menu
+    If (@T = 1)
       Let U = 1
       Let T = 0
       Call makeUtilityMenu
@@ -134,6 +136,7 @@ If (@x0 = 1) ** QK is active
       Let U = 0
       Let T = 1 ** turntable sub on
       Call NoteWindow
+    EndIf
     EndIf
     Let H = 0
     Let L = 0
@@ -158,6 +161,8 @@ If (@x0 = 1) ** QK is active
         Let xBox = $Set(@messageBundle, Get, 0)
         Call $MsgBox(@xBox)
         Let x2 = 1 ** activate phake physics
+        Call ProcessorInfo
+
       Else
         Let xBox = $Set(@messageBundle, Get, 1)
         Call $MsgBox(@xBox)
@@ -167,6 +172,10 @@ If (@x0 = 1) ** QK is active
       EndIf
       EndIf
       Let U = 0
+      Let L = 0
+      Let H = 0
+      Let T = 1
+      
       Call NoteWindow
     EndIf
     ****************************************************************************

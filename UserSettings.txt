@@ -1,31 +1,30 @@
 ** UserSettings1
 
-
-Proc UpdatePreferences
+If (%1 = UpdatePreferences)
 ** Personal adjustments to TrainPlayer's preferences
 
-Let NoteDownOnEsc = 1
-Let ScrollDistFactorx10 = 25
-Let AllowYardMode = 1
-Let InYardMode = 1
-Let BarrelThruMode = 0
-Let Coupling Speed = 5
-Let Car Gap = 0
+  Let NoteDownOnEsc = 1
+  Let ScrollDistFactorx10 = 25
+  Let AllowYardMode = 1
+  Let InYardMode = 1
+  Let BarrelThruMode = 0
+  Let Coupling Speed = 5
+  Let Car Gap = 0
 
-Let JunctionActions = 255
-Let DistFromSwitch =  0
-Let HiliteSize = 18
+  Let JunctionActions = 255
+  Let DistFromSwitch =  0
+  Let HiliteSize = 18
 
-Set CarLabelFont "-9,400,0,16777215,Arial"
-Set CarLabelsBkColor 13664326
-Set CarLabelsExclOpsColor 855525
-Set TrackLabelParams 1,"90,700,0,0,Arial"
+  Set CarLabelFont "-9,400,0,16777215,Arial"
+  Set CarLabelsBkColor 13664326
+  Set CarLabelsExclOpsColor 855525
+  Set TrackLabelParams 1,"90,700,0,0,Arial"
 
-EndProc
+EndIf
 ***************************************************************************
 
 
-Proc o2oInit
+If (%1 = o2oInit)
 ** Reworks the Advanced Ops setup
 
   call $view(hide,tracks)
@@ -38,5 +37,5 @@ Proc o2oInit
   set $layout(readonly) 0
   set $layout(savevars) 0
 
-EndProc
+EndIf
 ****************************************************************************

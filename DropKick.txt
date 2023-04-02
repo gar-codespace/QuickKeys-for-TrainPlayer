@@ -53,7 +53,8 @@ Proc FindEngine
   Let i = 0
   While (@i < $Set(@kTemp, Count))
     Let kEngineLabel = $Set(@kTemp, Get, @i)
-    IF ($String(@kEngineLabel, StartsWith, "E") = 1)
+    Let kTestAAR = $Car(@kTestLabel, AAR)
+    If ($String(@kTestAAR, StartsWith, "E") = 1)
       Break
     EndIf
     Let i = @i + 1
