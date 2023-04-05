@@ -18,13 +18,12 @@ EndIf
 
 Proc LineDelay
 ** linear delay for physics simulation
-** Format LineDelay @sMass @sB @sT
 ** Linear speed change, slope determined by sB or sT
 
-Let iB = %1 * @xCS / 1.0
-Let iT = %1 * @xCS / 1.3
-Let iX = %2 * 6
-Let iY = %3 * 6
+Let iB = @sMass * @xCS / 1.0
+Let iT = @sMass * @xCS / 1.3
+Let iX = @sB * 6
+Let iY = @sT * 6
 
 While (@sB > 0) ** loop for braking
   Let iB = @iB - @iX
@@ -45,7 +44,6 @@ EndProc
 
 Proc SlopeDelay
 ** curved delay for physics simulation
-** Format LineDelay @sMass @sB @sT
 ** The faster a train goes, the slower it accelerates
 ** The slower a train goes, the faster it brakes
 ** Some day I'll do this
@@ -193,7 +191,7 @@ If(@x0 = 1) ** All QK are active
     EndIf
     ****************************************************************************
 
-    Let sMass = $Train(%1, Length)
+    Let sMass = $Train($Train, Length)
 
     ****************************************************************************
 
@@ -218,7 +216,7 @@ If(@x0 = 1) ** All QK are active
           Break
         EndIf
         Let sBumpSpeed = $Speed - 1
-        Call LineDelay @sMass @sB @sT
+        Call LineDelay
         Let $Train($Train, Speed) = @sBumpSpeed ** phrased this way, dont have to tweak accelfactor
       EndWhile
 
@@ -255,7 +253,7 @@ If(@x0 = 1) ** All QK are active
         EndIf
 
         Let sBumpSpeed = $Train($Train, Speed) + 1
-        Call LineDelay @sMass @sB @sT
+        Call LineDelay
         Let $Train($Train, Speed) = @sBumpSpeed
 
         If ($Train($Train, Speed) = 0) ** if the train hits something and stops

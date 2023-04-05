@@ -1,17 +1,15 @@
-** UserSettings1
+** UpdateSettings version 2
 
-If (%1 = UpdatePreferences)
-** Personal adjustments to TrainPlayer's preferences
+If (%1 = personalInit)
+** Personal adjustments for every layout
 
-  Let NoteDownOnEsc = 1
-  Let ScrollDistFactorx10 = 25
   Let AllowYardMode = 1
   Let InYardMode = 1
+  Let ScrollDistFactorx10 = 25
   Let BarrelThruMode = 0
   Let Coupling Speed = 5
   Let Car Gap = 0
 
-  Let JunctionActions = 255
   Let DistFromSwitch =  0
   Let HiliteSize = 18
 
@@ -19,6 +17,17 @@ If (%1 = UpdatePreferences)
   Set CarLabelsBkColor 13664326
   Set CarLabelsExclOpsColor 855525
   Set TrackLabelParams 1,"90,700,0,0,Arial"
+
+EndIf
+***************************************************************************
+
+
+If (%1 = qkInit)
+** Adjustments for Quick Keys
+
+  Let NoteDownOnEsc = 1
+
+  Let JunctionActions = 255
 
 EndIf
 ***************************************************************************

@@ -7,16 +7,16 @@ If (%1 = SetUp)
   Let x3 = 1
   Let Uncouple Gap = 20 ** make bigger if dropped cars re-couple
   Let Min Coupling Dist = 1
-  Let CarBarRecentCollection = DropKick
-  Let DefaultCarColl = DropKick
   Echo DropKick Version 3
 EndIf
 ****************************************************************************
 
 
 Proc Scrubber
+** Remove all the kick motors from the layout
 
 Echo Delete the KickMotors.
+Let kThisTrain = $Train
 Let kKickMotors = $Ops(find,Cars.AAR,"EQDK",Car)
 Let i = $Set(@kKickMotors, Count)
 While ($Set(@kKickMotors, Count) <> 0)
@@ -27,52 +27,34 @@ While ($Set(@kKickMotors, Count) <> 0)
 EndWhile
 Echo @i KickMotors deleted.
 
-EndProc
-****************************************************************************
-
-Proc CleanLayout
-
-If (%1 = 1)
-  Let kCleanToggle = %1
-Else ** Put up guard rails
-  Let xMessage = $Set(@messageBundle, Get, 2)
-  Let kCleanToggle = $MsgBox(yn, @xMessage)
-EndIf
-
-If (@kCleanToggle = 1)
-  Call Scrubber
-  Let kCleanToggle = 0
-EndIf
+Train @kThisTrain
 
 EndProc
 ****************************************************************************
 
-Proc FindEngine
 
-  Let kTemp = $Train($Train, CarLabels)
-  Let i = 0
-  While (@i < $Set(@kTemp, Count))
-    Let kEngineLabel = $Set(@kTemp, Get, @i)
-    Let kTestAAR = $Car(@kTestLabel, AAR)
-    If ($String(@kTestAAR, StartsWith, "E") = 1)
-      Break
-    EndIf
-    Let i = @i + 1
-  EndWhile
-
-EndProc
-****************************************************************************
-
-Proc PreKick
+Proc SpeedCheck
+** If the selected train is stopped, call Scrubber
 
 If ($Train($Train, Speed) = 0)
-  Let kTrain = $Train
-  Call CleanLayout
-  Train @kTrain
+  Let xMessage = $Set(@messageBundle, Get, 2)
+  Let kCleanToggle = $MsgBox(yn, @xMessage)
+  If (@kCleanToggle = 1)
+    Call Scrubber
+  EndIf
+  Let kCleanToggle = 0
   Exit
 EndIf
 
-Let kAar = $Car(@kKickCar, AAR)
+
+EndProc
+****************************************************************************
+
+
+Proc KickCheck
+** Test if selected car is an engine
+
+Let kAar = $Car($Car, AAR)
 IF ($String(@kAar, StartsWith, "E") = 1)
   Echo Can't let an engine go!
   Exit
@@ -81,27 +63,45 @@ EndIf
 EndProc
 ****************************************************************************
 
-Proc EngineCar
 
-** Find engine/car relationship.
+Proc FindEngine
+** Find the engines position in the selected train
 
-Let i = 0
-Let E = $Set(@kTemp, Count) ** E is position of Engine in train, last car is default
-While (@i < $Set(@kTemp, Count))
-  let kCarLabel = $Set(@kTemp, Get, @i)
-  If (@kCarLabel = @kKickCar)
-    Let C = @i ** C is position of selected Car in train
-    Break
-  EndIf
-  IF ($String(@kCarLabel, StartsWith, "E") = 1)
-    Let E = @i ** E is position of Engine in train
-  EndIf
-  Let i = @i + 1
-EndWhile
-** Echo kCarPos  @kCarPos kLitmus @kLitmus $Train(%1, Direction)
+  Let kTemp = $Train($Train, CarLabels)
+  Let kTrainCount = $Set(@kTemp, Count)
+  
+  Let i = 0
+  While (@i < @kTrainCount)
+    Let kTestLabel = $Set(@kTemp, Get, @i)
+    Let kTestAAR = $Car(@kTestLabel, AAR)
+    If ($String(@kTestAAR, StartsWith, "E") = 1)
+      Let kEngineLabel = @kTestLabel
+      Let E = @i ** E is position of Engine in train
+      Break
+    EndIf
+    Let i = @i + 1
+  EndWhile
 
 EndProc
 ****************************************************************************
+
+
+Proc FindCar
+** Find the cars position in the selected train
+
+Let i = 0
+While (@i < @kTrainCount)
+  let kCarLabel = $Set(@kTemp, Get, @i)
+  If (@kCarLabel = $Car)
+    Let C = @i ** C is position of selected Car in train
+    Break
+  EndIf
+  Let i = @i + 1
+EndWhile
+
+EndProc
+****************************************************************************
+
 
 Proc CutOffCars
 
@@ -133,10 +133,10 @@ If(@x3 = 1) ** DK on
 
   If ($Key = 75) ** the k key
 
-    Let kKickCar = $Car
-
-    Call PreKick
-    Call EngineCar
+    Call SpeedCheck
+    Call KickCheck
+    * Call FindEngine
+    Call FindCar
 
     If (@C - @E < 0) ** Engine behind Car
     If ($Train($Train, Direction) = F)
@@ -161,17 +161,19 @@ If(@x3 = 1) ** DK on
     EndIf
 
     Train @kEngineLabel
+
   EndIf
   ***************************************************************************
 
   If ($Key = 68) ** key d
 
-    Let kKickCar = $Car
-    Let kSpeed = $Train($Train, Speed) - 1
+    Call SpeedCheck
+    Call KickCheck
+    * Call FindEngine
+    Call FindCar
 
-    Call PreKick
-    Call FindEngine
-    Call EngineCar
+    Let dropSpeed = $Train($Train, Speed) - 1
+    Let dropCar = $Car
 
     If (@C - @E < 0) ** Engine behind Car
     If ($Train($Train, Direction) = R)
@@ -195,7 +197,7 @@ If(@x3 = 1) ** DK on
     EndIf
     EndIf
 
-    Let $Train(@kKickCar, Speed) = @kSpeed
+    Let $Train(@dropCar, Speed) = @dropSpeed
 
   EndIf
   ***************************************************************************
