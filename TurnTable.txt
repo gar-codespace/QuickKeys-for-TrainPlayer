@@ -21,152 +21,172 @@
 If (%1 = SetUp)
 
   Let x4 = 1
-  Let TTableSpeedDivisor = 5
-  Let tScriptID = %2
+  Let tNoteText = $Note(%2)
   Call SetUpTurntable
-  Let T = 1 ** turntable sub on
   Echo TurnTable Version 2
 EndIf
 ****************************************************************************
 
-Proc CullTheHerd ** make a sub matrix of tracks connected to the selected turntable
 
-  Let tMatrixCopy = ""
-  Let i = 0
-  While(@i < $Set(@tmatrix, Count))
-    Let tTemp = $Set(@tMatrix, Get, @i)
-    If(@tTemp = @tTable)
-      Let tMatrixCopy = @tMatrixCopy + $Set(@tMatrix, Get, @i) +, ** TurnTable ID
-      Let i = @i + 1
-      Let tMatrixCopy = @tMatrixCopy + $Set(@tMatrix, Get, @i) +, ** Lead Track
-      Let i = @i + 1
-      Let tMatrixCopy = @tMatrixCopy + $Set(@tMatrix, Get, @i) +, ** Junction ID
+Proc SetUpTurntable
+
+  ** Make a LUT
+  Let tAlpha = 0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,
+  Let tNumeric = 48,49,50,51,52,53,54,55,56,57,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,
+
+  Let tMatrix = ""
+  While(@tNoteText <> "")
+    Let tLine = $String(@tNoteText, NextToken, @xCR)
+    If($String(@tLine, Contains, "rotate") = 1)
+      Call $String(@tLine, NextToken, " ") ** Strip off the word 'rotate'
+
+      Let tL = $String(@tLine, NextToken, " ") ** the alpha character of the track Lead in tNoteText
+      Let tL = $Set(@tAlpha, Find, @tL) ** the index of the alpha character
+      Let tL = $Set(@tNumeric, Get, @tL) ** the key number of the alpha character
+
+      Let tT = "T" + $String(@tLine, NextToken, " ") ** add a 'T' to the Table ID number
+      Let tJ = "J" + @tLine ** add a 'J' to the junction number
+    
+      Let tMatrix = $Set(@tMatrix, Add, @tT)
+      Let tMatrix = $Set(@tMatrix, Add, @tL)
+      Let tMatrix = $Set(@tMatrix, Add, @tJ) ** format: Table,Lead,Junction
+
     EndIf
-    Let i = @i + 1
   EndWhile
 
 EndProc
 ****************************************************************************
 
-Proc SetUpTurntable
 
-Let tMatrix = ""
-** Make a dictionary
-Let tAlpha = 0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,
-Let tNumeric = 48,49,50,51,52,53,54,55,56,57,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,
-Let tNoteText = $Note(@tScriptID)
-While(@tNoteText <> "")
-  Let tLine = $String(@tNoteText, NextToken, @xCR)
-  If($String(@tLine, Contains, "rotate") = 1)
-    Call $String(@tLine, NextToken, " ") ** Strip off the word 'rotate'
+Proc CancelTurnTable
 
-    Let tL = $String(@tLine, NextToken, " ") ** the alpha character of the track Lead in tNoteText
-    Let tL = $Set(@tAlpha, Find, @tL) ** the index of the alpha character
-    Let tL = $Set(@tNumeric, Get, @tL) ** the key number of the alpha character
+  Call NoteWindow
+  Let x4 = 1
+  Echo Turntable canceled
+  View Refresh
 
-    Let tT = "T" + $String(@tLine, NextToken, " ") ** add a 'T' to the Table ID number
-
-    Let tJ = "J" + @tLine ** add a 'J' to the junction number
-  
-    Let tMatrix = $Set(@tMatrix, Add, @tT)
-    Let tMatrix = $Set(@tMatrix, Add, @tL)
-    Let tMatrix = $Set(@tMatrix, Add, @tJ) ** write the matrix: Table,Lead,Junction
-
-  EndIf
-EndWhile
-*** Echo @tMatrix
 EndProc
 ****************************************************************************
 
 
-If($Key > 47) ** a number is pressed
-If($Key < 58)
-If(@T = 1) ** turntable sub on
-If(@x0 = 1) ** all QK active
-  Let H = 0
-  Let U = 0
-  Let T = 0
-  Let x0 = 0 ** shut off QK
-  Let tTable = $Key ** key number of TT lead
-  If ($Set(@tMatrix, Contains, @tTable) = 1) ** is a valid lead selected
-    Let tTable = $Set(@tMatrix, Find, @tTable) ** index of TT lead
-    Let tTable = @tTable - 1 ** index of TT
-    Let tTable = $Set(@tMatrix, Get, @tTable) ** TT ID in matrix
+Proc SelectDirection
+  
+  On Key
 
-    Call CullTheHerd
+    If($Key = 8)
+      Call CancelTurnTable
+      Exit
+    EndIf
 
-    Let xy = $Set(@tNumeric, Find, $Key)
-    Let xz = $Set(@tAlpha, Get, @xy)
-    Echo
-    Echo Turntable lead @xz is selected.
-    Echo Select an alignment track.
+    Let tMessage = $Set(@messageBundle, Get, 14) + "\n"
+    Let tMessage = @tMessage + $Set(@messageBundle, Get, 15) + " " + @tLead + "\n"
+    Let tMessage = @tMessage + $Set(@messageBundle, Get, 17) + " " + @tStall + "\n\n"
+    
+    If ($Key = 65)
+      Rotate @tTable @tTrack CCW
+      Echo Align @tTable to @tTrack CCW
+      Let tMessage = @tMessage + $Set(@messageBundle, Get, 19) + "\n"
+    ElseIf ($Key = 67)
+      Rotate @tTable @tTrack CW
+      Echo Align @tTable to @tTrack CW
+      Let tMessage = @tMessage + $Set(@messageBundle, Get, 19) + "\n"
+    Else
+      Let T = 0
+      Let tMessage = @tMessage + $Set(@messageBundle, Get, 18) + "\n"
 
-    On Key
-      If($Key = 8)
-        Let H = 0
-        Let U = 0
-        Let T = 1
-        Let x0 = 1
-        Echo Turntable canceled
-        Return
+    EndIf
+    Call NoteWindow @tMessage
+
+EndProc
+****************************************************************************
+
+
+Proc SelectStall
+
+  On Key
+
+    If($Key = 8)
+      Call CancelTurnTable
+      Exit
+    EndIf
+
+    Let T = 0
+    Let i = 0
+    While (@i < $Set(@tmatrix, Count))
+      If ($Set(@tMatrix, Get, @i) = @tTable)
+        Let kIndex = @i + 1
+        If ($Set(@tMatrix, Get, @kIndex) = $Key)
+
+          Let x = $Set(@tNumeric, Find, $Key)
+          Let tStall = $Set(@tAlpha, Get, @x)
+
+          Let tMessage = $Set(@messageBundle, Get, 14) + "\n"
+          Let tMessage = @tMessage + $Set(@messageBundle, Get, 15) + " " + @tLead + "\n"
+          Let tMessage = @tMessage + $Set(@messageBundle, Get, 17) + " " + @tStall + "\n\n"
+          Let tMessage = @tMessage + $Set(@messageBundle, Get, 18) + "\n"
+          Call NoteWindow @tMessage
+
+          Let sIndex = @i + 2
+          Let tTrack = $Set(@tMatrix, Get, @sIndex)
+          Let T = 1
+          Break
+
+        EndIf
       EndIf
-      Let tTrack = $Key
-      If($Set(@tMatrixCopy, Contains, @tTrack) = 1)
-        Let tTrack = $Set(@tMatrixCopy, Find, @tTrack) ** track index
-        Let tTrack = @tTrack + 1 ** junction index
-        Let tTrack = $Set(@tMatrixCopy, Get, @tTrack) ** junction id
+      Let i = @i + 1
+    EndWhile
+    Call NoteWindow @tMessage
 
-        Let xy = $Set(@tNumeric, Find, $Key)
-        Let xz = $Set(@tAlpha, Get, @xy)
+EndProc
+****************************************************************************
 
-        Echo Align to track @xz
-        Echo Press 'a' for anticlockwise or 'c' for clockwise.
-        TryAgain:
-        On Key
-          If($Key = 8)
-            Let H = 0
-            Let U = 0
-            Let T = 1
-            Let x0 = 1
-            Echo Turntable canceled
-            Return
-          EndIf
-          If ($Key = 65)
-            Rotate @tTable @tTrack CCW
-            Echo Running...
-          ElseIf ($Key = 67)
-            Rotate @tTable @tTrack CW
-            Echo Running...
-          Else
-            Echo Press 'a' for anticlockwise or 'c' for clockwise.
-            GoTo TryAgain
-          EndIf
-          On TableStop
-            Echo Turntable aligned to track @xz
-            Let x0 = 1
-            Let H = 0
-            Let U = 0
-            Let T = 1
-            View Refresh
-            Exit
-      Else
-        Echo Stall track not found.
-        Echo Select a turntable lead.
-        Let x0 = 1
-        Let H = 0
-        Let U = 0
-        Let T = 1
-        Exit
-      EndIf
+
+If (@x0 = 1) ** all QK active
+If (@x4 = 1) ** turntable sub is activated
+If (@U = 0) ** Utilities menu is not currently displayed
+If ($Key > 47) ** a number is pressed
+If ($Key < 58)
+
+  If ($Set(@tMatrix, Contains, $Key) = 1) ** a valid lead is selected
+    Call NoteWindow
+    Let x4 = 2 ** TurnTable is in process
+
+    Let x = $Set(@tNumeric, Find, $Key)
+    Let tLead = $Set(@tAlpha, Get, @x)
+
+    Let tMessage = $Set(@messageBundle, Get, 14) + "\n"
+    Let tMessage = @tMessage + $Set(@messageBundle, Get, 15) + " " + @tLead + "\n"
+    Let tMessage = @tMessage + $Set(@messageBundle, Get, 16) + "\n"
+    Call NoteWindow @tMessage
+
+    Let lIndex = $Set(@tMatrix, Find, $Key) ** index of TT lead
+    Let tIndex = @lIndex - 1
+    Let tTable = $Set(@tMatrix, Get, @tIndex)
+
+    ReselectStall:
+    Call SelectStall
+    If (@T = 0)
+      Echo Reselect Stall
+      GoTo ReselectStall
+    EndIf
+
+    ReselectDirection:
+    Call SelectDirection
+    If (@T = 0)
+      Echo Reselect Direction
+      GoTo ReselectDirection
+    EndIf
+
   Else
-    Echo Not a valid table lead.
-    Let x0 = 1
-    Let H = 0
-    Let U = 0
-    Let T = 1
-    Exit
+    Echo Select a valid lead
   EndIf
 
+  On TableStop
+    Call NoteWindow
+    Let x4 = 1
+    View Refresh
+
+EndIf
 EndIf
 EndIf
 EndIf

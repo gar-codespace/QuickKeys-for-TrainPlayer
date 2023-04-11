@@ -3,14 +3,15 @@
 
 If (%1 = SetUp)
 
+* Initializing message
   Let xMessage = "\nPlease wait... Setting up subroutines.
                   \nVeuillez patienter ... Configuration des sous-programmes.
                   \nBitte warten ... Unterprogramme einrichten.
                   \nEspere ... Configurando subrutinas.
                   \n"
-
   Call NoteWindow @xMessage 1
 
+* Subroutine toggles
   Let x0 = 1 ** All Quick keys are on or off
   Let x1 = 0 ** Activate the Speed Switching subroutine
   Let x2 = 0 ** Phake Physics overides SS controls
@@ -20,11 +21,12 @@ If (%1 = SetUp)
   Let x6 = 0 ** Activate the JobTimer subroutine
   Let x7 = 0 ** Activate RandomRoads subroutine
 
-  Let H = 0 ** Help Menu
+* Note window rubric:
+  Let H = 0 ** Help note
   Let U = 0 ** Utility menu
-  Let L = 0 ** o2o Switch List
-  Let T = 0 ** turntable sub off
+  Let L = 0 ** o2o work events note
 
+* OS setup
   Call DefineCarrageReturn
   Call $system("MD "%homepath%\AppData\Roaming\TrainPlayer\Reports"")
   Call $System("%homepath%\AppData\Roaming\TrainPlayer\Subroutines\QuickKeys\qkSupport\ProcessorInfo.bat") ** This is the WMIC command
@@ -38,196 +40,208 @@ If ($Key = 27) ** key esc
   Let H = 0
   Let U = 0
   Let L = 0
-  Let T = 1
+  Let T = 0
+  Call NoteWindow
 
 EndIf
 ***************************************************************************
 
-** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
 
-If (@x0 = 0) ** QK is not active
-
-  If ($Key = 85) ** key u for utilities
-    If (@U = 0) ** Create message for utility menu
-      Let U = 1
-      Call makeUtilityMenu
-      Call NoteWindow @utilityMenu 1
-    Else
-      Let U = 0
-      Call NoteWindow
-    EndIf
-    
-  EndIf
-  ***************************************************************************
-
-  If (@U = 1)
-    If($Key = 49) ** key 1
-      Let x0 = 1 ** activate all Quick keys
-      Let U = 0
-      Let T = 1
-      Call NoteWindow
-    EndIf
-  EndIf
-  ****************************************************************************
-
-  If ($Key = 72) ** key h for help
-    If(@H = 0)
-      Let H = 1
-      Call makeHelpPage
-      Call NoteWindow @helpPage 1
-    Else
-      Let H = 0
-      Call NoteWindow
-    EndIf
-    Let U = 0
-    
-  Endif
-  ***************************************************************************
-
-EndIf ** QK not active
-***************************************************************************
-
-** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
-
-If (@x0 = 1) ** QK is active
+If (@x3 <> 2) ** DropKick in not in process
+If (@x4 <> 2) ** TurnTable in not in process
 
 
-  If ($Key = 87) ** key w, Window or Wait?????
+  If (@x0 = 0) ** QK is not active
 
-    View "Fit To Window"
-  EndIf
-  ***************************************************************************
+    If ($Key = 72) ** key h for help
 
-  If ($Key = 70) ** f key
-
-    call $view(show,"Full Screen")
-    NoteBox "." ** A necessary patch
-    NoteBox
-  EndIf
-  ***************************************************************************
-
-  If ($Key = 72) ** key h for help
-
-    If(@H = 0)
-      Let H = 1
-      Let T = 0
-      Call makeHelpPage
-      Call NoteWindow @helpPage 1
-    Else
-      Let H = 0
-      Let T = 1 ** turntable sub on
-      Call NoteWindow
-    EndIf
-    Let U = 0
-    Let L = 0
-    
-  EndIf
-  ***************************************************************************
-
-  If ($Key = 85) ** key u for utilities
-
-    If (@U = 0) ** Create message for utility menu
-    If (@T = 1)
-      Let U = 1
-      Let T = 0
-      Call makeUtilityMenu
-      Call NoteWindow @utilityMenu 1
-    Else
-      Let U = 0
-      Let T = 1 ** turntable sub on
-      Call NoteWindow
-    EndIf
-    EndIf
-    Let H = 0
-    Let L = 0
-    
-
-  EndIf
-  ***************************************************************************
-
-  If (U = 1) ** Utility menu is displayed
-
-    If($Key = 49) ** 1 key, toggle all quick keys
-      Let x0 = 0
-      Let U = 0
-      Let T = 0
-      Call NoteWindow
-    EndIf
-    ****************************************************************************
-
-    If ($Key = 50) ** 2 key, toggle phake physics
-      If(@x1 = 1) ** SS is being used
-      If(@x2 = 0) ** PP is not active
-        Let xBox = $Set(@messageBundle, Get, 0)
-        Call $MsgBox(@xBox)
-        Let x2 = 1 ** activate phake physics
-        Call ProcessorInfo
-
+      Echo H for Help
+      Let $Key = 0
+      If (@H = 0)
+        Let H = 1
+        Call makeHelpPage
+        Call NoteWindow @helpPage 1
       Else
-        Let xBox = $Set(@messageBundle, Get, 1)
-        Call $MsgBox(@xBox)
-        Let x2 = 0 ** deactivate PP
-        Let sB = 0
-        Let sT = 0
+        Let H = 0
+        Call NoteWindow
       EndIf
-      EndIf
+      Let $Key = 0
       Let U = 0
-      Let L = 0
-      Let H = 0
-      Let T = 1
       
-      Call NoteWindow
+    Endif
+    ***************************************************************************
+
+    If ($Key = 85) ** key u for utilities
+
+      Let $Key = 0
+      If (@U = 0) ** Create message for utility menu
+        Let U = 1
+        Call makeUtilityMenu
+        Call NoteWindow @utilityMenu 1
+      Else
+        Let U = 0
+        Call NoteWindow
+      EndIf
+      
+    EndIf
+    ***************************************************************************
+
+    If (@U = 1)
+      If($Key = 49) ** key 1
+        Let $Key = 0
+        Let x0 = 1 ** activate all Quick keys
+        Let U = 0
+        Call NoteWindow
+      EndIf
     EndIf
     ****************************************************************************
 
-    If ($Key = 51) ** 3 key for Random Roads
+  EndIf ** QK not active
+  ***************************************************************************
 
-      Echo o2o Utility - Assign random road names and numbers to rolling stock 
-      Call RandomRoads
+  ** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
+
+  If (@x0 = 1) ** QK is active
+
+    If ($Key = 87) ** key w, Window or Wait?????
+      View "Fit To Window"
+    EndIf
+    ***************************************************************************
+
+    If ($Key = 70) ** f key
+
+      call $view(show,"Full Screen")
+      NoteBox "." ** A necessary patch
+      NoteBox
+    EndIf
+    ***************************************************************************
+
+    If ($Key = 72) ** key h for help
+
+      If(@H = 0)
+        Let H = 1
+        Call makeHelpPage
+        Call NoteWindow @helpPage 1
+      Else
+        Let H = 0
+        Call NoteWindow
+      EndIf
       Let U = 0
       Let L = 0
+      
+    EndIf
+    ***************************************************************************
+
+
+    If ($Key = 85) ** key u for utilities
+
+      If (@T = 1) ** Turntable sub is currently active
+        Exit
+      EndIf
+
+      If (@U = 0) ** Create message for utility menu
+        Let U = 1
+        Call makeUtilityMenu
+        Call NoteWindow @utilityMenu 1
+      Else
+        Let U = 0
+        Call NoteWindow
+      EndIf
       Let H = 0
-      Let T = 1
-      Call NoteWindow
-
+      Let L = 0
+      
     EndIf
-    ****************************************************************************
+    ***************************************************************************
 
-    If ($Key = 52) ** 4 key available
+    If (@U = 1) ** Utility menu is displayed
 
-    EndIf
-    ****************************************************************************
+      If($Key = 49) ** 1 key, toggle all quick keys
+        Let x0 = 0
+        Let U = 0
+        Call NoteWindow
+      EndIf
+      ****************************************************************************
 
-    If ($Key = 53) ** key 5 available
+      If ($Key = 50) ** 2 key, toggle phake physics
+        If(@x1 = 1) ** SS is being used
+        If(@x2 = 0) ** PP is not active
+          Let xBox = $Set(@messageBundle, Get, 0)
+          Call $MsgBox(@xBox)
+          Let x2 = 1 ** activate phake physics
+          Call ProcessorInfo
 
-    EndIf
-    ****************************************************************************
+        Else
+          Let xBox = $Set(@messageBundle, Get, 1)
+          Call $MsgBox(@xBox)
+          Let x2 = 0 ** deactivate PP
+          Let sB = 0
+          Let sT = 0
+        EndIf
+        EndIf
+        Let $Key = 0
+        Let U = 0
+        Let L = 0
+        Let H = 0
+        
+        Call NoteWindow
+      EndIf
+      ****************************************************************************
 
-    If ($Key = 54) ** 6 key o2o
+      If ($Key = 51) ** 3 key for Random Roads
 
-    EndIf
-    ****************************************************************************
+        Echo o2o Utility - Assign random road names and numbers to rolling stock 
+        Call RandomRoads
+        Let $Key = 0
+        Let U = 0
+        Let L = 0
+        Let H = 0
+        Call NoteWindow
 
-    If ($Key = 55) ** 7 key o2o
+      EndIf
+      ****************************************************************************
 
-    EndIf
-    ****************************************************************************
+      If ($Key = 52) ** 4 key available
 
-    If ($Key = 56) ** 8 key o2o
+      Let $Key = 0
 
-    EndIf
-    ****************************************************************************
+      EndIf
+      ****************************************************************************
 
-    If ($Key = 57) ** 9 key o2o
+      If ($Key = 53) ** key 5 available
 
-    EndIf
-    ****************************************************************************
+      Let $Key = 0
 
-    If ($Key = 48) ** 0 key available
+      EndIf
+      ****************************************************************************
 
-    EndIf
-    ****************************************************************************
+      If ($Key = 54) ** 6 key o2o
 
-  EndIf ** U = 1
+      EndIf
+      ****************************************************************************
 
-EndIf ** QK is active
+      If ($Key = 55) ** 7 key o2o
+
+      EndIf
+      ****************************************************************************
+
+      If ($Key = 56) ** 8 key o2o
+
+      EndIf
+      ****************************************************************************
+
+      If ($Key = 57) ** 9 key o2o
+
+      EndIf
+      ****************************************************************************
+
+      If ($Key = 48) ** 0 key available
+
+      EndIf
+      ****************************************************************************
+
+    EndIf ** U = 1
+
+  EndIf ** QK is active
+
+EndIf ** TurnTable in not in process
+EndIf ** DropKick in not in process

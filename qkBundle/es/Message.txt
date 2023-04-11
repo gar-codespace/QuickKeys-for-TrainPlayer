@@ -53,3 +53,25 @@ Duración total:
 "
 Número total de movimientos:
 "
+,
+"
+*** Subrutina de TurnTable ***
+"
+,
+"
+Tabla seleccionada en la pista principal:"
+,
+"
+Seleccione una pista de espera o pulse "Backspace" para salir.
+"
+,
+"
+Pista seleccionada:"
+,
+"Pulse 'a' para las agujas del reloj o 'c' para las agujas del reloj,
+o pulse 'Retroceso' para salir.
+"
+,
+"
+Trabajar en...
+"

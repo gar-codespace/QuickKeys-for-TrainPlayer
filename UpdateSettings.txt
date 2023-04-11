@@ -9,6 +9,7 @@ If (%1 = personalInit)
   Let BarrelThruMode = 0
   Let Coupling Speed = 5
   Let Car Gap = 0
+  Let TTableSpeedDivisor = 5
 
   Let DistFromSwitch =  0
   Let HiliteSize = 18
@@ -25,8 +26,7 @@ EndIf
 If (%1 = qkInit)
 ** Adjustments for Quick Keys
 
-  Let NoteDownOnEsc = 1
-
+  Let NoteDownOnEsc = 0
   Let JunctionActions = 255
 
 EndIf
@@ -35,6 +35,9 @@ EndIf
 
 If (%1 = o2oInit)
 ** Reworks the Advanced Ops setup
+
+  Call $View(Hide, "Track Labels")
+  Call $View(Show,"car ids")
 
   call $view(hide,tracks)
   call $view(hide,rails)

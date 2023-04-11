@@ -43,6 +43,7 @@ EndProc
 
 
 Proc SlopeDelay
+
 ** curved delay for physics simulation
 ** The faster a train goes, the slower it accelerates
 ** The slower a train goes, the faster it brakes
@@ -53,6 +54,7 @@ EndProc
 
 
 Proc Neutral
+
   Let i = @sT + 1
   While(@i > 0)
     Let sT = 0
@@ -68,7 +70,9 @@ EndProc
 ****************************************************************************
 
 
-If(@x0 = 1) ** All QK are active
+If (@x0 = 1) ** All QK are active
+If (@x3 <> 2) ** DropKick in not in process
+If (@x4 <> 2) ** TurnTable in not in process
 
 
   If ($Key = 65) ** key a is common to both
@@ -86,7 +90,7 @@ If(@x0 = 1) ** All QK are active
   **                            Speed Switching                             **
   ** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
 
-  If(@x2 = 0) ** SS on
+  If(@x2 = 0) ** Speed Switching
 
     Let sSpeed = $Speed
 
@@ -148,7 +152,7 @@ If(@x0 = 1) ** All QK are active
     EndIf
     ****************************************************************************
 
-  EndIf
+  EndIf ** Speed Switching
   ****************************************************************************
 
   ** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
@@ -264,8 +268,9 @@ If(@x0 = 1) ** All QK are active
     EndIf
     ****************************************************************************
 
-  EndIf
+  EndIf ** Phake Physics
   ****************************************************************************
 
+Endif
 EndIf
-****************************************************************************
+EndIf

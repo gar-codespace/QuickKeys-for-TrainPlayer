@@ -116,8 +116,10 @@ EndProc
 ****************************************************************************
 
 
-If(@x0 = 1) ** All on
-If(@x3 = 1) ** DK on
+If (@x0 = 1) ** All on
+If (@x3 = 1) ** DK on
+If (@x4 <> 2) ** TurnTable in not in process
+
 
   If ($Key = 71) ** key g
 
@@ -133,6 +135,7 @@ If(@x3 = 1) ** DK on
 
   If ($Key = 75) ** the k key
 
+    Let x3 = 2
     Call SpeedCheck
     Call KickCheck
     * Call FindEngine
@@ -161,12 +164,14 @@ If(@x3 = 1) ** DK on
     EndIf
 
     Train @kEngineLabel
+    Let x3 = 1
 
   EndIf
   ***************************************************************************
 
   If ($Key = 68) ** key d
 
+    Let x3 = 2
     Call SpeedCheck
     Call KickCheck
     * Call FindEngine
@@ -198,6 +203,7 @@ If(@x3 = 1) ** DK on
     EndIf
 
     Let $Train(@dropCar, Speed) = @dropSpeed
+    Let x3 = 1
 
   EndIf
   ***************************************************************************
@@ -210,4 +216,4 @@ If(@x3 = 1) ** DK on
 
 EndIf
 EndIf
-***************************************************************************
+EndIf

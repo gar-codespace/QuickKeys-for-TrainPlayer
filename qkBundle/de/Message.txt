@@ -53,3 +53,25 @@ Gesamtdauer:
 "
 Gesamtzahl der Züge:
 "
+,
+"
+*** Unterprogramm TurnTable ***
+"
+,
+"
+Ausgewählte Tabelle auf der Führungsschiene:"
+,
+"
+Wählen Sie eine Standspur oder drücken Sie die 'Backspace', um den Vorgang zu beenden.
+"
+,
+"
+Ausgewählte Stallgasse:"
+,
+"Drücken Sie 'a' für linksdrehend oder 'c' für rechtsdrehend,
+oder drücken Sie zum Verlassen die 'Backspace'.
+"
+,
+"
+Arbeiten Sie...
+"

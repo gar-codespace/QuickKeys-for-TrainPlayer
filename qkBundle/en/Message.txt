@@ -53,3 +53,25 @@ Total time:
 "
 Total number of moves:
 "
+,
+"
+*** TurnTable subroutine ***
+"
+,
+"
+Selected table on lead track:"
+,
+"
+Select a stall track or press 'Backspace' to exit.
+"
+,
+"
+Selected stall track:"
+,
+"Press 'a' for anticlockwise or 'c' for clockwise,
+or press 'Backspace' to exit.
+"
+,
+"
+Working...
+"

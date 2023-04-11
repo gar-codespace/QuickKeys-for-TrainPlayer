@@ -53,3 +53,25 @@ Temps total :
 "
 Nombre total de mouvements :
 "
+,
+"
+*** Sous-programme TurnTable ***
+"
+,
+"
+Tableau sélectionné sur la piste principale:"
+,
+"
+Sélectionnez une piste de décrochage ou appuyez sur 'Backspace' pour quitter.
+"
+,
+"
+Voie de décrochage choisie:"
+,
+"Appuyez sur 'a' pour le sens inverse des aiguilles d'une montre ou sur 'c' pour le sens des aiguilles d'une montre,
+ou appuyez sur 'Backspace' pour quitter.
+"
+,
+"
+ouvré...
+"
