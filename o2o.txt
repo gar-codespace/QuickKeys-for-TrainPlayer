@@ -16,181 +16,51 @@ EndIf
 
 ****************************************************************************
 
-If (@x3 <> 2) ** DropKick in not in process
-If (@x4 <> 2) ** TurnTable in not in process
+Proc o2oDisplayWorkList
 
-
-  If(@x0 = 1) ** quick keys turned on
-
-    If (U = 1) ** Utility menu is displayed
-
-        If ($Key = 54) ** 6 key
-          Call InitTracks
-          Let $Key = 0
-          Let U = 0
-          Let L = 0
-          Let H = 0
-          Call NoteWindow
-        EndIf
-        ****************************************************************************
-
-        If ($Key = 55) ** 7 key
-          Call InitCars
-          Let $Key = 0
-          Let U = 0
-          Let L = 0
-          Let H = 0
-          Call NoteWindow
-        EndIf
-        ****************************************************************************
-
-        If ($Key = 56) ** 8 key
-          Call AddKernels
-          Let $Key = 0
-          Let U = 0
-          Let L = 0
-          Let H = 0
-          Call NoteWindow
-        EndIf
-        ****************************************************************************
-
-        If ($Key = 57) ** 9 key export TP layout
-          Call ReportTpLocations
-          Call ReportTpIndustries
-          Call ReportTpInventory
-          Let $Key = 0
-          Let U = 0
-          Let L = 0
-          Let H = 0
-          Call NoteWindow
-        EndIf
-        ****************************************************************************
-
-    EndIf
-
-    If(@x5 = 1) ** o2o is active
-
-      If ($Key = 76) ** key l for list
-        If(@jManifestAll = "") ** if manifest is not read in, set to default.
-          Let jNote = \n$Set(@o2oBundle, Get, 0)\n\n$Set(@o2oBundle, Get, 1)\n\n$Set(@o2oBundle, Get, 2) \n
-        EndIf
-        If (@L = 0)
-          Let L = 1
-          Call NoteWindow @jNote 1
-        Else
-          Let L = 0
-          Call NoteWindow
-        EndIf
-        Let H = 0
-        Let U = 0
-        
-      EndIf
-      ****************************************************************************
-
-
-      If($Key = 77) ** key m for manifest
-        Let jMessage = $Set(@messageBundle, Get, 11) ** Read in jManifest
-        Let jManifest = $Msgbox(YN, @jMessage)
-        If (@jManifest = 0)
-          Let $Key = 0
-          Exit
-        Endif
-
-        ** Create a location matrix from the AO location dataset
-        Call ReadAoLocations
-
-        Let jReportManifest = $DataDir + "\Reports\JMRI Report - o2o Work Events.csv"
-        Let jManifest = $File(@jReportManifest, Open)
-        Let jManifestAll = $File(@jManifest, ReadAll)
-        Call $File(@jReportManifest, Close)
-        Call CreateReportHeader
-
-        Let jNote = \n$Set(@o2oBundle, Get, 0)\n\n$Set(@o2oBundle, Get, 3) \n
-        Call NoteWindow @jNote 1
-        Echo Read in manifest
-        Let jWEIndex = 1
-        Call IncrementWE
-        View Refresh
-      EndIf
-      ****************************************************************************
-
-
-      If($Key = 33) ** Page Up key
-        If(@jWEIndex = 1)
-          Let jMessage = $Set(@messageBundle, Get, 9)
-          Call $Msgbox(@jMessage)
-        Else
-          Let jNote = @jHeader \n\n$Set(@o2oBundle, Get, 9)\n\n$Set(@o2oBundle, Get, 11)\n$Set(@o2oBundle, Get, 12)\n
-          Call NoteWindow @jNote 1
-          Echo Move to previous WorkEvent
-          Let jWEIndex = @jWEIndex - 1
-
-          Call IncrementWE
-          View Refresh
-        EndIf
-      EndIf
-      ****************************************************************************
-
-
-      If($Key = 34) ** Page Down key
-        If(@jWEIndex = @jWETotal)
-          Let jMessage = $Set(@messageBundle, Get, 10)
-          Call $Msgbox(@jMessage)
-        Else
-          Let jNote = @jHeader \n\n$Set(@o2oBundle, Get, 8)\n\n$Set(@o2oBundle, Get, 11)\n$Set(@o2oBundle, Get, 12)\n
-          Call NoteWindow @jNote 1
-          Echo Move to next WorkEvent
-          Let jWEIndex = @jWEIndex + 1
-
-          Call IncrementWE
-          Echo j work event Index @jWEIndex
-          View Refresh
-        EndIf
-      EndIf
-      ****************************************************************************
-
-
-      If ($Key = 35) ** End key
-        If(@jWEIndex = @jWETotal)
-          Let jMessage = $Set(@messageBundle, Get, 10)
-          Call $Msgbox(@jMessage)
-        Else
-          Let jNote = @jHeader \n\n$Set(@o2oBundle, Get, 10)\n\n$Set(@o2oBundle, Get, 11)\n$Set(@o2oBundle, Get, 12)\n
-          Call NoteWindow @jNote 1
-          Echo Move to last WorkEvent
-          Let jWEIndex = @jWETotal
-
-          Call IncrementWE
-          View Refresh
-        EndIf
-      EndIf
-      ****************************************************************************
-
-
-      If ($Key = 36) ** Home key
-        If(@jWEIndex = 1)
-          Let jMessage = $Set(@messageBundle, Get, 9)
-          Call $Msgbox(@jMessage)
-        Else
-          Let jNote = @jHeader \n\n$Set(@o2oBundle, Get, 7)\n\n$Set(@o2oBundle, Get, 11)\n$Set(@o2oBundle, Get, 12)\n
-          Call NoteWindow @jNote 1
-          Echo Move to first WorkEvent
-          Let jWEIndex = 1
-
-          Call IncrementWE
-          View Refresh
-        EndIf
-      EndIf
-      ****************************************************************************
-
-
-    EndIf
+  If(@jManifestAll = "") ** if manifest is not read in, set to default.
+    Let jNote = \n$Set(@o2oBundle, Get, 0)\n\n$Set(@o2oBundle, Get, 1)\n\n$Set(@o2oBundle, Get, 2) \n
   EndIf
-
-EndIf
-EndIf
+  If (@L = 0)
+    Let L = 1
+    Call NoteWindow @jNote 1
+  Else
+    Let L = 0
+    Call NoteWindow
+  EndIf
+  Let H = 0
+  Let U = 0
+        
+EndProc
 ****************************************************************************
 
+Proc o2oReadManifest
+  
+  Let jMessage = $Set(@messageBundle, Get, 11) ** Read in jManifest
+  Let jManifest = $Msgbox(YN, @jMessage)
+  If (@jManifest = 0)
+    Let $Key = 0
+    Exit
+  Endif
+
+  ** Create a location matrix from the AO location dataset
+  Call ReadAoLocations
+
+  Let jReportManifest = $DataDir + "\Reports\JMRI Report - o2o Work Events.csv"
+  Let jManifest = $File(@jReportManifest, Open)
+  Let jManifestAll = $File(@jManifest, ReadAll)
+  Call $File(@jReportManifest, Close)
+  Call CreateReportHeader
+
+  Let jNote = \n$Set(@o2oBundle, Get, 0)\n\n$Set(@o2oBundle, Get, 3) \n
+  Call NoteWindow @jNote 1
+  Echo Read in manifest
+  Let jWEIndex = 1
+  Call IncrementWE
+  View Refresh
+
+EndProc
+****************************************************************************
 
 Proc ResetPreviousWorkEvent
 
@@ -210,7 +80,6 @@ Proc ResetPreviousWorkEvent
 
 EndProc
 ****************************************************************************
-
 
 Proc CreateReportHeader
 
@@ -288,7 +157,6 @@ Proc CreateReportHeader
 EndProc
 ****************************************************************************
 
-
 Proc ParseManifest ** Parse the whole manifest from JMRI
 
   Let PickUpCount = 0
@@ -343,7 +211,6 @@ Proc ParseManifest ** Parse the whole manifest from JMRI
 EndProc
 ****************************************************************************
 
-
 Proc ParseLine ** (All Cars) parse out all variables for each car in the manifest and format for switch list
 
   ** jNumbers are for switchlist
@@ -385,7 +252,6 @@ Proc ParseLine ** (All Cars) parse out all variables for each car in the manifes
 EndProc
 ****************************************************************************
 
-
 Proc TagCar
 
   Let jLocaleIndex = $Set(@jLocaleSet, Find, @jToLoc)
@@ -397,7 +263,6 @@ Proc TagCar
 EndProc
 ****************************************************************************
 
-
 Proc PickupCar ** Tag the TP car to be picked up
 
   ** Note adding a whitespace between variables adds a whitespace to the report, @j0 is not needed
@@ -408,7 +273,6 @@ Proc PickupCar ** Tag the TP car to be picked up
 EndProc
 ****************************************************************************
 
-
 Proc SetoutCar ** Tag the TP car to be set out
 
   Let jMText = @jMText + \n$Set(@o2oBundle, Get, 18) @j3 @j4 @j5 @j6 @j7 $Set(@o2oBundle, Get, 16) @j9
@@ -416,7 +280,6 @@ Proc SetoutCar ** Tag the TP car to be set out
 
 EndProc
 ****************************************************************************
-
 
 Proc PickUpLoco ** Tag the engine to be picked up
 
@@ -426,7 +289,6 @@ Proc PickUpLoco ** Tag the engine to be picked up
 EndProc
 ****************************************************************************
 
-
 Proc SetOutLoco ** Tag the engine to be set out
 
   Let jMText = @jMText + \n$Set(@o2oBundle, Get, 18) @j3 @j4 @j5 @j6 @j7 $Set(@o2oBundle, Get, 16) @j9
@@ -434,7 +296,6 @@ Proc SetOutLoco ** Tag the engine to be set out
 
 EndProc
 ****************************************************************************
-
 
 Proc LoadCar
 
@@ -449,7 +310,6 @@ EndIf
 EndProc
 ****************************************************************************
 
-
 Proc ReadAoLocations
 
   Echo Read the AO location dataset for this layout
@@ -461,7 +321,6 @@ Proc ReadAoLocations
 EndProc
 ****************************************************************************
 
-
 Proc IncrementWE
 
   Call ResetPreviousWorkEvent
@@ -472,6 +331,79 @@ Proc IncrementWE
   Let jNote = @jHeader \n$Set(@o2oBundle, Get, 4) @jWEN \n$Set(@o2oBundle, Get, 13) @jWEIndex $Set(@o2oBundle, Get, 14) @jWETotal \n@jMText \n\n@PickUpCount $Set(@o2oBundle, Get, 5) @SetOutCount $Set(@o2oBundle, Get, 6) \n
   Call NoteWindow @jNote 1
   Let L = 1
+
+EndProc
+****************************************************************************
+
+Proc o2oNextWorkEvent
+
+  If(@jWEIndex = 1)
+    Let jMessage = $Set(@messageBundle, Get, 9)
+    Call $Msgbox(@jMessage)
+  Else
+    Let jNote = @jHeader \n\n$Set(@o2oBundle, Get, 9)\n\n$Set(@o2oBundle, Get, 11)\n$Set(@o2oBundle, Get, 12)\n
+    Call NoteWindow @jNote 1
+    Echo Move to previous WorkEvent
+    Let jWEIndex = @jWEIndex - 1
+
+    Call IncrementWE
+    View Refresh
+  EndIf
+
+EndProc
+****************************************************************************
+
+Proc o2oPreviousWorkEvent
+
+  If(@jWEIndex = @jWETotal)
+    Let jMessage = $Set(@messageBundle, Get, 10)
+    Call $Msgbox(@jMessage)
+  Else
+    Let jNote = @jHeader \n\n$Set(@o2oBundle, Get, 8)\n\n$Set(@o2oBundle, Get, 11)\n$Set(@o2oBundle, Get, 12)\n
+    Call NoteWindow @jNote 1
+    Echo Move to next WorkEvent
+    Let jWEIndex = @jWEIndex + 1
+
+    Call IncrementWE
+    Echo j work event Index @jWEIndex
+    View Refresh
+  EndIf
+
+EndProc
+****************************************************************************
+
+Proc o2oLastWorkEvent
+
+  If(@jWEIndex = @jWETotal)
+    Let jMessage = $Set(@messageBundle, Get, 10)
+    Call $Msgbox(@jMessage)
+  Else
+    Let jNote = @jHeader \n\n$Set(@o2oBundle, Get, 10)\n\n$Set(@o2oBundle, Get, 11)\n$Set(@o2oBundle, Get, 12)\n
+    Call NoteWindow @jNote 1
+    Echo Move to last WorkEvent
+    Let jWEIndex = @jWETotal
+
+    Call IncrementWE
+    View Refresh
+  EndIf
+
+EndProc
+****************************************************************************
+
+Proc o2oFirstWorkEvent
+
+  If(@jWEIndex = 1)
+    Let jMessage = $Set(@messageBundle, Get, 9)
+    Call $Msgbox(@jMessage)
+  Else
+    Let jNote = @jHeader \n\n$Set(@o2oBundle, Get, 7)\n\n$Set(@o2oBundle, Get, 11)\n$Set(@o2oBundle, Get, 12)\n
+    Call NoteWindow @jNote 1
+    Echo Move to first WorkEvent
+    Let jWEIndex = 1
+
+    Call IncrementWE
+    View Refresh
+  EndIf
 
 EndProc
 ****************************************************************************

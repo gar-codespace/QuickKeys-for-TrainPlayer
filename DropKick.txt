@@ -1,7 +1,6 @@
 ** DropKick Version 3
 
 
-
 If (%1 = SetUp)
 
   Let x3 = 1
@@ -10,7 +9,6 @@ If (%1 = SetUp)
   Echo DropKick Version 3
 EndIf
 ****************************************************************************
-
 
 Proc Scrubber
 ** Remove all the kick motors from the layout
@@ -32,7 +30,6 @@ Train @kThisTrain
 EndProc
 ****************************************************************************
 
-
 Proc SpeedCheck
 ** If the selected train is stopped, call Scrubber
 
@@ -43,13 +40,11 @@ If ($Train($Train, Speed) = 0)
     Call Scrubber
   EndIf
   Let kCleanToggle = 0
-  Exit
 EndIf
 
 
 EndProc
 ****************************************************************************
-
 
 Proc KickCheck
 ** Test if selected car is an engine
@@ -57,12 +52,10 @@ Proc KickCheck
 Let kAar = $Car($Car, AAR)
 IF ($String(@kAar, StartsWith, "E") = 1)
   Echo Can't let an engine go!
-  Exit
 EndIf
 
 EndProc
 ****************************************************************************
-
 
 Proc FindEngine
 ** Find the engines position in the selected train
@@ -85,7 +78,6 @@ Proc FindEngine
 EndProc
 ****************************************************************************
 
-
 Proc FindCar
 ** Find the cars position in the selected train
 
@@ -102,7 +94,6 @@ EndWhile
 EndProc
 ****************************************************************************
 
-
 Proc CutOffCars
 
 Train "Add Car" "diesel"
@@ -115,61 +106,41 @@ train "uncouple"
 EndProc
 ****************************************************************************
 
+Proc DropKickKick
 
-If (@x0 = 1) ** All on
-If (@x3 = 1) ** DK on
-If (@x4 <> 2) ** TurnTable in not in process
+  Let x3 = 2
+  Call SpeedCheck
+  Call KickCheck
+  * Call FindEngine
+  Call FindCar
 
-
-  If ($Key = 71) ** key g
-
-    Call FindEngine
+  If (@C - @E < 0) ** Engine behind Car
+  If ($Train($Train, Direction) = F)
+    Echo Kick 'Em!
+    Let kCarPos = @C + 1
+    Call CutOffCars
+  Else
+    Echo Wrong direction to kick.
+  Endif
   EndIf
-  ****************************************************************************
 
-  If ($Key = 84) ** key t
-
-    Call FindEngine
+  If (@C - @E > 0) ** Car behind Engine
+  If ($Train($Train, Direction) = R)
+    Echo Kick 'Em!
+    Let kCarPos = @C - 1
+    Call CutOffCars
+  Else
+    Echo Wrong direction to kick.
+  Endif
   EndIf
-  ****************************************************************************
 
-  If ($Key = 75) ** the k key
+  Train @kEngineLabel
+  Let x3 = 1
 
-    Let x3 = 2
-    Call SpeedCheck
-    Call KickCheck
-    * Call FindEngine
-    Call FindCar
+EndProc
+****************************************************************************
 
-    If (@C - @E < 0) ** Engine behind Car
-    If ($Train($Train, Direction) = F)
-      Echo Kick 'Em!
-      Let kCarPos = @C + 1
-      Call CutOffCars
-    Else
-      Echo Wrong direction to kick.
-      Exit
-    Endif
-    EndIf
-
-    If (@C - @E > 0) ** Car behind Engine
-    If ($Train($Train, Direction) = R)
-      Echo Kick 'Em!
-      Let kCarPos = @C - 1
-      Call CutOffCars
-    Else
-      Echo Wrong direction to kick.
-      Exit
-    Endif
-    EndIf
-
-    Train @kEngineLabel
-    Let x3 = 1
-
-  EndIf
-  ***************************************************************************
-
-  If ($Key = 68) ** key d
+Proc DropKickDrop
 
     Let x3 = 2
     Call SpeedCheck
@@ -187,7 +158,6 @@ If (@x4 <> 2) ** TurnTable in not in process
       Call CutOffCars
     Else
       Echo Wrong direction to drop.
-      Exit
     EndIf
     EndIf
 
@@ -198,22 +168,11 @@ If (@x4 <> 2) ** TurnTable in not in process
       Call CutOffCars
     Else
       Echo Wrong direction to drop.
-      Exit
     EndIf
     EndIf
 
     Let $Train(@dropCar, Speed) = @dropSpeed
     Let x3 = 1
 
-  EndIf
-  ***************************************************************************
-
-  If ($Key = 67) ** the c key
-
-    Train Uncouple
-  EndIf
-  ***************************************************************************
-
-EndIf
-EndIf
-EndIf
+EndProc
+****************************************************************************

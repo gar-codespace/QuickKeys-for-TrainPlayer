@@ -1,7 +1,28 @@
 ** UpdateSettings version 2
 
-If (%1 = personalInit)
-** Personal adjustments for every layout
+
+Proc DefineCarrageReturn
+
+** Simulate ReadLine for text strings
+Let xCR = "
+"
+
+EndProc
+***************************************************************************
+
+Proc NoteWindow ** Open or close the note window
+
+If (%2 = 1) ** force window open
+  Note %1
+Else
+  Note %1
+EndIf
+
+EndProc
+***************************************************************************
+
+Proc PersonalInit
+** Personal adjustments for every Quick Keys layout
 
   Let AllowYardMode = 1
   Let InYardMode = 1
@@ -19,21 +40,10 @@ If (%1 = personalInit)
   Set CarLabelsExclOpsColor 855525
   Set TrackLabelParams 1,"90,700,0,0,Arial"
 
-EndIf
+EndProc
 ***************************************************************************
 
-
-If (%1 = qkInit)
-** Adjustments for Quick Keys
-
-  Let NoteDownOnEsc = 0
-  Let JunctionActions = 255
-
-EndIf
-***************************************************************************
-
-
-If (%1 = o2oInit)
+Proc o2oInit
 ** Reworks the Advanced Ops setup
 
   Call $View(Hide, "Track Labels")
@@ -49,5 +59,17 @@ If (%1 = o2oInit)
   set $layout(readonly) 0
   set $layout(savevars) 0
 
-EndIf
+EndProc
 ****************************************************************************
+
+* Initializing message
+  Let xMessage = "\nPlease wait... Setting up subroutines.
+                  \nVeuillez patienter ... Configuration des sous-programmes.
+                  \nBitte warten ... Unterprogramme einrichten.
+                  \nEspere ... Configurando subrutinas.
+                  \n"
+Call NoteWindow @xMessage 1
+Let $Key = 0
+Call DefineCarrageReturn
+Let NoteDownOnEsc = 0
+Let JunctionActions = 255

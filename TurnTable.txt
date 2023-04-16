@@ -19,14 +19,12 @@
 ** restart the master script
 
 If (%1 = SetUp)
-
   Let x4 = 1
-  Let tNoteText = $Note(%2)
+  Let ttNoteText = $Note(%2)
   Call SetUpTurntable
   Echo TurnTable Version 2
 EndIf
 ****************************************************************************
-
 
 Proc SetUpTurntable
 
@@ -34,22 +32,22 @@ Proc SetUpTurntable
   Let tAlpha = 0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,
   Let tNumeric = 48,49,50,51,52,53,54,55,56,57,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,
 
-  Let tMatrix = ""
-  While(@tNoteText <> "")
-    Let tLine = $String(@tNoteText, NextToken, @xCR)
-    If($String(@tLine, Contains, "rotate") = 1)
+  Let ttMatrix = ""
+  While(@ttNoteText <> "")
+    Let tLine = $String(@ttNoteText, NextToken, @xCR)
+    If ($String(@tLine, Contains, "rotate") = 1)
       Call $String(@tLine, NextToken, " ") ** Strip off the word 'rotate'
 
-      Let tL = $String(@tLine, NextToken, " ") ** the alpha character of the track Lead in tNoteText
+      Let tL = $String(@tLine, NextToken, " ") ** the alpha character of the track Lead in ttNoteText
       Let tL = $Set(@tAlpha, Find, @tL) ** the index of the alpha character
       Let tL = $Set(@tNumeric, Get, @tL) ** the key number of the alpha character
 
       Let tT = "T" + $String(@tLine, NextToken, " ") ** add a 'T' to the Table ID number
       Let tJ = "J" + @tLine ** add a 'J' to the junction number
     
-      Let tMatrix = $Set(@tMatrix, Add, @tT)
-      Let tMatrix = $Set(@tMatrix, Add, @tL)
-      Let tMatrix = $Set(@tMatrix, Add, @tJ) ** format: Table,Lead,Junction
+      Let ttMatrix = $Set(@ttMatrix, Add, @tT)
+      Let ttMatrix = $Set(@ttMatrix, Add, @tL)
+      Let ttMatrix = $Set(@ttMatrix, Add, @tJ) ** format: Table,Lead,Junction
 
     EndIf
   EndWhile
@@ -57,26 +55,20 @@ Proc SetUpTurntable
 EndProc
 ****************************************************************************
 
-
 Proc CancelTurnTable
 
   Call NoteWindow
   Let x4 = 1
   Echo Turntable canceled
   View Refresh
+  Exit
 
 EndProc
 ****************************************************************************
 
-
 Proc SelectDirection
   
   On Key
-
-    If($Key = 8)
-      Call CancelTurnTable
-      Exit
-    EndIf
 
     Let tMessage = $Set(@messageBundle, Get, 14) + "\n"
     Let tMessage = @tMessage + $Set(@messageBundle, Get, 15) + " " + @tLead + "\n"
@@ -100,22 +92,16 @@ Proc SelectDirection
 EndProc
 ****************************************************************************
 
-
 Proc SelectStall
 
   On Key
 
-    If($Key = 8)
-      Call CancelTurnTable
-      Exit
-    EndIf
-
     Let T = 0
     Let i = 0
-    While (@i < $Set(@tmatrix, Count))
-      If ($Set(@tMatrix, Get, @i) = @tTable)
+    While (@i < $Set(@ttMatrix, Count))
+      If ($Set(@ttMatrix, Get, @i) = @tTable)
         Let kIndex = @i + 1
-        If ($Set(@tMatrix, Get, @kIndex) = $Key)
+        If ($Set(@ttMatrix, Get, @kIndex) = $Key)
 
           Let x = $Set(@tNumeric, Find, $Key)
           Let tStall = $Set(@tAlpha, Get, @x)
@@ -127,7 +113,7 @@ Proc SelectStall
           Call NoteWindow @tMessage
 
           Let sIndex = @i + 2
-          Let tTrack = $Set(@tMatrix, Get, @sIndex)
+          Let tTrack = $Set(@ttMatrix, Get, @sIndex)
           Let T = 1
           Break
 
@@ -141,13 +127,9 @@ EndProc
 ****************************************************************************
 
 
-If (@x0 = 1) ** all QK active
-If (@x4 = 1) ** turntable sub is activated
-If (@U = 0) ** Utilities menu is not currently displayed
-If ($Key > 47) ** a number is pressed
-If ($Key < 58)
+Proc TurnTableOperate
 
-  If ($Set(@tMatrix, Contains, $Key) = 1) ** a valid lead is selected
+  If ($Set(@ttMatrix, Contains, $Key) = 1) ** a valid lead is selected
     Call NoteWindow
     Let x4 = 2 ** TurnTable is in process
 
@@ -159,9 +141,9 @@ If ($Key < 58)
     Let tMessage = @tMessage + $Set(@messageBundle, Get, 16) + "\n"
     Call NoteWindow @tMessage
 
-    Let lIndex = $Set(@tMatrix, Find, $Key) ** index of TT lead
+    Let lIndex = $Set(@ttMatrix, Find, $Key) ** index of TT lead
     Let tIndex = @lIndex - 1
-    Let tTable = $Set(@tMatrix, Get, @tIndex)
+    Let tTable = $Set(@ttMatrix, Get, @tIndex)
 
     ReselectStall:
     Call SelectStall
@@ -186,9 +168,6 @@ If ($Key < 58)
     Let x4 = 1
     View Refresh
 
-EndIf
-EndIf
-EndIf
-EndIf
-EndIf
+EndProc
 ****************************************************************************
+

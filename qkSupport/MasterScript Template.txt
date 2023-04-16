@@ -8,22 +8,24 @@ Let Year = ""
 Let Divisions = "" ** Enter division names seperated by a comma without a space.
 Let ModelScale = "" ** Choose from: Z, N, HOn3, OO, HO, HOn3, Sn3, S, On3, O, G
 
+** Put layout specific stuff here
+Let sMaxSpeed = 40
+Let sCoupleSpeed = 4
 
 ** Set Up the Subroutines
-
-Let $Key = 0
+Call UpdateSettings
+Call PersonalInit
 Call qkEntities
-Call UpdateSettings personalInit
-Call UpdateSettings qkInit
-* Call UpdateSettings o2oInit
+* Call o2oInit
 * Call o2oUtilities
 
-Call QuickKeys Setup
-Call SpeedSwitching Setup
+Call JobTimer *Setup
+Call o2o *Setup
+Call RandomRoads *Setup
+Call TurnTable *Setup 0
 Call DropKick Setup
-* Call TurnTable Setup 0
-* Call o2o Setup
-* Call JobTimer Setup
+Call SpeedSwitching Setup
+Call QuickKeys Setup
 
 Call SetLanguage en  ** Language choices are: en, de, fr, es
 Call NoteWindow
@@ -32,17 +34,9 @@ StartingPoint:
 
 On Key
 
-Let sMaxSpeed = 40
-Let sCoupleSpeed = 4
-
 Drive $Train($Train)
 
-Call DropKick
-Call SpeedSwitching
 Call QuickKeys
-* Call TurnTable
-* Call o2o
-* Call JobTimer
 
 EndDrive
 

@@ -3,18 +3,126 @@
 
 If (%1 = SetUp)
 
-View Refresh
+  View Refresh
 
-Let x1 = 1 ** Turn on speed switching
-Let x2 = 0 ** Turn off phake physics
-Let sBumpSpeed = 0
-Let sB = 0 ** 0 is off
-Let sT = 0 ** 0 is off
-Echo SpeedSwitching Version 4
+  Let x1 = 1 ** Turn on speed switching
+  Let x2 = 0 ** Turn off phake physics
+  Let sBumpSpeed = 0
+  Let sB = 0 ** 0 is off
+  Let sT = 0 ** 0 is off
+  Echo SpeedSwitching Version 4
 
 EndIf
+
+** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
+**                            Speed Switching                             **
+** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
+
+Proc SpeedSwitchingAutoFollow
+
+  View "Auto-Follow"
+  If ($Setting(AutoFollow) = 1)
+    Echo Auto Follow is On.
+  Else
+    Echo Auto Follow is Off.
+  EndIf
+
+EndProc
 ****************************************************************************
 
+Proc SpeedSwitchingThrottle
+
+  Let sSpeed = $Speed
+
+  If(@sSpeed < @sMaxSpeed)
+    Let sSpeed = @sSpeed + 1
+    Speed @sSpeed
+  EndIf
+  Echo Speed is @sSpeed
+
+EndProc
+****************************************************************************
+
+Proc SpeedSwitchingStop
+
+  Let sSpeed = $Speed
+
+  If (@sSpeed <= @sCoupleSpeed)
+    Let sSpeed = 0
+  ElseIf (@sSpeed < @sCoupleSpeed + 5)
+    Let sSpeed = @sCoupleSpeed
+  Else
+    Let sSpeed = @sSpeed - 5
+  EndIf
+  Speed @sSpeed
+  Echo Speed is @sSpeed
+
+EndProc
+****************************************************************************
+
+Proc SpeedSwitchingGo
+
+  Let sSpeed = $Speed
+
+  If (@sSpeed < @sCoupleSpeed)
+    Let sSpeed = @sCoupleSpeed
+  ElseIf (@sSpeed > @sMaxSpeed - 5)
+    Let sSpeed = @sMaxSpeed
+  Else
+    Let sSpeed = @sSpeed + 5
+  EndIf
+  Speed @sSpeed
+  Echo Speed is @sSpeed
+
+EndProc
+****************************************************************************
+
+Proc SpeedSwitchingReverse
+
+  Let sSpeed = $Speed
+
+  Speed 0
+  Let sDir = $Train($Train, Direction)
+  If(@sDir = "F")
+    Let sDir = "R"
+  Else
+    Let sDir = "F"
+  EndIf
+  On Stop
+    Let $Train($Train, Direction) = @sDir
+    After 00:00:01
+    Speed @sSpeed
+    Echo Direction $Train($Train, Direction). Speed is @sSpeed
+
+EndProc
+****************************************************************************
+
+** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
+**                             Phake Physics                              **
+** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
+
+Proc TogglePhakePhysics
+
+  
+  If(@x2 = 0) ** PP is not active
+    Let xBox = $Set(@messageBundle, Get, 0)
+    Call $MsgBox(@xBox)
+    Let x2 = 1 ** activate phake physics
+    Call ProcessorAdjustment
+
+  Else
+    Let xBox = $Set(@messageBundle, Get, 1)
+    Call $MsgBox(@xBox)
+    Let x2 = 0 ** deactivate PP
+    Let sB = 0
+    Let sT = 0
+  EndIf
+
+  Let $Key = 0
+  Let U = 0
+
+EndProc
+****************************************************************************
 
 Proc LineDelay
 ** linear delay for physics simulation
@@ -41,19 +149,19 @@ EndWhile
 EndProc
 ****************************************************************************
 
-
 Proc SlopeDelay
 
 ** curved delay for physics simulation
 ** The faster a train goes, the slower it accelerates
 ** The slower a train goes, the faster it brakes
-** Some day I'll do this
+** Someday I'll do this
 
 EndProc
 ****************************************************************************
 
+Proc PhakePhysicsNeutral
 
-Proc Neutral
+  Echo Neutral, hold current speed
 
   Let i = @sT + 1
   While(@i > 0)
@@ -69,208 +177,101 @@ Proc Neutral
 EndProc
 ****************************************************************************
 
+Proc PhakePhysicsEmergencyStop
 
-If (@x0 = 1) ** All QK are active
-If (@x3 <> 2) ** DropKick in not in process
-If (@x4 <> 2) ** TurnTable in not in process
+  Let $Train($Train, Speed) = 0
+  Let sBumpSpeed = 0
+  Echo Emergency stop!
+  Call PhakePhysicsNeutral
 
+EndProc
+****************************************************************************
 
-  If ($Key = 65) ** key a is common to both
-    View "Auto-Follow"
-    If ($Setting(AutoFollow) = 1)
-      Echo Auto Follow is On.
+Proc PhakePhysicsReverse
+
+  If ($Speed = 0)
+    Let sDir = $Train($Train, Direction)
+    If(@sDir = "F")
+      Let sDir = "R"
     Else
-      Echo Auto Follow is Off.
+      Let sDir = "F"
     EndIf
-
+    Let $Train($Train, Direction) = @sDir
+    Echo Direction $Train($Train, Direction)
   EndIf
-  ****************************************************************************
 
-  ** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
-  **                            Speed Switching                             **
-  ** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
+EndProc
+****************************************************************************
 
-  If(@x2 = 0) ** Speed Switching
+Proc PhakePhysicsBrake
 
-    Let sSpeed = $Speed
+  Let sMass = $Train($Train, Length)
+  Let sT = 0 ** turn throttle off
+  If (@sB = 0) ** are the brakes off?
+    Let sB = 1
+  Else
+    Let sB = @sB + 1
+  EndIf
+  Echo Brake @sB
 
+  While (@sB <> 0)
     If ($Key = 84) ** key t
-      If(@sSpeed < @sMaxSpeed)
-        Let sSpeed = @sSpeed + 1
-        Speed @sSpeed
-      EndIf
-      Echo Speed is @sSpeed
-
-    EndIf
-    ****************************************************************************
-
-    If ($Key = 83) ** key s
-
-      If (@sSpeed <= @sCoupleSpeed)
-        Let sSpeed = 0
-      ElseIf (@sSpeed < @sCoupleSpeed + 5)
-        Let sSpeed = @sCoupleSpeed
-      Else
-        Let sSpeed = @sSpeed - 5
-      EndIf
-      Speed @sSpeed
-      Echo Speed is @sSpeed
-
-    EndIf
-    ****************************************************************************
-
-    If ($Key = 71) ** key g
-
-      If (@sSpeed < @sCoupleSpeed)
-        Let sSpeed = @sCoupleSpeed
-      ElseIf (@sSpeed > @sMaxSpeed - 5)
-        Let sSpeed = @sMaxSpeed
-      Else
-        Let sSpeed = @sSpeed + 5
-      EndIf
-      Speed @sSpeed
-      Echo Speed is @sSpeed
-
-    EndIf
-    ****************************************************************************
-
-    If ($Key = 82) ** key r
-
-      Speed 0
-      Let sDir = $Train($Train, Direction)
-      If(@sDir = "F")
-        Let sDir = "R"
-      Else
-        Let sDir = "F"
-      EndIf
-      On Stop
-        Let $Train($Train, Direction) = @sDir
-        After 00:00:01
-        Speed @sSpeed
-        Echo Direction $Train($Train, Direction). Speed is @sSpeed
-
-    EndIf
-    ****************************************************************************
-
-  EndIf ** Speed Switching
-  ****************************************************************************
-
-  ** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
-  **                             Phake Physics                              **
-  ** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
-
-  If(@x2 = 1) ** Phake Physics
-
-    If ($Key = 69) ** key e, emergency stop
-      Let $Train($Train, Speed) = 0
+      Let sB = 0
       Let sBumpSpeed = 0
-      Call Neutral
-      Echo Emergency stop!
-      Exit
-
+      Break
     EndIf
-    ****************************************************************************
-
-    If ($Key = 78) ** key n for neutral
-      Call Neutral
-      Echo Neutral, hold current speed
-      Exit
-
+    If ($Train($Train, Speed) = 0)
+      Let sB = 0
+      Echo Train stopped
+      Break
     EndIf
-    ****************************************************************************
+    Let sBumpSpeed = $Speed - 1
+    Call LineDelay
+    Let $Train($Train, Speed) = @sBumpSpeed ** phrased this way, dont have to tweak accelfactor
+  EndWhile
 
-    If ($Key = 82) ** key r
-      If ($Speed = 0)
-        Let sDir = $Train($Train, Direction)
-        If(@sDir = "F")
-          Let sDir = "R"
-        Else
-          Let sDir = "F"
-        EndIf
-        Let $Train($Train, Direction) = @sDir
-        Echo Direction $Train($Train, Direction)
-      EndIf
-      Exit
+EndProc
+****************************************************************************
 
-    EndIf
-    ****************************************************************************
+Proc PhakePhysicsThrottle
 
-    Let sMass = $Train($Train, Length)
+  Let sMass = $Train($Train, Length)
+  Let sB = 0 ** turn the brake off
+  If (@sT = 0) ** is the throttle off?
+    Let sT = 1
+  Else
+    Let sT = @sT + 1
+  EndIf
+  Echo Throttle @sT
+  If($Speed = 0)
+    Let $Train($Train, Speed) = 1
+  EndIf
 
-    ****************************************************************************
-
+  While(@sT <> 0)
     If ($Key = 66) ** key b
-      Let sT = 0 ** turn throttle off
-      If (@sB = 0) ** are the brakes off?
-        Let sB = 1
-      Else
-        Let sB = @sB + 1
-      EndIf
-      Echo Brake @sB
-
-      While (@sB <> 0)
-        If ($Key = 84) ** key t
-          Let sB = 0
-          Let sBumpSpeed = 0
-          Break
-        EndIf
-        If ($Train($Train, Speed) = 0)
-          Let sB = 0
-          Echo Train stopped
-          Break
-        EndIf
-        Let sBumpSpeed = $Speed - 1
-        Call LineDelay
-        Let $Train($Train, Speed) = @sBumpSpeed ** phrased this way, dont have to tweak accelfactor
-      EndWhile
-
+      Let sT = 0
+      Let sBumpSpeed = 0
+      Break
     EndIf
-    ****************************************************************************
-
-    If ($Key = 84) ** key t
-      Let sB = 0 ** turn the brake off
-      If (@sT = 0) ** is the throttle off?
-        Let sT = 1
-      Else
-        Let sT = @sT + 1
-      EndIf
-      Echo Throttle @sT
-      If($Speed = 0)
-        Let $Train($Train, Speed) = 1
-      EndIf
-
-      While(@sT <> 0)
-        If ($Key = 66) ** key b
-          Let sT = 0
-          Let sBumpSpeed = 0
-          Break
-        EndIf
-        If ($Key = 75) ** the k key for kick
-          Let sT = 0
-          Let sBumpSpeed = 0
-          Break
-        EndIf
-        If ($Train($Train, Speed) = @sMaxSpeed)
-          Let sT = 0
-          Echo Maximum speed
-          Break
-        EndIf
-
-        Let sBumpSpeed = $Train($Train, Speed) + 1
-        Call LineDelay
-        Let $Train($Train, Speed) = @sBumpSpeed
-
-        If ($Train($Train, Speed) = 0) ** if the train hits something and stops
-          Call Neutral
-        EndIf
-      EndWhile
-
+    If ($Key = 75) ** the k key for kick
+      Let sT = 0
+      Let sBumpSpeed = 0
+      Break
     EndIf
-    ****************************************************************************
+    If ($Train($Train, Speed) = @sMaxSpeed)
+      Let sT = 0
+      Echo Maximum speed
+      Break
+    EndIf
 
-  EndIf ** Phake Physics
-  ****************************************************************************
+    Let sBumpSpeed = $Train($Train, Speed) + 1
+    Call LineDelay
+    Let $Train($Train, Speed) = @sBumpSpeed
 
-Endif
-EndIf
-EndIf
+    If ($Train($Train, Speed) = 0) ** if the train hits something and stops
+      Call PhakePhysicsNeutral
+    EndIf
+  EndWhile
+
+EndProc
+****************************************************************************

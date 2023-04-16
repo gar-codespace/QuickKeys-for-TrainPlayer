@@ -18,7 +18,6 @@ Echo InitTracks Complete
 EndProc
 ****************************************************************************
 
-
 Proc InitCars
 
   Echo o2o Utility - set all or train rolling stock destinations
@@ -80,7 +79,6 @@ Proc InitCars
 EndProc
 ****************************************************************************
 
-
 Proc AddKernels
 
   Echo o2o Utility - Group equipment together into a JMRI like consist or kernel
@@ -95,7 +93,6 @@ Proc AddKernels
 
 EndProc
 ****************************************************************************
-
 
 Proc ReportTpLocations
 
@@ -167,7 +164,6 @@ Proc ReportTpLocations
 EndProc
 ****************************************************************************
 
-
 Proc ReportTpIndustries
 
   Echo o2o Utility - create TrainPlayer Report - Industries.txt
@@ -207,7 +203,6 @@ Proc ReportTpIndustries
 
 EndProc
 ****************************************************************************
-
 
 Proc ReportTpInventory
 

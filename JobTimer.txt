@@ -3,18 +3,13 @@
 
 If (%1 = SetUp)
 
-View Refresh
-
-Let x6 = 1 ** Activate the job timer
-Echo JobTimer Version 1
+  Let x6 = 1 ** Activate the job timer
+  Echo JobTimer Version 1
 
 EndIf
 ****************************************************************************
 
-
-If(@x0 = 1) ** quick keys turned on
-
-  Proc TimeInSeconds
+Proc TimeInSeconds
 
   Let jTime = %1
   Let jT1 = $String(@jTime, NextToken, ":")
@@ -26,19 +21,19 @@ If(@x0 = 1) ** quick keys turned on
   Let jT2 = @jT2 * 60
   Let jT3 = @jTime
 
-  EndProc
-  ****************************************************************************
+EndProc
+****************************************************************************
 
-  Proc StartTimer
+Proc StartTimer
 
   Let jStartTime = $Time
   Echo Timer start at @jStartTime
   Let jMoveCount = 0
 
-  EndProc
-  ****************************************************************************
+EndProc
+****************************************************************************
 
-  Proc EndTimer
+Proc EndTimer
 
   Let jEndTime = $Time
 
@@ -62,30 +57,21 @@ If(@x0 = 1) ** quick keys turned on
   Let jNote = $Set(@messageBundle, Get, 12) @jMinute + ":" + @jElapsedTime \n$Set(@messageBundle, Get, 13) @jMoveCount
   Call $msgbox(@jNote)
 
-  EndProc
-  ****************************************************************************
+EndProc
+****************************************************************************
 
-  If ($Key = 82) ** key r
+Proc JobTimerStart
 
-    Let jMoveCount = @jMoveCount + 1
-
+  If(@jTimer <> 1)
+    Call StartTimer
+    Clock Reset
+    Clock Start
+    Let jTimer = 1
+  Else
+    Clock Stop
+    Call EndTimer
+    Let jTimer = 0
   EndIf
-  ****************************************************************************
 
-  If ($Key = 74) ** j key
-
-    If(@jTimer <> 1)
-      Call StartTimer
-      Clock Reset
-      Clock Start
-      Let jTimer = 1
-    Else
-      Clock Stop
-      Call EndTimer
-      Let jTimer = 0
-    EndIf
-
-  EndIf
-  ****************************************************************************
-
-EndIf
+EndProc
+****************************************************************************

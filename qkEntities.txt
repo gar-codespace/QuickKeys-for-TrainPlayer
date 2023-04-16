@@ -1,13 +1,4 @@
-** Quick Keys support
-
-Proc DefineCarrageReturn
-
-** Simulate ReadLine for text strings
-Let xCR = "
-"
-
-EndProc
-***************************************************************************
+** Quick Keys Entities
 
 
 Proc SetLanguage
@@ -38,7 +29,6 @@ Proc SetLanguage
 
 EndProc
 ***************************************************************************
-
 
 Proc makeHelpPage
 
@@ -79,7 +69,6 @@ EndIf
 EndProc
 ***************************************************************************
 
-
 Proc makeUtilityMenu
 
 Let utilityMenu = ""
@@ -116,20 +105,7 @@ Let utilityMenu = @utilityMenu + \n\n$Set(@utilityBundle, Get, 9) \n ** Footer
 EndProc
 ***************************************************************************
 
-
-Proc NoteWindow ** Open or close the help window
-
-If (%2 = 1) ** force window open
-  Note %1
-Else
-  Note %1
-EndIf
-
-EndProc
-***************************************************************************
-
-
-Proc ProcessorInfo
+Proc ProcessorAdjustment
 
 Echo Phake Physics adjustment for processor speed
 
@@ -162,8 +138,60 @@ Else
 EndIf
 Let xCurve = 0,1.0,1.5,1.75,2.0,2.25,2.5,2.75,3.0, ** Power of computer as processors are added
 Let xCS = @xPS * $Set(@xCurve, Get, @xCPU)
+
 EndProc
 ****************************************************************************
+
+Proc OpenHelpNote
+
+  If (@H = 0)
+    Let H = 1
+    Call makeHelpPage
+    Call NoteWindow @helpPage 1
+  Else
+    Let H = 0
+    Call NoteWindow
+  EndIf
+  Let $Key = 0
+  Let U = 0
+
+EndProc
+****************************************************************************
+
+Proc OpenUtilityNote
+
+  If (@U = 0) ** Create message for utility menu
+    Call makeUtilityMenu
+    Call NoteWindow @utilityMenu 1
+    Let U = 1
+  Else
+    Call NoteWindow
+    Let U = 0
+  EndIf
+  Let $Key = 0
+  Let H = 0
+  Let L = 0
+
+EndProc
+****************************************************************************
+
+Proc ToggleQuickKeys
+
+  If (@x0 = 0)
+    Let x0 = 1 ** activate all Quick keys
+  Else
+    Let x0 = 0 ** deactivate all Quick keys
+  EndIf
+  Let $Key = 0
+  Let U = 0
+  Let H = 0
+  Let L = 0
+
+EndProc
+****************************************************************************
+
+
+
 
 
 Proc AutoLabel
