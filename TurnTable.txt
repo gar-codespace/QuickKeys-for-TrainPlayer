@@ -70,6 +70,11 @@ Proc SelectDirection
   
   On Key
 
+    If($Key = 8) ** key backspace
+      Call CancelTurnTable
+      Exit
+    Endif
+
     Let tMessage = $Set(@messageBundle, Get, 14) + "\n"
     Let tMessage = @tMessage + $Set(@messageBundle, Get, 15) + " " + @tLead + "\n"
     Let tMessage = @tMessage + $Set(@messageBundle, Get, 17) + " " + @tStall + "\n\n"
@@ -95,6 +100,11 @@ EndProc
 Proc SelectStall
 
   On Key
+
+    If($Key = 8) ** key backspace
+      Call CancelTurnTable
+      Exit
+    EndIf
 
     Let T = 0
     Let i = 0
