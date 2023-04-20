@@ -24,21 +24,22 @@ EndProc
 Proc PersonalInit
 ** Personal adjustments for every Quick Keys layout
 
-  Let AllowYardMode = 1
-  Let InYardMode = 1
-  Let ScrollDistFactorx10 = 25
+** For DropKick, make bigger if dropped cars re-couple
+  Let Uncouple Gap = 20
+
+** Layout items
+  Let Min Coupling Dist = 1
+  * Let AllowYardMode = 1
+  * Let InYardMode = 1
   Let BarrelThruMode = 0
   Let Coupling Speed = 5
   Let Car Gap = 0
-  Let TTableSpeedDivisor = 5
+  Let TTableSpeedDivisor = 7 ** Bigger means slower
 
+** Display items
+  Let ScrollDistFactorx10 = 25
   Let DistFromSwitch =  0
   Let HiliteSize = 18
-
-  Set CarLabelFont "-9,400,0,16777215,Arial"
-  Set CarLabelsBkColor 13664326
-  Set CarLabelsExclOpsColor 855525
-  Set TrackLabelParams 1,"90,700,0,0,Arial"
 
 EndProc
 ***************************************************************************
@@ -46,18 +47,13 @@ EndProc
 Proc o2oInit
 ** Reworks the Advanced Ops setup
 
-  Call $View(Hide, "Track Labels")
-  Call $View(Show,"car ids")
+  Call $View(Hide,"Track Labels")
 
   call $view(hide,tracks)
   call $view(hide,rails)
   call $view(hide,ties)
   call $view(hide,roadbed)
-  call $view(hide,clock)
   tools run
-
-  set $layout(readonly) 0
-  set $layout(savevars) 0
 
 EndProc
 ****************************************************************************

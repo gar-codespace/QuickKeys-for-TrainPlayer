@@ -1,0 +1,3 @@
+<carcollection name="DropKick" comments="" sorted="1" filesdir="defaults">
+<cartype name="diesel" length="1" width="1" aar="EQDK" menuindex="0" fside="..\DropKick\diesel.bmp" ftop="..\DropKick\diesel_t.bmp"></cartype>
+</carcollection>

@@ -18,10 +18,11 @@ If (%1 = SetUp)
   Let H = 0 ** Help note
   Let U = 0 ** Utility note
   Let L = 0 ** o2o work events note
+  Let F = 0 ** In full screen mode
 
 * OS setup
-  Call $system("MD "%homepath%\AppData\Roaming\TrainPlayer\Reports"")
-  Call $System("%homepath%\AppData\Roaming\TrainPlayer\Subroutines\QuickKeys\qkSupport\ProcessorInfo.bat") ** This is the WMIC command
+  * Call $system("MD "%homepath%\AppData\Roaming\TrainPlayer\Reports"")
+  Call $System("%homepath%\AppData\Roaming\TrainPlayer\Subroutines\QuickKeys\qkSupport\SetUpQuickKeys.bat") ** This is the WMIC command
 
   Echo QuickKeys Version 3
 
@@ -39,7 +40,12 @@ EndIf
 ***************************************************************************
 
 If($Key = 8) ** key backspace
+  If(@x4 = 2) ** Turntable subroutine in process
 
+    Let x4 = 1
+
+  EndIf
+EndIf
 EndIf
 ***************************************************************************
 
@@ -201,7 +207,7 @@ If (@x4 <> 2) ** TurnTable in not in process
     EndIf
     ****************************************************************************
 
-    If($Key = 33) ** Page Up key
+    If($Key = 33) ** key Page Up
       If(@x5 = 1) ** o2o is active
 
         Call o2oNextWorkEvent
@@ -211,7 +217,7 @@ If (@x4 <> 2) ** TurnTable in not in process
     EndIf
     ****************************************************************************
 
-    If($Key = 34) ** Page Down key
+    If($Key = 34) ** key Page Down
       If(@x5 = 1) ** o2o is active
 
         Call o2oPreviousWorkEvent
@@ -221,7 +227,7 @@ If (@x4 <> 2) ** TurnTable in not in process
     EndIf
     ****************************************************************************
 
-    If ($Key = 35) ** End key
+    If ($Key = 35) ** key End
       If(@x5 = 1) ** o2o is active
 
         Call o2oLastWorkEvent
@@ -231,7 +237,7 @@ If (@x4 <> 2) ** TurnTable in not in process
     EndIf
     ****************************************************************************
 
-    If ($Key = 36) ** End key
+    If ($Key = 36) ** key Home
       If(@x5 = 1) ** o2o is active
 
         Call o2oFirstWorkEvent
@@ -241,7 +247,7 @@ If (@x4 <> 2) ** TurnTable in not in process
     EndIf
     ****************************************************************************
 
-    If ($Key = 74) ** j key
+    If ($Key = 74) ** key j
       If (@x6 = 1) ** JobTimer activated
 
         Call JobTimerStart
@@ -251,10 +257,16 @@ If (@x4 <> 2) ** TurnTable in not in process
     EndIf
     ****************************************************************************
 
-    If ($Key = 70) ** f key
+    If ($Key = 70) ** key f
 
-      call $view(show,"Full Screen")
-      NoteBox "." ** A necessary patch
+      If (@F = 0)
+        Let F = 1
+        Call $View(show,"Full Screen")
+      Else
+        Let F = 0
+        Call $View(hide,"Full Screen")
+      EndIf
+      NoteBox "." ** Necessray to select the current layout so QK continues to work
       NoteBox
 
     Exit

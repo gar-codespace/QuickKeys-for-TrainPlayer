@@ -10,6 +10,7 @@ If (%1 = SetUp)
   Let sBumpSpeed = 0
   Let sB = 0 ** 0 is off
   Let sT = 0 ** 0 is off
+
   Echo SpeedSwitching Version 4
 
 EndIf
