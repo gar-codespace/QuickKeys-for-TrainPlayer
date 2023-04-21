@@ -20,10 +20,6 @@ If (%1 = SetUp)
   Let L = 0 ** o2o work events note
   Let F = 0 ** In full screen mode
 
-* OS setup
-  * Call $system("MD "%homepath%\AppData\Roaming\TrainPlayer\Reports"")
-  Call $System("%homepath%\AppData\Roaming\TrainPlayer\Subroutines\QuickKeys\qkSupport\SetUpQuickKeys.bat") ** This is the WMIC command
-
   Echo QuickKeys Version 3
 
 EndIf
@@ -270,6 +266,13 @@ If (@x4 <> 2) ** TurnTable in not in process
       NoteBox
 
     Exit
+    EndIf
+    ***************************************************************************
+
+    If ($Key = 80) ** key p
+
+      View Pause
+
     EndIf
     ***************************************************************************
 

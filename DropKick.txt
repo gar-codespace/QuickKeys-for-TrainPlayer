@@ -4,23 +4,10 @@
 If (%1 = SetUp)
 
   Let x3 = 1
-  Let Uncouple Gap = 20 ** make bigger if dropped cars re-couple
-  Let Min Coupling Dist = 1
-  * Call AddDropKickItems
 
   Echo DropKick Version 3
   
 EndIf
-****************************************************************************
-
-Proc AddDropKickItems
-
-  Let sourceDir = $DataDir + "\Subroutines\QuickKeys\DK\"
-  Let targetDir = $DataDir + "\Cartypes\Defaults"
-  Call $system("xcopy @sourceDir @targetDir  /H /S /C /Y")
-
-
-EndProc
 ****************************************************************************
 
 Proc Scrubber

@@ -4,7 +4,7 @@ set "qktDir=%homepath%\AppData\Roaming\TrainPlayer\Subroutines\QuickKeys\"
 xcopy %cd% %qktDir% /H /S /C /Y
 
 set "dksDir=%cd%\dkSupport\"
-set "dktDir=%homepath%\AppData\Roaming\TrainPlayer\Cartypes\Defaults"
+set "dktDir=%homepath%\AppData\Roaming\TrainPlayer\Cartypes\Defaults\"
 xcopy %dksDir% %dktDir% /H /S /C /Y
 
 md "%homepath%\AppData\Roaming\TrainPlayer\Reports"

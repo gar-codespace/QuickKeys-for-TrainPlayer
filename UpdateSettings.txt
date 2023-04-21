@@ -1,6 +1,19 @@
 ** UpdateSettings version 2
 
 
+** Initializing message
+Let xMessage = "\nPlease wait... Setting up subroutines.
+                \nVeuillez patienter ... Configuration des sous-programmes.
+                \nBitte warten ... Unterprogramme einrichten.
+                \nEspere ... Configurando subrutinas.
+                \n"
+Call NoteWindow @xMessage 1
+
+** These items must be called first
+Call qkInit
+Call DefineCarrageReturn
+
+
 Proc DefineCarrageReturn
 
 ** Simulate ReadLine for text strings
@@ -21,8 +34,18 @@ EndIf
 EndProc
 ***************************************************************************
 
+Proc qkInit
+** Items specific to QuickKeys
+
+  Let $Key = 0
+  Let NoteDownOnEsc = 0
+  Let JunctionActions = 255
+
+EndProc
+***************************************************************************
+
 Proc PersonalInit
-** Personal adjustments for every Quick Keys layout
+** Personal adjustments for every QuickKeys layout
 
 ** For DropKick, make bigger if dropped cars re-couple
   Let Uncouple Gap = 20
@@ -57,15 +80,3 @@ Proc o2oInit
 
 EndProc
 ****************************************************************************
-
-* Initializing message
-  Let xMessage = "\nPlease wait... Setting up subroutines.
-                  \nVeuillez patienter ... Configuration des sous-programmes.
-                  \nBitte warten ... Unterprogramme einrichten.
-                  \nEspere ... Configurando subrutinas.
-                  \n"
-Call NoteWindow @xMessage 1
-Let $Key = 0
-Call DefineCarrageReturn
-Let NoteDownOnEsc = 0
-Let JunctionActions = 255

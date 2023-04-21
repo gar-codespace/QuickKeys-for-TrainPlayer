@@ -3,9 +3,10 @@
 
 If (%1 = SetUp)
 
-  View Refresh
-
+** SpeedSwitching items
   Let x1 = 1 ** Turn on speed switching
+
+** PhakePhysics items
   Let x2 = 0 ** Turn off phake physics
   Let sBumpSpeed = 0
   Let sB = 0 ** 0 is off
@@ -15,9 +16,7 @@ If (%1 = SetUp)
 
 EndIf
 
-** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
-**                            Speed Switching                             **
-** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
+** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   Speed Switching   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
 
 Proc SpeedSwitchingAutoFollow
 
@@ -98,9 +97,7 @@ Proc SpeedSwitchingReverse
 EndProc
 ****************************************************************************
 
-** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
-**                             Phake Physics                              **
-** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
+** %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   Phake Physics   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% **
 
 Proc TogglePhakePhysics
 

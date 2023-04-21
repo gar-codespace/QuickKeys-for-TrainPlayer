@@ -4,6 +4,7 @@
 If (%1 = SetUp)
 
   Let x6 = 1 ** Activate the job timer
+  
   Echo JobTimer Version 1
 
 EndIf

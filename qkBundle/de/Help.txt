@@ -11,7 +11,7 @@ u steht für Dienstprogramme. Drücken Sie u, um das Dienstprogrammmenü aufzuru
 h steht für Help (Hilfe). Mit h können Sie dieses Fenster öffnen und schließen.
 u steht für Dienstprogramme. Drücken Sie u, um das Dienstprogrammmenü aufzurufen.
 f steht für Vollbild. f drücken, um den Vollbildmodus aufzurufen oder zu verlassen.
-z steht für Pause. z drücken, um die Aktion zu unterbrechen (Systemeinstellung)
+p steht für Pause. p drücken, um die Aktion zu unterbrechen
 j steht für Job-Timer. j drücken, um den Timer zu starten und zu stoppen.
 "
 ,

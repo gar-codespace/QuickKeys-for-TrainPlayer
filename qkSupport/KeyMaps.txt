@@ -14,7 +14,7 @@ l	      - List (o2o work list)
 m	      - Manifest
 n	      - Neutral
 o	      - 
-p	      - 
+p	      - Pause
 q	      - 
 r	      - Reverser
 s	      - Slow/Stop

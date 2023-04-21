@@ -11,7 +11,7 @@ Appuyez sur u pour afficher le menu des utilitaires.
 Appuyez sur h pour ouvrir et fermer cette fenêtre.
 Appuyez sur u pour afficher le menu des utilitaires.
 Appuyez sur f pour entrer ou sortir du mode plein écran.
-z est pour pauZe. Appuyez sur z pour mettre l'action en pause. (Réglage du système)
+p est pour Pause. Appuyez sur p pour mettre l'action en pause.
 Appuyez sur j pour démarrer et arrêter la minuterie.
 "
 ,

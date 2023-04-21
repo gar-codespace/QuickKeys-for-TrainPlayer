@@ -11,7 +11,7 @@ Pulse u para abrir el menú de utilidades.
 h significa Ayuda. Pulse h para abrir y cerrar esta ventana.
 Pulse u para abrir el menú de utilidades.
 f es para Pantalla completa. Pulse f para entrar o salir del modo de pantalla completa.
-z es para pauZar. Pulse z para pausar la acción. (Ajuste del sistema).
+p es para Pausa. Pulse p para pausar la acción.
 j es para Temporizador de trabajo. Pulse j para iniciar y detener el temporizador.
 "
 ,

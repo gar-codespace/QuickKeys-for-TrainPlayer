@@ -4,6 +4,7 @@
 If (%1 = SetUp)
 
   Let x7 = 1
+  
   Echo RandomRoads Version 2
 
 EndIf
