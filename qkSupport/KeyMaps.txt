@@ -1,34 +1,46 @@
 "
-a	      - Auto follow
-b	      - Brake
-c	      - Cut
-d	      - Drop cars
-e	      - Emergency (stop)
-f	      - Full screen
-g	      - Go (increase speed)
-h	      - Help menu
-I	      - 
-j	      - Job timer
-k	      - Kick cars
-l	      - List (o2o work list)
-m	      - Manifest
-n	      - Neutral
-o	      - 
-p	      - Pause
-q	      - 
-r	      - Reverser
-s	      - Slow/Stop
-t	      - Throttle
-u	      - Utilities menu
-v	      - 
-w	      - 
-x	      - 
-y	      - 
-z	      - pauZe
-Home	  - Beginning of worklist
-End	      - End of worklist
-Page Up	  - Previous work event
-Page Down - Next work event
-0 – 9	  - Turntable approach track
-Backspace - Cancel Turntable
+Backspace -  8 - Cancel Turntable
+Escape    - 27 - Escape
+Page Up	  - 33 - Previous work event
+Page Down - 34 - Next work event
+End	      - 35 - End of worklist
+Home	  - 36 - Beginning of worklist
+
+0         - 48 - Turntable approach track
+1         - 49 - Turntable approach track
+2         - 50 - Turntable approach track
+3         - 51 - Turntable approach track
+4         - 52 - Turntable approach track
+5         - 53 - Turntable approach track
+6         - 54 - Turntable approach track
+7         - 55 - Turntable approach track
+8         - 56 - Turntable approach track
+9         - 57 - Turntable approach track
+
+a	      - 65 - Auto follow
+b	      - 66 - Brake
+c	      - 67 - Cut
+d	      - 68 - Drop cars
+e	      - 69 - Emergency (stop)
+f	      - 70 - Full screen
+g	      - 71 - Go (increase speed)
+h	      - 72 - Help note
+I	      - 73 - 
+j	      - 74 - Job timer
+k	      - 75 - Kick cars
+l	      - 76 - List (o2o work list)
+m	      - 77 - 
+n	      - 78 - Neutral
+o	      - 79 - 
+p	      - 80 - Pause
+q	      - 81 - 
+r	      - 82 - Reverser
+s	      - 83 - Slow/Stop
+t	      - 84 - Throttle
+u	      - 85 - Utilities menu
+v	      - 86 - 
+w	      - 87 - Workevents
+x	      - 88 - ProcX
+y	      - 89 - ProcY
+z	      - 90 - ProcZ
 "

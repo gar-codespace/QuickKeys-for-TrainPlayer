@@ -193,7 +193,7 @@ If (@x4 <> 2) ** TurnTable in not in process
     EndIf
     ****************************************************************************
 
-    If($Key = 77) ** key m for manifest
+    If($Key = 87) ** key w for workevents
       If(@x5 = 1) ** o2o is active
 
         Call o2oReadManifest
@@ -272,6 +272,27 @@ If (@x4 <> 2) ** TurnTable in not in process
     If ($Key = 80) ** key p
 
       View Pause
+
+    EndIf
+    ***************************************************************************
+
+    If ($Key = 88) ** key x
+
+      Call procX
+
+    EndIf
+    ***************************************************************************
+
+    If ($Key = 89) ** key y
+
+      Call procY
+
+    EndIf
+    ***************************************************************************
+    
+    If ($Key = 90) ** key z
+
+      Call procZ
 
     EndIf
     ***************************************************************************

@@ -12,7 +12,6 @@ Appuyez sur h pour ouvrir et fermer cette fenêtre.
 Appuyez sur u pour afficher le menu des utilitaires.
 Appuyez sur f pour entrer ou sortir du mode plein écran.
 p est pour Pause. Appuyez sur p pour mettre l'action en pause.
-Appuyez sur j pour démarrer et arrêter la minuterie.
 "
 ,
 "
@@ -20,9 +19,9 @@ Appuyez sur j pour démarrer et arrêter la minuterie.
 
 Appuyez sur a pour activer ou désactiver la fonction Auto-Follow.
 Appuyez sur t pour ajouter 1 mph (kilomètre par heure) à chaque fois que vous appuyez sur la touche.
-Appuyez sur g une fois pour la vitesse de la cour, une autre fois pour la vitesse maximale.
+g est pour Go. Appuyez sur g pour la vitesse d'attelage, puis à nouveau pour augmenter de 5 mph/kph.
 Appuyez sur r pour changer la direction du train, même en cours de route.
-Appuyer sur s pour ralentir la vitesse de l'attelage, puis à nouveau pour l'arrêter.
+s est pour Slow/Stop (ralentissement/arrêt). Appuyez sur s pour ralentir de 5 mph/kph, pour coupler la vitesse, pour arrêter.
 
 Appuyez sur u pour sélectionner Phake Physics.
 "
@@ -43,9 +42,9 @@ Appuyez sur u pour sélectionner Commutation de vitesse.
 "
 *** Drop Kick ***
 
-Appuyez sur c pour couper la voiture sélectionnée. (Réglage du système)
-k comme Kick. Appuyez sur k pour donner un coup de pied à des voitures (Kick Em).
-d comme Drop. Appuyez sur d pour laisser tomber des voitures (Let Em Go).
+Appuyez sur c pour couper la voiture sélectionnée.
+k comme Kick. Appuyez sur k pour donner un coup de pied à des voitures.
+d comme Drop. Appuyez sur d pour laisser tomber des voitures.
 
 Appuyez sur k ou d lorsque le train est à l'arrêt pour nettoyer les moteurs de kick.
 "
@@ -63,13 +62,13 @@ Appuyez sur a pour le sens inverse des aiguilles d'une montre, sur c pour le sen
 "
 *** o2o Workevents ***
 
-Appuyez sur m pour lire le manifeste de JMRI.
+Appuyez sur w pour lire le JMRI Report - o2o Workevents.
 Appuyez sur l pour afficher ou masquer la liste des commutateurs.
-Appuyer sur la touche u pour lancer un utilitaire O2O.
-Appuyez sur la touche Home pour revenir au début du manifeste.
-Appuyez sur la touche Fin pour aller au bas du manifeste.
+Appuyez sur la touche Home pour revenir au début de la liste des événements de travail.
+Appuyez sur la touche Fin pour aller au bas de la liste des événements de travail.
 Appuyer sur Page Down pour passer à l'événement suivant.
 Appuyez sur Page Up pour accéder à l'événement précédent.
+Appuyer sur la touche u pour lancer un utilitaire O2O.
 "
 ,
 "

@@ -1,6 +1,6 @@
 * Master script template
 
-** Optional railroad details
+** Optional for o2o; railroad details
 Let OperatingRoad = ""
 Let Territory = ""
 Let Location = ""
@@ -9,15 +9,15 @@ Let Divisions = "" ** Enter division names seperated by a comma without a space.
 Let ModelScale = "" ** Choose from: Z, N, HOn3, OO, HO, HOn3, Sn3, S, On3, O, G
 
 ** Put layout specific stuff here
+Let pressX = 0
+Let pressY = 0
+Let pressZ = 0
 Let sMaxSpeed = 40
-Let sCoupleSpeed = 4
+Let "Coupling Speed" = 5
 
 ** Set Up the Subroutines
-Call UpdateSettings
-Call PersonalInit
-Call qkEntities
-* Call o2oInit
-* Call o2oUtilities
+Call InitializeQuickKeys
+*Call o2oInit
 
 Call JobTimer *Setup
 Call o2o *Setup

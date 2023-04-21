@@ -1,4 +1,4 @@
-** UpdateSettings version 2
+** InitializeQuickKeys version 2
 
 
 ** Initializing message
@@ -10,9 +10,44 @@ Let xMessage = "\nPlease wait... Setting up subroutines.
 Call NoteWindow @xMessage 1
 
 ** These items must be called first
-Call qkInit
 Call DefineCarrageReturn
+Call qkEntities
+Call qkInit
 
+Call makeProcXYZ
+
+Call PersonalInit
+***************************************************************************
+
+Proc makeProcXYZ
+** Make the code snippet in the selected notes into a procedure
+
+  Let xyzPress = @pressX,@pressY,@pressZ
+  Let xyzSet = X,Y,Z
+  Let i = 0
+  While (@i < 3)
+
+    Let currentSuffix = $Set(@xyzSet, get, @i)
+    Let procFile = $DATADIR + "\Subroutines\QuickKeys\proc" + @currentSuffix + ".txt"
+
+    Let procText = Echo procedure + $Set(@xyzSet, get, @i) + \n\n
+    
+    Let procNote =  $Set(@xyzPress, get, @i)
+    Let procNoteText = $Note(@procNote)
+    While ($String(@procNoteText, Length) <> 0)
+
+      Let currentLine = $String(@procNoteText, NextToken, @xCR)
+      Let procText = @procText + @currentLine + \n
+
+    EndWhile
+
+    Call $Write(@procFile, @procText)
+    Let i = @i + 1
+
+  EndWhile
+
+EndProc
+***************************************************************************
 
 Proc DefineCarrageReturn
 
@@ -55,7 +90,6 @@ Proc PersonalInit
   * Let AllowYardMode = 1
   * Let InYardMode = 1
   Let BarrelThruMode = 0
-  Let Coupling Speed = 5
   Let Car Gap = 0
   Let TTableSpeedDivisor = 7 ** Bigger means slower
 

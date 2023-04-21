@@ -43,7 +43,7 @@ The manifest is at the end.
 "
 ,
 "
-Read in the JMRI manifest?
+Read JMRI Report - o2o Workevents?
 "
 ,
 "

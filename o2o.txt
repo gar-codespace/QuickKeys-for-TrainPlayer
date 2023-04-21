@@ -8,6 +8,8 @@ If (%1 = SetUp)
   Let jManifestAll = ""
   Let jLocList = "Location List,"
 
+  Call o2oUtilities
+
   Echo o2o Version 3
 
 EndIf

@@ -12,7 +12,6 @@ h steht für Help (Hilfe). Mit h können Sie dieses Fenster öffnen und schließ
 u steht für Dienstprogramme. Drücken Sie u, um das Dienstprogrammmenü aufzurufen.
 f steht für Vollbild. f drücken, um den Vollbildmodus aufzurufen oder zu verlassen.
 p steht für Pause. p drücken, um die Aktion zu unterbrechen
-j steht für Job-Timer. j drücken, um den Timer zu starten und zu stoppen.
 "
 ,
 "
@@ -20,9 +19,9 @@ j steht für Job-Timer. j drücken, um den Timer zu starten und zu stoppen.
 
 a steht für Auto-Follow. a drücken, um Auto-Follow ein- oder auszuschalten.
 t steht für Throttle (Gas). t drücken, um bei jedem Tastendruck 1 mph (km/h) hinzuzufügen.
-g steht für "Go". g einmal für Yard Speed, ein zweites Mal für Max Speed drücken.
+g steht für Go. Drücken Sie g für die Kupplungsgeschwindigkeit, um sie erneut um 5 mph/kph zu erhöhen.
 r steht für Reverser: Drücken Sie r, um die Richtung des Zuges zu ändern, auch während der Fahrt.
-s steht für Slow/Stop. Drücken Sie s, um auf Kupplungsgeschwindigkeit zu verlangsamen, und erneut, um anzuhalten.
+s steht für Langsam/Stopp. Drücken Sie s, um die Geschwindigkeit um 5 mph/kph zu verlangsamen, zu koppeln oder anzuhalten.
 
 Drücken Sie u, um Phake Physics zu wählen.
 "
@@ -43,9 +42,9 @@ Drücken Sie u, um Geschwindigkeitsumschaltung zu wählen.
 "
 *** Drop Kick ***
 
-c steht für Ausschneiden. c drücken, um das ausgewählte Auto auszuschneiden (Systemeinstellung).
-k steht für Kick. Drücken Sie k, um ein paar Autos zu treten (Kick Em).
-d steht für Drop. Drücken Sie d, um ein paar Autos fallen zu lassen (Let Em Go).
+c steht für Ausschneiden. c drücken, um das ausgewählte Auto auszuschneiden.
+k steht für Kick. Drücken Sie k, um ein paar Autos zu treten.
+d steht für Drop. Drücken Sie d, um ein paar Autos fallen zu lassen.
 
 Drücken Sie k oder d bei angehaltenem Zug, um die Kickmotoren zu reinigen.
 "
@@ -63,13 +62,13 @@ Drücken Sie a für gegen den Uhrzeigersinn, c für im Uhrzeigersinn.
 "
 *** o2o Workevents ***
 
-m steht für Manifest: Drücken Sie m, um das JMRI-Manifest zu lesen.
+w steht für Workevents. Drücken Sie w, um JMRI Report - o2o Workevents zu lesen.
 l steht für Liste. l drücken, um die Schalterliste ein- oder auszublenden.
-u steht für Dienstprogramm. Drücken Sie die Taste u, um ein O2O-Dienstprogramm auszuführen.
-Drücken Sie die Home-Taste, um an den Anfang des Manifests zu gelangen.
-Drücken Sie die Endetaste, um zum Ende des Manifests zu gelangen.
+Drücken Sie die Home-Taste, um an den Anfang der Liste der Arbeitsereignisse zu gelangen.
+Drücken Sie die Endetaste, um an das Ende der Ereignisliste zu gelangen.
 Drücken Sie die Taste "Bild ab" für das nächste Arbeitsereignis.
 Drücken Sie die Taste Page Up, um zum vorherigen Arbeitsschritt zu gelangen.
+u steht für Dienstprogramm. Drücken Sie die Taste u, um ein O2O-Dienstprogramm auszuführen.
 "
 ,
 "

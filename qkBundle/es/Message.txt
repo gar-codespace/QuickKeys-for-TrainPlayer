@@ -43,7 +43,7 @@ El manifiesto está al final.
 "
 ,
 "
-¿Leer en el manifiesto JMRI?
+¿Leer en el JMRI Report - o2o Workevents?
 "
 ,
 "

@@ -5,6 +5,7 @@ If (%1 = SetUp)
 
 ** SpeedSwitching items
   Let x1 = 1 ** Turn on speed switching
+  Let sCoupleSpeed = $Setting("Coupling Speed") - 1
 
 ** PhakePhysics items
   Let x2 = 0 ** Turn off phake physics
@@ -101,7 +102,6 @@ EndProc
 
 Proc TogglePhakePhysics
 
-  
   If(@x2 = 0) ** PP is not active
     Let xBox = $Set(@messageBundle, Get, 0)
     Call $MsgBox(@xBox)
