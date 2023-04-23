@@ -17,30 +17,30 @@ Home	  - 36 - Beginning of worklist
 8         - 56 - Turntable approach track
 9         - 57 - Turntable approach track
 
-a	      - 65 - Auto follow
-b	      - 66 - Brake
+a	      - 65 - Auto follow (SpeedSwitching and PhakePhysics)
+b	      - 66 - Brake (PhakePhysics)
 c	      - 67 - Cut
 d	      - 68 - Drop cars
-e	      - 69 - Emergency (stop)
-f	      - 70 - Full screen
-g	      - 71 - Go (increase speed)
-h	      - 72 - Help note
+e	      - 69 - Emergency (stop, PhakePhysics)
+f	      - 70 - Full screen (QuickKeys)
+g	      - 71 - Go (increase speed, SpeedWwitching)
+h	      - 72 - Help note (QuickKeys)
 I	      - 73 - 
 j	      - 74 - Job timer
 k	      - 75 - Kick cars
-l	      - 76 - List (o2o work list)
+l	      - 76 - List (display o2o work list)
 m	      - 77 - 
-n	      - 78 - Neutral
-o	      - 79 - 
-p	      - 80 - Pause
+n	      - 78 - Neutral (PhakePhysics)
+o	      - 79 - o2o (read in o2o workevents)
+p	      - 80 - Pause (QuickKeys)
 q	      - 81 - 
-r	      - 82 - Reverser
-s	      - 83 - Slow/Stop
-t	      - 84 - Throttle
-u	      - 85 - Utilities menu
+r	      - 82 - Reverser (SpeedSwitching and PhakePhysics)
+s	      - 83 - Slow/Stop (SpeedWwitching)
+t	      - 84 - Throttle (SpeedSwitching and PhakePhysics)
+u	      - 85 - Utilities menu (QuickKeys)
 v	      - 86 - 
-w	      - 87 - Workevents
-x	      - 88 - ProcX
-y	      - 89 - ProcY
-z	      - 90 - ProcZ
+w	      - 87 - fit to Window (QuickKeys)
+x	      - 88 - ProcX (QuickKeys)
+y	      - 89 - ProcY (QuickKeys)
+z	      - 90 - ProcZ (QuickKeys)
 "

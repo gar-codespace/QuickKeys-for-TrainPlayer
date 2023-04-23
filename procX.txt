@@ -1,2 +1,22 @@
 Echo procedureX
 
+* script for key press x
+Echo Align switches around the loop
+throw 42 1
+throw 88 1
+throw 120 1
+throw 108 1
+throw 30 1
+throw 23 1
+throw 24 1
+throw 31 1
+throw 35 1
+throw 39 1
+throw 44 1
+throw 48 1
+throw 54 1
+throw 63 1
+throw 356 1
+throw 71 1
+throw 73 1
+throw 187 1
