@@ -92,7 +92,9 @@ If (@x0 = 1) ** All of Quick Keys is on
     EndIf
   EndIf
 
-  Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 4) ** Add Random Roads
+  Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 4) ** Add Personalized Settings
+  Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 5) ** Add RandomRoads template
+  Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 6) ** Apply RandomRoads
 
   If (@x5 = 1)
     Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 7)
@@ -101,6 +103,44 @@ If (@x0 = 1) ** All of Quick Keys is on
 EndIf
 
 Let utilityMenu = @utilityMenu + \n\n$Set(@utilityBundle, Get, 9) \n ** Footer
+
+EndProc
+***************************************************************************
+
+Proc CopyPersonalizedSettingsTemplate
+
+** Input a note number
+  Input noteId $Set(@messageBundle, Get, 20)
+
+** Read in RandomRoads template
+  Let rrTemplate = $DataDir + "\Subroutines\QuickKeys\qkSupport\PersonalizedSettingsTemplate.txt"
+  ** Let rrFile = $File(@rrTemplate, Open)
+
+
+
+
+  ** Let rrText = $file(@rrFile, ReadAll)
+  Let rrText = $Read(@rrTemplate)
+  ** Call $File(@rrFile, Close)
+
+** Copy to note
+  ** Let $Note(@noteId) = @rrText
+
+EndProc
+***************************************************************************
+
+Proc CopyRandomRoadsTemplate
+
+** Input a note number
+  Input noteId $Set(@messageBundle, Get, 20)
+
+** Read in RandomRoads template
+  Let rrTemplate = $DataDir + "\Subroutines\QuickKeys\qkSupport\RandomRoadsTemplate.txt"
+  Let rrFile = $File(@rrTemplate, Open)
+  Let rrText = $file(@rrFile, ReadAll)
+  Call $File(@rrFile, Close)
+** Copy to note
+  Let $Note(@noteId) = @rrText
 
 EndProc
 ***************************************************************************
@@ -146,6 +186,8 @@ Proc OpenHelpNote
 
   If (@H = 0)
     Let H = 1
+    Let U = 0
+    Let L = 0
     Call makeHelpPage
     Call NoteWindow @helpPage 1
   Else
@@ -171,6 +213,34 @@ Proc OpenUtilityNote
   Let $Key = 0
   Let H = 0
   Let L = 0
+
+EndProc
+****************************************************************************
+
+Proc DisplayFullScreen
+
+  If (@F = 0)
+    Let F = 1
+    Call $View(show,"Full Screen")
+  Else
+    Let F = 0
+    Call $View(hide,"Full Screen")
+  EndIf
+  NoteBox "." ** Necessray to select the current layout so QK continues to work
+  NoteBox
+
+EndProc
+****************************************************************************
+
+Proc ToggleToolBars
+
+  If (@V = 0)
+    Let V = 1
+  Else
+    Let V = 0
+  EndIf
+
+  Call PersonalizeView
 
 EndProc
 ****************************************************************************

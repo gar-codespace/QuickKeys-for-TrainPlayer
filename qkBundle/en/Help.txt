@@ -11,6 +11,7 @@ u is for Utilities. Press u to bring up the utility menu.
 h is for Help. Press h to open and close this window.
 u is for Utilities. Press u to bring up the utility menu.
 f is for Full screen. Press f to enter or exit full screen mode.
+v is for View. Toggle items listed in Master Script/ViewList.
 p is for pause. Press p to pause the action.
 "
 ,

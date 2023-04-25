@@ -75,3 +75,7 @@ or press 'Backspace' to exit.
 "
 Working...
 "
+,
+"
+Enter note number
+"

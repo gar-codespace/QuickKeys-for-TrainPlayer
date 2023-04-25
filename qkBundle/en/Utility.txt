@@ -16,18 +16,17 @@ Press 1: Turn all Quick Keys off.
 "Press 2: Change to Speed Switching.
 "
 ,
-"Press 3: Assign random road names to equipment.
+"Press 3: Add personalized settings to a note.
 "
 ,
-"Press 4:
+"Press 4: Add RandomRoads template to a note.
 "
 ,
-"Press 5:
+"Press 5: Assign random road names to equipment.
 "
 ,
 "
 *** o2o Utilities ***
-
 Press 6: Initialize layout tracks.
 Press 7: Set cars to their current location.
 Press 8: Make a JMRI consist or kernel.

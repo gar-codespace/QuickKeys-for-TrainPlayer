@@ -1,46 +1,46 @@
 "
-Backspace -  8 - Cancel Turntable
-Escape    - 27 - Escape
-Page Up	  - 33 - Previous work event
-Page Down - 34 - Next work event
-End	      - 35 - End of worklist
-Home	  - 36 - Beginning of worklist
+Backspace   -  8 - Cancel Turntable
+Escape      - 27 - Escape
+Page Up     - 33 - Previous work event
+Page Down   - 34 - Next work event
+End         - 35 - End of worklist
+Home        - 36 - Beginning of worklist
 
-0         - 48 - Turntable approach track
-1         - 49 - Turntable approach track
-2         - 50 - Turntable approach track
-3         - 51 - Turntable approach track
-4         - 52 - Turntable approach track
-5         - 53 - Turntable approach track
-6         - 54 - Turntable approach track
-7         - 55 - Turntable approach track
-8         - 56 - Turntable approach track
-9         - 57 - Turntable approach track
+0           - 48 - Turntable approach track
+1           - 49 - Turntable approach track
+2           - 50 - Turntable approach track
+3           - 51 - Turntable approach track
+4           - 52 - Turntable approach track
+5           - 53 - Turntable approach track
+6           - 54 - Turntable approach track
+7           - 55 - Turntable approach track
+8           - 56 - Turntable approach track
+9           - 57 - Turntable approach track
 
-a	      - 65 - Auto follow (SpeedSwitching and PhakePhysics)
-b	      - 66 - Brake (PhakePhysics)
-c	      - 67 - Cut
-d	      - 68 - Drop cars
-e	      - 69 - Emergency (stop, PhakePhysics)
-f	      - 70 - Full screen (QuickKeys)
-g	      - 71 - Go (increase speed, SpeedWwitching)
-h	      - 72 - Help note (QuickKeys)
-I	      - 73 - 
-j	      - 74 - Job timer
-k	      - 75 - Kick cars
-l	      - 76 - List (display o2o work list)
-m	      - 77 - 
-n	      - 78 - Neutral (PhakePhysics)
-o	      - 79 - o2o (read in o2o workevents)
-p	      - 80 - Pause (QuickKeys)
-q	      - 81 - 
-r	      - 82 - Reverser (SpeedSwitching and PhakePhysics)
-s	      - 83 - Slow/Stop (SpeedWwitching)
-t	      - 84 - Throttle (SpeedSwitching and PhakePhysics)
-u	      - 85 - Utilities menu (QuickKeys)
-v	      - 86 - 
-w	      - 87 - fit to Window (QuickKeys)
-x	      - 88 - ProcX (QuickKeys)
-y	      - 89 - ProcY (QuickKeys)
-z	      - 90 - ProcZ (QuickKeys)
+a           - 65 - Auto follow (SpeedSwitching and PhakePhysics)
+b           - 66 - Brake (PhakePhysics)
+c           - 67 - Cut
+d           - 68 - Drop cars
+e           - 69 - Emergency (stop, PhakePhysics)
+f           - 70 - Full screen (QuickKeys)
+g           - 71 - Go (increase speed, SpeedWwitching)
+h           - 72 - Help note (QuickKeys)
+I           - 73 - 
+j           - 74 - Job timer
+k           - 75 - Kick cars
+l           - 76 - List (display o2o work list)
+m           - 77 - 
+n           - 78 - Neutral (PhakePhysics)
+o           - 79 - o2o (read in o2o workevents)
+p           - 80 - Pause (QuickKeys)
+q           - 81 - 
+r           - 82 - Reverser (SpeedSwitching and PhakePhysics)
+s           - 83 - Slow/Stop (SpeedWwitching)
+t           - 84 - Throttle (SpeedSwitching and PhakePhysics)
+u           - 85 - Utilities menu (QuickKeys)
+v           - 86 - 
+w           - 87 - fit to Window (QuickKeys)
+x           - 88 - ProcX (QuickKeys)
+y           - 89 - ProcY (QuickKeys)
+z           - 90 - ProcZ (QuickKeys)
 "

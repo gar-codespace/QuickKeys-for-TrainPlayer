@@ -16,7 +16,6 @@ Call qkInit
 
 Call makeProcXYZ
 
-Call PersonalInit
 ***************************************************************************
 
 Proc makeProcXYZ
@@ -76,36 +75,34 @@ Proc qkInit
   Let NoteDownOnEsc = 0
   Let JunctionActions = 255
 
-EndProc
-***************************************************************************
-
-Proc PersonalInit
-** Personal adjustments for every QuickKeys layout
-
-** For DropKick, make bigger if dropped cars re-couple
+  ** For DropKick, make bigger if dropped cars re-couple
   Let Uncouple Gap = 20
 
-** Layout items
-  Let Min Coupling Dist = 1
-  * Let AllowYardMode = 1
-  * Let InYardMode = 1
-  Let BarrelThruMode = 0
-  Let Car Gap = 0
-  Let TTableSpeedDivisor = 7 ** Bigger means slower
+EndProc
+***************************************************************************
 
-** Display items
-  Let ScrollDistFactorx10 = 25
-  Let DistFromSwitch =  0
-  Let HiliteSize = 18
+Proc PersonalizeView
+
+  Let i = 0
+  While (@i < $Set(@ViewList, Count))
+
+    Let temp = $Set(@ViewList, get, @i)
+    If (V = 0)
+      Call $View(hide, @temp)
+    Else
+      Call $View(show, @temp)
+    EndIf
+
+    Let i = @i + 1
+
+  EndWhile
 
 EndProc
 ***************************************************************************
 
-Proc o2oInit
+Proc o2oInit2
 ** Reworks the Advanced Ops setup
-
   Call $View(Hide,"Track Labels")
-
   call $view(hide,tracks)
   call $view(hide,rails)
   call $view(hide,ties)

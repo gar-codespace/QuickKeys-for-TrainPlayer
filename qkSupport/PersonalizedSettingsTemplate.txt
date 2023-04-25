@@ -1,0 +1,28 @@
+"
+** Personalized Settings for all QuickKeys layouts
+
+** Toolbars and windows to include when toggling View mode
+    Let ViewList = Main Tools,View Options,Build Tools,Script Tools,Ops Tools,Schedule
+
+** Layout items
+    Let Min Coupling Dist = 1
+    * Let AllowYardMode = 1
+    * Let InYardMode = 1
+    Let BarrelThruMode = 0
+    Let Car Gap = 0
+    Let TTableSpeedDivisor = 7 ** Bigger means slower
+
+** Display items
+    Let ScrollDistFactorx10 = 25
+    Let DistFromSwitch =  0
+    Let HiliteSize = 18
+
+** Rework the Advanced Ops setup
+
+    Let x = View(Hide, "Track Labels")
+    Call View(hide, tracks)
+    Call View(hide, rails)
+    Call View(hide, ties)
+    Call View(hide, roadbed)
+    tools run
+"
