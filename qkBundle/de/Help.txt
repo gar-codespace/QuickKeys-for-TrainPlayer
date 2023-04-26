@@ -11,7 +11,7 @@ u steht für Dienstprogramme. Drücken Sie u, um das Dienstprogrammmenü aufzuru
 h steht für Help (Hilfe). Mit h können Sie dieses Fenster öffnen und schließen.
 u steht für Dienstprogramme. Drücken Sie u, um das Dienstprogrammmenü aufzurufen.
 f steht für Vollbild. f drücken, um den Vollbildmodus aufzurufen oder zu verlassen.
-v steht für Ansicht. Schaltet die in Master Script/ViewList aufgeführten Elemente um.
+v steht für Ansicht. Schaltet die in PersonalizedSettings/ViewList aufgeführten Elemente um.
 p steht für Pause. p drücken, um die Aktion zu unterbrechen
 "
 ,

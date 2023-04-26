@@ -75,3 +75,7 @@ oder drücken Sie zum Verlassen die 'Backspace'.
 "
 Arbeiten Sie...
 "
+,
+"
+Notiznummer eingeben
+"

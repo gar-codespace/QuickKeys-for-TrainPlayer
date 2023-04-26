@@ -1,16 +1,2 @@
 Echo procedureX
 
-** Align the switches around the circle
-throw 313 1
-throw 309 1
-throw 305 1
-throw 274 1
-throw 264 1
-throw 234 1
-throw 271 1
-throw 182 1
-throw 155 1
-throw 159 1
-throw 110 1
-throw 217 1
-throw 107 1

@@ -114,17 +114,10 @@ Proc CopyPersonalizedSettingsTemplate
 
 ** Read in RandomRoads template
   Let rrTemplate = $DataDir + "\Subroutines\QuickKeys\qkSupport\PersonalizedSettingsTemplate.txt"
-  ** Let rrFile = $File(@rrTemplate, Open)
-
-
-
-
-  ** Let rrText = $file(@rrFile, ReadAll)
   Let rrText = $Read(@rrTemplate)
-  ** Call $File(@rrFile, Close)
 
 ** Copy to note
-  ** Let $Note(@noteId) = @rrText
+  Let $Note(@noteId) = @rrText
 
 EndProc
 ***************************************************************************
@@ -228,19 +221,6 @@ Proc DisplayFullScreen
   EndIf
   NoteBox "." ** Necessray to select the current layout so QK continues to work
   NoteBox
-
-EndProc
-****************************************************************************
-
-Proc ToggleToolBars
-
-  If (@V = 0)
-    Let V = 1
-  Else
-    Let V = 0
-  EndIf
-
-  Call PersonalizeView
 
 EndProc
 ****************************************************************************

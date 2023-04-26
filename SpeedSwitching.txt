@@ -35,7 +35,7 @@ Proc SpeedSwitchingThrottle
 
   Let sSpeed = $Speed
 
-  If(@sSpeed < @sMaxSpeed)
+  If(@sSpeed < @maximumTrainSpeed)
     Let sSpeed = @sSpeed + 1
     Speed @sSpeed
   EndIf
@@ -67,8 +67,8 @@ Proc SpeedSwitchingGo
 
   If (@sSpeed < @sCoupleSpeed)
     Let sSpeed = @sCoupleSpeed
-  ElseIf (@sSpeed > @sMaxSpeed - 5)
-    Let sSpeed = @sMaxSpeed
+  ElseIf (@sSpeed > @maximumTrainSpeed - 5)
+    Let sSpeed = @maximumTrainSpeed
   Else
     Let sSpeed = @sSpeed + 5
   EndIf
@@ -256,7 +256,7 @@ Proc PhakePhysicsThrottle
       Let sBumpSpeed = 0
       Break
     EndIf
-    If ($Train($Train, Speed) = @sMaxSpeed)
+    If ($Train($Train, Speed) = @maximumTrainSpeed)
       Let sT = 0
       Echo Maximum speed
       Break

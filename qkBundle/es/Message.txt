@@ -75,3 +75,7 @@ o pulse 'Retroceso' para salir.
 "
 Trabajar en...
 "
+'
+"
+Introduzca el número de nota
+"

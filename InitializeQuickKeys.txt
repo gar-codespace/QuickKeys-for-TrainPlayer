@@ -81,17 +81,13 @@ Proc qkInit
 EndProc
 ***************************************************************************
 
-Proc PersonalizeView
+Proc ToggleToolBars
 
   Let i = 0
   While (@i < $Set(@ViewList, Count))
 
     Let temp = $Set(@ViewList, get, @i)
-    If (V = 0)
-      Call $View(hide, @temp)
-    Else
-      Call $View(show, @temp)
-    EndIf
+    Call $View(Toggle, @temp)
 
     Let i = @i + 1
 
@@ -100,7 +96,19 @@ Proc PersonalizeView
 EndProc
 ***************************************************************************
 
-Proc o2oInit2
+Proc ApplyPersonalizedSettings
+** Writes PersonalizedSettings.txt from a note and then calls it.
+
+  Let SettingsNote = $Note(%1)
+  Let settingsFile = $DATADIR + "\Subroutines\QuickKeys\PersonalizedSettings.txt"
+  Call $Write(@settingsFile, @SettingsNote)
+
+  Call PersonalizedSettings
+
+EndProc
+***************************************************************************
+
+Proc ao_reInit
 ** Reworks the Advanced Ops setup
   Call $View(Hide,"Track Labels")
   call $view(hide,tracks)

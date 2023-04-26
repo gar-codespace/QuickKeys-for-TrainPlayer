@@ -1,22 +1,8 @@
 * Master script template
 
-** Optional for o2o; railroad details
-Let OperatingRoad = ""
-Let Territory = ""
-Let Location = ""
-Let Year = ""
-Let Divisions = "" ** Enter division names seperated by a comma without a space.
-Let ModelScale = "" ** Choose from: Z, N, HOn3, OO, HO, HOn3, Sn3, S, On3, O, G
-
-** Put layout specific stuff here
-Let pressX = 0
-Let pressY = 0
-Let pressZ = 0
-Let sMaxSpeed = 40
-Let "Coupling Speed" = 5
-
 ** Set Up the Subroutines
 Call InitializeQuickKeys
+Call ApplyPersonalizedSettings 0
 
 Call JobTimer *Setup
 Call o2o *Setup

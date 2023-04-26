@@ -1,1 +1,39 @@
-** Personalized setting will be copied here.
+** Personalized Settings for all QuickKeys layouts
+
+** For Version 7, Toolbars and windows to include when toggling View mode
+    Let ViewList = Main Tools,Track Tools,Script Tools,Ops Tools,Schedule
+
+** For Version 8, Toolbars and windows to include when toggling View mode
+    * Let ViewList = Main Tools,View Options,Build Tools,Script Tools,Ops Tools,Schedule
+    ** Add V8 TBar stuff
+
+** Layout specific variables
+    Let pressX = 22
+    Let pressY = 0
+    Let pressZ = 0
+    Let maximumTrainSpeed = 7
+
+** Layout specific settings, override Registry values
+    Let "Coupling Speed" = 5
+    Let Min Coupling Dist = 1
+    * Let AllowYardMode = 1
+    * Let InYardMode = 1
+    Let BarrelThruMode = 0
+    Let Car Gap = 0
+    Let TTableSpeedDivisor = 7 ** Bigger means slower
+
+** Display items
+    Let ScrollDistFactorx10 = 25
+    Let DistFromSwitch =  0
+    Let HiliteSize = 18
+
+** Turn off AO display of track attributes
+    Call ao_reInit
+
+** Optional for o2o; railroad details
+    Let OperatingRoad = "DL&W Railroad"
+    Let Territory = "Harlem Transfer Co."
+    Let Location = ""
+    Let Year = ""
+    Let Divisions = "" ** Enter division names seperated by a comma without a space.
+    Let ModelScale = "" ** Choose from: Z, N, HOn3, OO, HO, HOn3, Sn3, S, On3, O, G

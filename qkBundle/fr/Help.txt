@@ -11,7 +11,7 @@ Appuyez sur u pour afficher le menu des utilitaires.
 Appuyez sur h pour ouvrir et fermer cette fenêtre.
 Appuyez sur u pour afficher le menu des utilitaires.
 Appuyez sur f pour entrer ou sortir du mode plein écran.
-v est pour View. Permet de faire basculer les éléments répertoriés dans le Master Script/ViewList.
+v est pour View. Permet de faire basculer les éléments répertoriés dans le PersonalizedSettings/ViewList.
 p est pour Pause. Appuyez sur p pour mettre l'action en pause.
 "
 ,

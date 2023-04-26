@@ -75,3 +75,7 @@ ou appuyez sur 'Backspace' pour quitter.
 "
 ouvré...
 "
+'
+"
+Saisir le numéro de la note
+"

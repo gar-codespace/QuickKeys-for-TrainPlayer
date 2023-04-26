@@ -19,9 +19,6 @@ If (%1 = SetUp)
   Let U = 0 ** Utility note
   Let L = 0 ** o2o work events note
   Let F = 0 ** In full screen mode
-  Let V = 0 ** Display certain toolbars
-
-  Call PersonalizeView
 
   Echo QuickKeys Version 3
   View Refresh
