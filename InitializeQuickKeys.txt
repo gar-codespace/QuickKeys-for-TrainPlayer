@@ -1,53 +1,5 @@
 ** InitializeQuickKeys version 2
 
-
-** Initializing message
-Let xMessage = "\nPlease wait... Setting up subroutines.
-                \nVeuillez patienter ... Configuration des sous-programmes.
-                \nBitte warten ... Unterprogramme einrichten.
-                \nEspere ... Configurando subrutinas.
-                \n"
-Call NoteWindow @xMessage 1
-
-** These items must be called first
-Call DefineCarrageReturn
-Call qkEntities
-Call qkInit
-
-Call makeProcXYZ
-
-***************************************************************************
-
-Proc makeProcXYZ
-** Make the code snippet in the selected notes into a procedure
-
-  Let xyzPress = @pressX,@pressY,@pressZ
-  Let xyzSet = X,Y,Z
-  Let i = 0
-  While (@i < 3)
-
-    Let currentSuffix = $Set(@xyzSet, get, @i)
-    Let procFile = $DATADIR + "\Subroutines\QuickKeys\proc" + @currentSuffix + ".txt"
-
-    Let procText = Echo procedure + $Set(@xyzSet, get, @i) + \n\n
-    
-    Let procNote =  $Set(@xyzPress, get, @i)
-    Let procNoteText = $Note(@procNote)
-    While ($String(@procNoteText, Length) <> 0)
-
-      Let currentLine = $String(@procNoteText, NextToken, @xCR)
-      Let procText = @procText + @currentLine + \n
-
-    EndWhile
-
-    Call $Write(@procFile, @procText)
-    Let i = @i + 1
-
-  EndWhile
-
-EndProc
-***************************************************************************
-
 Proc DefineCarrageReturn
 
 ** Simulate ReadLine for text strings
@@ -57,7 +9,8 @@ Let xCR = "
 EndProc
 ***************************************************************************
 
-Proc NoteWindow ** Open or close the note window
+Proc NoteWindow
+** Open or close the note window
 
 If (%2 = 1) ** force window open
   Note %1
@@ -68,54 +21,28 @@ EndIf
 EndProc
 ***************************************************************************
 
-Proc qkInit
-** Items specific to QuickKeys
+Proc SpecificToQuickKeys
 
   Let $Key = 0
   Let NoteDownOnEsc = 0
   Let JunctionActions = 255
 
-  ** For DropKick, make bigger if dropped cars re-couple
-  Let Uncouple Gap = 20
-
 EndProc
 ***************************************************************************
 
-Proc ToggleToolBars
+** Initializing message
+Let xMessage = "\nPlease wait... Setting up subroutines.
+                \nVeuillez patienter ... Configuration des sous-programmes.
+                \nBitte warten ... Unterprogramme einrichten.
+                \nEspere ... Configurando subrutinas.
+                \n"
+Call NoteWindow @xMessage 1
 
-  Let i = 0
-  While (@i < $Set(@ViewList, Count))
+Call DefineCarrageReturn
+Call qkEntities
 
-    Let temp = $Set(@ViewList, get, @i)
-    Call $View(Toggle, @temp)
+Call SpecificToQuickKeys
+Call MakePersonalizedSettings
+Call MakeProcXYZ
 
-    Let i = @i + 1
-
-  EndWhile
-
-EndProc
 ***************************************************************************
-
-Proc ApplyPersonalizedSettings
-** Writes PersonalizedSettings.txt from a note and then calls it.
-
-  Let SettingsNote = $Note(%1)
-  Let settingsFile = $DATADIR + "\Subroutines\QuickKeys\PersonalizedSettings.txt"
-  Call $Write(@settingsFile, @SettingsNote)
-
-  Call PersonalizedSettings
-
-EndProc
-***************************************************************************
-
-Proc ao_reInit
-** Reworks the Advanced Ops setup
-  Call $View(Hide,"Track Labels")
-  call $view(hide,tracks)
-  call $view(hide,rails)
-  call $view(hide,ties)
-  call $view(hide,roadbed)
-  tools run
-
-EndProc
-****************************************************************************

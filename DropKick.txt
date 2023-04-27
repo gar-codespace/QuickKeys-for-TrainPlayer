@@ -38,6 +38,7 @@ If ($Train($Train, Speed) = 0)
   Let kCleanToggle = $MsgBox(yn, @xMessage)
   If (@kCleanToggle = 1)
     Call Scrubber
+    Let x3 = 1
   EndIf
   Let kCleanToggle = 0
   Exit
@@ -53,14 +54,15 @@ Proc KickCheck
 Let kAar = $Car($Car, AAR)
 IF ($String(@kAar, StartsWith, "E") = 1)
   Echo Can't let an engine go!
+  Let x3 = 1
+  Exit
 EndIf
 
 EndProc
 ****************************************************************************
 
-Proc FindEngine
-** Find the engines position in the selected train
-
+Proc FindEngineAndCarPosition
+  
   Let kTemp = $Train($Train, CarLabels)
   Let kTrainCount = $Set(@kTemp, Count)
   
@@ -68,29 +70,17 @@ Proc FindEngine
   While (@i < @kTrainCount)
     Let kTestLabel = $Set(@kTemp, Get, @i)
     Let kTestAAR = $Car(@kTestLabel, AAR)
+
     If ($String(@kTestAAR, StartsWith, "E") = 1)
       Let kEngineLabel = @kTestLabel
       Let E = @i ** E is position of Engine in train
-      Break
+    EndIf
+
+    If (@kTestLabel = $Car)
+      Let C = @i ** C is position of selected Car in train
     EndIf
     Let i = @i + 1
   EndWhile
-
-EndProc
-****************************************************************************
-
-Proc FindCar
-** Find the cars position in the selected train
-
-Let i = 0
-While (@i < @kTrainCount)
-  let kCarLabel = $Set(@kTemp, Get, @i)
-  If (@kCarLabel = $Car)
-    Let C = @i ** C is position of selected Car in train
-    Break
-  EndIf
-  Let i = @i + 1
-EndWhile
 
 EndProc
 ****************************************************************************
@@ -110,25 +100,28 @@ EndProc
 Proc DropKickKick
 
   Let x3 = 2
+
   Call SpeedCheck
   Call KickCheck
-  * Call FindEngine
-  Call FindCar
+  Call FindEngineAndCarPosition
 
-  If (@C - @E < 0) ** Engine behind Car
-  If ($Train($Train, Direction) = F)
+  Let TrainDirection = $Train($Train, Direction)
+
+  If (@C - @E > 0) ** Car behind Engine
+  If ($String(@TrainDirection, contains, R) = 1)
     Echo Kick 'Em!
-    Let kCarPos = @C + 1
-    Call CutOffCars
+    Let kCarPos = @C - 1
+    Call CutOffCars     
   Else
     Echo Wrong direction to kick.
+    Echo No, here
   Endif
   EndIf
 
-  If (@C - @E > 0) ** Car behind Engine
-  If ($Train($Train, Direction) = R)
+  If (@C - @E < 0) ** Engine behind Car
+  If ($String(@TrainDirection, contains, F) = 1)
     Echo Kick 'Em!
-    Let kCarPos = @C - 1
+    Let kCarPos = @C + 1
     Call CutOffCars
   Else
     Echo Wrong direction to kick.
@@ -143,37 +136,39 @@ EndProc
 
 Proc DropKickDrop
 
-    Let x3 = 2
-    Call SpeedCheck
-    Call KickCheck
-    * Call FindEngine
-    Call FindCar
+  Let x3 = 2
 
-    Let dropSpeed = $Train($Train, Speed) - 1
-    Let dropCar = $Car
+  Call SpeedCheck
+  Call KickCheck
+  Call FindEngineAndCarPosition
 
-    If (@C - @E < 0) ** Engine behind Car
-    If ($Train($Train, Direction) = R)
-      Echo Let 'Em Go!
-      Let kCarPos = @C + 1
-      Call CutOffCars
-    Else
-      Echo Wrong direction to drop.
-    EndIf
-    EndIf
+  Let TrainDirection = $Train($Train, Direction)
 
-    If (@C - @E > 0) ** Car behind Engine
-    If ($Train($Train, Direction) = F)
-      Echo Let 'Em Go!
-      Let kCarPos = @C - 1
-      Call CutOffCars
-    Else
-      Echo Wrong direction to drop.
-    EndIf
-    EndIf
+  Let dropSpeed = $Train($Train, Speed) - 1
+  Let dropCar = $Car
 
-    Let $Train(@dropCar, Speed) = @dropSpeed
-    Let x3 = 1
+  If (@C - @E < 0) ** Engine behind Car
+  If ($String(@TrainDirection, contains, R) = 1)
+    Echo Let 'Em Go!
+    Let kCarPos = @C + 1
+    Call CutOffCars
+  Else
+    Echo Wrong direction to drop.
+  EndIf
+  EndIf
+
+  If (@C - @E > 0) ** Car behind Engine
+  If ($String(@TrainDirection, contains, F) = 1)
+    Echo Let 'Em Go!
+    Let kCarPos = @C - 1
+    Call CutOffCars
+  Else
+    Echo Wrong direction to drop.
+  EndIf
+  EndIf
+
+  Let $Train(@dropCar, Speed) = @dropSpeed
+  Let x3 = 1
 
 EndProc
 ****************************************************************************

@@ -1,6 +1,19 @@
 ** Quick Keys Entities
 
 
+Proc ao_reInit
+** Reworks the Advanced Ops setup
+
+  Call $View(Hide,"Track Labels")
+  Call $View(hide,tracks)
+  Call $View(hide,rails)
+  Call $View(hide,ties)
+  Call $View(hide,roadbed)
+  tools run
+
+EndProc
+****************************************************************************
+
 Proc SetLanguage
 
 ** Read in text for Quick Keys help page
@@ -32,77 +45,107 @@ EndProc
 
 Proc makeHelpPage
 
-Let helpPage = ""
+  Let helpPage = ""
 
-If (@x0 = 0) ** All of Quick Keys is off
+  If (@x0 = 0) ** All of Quick Keys is off
 
-  Let helpPage = @helpPage \n$Set(@helpBundle, Get, 0)
+    Let helpPage = @helpPage \n$Set(@helpBundle, Get, 0)
 
-EndIf
+  EndIf
 
-If (@x0 = 1) ** All of Quick Keys is on
+  If (@x0 = 1) ** All of Quick Keys is on
 
-  Let helpPage = @helpPage \n$Set(@helpBundle, Get, 1)
-  If (@x1 = 1)
-    If (@x2 = 0)
-      Let helpPage = @helpPage $Set(@helpBundle, Get, 2)
+    Let helpPage = @helpPage \n$Set(@helpBundle, Get, 1)
+    If (@x1 = 1)
+      If (@x2 = 0)
+        Let helpPage = @helpPage $Set(@helpBundle, Get, 2)
+      EndIf
+      If (@x2 = 1)
+        Let helpPage = @helpPage $Set(@helpBundle, Get, 3)
+      EndIf
     EndIf
-    If (@x2 = 1)
-      Let helpPage = @helpPage $Set(@helpBundle, Get, 3)
+    If (@x3 = 1)
+      Let helpPage = @helpPage $Set(@helpBundle, Get, 4)
     EndIf
-  EndIf
-  If (@x3 = 1)
-    Let helpPage = @helpPage $Set(@helpBundle, Get, 4)
-  EndIf
-  If (@x4 = 1)
-    Let helpPage = @helpPage $Set(@helpBundle, Get, 5)
-  EndIf
-  If (@x5 = 1)
-    Let helpPage = @helpPage $Set(@helpBundle, Get, 6)
-  EndIf
-  If (@x6 = 1)
-    Let helpPage = @helpPage $Set(@helpBundle, Get, 7)
-  EndIf
+    If (@x4 = 1)
+      Let helpPage = @helpPage $Set(@helpBundle, Get, 5)
+    EndIf
+    If (@x5 = 1)
+      Let helpPage = @helpPage $Set(@helpBundle, Get, 6)
+    EndIf
+    If (@x6 = 1)
+      Let helpPage = @helpPage $Set(@helpBundle, Get, 7)
+    EndIf
 
-EndIf
+  EndIf
 
 EndProc
 ***************************************************************************
 
 Proc makeUtilityMenu
 
-Let utilityMenu = ""
+  Let utilityMenu = ""
 
-If (@x0 = 0) ** All of Quick Keys is off
+  If (@x0 = 0) ** All of Quick Keys is off
 
-  Let utilityMenu = \n$Set(@utilityBundle, Get, 0)
+    Let utilityMenu = \n$Set(@utilityBundle, Get, 0)
 
-EndIf
-
-If (@x0 = 1) ** All of Quick Keys is on
-
-  Let utilityMenu = $Set(@utilityBundle, Get, 1) ** Header
-
-  If (@x1 = 1) ** Speed Switching is activated
-    If (@x2 = 0) ** Phake Physics is off
-      Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 2)
-    EndIf
-    If (@x2 = 1) ** Phake Physics is on
-      Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 3)
-    EndIf
   EndIf
 
-  Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 4) ** Add Personalized Settings
-  Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 5) ** Add RandomRoads template
-  Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 6) ** Apply RandomRoads
+  If (@x0 = 1) ** All of Quick Keys is on
 
-  If (@x5 = 1)
-    Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 7)
+    Let utilityMenu = $Set(@utilityBundle, Get, 1) ** Header
+
+    If (@x1 = 1) ** Speed Switching is activated
+      If (@x2 = 0) ** Phake Physics is off
+        Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 2)
+      EndIf
+      If (@x2 = 1) ** Phake Physics is on
+        Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 3)
+      EndIf
+    EndIf
+
+    Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 4) ** Add Personalized Settings
+    Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 5) ** Add RandomRoads template
+    Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 6) ** Apply RandomRoads
+
+    If (@x5 = 1)
+      Let utilityMenu = @utilityMenu + $Set(@utilityBundle, Get, 7)
+    EndIf
+
   EndIf
 
-EndIf
+  Let utilityMenu = @utilityMenu + \n\n$Set(@utilityBundle, Get, 9) \n ** Footer
 
-Let utilityMenu = @utilityMenu + \n\n$Set(@utilityBundle, Get, 9) \n ** Footer
+EndProc
+***************************************************************************
+
+Proc MakePersonalizedSettings
+
+  Let SettingsNote = $Note(@NoteForPersonalizedSettings)
+  Let settingsFile = $DATADIR + "\Subroutines\QuickKeys\PersonalizedSettings.txt"
+  Call $Write(@settingsFile, @SettingsNote)
+
+EndProc
+***************************************************************************
+
+Proc MakeProcXYZ
+** Make the code snippet in the selected notes into a procedure
+
+  Let xyzPrefix = pressX,pressY,pressZ
+  Let xyzNoteNumber = @NoteForPressX,@NoteForPressY,@NoteForPressZ
+  Let i = 0
+  While (@i < 3)
+
+    Let procFileName = $DATADIR + "\Subroutines\QuickKeys\" + $Set(@xyzPrefix, get, @i) + ".txt"
+    Let procNoteNumber = $Set(@xyzNoteNumber, get, @i)
+    Let procNoteContents = $Note(@procNoteNumber)
+
+    Call $Write(@procFileName, @procNoteContents)
+
+    Let i = @i + 1
+
+  EndWhile
 
 EndProc
 ***************************************************************************
@@ -137,43 +180,6 @@ Proc CopyRandomRoadsTemplate
 
 EndProc
 ***************************************************************************
-
-Proc ProcessorAdjustment
-
-Echo Phake Physics adjustment for processor speed
-
-* Call $System("%homepath%\AppData\Roaming\TrainPlayer\Subroutines\QuickKeys\qkSupport\ProcessorInfo.bat") ** This is the WMIC command
-
-Let xCSLoc = $DataDir + "\Reports\ProcessorInfo.txt"
-If($File(@xCSLoc, Exists) = 1)
-  Let xCSFile = $File(@xCSLoc, Open)
-  While(1 = 1)
-    Let xLine = $File(@xCSFile, ReadLine)
-    If ($String(@xLine, StartsWith, "MaxClockSpeed") = 1)
-      Call $String(@xLine, NextToken, "=")
-      Let xPS = @xLine ** xPS is the processor speed
-      Echo Processor speed: @xps
-    EndIf
-    If ($String(@xLine, StartsWith, "DeviceID") = 1)
-      Call $String(@xLine, NextToken, "=")
-      Let xCPU = @xCPU + 1 ** xCPU is the number of processors
-      Echo Number of processors: @xCPU
-    EndIf
-    If (@xLine = "EOF")
-      Call $File(@xCSFile, Close)
-      Break
-    EndIf
-  EndWhile
-Else
-  Let xPS = 2500
-  Let xCPU = 1
-  Echo ProcessorInfo.txt is missing
-EndIf
-Let xCurve = 0,1.0,1.5,1.75,2.0,2.25,2.5,2.75,3.0, ** Power of computer as processors are added
-Let xCS = @xPS * $Set(@xCurve, Get, @xCPU)
-
-EndProc
-****************************************************************************
 
 Proc OpenHelpNote
 
@@ -240,24 +246,54 @@ Proc ToggleQuickKeys
 EndProc
 ****************************************************************************
 
+Proc ToggleToolBars
 
+  Let i = 0
+  While (@i < $Set(@ViewList, Count))
 
+    Let temp = $Set(@ViewList, get, @i)
+    Call $View(Toggle, @temp)
 
+    Let i = @i + 1
 
-Proc AutoLabel
+  EndWhile
 
-  ** Attach to loco to automatically label tracks
+EndProc
+***************************************************************************
 
-  Middle:
-  After 00:00:01
-  If($Speed = 0)
-   Input xLabel "Enter the Track Label"
-   Speed 1
-  Endif
-  Let xTrack = $Car($Car, Track)
-  Let $Track(@xTrack, Label) = @xLabel
-  View Refresh
-  GoTo Middle
+Proc ProcessorAdjustment
+
+Echo Phake Physics adjustment for processor speed
+
+* Call $System("%homepath%\AppData\Roaming\TrainPlayer\Subroutines\QuickKeys\qkSupport\ProcessorInfo.bat") ** This is the WMIC command
+
+Let xCSLoc = $DataDir + "\Reports\ProcessorInfo.txt"
+If($File(@xCSLoc, Exists) = 1)
+  Let xCSFile = $File(@xCSLoc, Open)
+  While(1 = 1)
+    Let xLine = $File(@xCSFile, ReadLine)
+    If ($String(@xLine, StartsWith, "MaxClockSpeed") = 1)
+      Call $String(@xLine, NextToken, "=")
+      Let xPS = @xLine ** xPS is the processor speed
+      Echo Processor speed: @xps
+    EndIf
+    If ($String(@xLine, StartsWith, "DeviceID") = 1)
+      Call $String(@xLine, NextToken, "=")
+      Let xCPU = @xCPU + 1 ** xCPU is the number of processors
+      Echo Number of processors: @xCPU
+    EndIf
+    If (@xLine = "EOF")
+      Call $File(@xCSFile, Close)
+      Break
+    EndIf
+  EndWhile
+Else
+  Let xPS = 2500
+  Let xCPU = 1
+  Echo ProcessorInfo.txt is missing
+EndIf
+Let xCurve = 0,1.0,1.5,1.75,2.0,2.25,2.5,2.75,3.0, ** Power of computer as processors are added
+Let xCS = @xPS * $Set(@xCurve, Get, @xCPU)
 
 EndProc
 ****************************************************************************

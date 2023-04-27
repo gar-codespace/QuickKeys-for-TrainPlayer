@@ -1,0 +1,13 @@
+** Attach to loco to automatiCally label tracks
+** How to video: 
+
+Middle:
+After 00:00:01
+If($Speed = 0)
+Input xLabel "Enter the Track Label"
+Speed 1
+Endif
+Let xTrack = $Car($Car, Track)
+Let $Track(@xTrack, Label) = @xLabel
+View Refresh
+GoTo Middle

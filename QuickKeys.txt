@@ -26,6 +26,13 @@ If (%1 = SetUp)
 EndIf
 ***************************************************************************
 
+If ($Key = 17) ** Force reload of PersonalizedSettings
+
+  Call PersonalizedSettings
+
+EndIf
+***************************************************************************
+
 If ($Key = 27) ** key esc
   If (@U = 1) ** Utility note open
 
@@ -42,7 +49,6 @@ If($Key = 8) ** key backspace
     Let x4 = 1
 
   EndIf
-EndIf
 EndIf
 ***************************************************************************
 
@@ -64,8 +70,6 @@ If (@x4 <> 2) ** TurnTable in not in process
     If ($Key = 68) ** key d
       If (@x3 = 1) ** DropKick activated
 
-        Echo $Key
-
         Call DropKickDrop
 
       EndIf
@@ -81,7 +85,7 @@ If (@x4 <> 2) ** TurnTable in not in process
       EndIf
       If (@x3 = 1) ** DropKick activated
 
-        Call FindEngine
+        * Call FindEngineAndCarPosition
 
       EndIf
     Exit
@@ -101,7 +105,7 @@ If (@x4 <> 2) ** TurnTable in not in process
       EndIf
       If (@x3 = 1) ** DropKick activated
 
-        Call FindEngine
+        * Call FindEngineAndCarPosition
 
       EndIf
     Exit
@@ -124,6 +128,7 @@ If (@x4 <> 2) ** TurnTable in not in process
         Call SpeedSwitchingStop
 
       EndIf
+      *Call PersonalizedSettings
     Exit
     EndIf
     ****************************************************************************
@@ -175,9 +180,9 @@ If (@x4 <> 2) ** TurnTable in not in process
     ***************************************************************************
 
     If ($Key = 69) ** key e
-      If (@x2 = 1) ** Phake Physics activated
+      If (@x1 = 1) ** SpeedSwitching activated
 
-        Call PhakePhysicsEmergencyStop
+        Call EmergencyStop
 
       EndIf
     Exit
@@ -275,24 +280,23 @@ If (@x4 <> 2) ** TurnTable in not in process
     EndIf
     ***************************************************************************
 
-
     If ($Key = 88) ** key x
 
-      Call procX
+      Call pressX
 
     EndIf
     ***************************************************************************
 
     If ($Key = 89) ** key y
 
-      Call procY
+      Call pressY
 
     EndIf
     ***************************************************************************
     
     If ($Key = 90) ** key z
 
-      Call procZ
+      Call pressZ
 
     EndIf
     ***************************************************************************

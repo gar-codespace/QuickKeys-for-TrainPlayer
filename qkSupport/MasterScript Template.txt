@@ -1,16 +1,21 @@
-* Master script template
+** Assign a note to a subroutine
+    Let NoteForPersonalizedSettings = 0
+    Let NoteForPressX = 0
+    Let NoteForPressY = 0
+    Let NoteForPressZ = 0
 
-** Set Up the Subroutines
-Call InitializeQuickKeys
-Call ApplyPersonalizedSettings 0
+** Set Up QuickKeys
+    Call InitializeQuickKeys
+    Call PersonalizedSettings
 
-Call JobTimer *Setup
-Call o2o *Setup
-Call RandomRoads *Setup
-Call TurnTable *Setup 0
-Call DropKick Setup
-Call SpeedSwitching Setup
-Call QuickKeys Setup
+** Select which subroutines to use
+    Call JobTimer *Setup
+    Call o2o *Setup
+    Call RandomRoads *Setup
+    Call TurnTable *Setup 0
+    Call DropKick Setup
+    Call SpeedSwitching Setup
+    Call QuickKeys Setup
 
 Call SetLanguage en  ** Language choices are: en, de, fr, es
 Call NoteWindow
@@ -22,6 +27,9 @@ On Key
 Drive $Train($Train)
 
 Call QuickKeys
+If ($Key = 0)
+    Call PersonalizedSettings
+EndIf
 
 EndDrive
 
