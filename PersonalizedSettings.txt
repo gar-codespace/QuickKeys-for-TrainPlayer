@@ -18,14 +18,14 @@
 ** Set QuickKeys variables
     Let "Min Coupling Dist" = 1
     Let "Uncouple Gap" = 20 ** For DropKick, make bigger if dropped cars re-couple
-    Let maximumTrainSpeed = 8
+    Let maximumTrainSpeed = 7
 
 ** For Version 7, Toolbars and windows to include when toggling View mode
-    *Let ViewList = Main Tools,Track Tools,Script Tools,Ops Tools,Schedule
+    Let ViewList = Main Tools,Track Tools,Script Tools,Ops Tools,Schedule
 
 ** For Version 8, Toolbars and windows to include when toggling View mode
-    Let ViewList = Main Tools,View Options,Build Tools,Script Tools,Ops Tools,Schedule
-    Let TbarAuto = 0
+    *Let ViewList = Main Tools,View Options,Build Tools,Script Tools,Ops Tools,Schedule
+    *Let TbarAuto = 0
 
 ** Optional railroad details
 Let OperatingRoad = "Central Railroad of New Jersey"

@@ -27,9 +27,6 @@ On Key
 Drive $Train($Train)
 
 Call QuickKeys
-If ($Key = 0)
-    Call PersonalizedSettings
-EndIf
 
 EndDrive
 

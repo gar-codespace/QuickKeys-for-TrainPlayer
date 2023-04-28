@@ -1,5 +1,6 @@
 "
 Backspace   -  8 - Cancel Turntable
+Ctrl        - 17 - Call PersonalizedSettings
 Escape      - 27 - Escape
 Page Up     - 33 - Previous work event
 Page Down   - 34 - Next work event

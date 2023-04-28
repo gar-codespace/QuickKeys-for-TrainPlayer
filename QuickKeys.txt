@@ -26,7 +26,16 @@ If (%1 = SetUp)
 EndIf
 ***************************************************************************
 
-If ($Key = 17) ** Force reload of PersonalizedSettings
+If($Key = 8) ** key backspace
+  If(@x4 = 2) ** Turntable subroutine in process
+
+    Let x4 = 1
+
+  EndIf
+EndIf
+***************************************************************************
+
+If ($Key = 17) ** key Ctrl
 
   Call PersonalizedSettings
 
@@ -38,15 +47,6 @@ If ($Key = 27) ** key esc
 
     Let U = 0
     Call NoteWindow
-
-  EndIf
-EndIf
-***************************************************************************
-
-If($Key = 8) ** key backspace
-  If(@x4 = 2) ** Turntable subroutine in process
-
-    Let x4 = 1
 
   EndIf
 EndIf
