@@ -4,7 +4,6 @@
     Call ao_reInit
 
 ** Override Registry values with personal preferences
-    Let "Uncouple Gap" = 20 ** For DropKick, make bigger if dropped cars re-couple
     Let AutoOpenMode = 1 ** Preferences/Switches/Auto-throw when crossed
     Let "Coupling Speed" = 5
     Let AllowYardMode = 1
@@ -16,21 +15,19 @@
     Let HiliteSize = 18 ** How the switch position is displayed
 
 ** Set QuickKeys variables
+    Let maximumTrainSpeed = 15
     Let "Min Coupling Dist" = 1
     Let "Uncouple Gap" = 20 ** For DropKick, make bigger if dropped cars re-couple
-    Let maximumTrainSpeed = 7
 
-** For Version 7, Toolbars and windows to include when toggling View mode
-    Let ViewList = Main Tools,Track Tools,Script Tools,Ops Tools,Schedule
+** Toolbars and windows to include when toggling View mode
+    Let ViewList7 = Main Tools,Track Tools,Script Tools,Ops Tools,Schedule
+    Let ViewList8 = Main Tools,View Options,Build Tools,Script Tools,Ops Tools,Schedule
+    Let TbarAuto = 0
 
-** For Version 8, Toolbars and windows to include when toggling View mode
-    *Let ViewList = Main Tools,View Options,Build Tools,Script Tools,Ops Tools,Schedule
-    *Let TbarAuto = 0
-
-** Optional railroad details
-Let OperatingRoad = "Central Railroad of New Jersey"
-Let Territory = "Bronx Terminal"
-Let Location = "Mott Haven, the Bronx, New York"
-Let Year = "1915"
-Let Divisions = "Harlem Division" ** Separate division names with a comma, no spaces.
-Let ModelScale = "HO" ** Choose from: Z, N, HOn3, OO, HO, HOn3, Sn3, S, On3, O, G
+** Optional for o2o; railroad details
+    Let OperatingRoad = ""
+    Let Territory = ""
+    Let Location = ""
+    Let Year = ""
+    Let Divisions = "" ** Enter division names seperated by a comma without a space.
+    Let ModelScale = "" ** Choose from: Z, N, HOn3, OO, HO, HOn3, Sn3, S, On3, O, G

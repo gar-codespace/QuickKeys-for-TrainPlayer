@@ -14,15 +14,20 @@ If (%1 = SetUp)
   * x6 - Activate the JobTimer subroutine
   * x7 - Activate RandomRoads subroutine
 
-* Note window rubric:
-  Let H = 0 ** Help note
-  Let U = 0 ** Utility note
-  Let L = 0 ** o2o work events note
   Let F = 0 ** In full screen mode
+  Let H = 0 ** Help note
+  Let L = 0 ** o2o work events note
+  Let U = 0 ** Utility note
 
   Echo QuickKeys Version 3
   View Refresh
 
+EndIf
+***************************************************************************
+
+If (@R = 1)
+  Call PersonalizedSettings
+  Let R = 0
 EndIf
 ***************************************************************************
 
@@ -36,8 +41,6 @@ EndIf
 ***************************************************************************
 
 If ($Key = 17) ** key Ctrl
-
-  Call PersonalizedSettings
 
 EndIf
 ***************************************************************************

@@ -1,4 +1,5 @@
-** Personalized Settings for this QuickKeys layout
+** Personalized Settings
+Echo Personalized Settings for $Layout(Name)
 
 ** Turn off AO display of track attributes if needed
     *Call ao_reInit
@@ -19,12 +20,10 @@
     Let "Min Coupling Dist" = 1
     Let "Uncouple Gap" = 20 ** For DropKick, make bigger if dropped cars re-couple
 
-** For Version 7, Toolbars and windows to include when toggling View mode
-    *Let ViewList = Main Tools,Track Tools,Script Tools,Ops Tools,Schedule
-
-** For Version 8, Toolbars and windows to include when toggling View mode
-    *Let ViewList = Main Tools,View Options,Build Tools,Script Tools,Ops Tools,Schedule
-    *Let TbarAuto = 0
+** Toolbars and windows to include when toggling View mode
+    Let ViewList7 = Main Tools,Track Tools,Script Tools,Ops Tools,Schedule
+    Let ViewList8 = Main Tools,View Options,Build Tools,Script Tools,Ops Tools,Schedule
+    Let TbarAuto = 0
 
 ** Optional for o2o; railroad details
     Let OperatingRoad = ""
