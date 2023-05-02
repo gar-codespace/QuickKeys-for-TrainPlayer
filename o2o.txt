@@ -135,7 +135,6 @@ Proc CreateReportHeader
   * EndIf
 
   Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Valid time
-  echo @jTemp
   If($String(@jTemp, StartsWith, "HV") = 1)
     Call $String(@jTemp, NextToken)
   Else
@@ -148,7 +147,7 @@ Proc CreateReportHeader
     Call $String(@jTemp, NextToken)
     Let jWETotal = @jTemp
   Else
-    Echo = "Total number of work events unknown"
+    Echo "Total number of work events unknown"
     Let jWETotal = 0
   Endif
 
@@ -217,37 +216,36 @@ Proc ParseLine ** (All Cars) parse out all variables for each car in the manifes
   ** "format:PC,25,NYC,69133,XM,L,cement,Harlem River;Car Barge,HTC;Cement House"
   ** "       j1,j2,j3 ,j4   ,j5,j6,j7   ,j8                    ,j9   "
 
-  Let j0 = " " ** create spaces in switch list
-
   Let jID = $String(@jLine, NextToken)
   Let j2 = @jID + "     "
-  Let j2 = $Substr(0, 2, @j2) ** truncate to 3 char
+  Let j2 = $Substr(0, 3, @j2) ** truncate to 3 char
 
   Let jRoad = $String(@jLine, NextToken)
   Let j3 = @jRoad + "          "
-  Let j3 = $Substr(0, 5, @j3) ** truncate to 6 char
+  Let j3 = $Substr(0, 6, @j3) ** truncate to 6 char
 
   Let jNumber = $String(@jLine, NextToken)
   Let j4 = @jNumber + "          "
-  Let j4 = $Substr(0, 5, @j4) ** truncate to 6 char
+  Let j4 = $Substr(0, 6, @j4) ** truncate to 6 char
 
   Let jType = $String(@jLine, NextToken) ** Car Type
-  Let j5 = @jType
+  Let j5 = @jType + "   "
+  Let j5 = $Substr(0, 3, @j5) ** truncate to 3 char
 
   Let jLT = $String(@jLine, NextToken) ** Load Type
   Let j6 = @jLT
 
   Let jLoad = $String(@jLine, NextToken) ** Load
   Let j7 = @jLoad + "                    "
-  Let j7 = $Substr(0, 11, @j7) ** truncate to 12 char
+  Let j7 = $Substr(0, 12, @j7) ** truncate to 12 char
 
   Let jFromLoc = $String(@jLine, NextToken) ** From locale
   Let j8 = @jFromLoc + "                             "
-  Let j8 = $Substr(0, 19, @j8) ** truncate to 20 char
+  Let j8 = $Substr(0, 20, @j8) ** truncate to 20 char
 
   Let jToLoc = @jLine ** To locale
   Let j9 = @jToLoc + "                             "
-  Let j9 = $Substr(0, 19, @j9) ** truncate to 20 char
+  Let j9 = $Substr(0, 20, @j9) ** truncate to 20 char
 
 EndProc
 ****************************************************************************
@@ -265,7 +263,7 @@ EndProc
 
 Proc PickupCar ** Tag the TP car to be picked up
 
-  ** Note adding a whitespace between variables adds a whitespace to the report, @j0 is not needed
+  ** Note adding a whitespace between variables adds a whitespace to the report.
 
   Let jMText = @jMText + \n$Set(@o2oBundle, Get, 17) @j3 @j4 @j5 @j6 @j7 $Set(@o2oBundle, Get, 15) @j8
   Let $Car(@jID, ExcludeOps) = 0 ** set the tags color
