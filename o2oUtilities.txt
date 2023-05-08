@@ -8,7 +8,7 @@ Let jIDs = $Layout(IDSet, TrackIDs)
 Let i = 0
 While(@i < $Set(@jIDs, Count))
   Let jTrackID = $Set(@jIDs, Get, @i)
-  If($TRACK(@jTrackID, Label) = "~")
+  If($TRACK(@jTrackID, Label) = "<>")
     Let $TRACK(@jTrackID, Label) = ""
   EndIf
   Let i = @i + 1

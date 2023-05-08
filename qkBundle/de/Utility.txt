@@ -1,13 +1,13 @@
 "
 *** Quick Keys Utilities ***
 
-Drücken Sie 1: Schalten Sie alle Schnelltasten ein.
+Drücken Sie 1: Schalten Sie alle Quick Keys ein.
 "
 ,
 "
 *** Quick Keys Utilities ***
 
-Drücken Sie 1: Schalten Sie alle Schnelltasten aus.
+Drücken Sie 1: Schalten Sie alle Quick Keys aus.
 "
 ,
 "Drücken Sie 2: Wechseln Sie zu Phake Physics.
@@ -16,13 +16,13 @@ Drücken Sie 1: Schalten Sie alle Schnelltasten aus.
 "Drücken Sie 2: Wechseln Sie zu Speed Switching.
 "
 ,
-"Drücken Sie 3: Weisen Sie den Geräten zufällige Straßennamen zu.
+"Drücken Sie 3: Fügen Sie einer Notiz personalisierte Einstellungen hinzu.
 "
 ,
-"Drücken Sie 4:
+"Drücken Sie 4: RandomRoads-Vorlage zu einer Notiz hinzufügen.
 "
 ,
-"Drücken Sie 5:
+"Drücken Sie 5: Weisen Sie den Geräten zufällige Straßennamen zu.
 "
 ,
 "

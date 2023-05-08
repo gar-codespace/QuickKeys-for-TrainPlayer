@@ -38,6 +38,14 @@ Let xMessage = "\nPlease wait... Setting up subroutines.
                 \n"
 Call NoteWindow @xMessage 1
 
+Let x1 = 1
+Let x2 = 0
+Let x3 = 0
+Let x4 = 0
+Let x5 = 0
+Let x6 = 0
+Let x7 = 0
+
 Call DefineCarrageReturn
 Call qkEntities
 
