@@ -1,1 +1,13 @@
-Echo procedureX
+Echo Align the switches ariund the loop
+
+throw 263 1
+throw 273 0
+throw 308 0
+throw 312 0
+throw 106 0
+throw 109 0
+throw 121 0
+throw 158 0
+throw 154 1
+throw 181 1
+throw 195 0

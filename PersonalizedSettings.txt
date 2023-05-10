@@ -1,5 +1,5 @@
 ** Personalized Settings
-Echo Personalized Settings for DL&W Wallabout Terminal 1918
+Echo Personalized Settings for DL&W Harlem Transfer Co 1926
 
 ** Turn off AO display of track attributes if needed
     *Call ao_reInit
@@ -25,10 +25,11 @@ Echo Personalized Settings for DL&W Wallabout Terminal 1918
     Let ViewList8 = Main Tools,View Options,Build Tools,Script Tools,Ops Tools,Schedule
     Let TbarAuto = 0
 
-** Optional for o2o; railroad details
-    Let OperatingRoad = ""
-    Let Territory = ""
-    Let Location = ""
-    Let Year = ""
-    Let Divisions = "" ** Enter division names seperated by a comma without a space.
-    Let ModelScale = "" ** Choose from: Z, N, HOn3, OO, HO, HOn3, Sn3, S, On3, O, G
+** Optional railroad details
+    Let OperatingRoad = "DL&W Railroad"
+    Let Territory = "Harlem Transfer Co."
+    Let Location = "Mott Haven, the Bronx, New York"
+    Let Year = "1926"
+    Let Divisions = "Harlem Division" ** Separate division names with a comma, no spaces.
+    Let ModelScale = "HO" ** Choose from: Z, N, HOn3, OO, HO, HOn3, Sn3, S, On3, O, G
+
