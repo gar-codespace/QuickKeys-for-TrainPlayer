@@ -1,5 +1,5 @@
 ** Personalized Settings
-Echo Personalized Settings for PRR W 37th St 1912
+Echo Personalized Settings for DL&W Wallabout Terminal 1918
 
 ** Turn off AO display of track attributes if needed
     *Call ao_reInit
