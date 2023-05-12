@@ -153,8 +153,11 @@ Proc MakeProcXYZ
   While (@i < 3)
 
     Let procFileName = $DATADIR + "\Subroutines\QuickKeys\" + $Set(@xyzPrefix, get, @i) + ".txt"
-    Let procNoteNumber = $Set(@xyzNoteNumber, get, @i)
     Let procNoteContents = $Note(@procNoteNumber)
+    Let procNoteNumber = $Set(@xyzNoteNumber, get, @i)
+    If (@procNoteNumber = 0)
+      Let procNoteContents = "Echo No script is mapped to this key press"
+    EndIf
 
     Call $Write(@procFileName, @procNoteContents)
 
