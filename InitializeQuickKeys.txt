@@ -30,14 +30,6 @@ Proc SpecificToQuickKeys
 EndProc
 ***************************************************************************
 
-** Initializing message
-Let xMessage = "\nPlease wait... Setting up subroutines.
-                \nVeuillez patienter ... Configuration des sous-programmes.
-                \nBitte warten ... Unterprogramme einrichten.
-                \nEspere ... Configurando subrutinas.
-                \n"
-Call NoteWindow @xMessage 1
-
 Let x1 = 1
 Let x2 = 0
 Let x3 = 0

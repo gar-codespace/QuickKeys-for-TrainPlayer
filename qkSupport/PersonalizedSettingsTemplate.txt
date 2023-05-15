@@ -1,5 +1,4 @@
 ** Personalized Settings
-Echo Personalized Settings for $Layout(Name)
 
 ** Turn off AO display of track attributes if needed
     *Call ao_reInit

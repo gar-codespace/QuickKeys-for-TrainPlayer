@@ -2,34 +2,15 @@
 ** All the key presses are here
 
 
-If (%1 = SetUp)
+If (@W = 1)
 
-* Subroutine toggles, 1 is on, 0 is off
-  Let x0 = 1 ** All Quick keys are on
-  * x1 - Activate the Speed Switching subroutine
-  * x2 - Phake Physics overides SS controls
-  * x3 - Avtivate the Drop Kick subroutine
-  * x4 - Activate the TurnTable subroutine
-  * x5 - Activate the o2o subroutine
-  * x6 - Activate the JobTimer subroutine
-  * x7 - Activate RandomRoads subroutine
-
-  Let F = 0 ** In full screen mode
-  Let H = 0 ** Help note
-  Let L = 0 ** o2o work events note
-  Let U = 0 ** Utility note
-
-  Echo QuickKeys Version 3
-  View Refresh
-
-EndIf
-***************************************************************************
-
-If (@R = 1)
+  Call NoteWindow
   Call PersonalizedSettings
-  Let R = 0
+  View Refresh
+  Let W = 0
+
 EndIf
-***************************************************************************
+**************************************************************************
 
 If($Key = 8) ** key backspace
   If(@x4 = 2) ** Turntable subroutine in process
@@ -536,3 +517,29 @@ If (@x4 <> 2) ** TurnTable in not in process
 
 EndIf ** TurnTable in not in process
 EndIf ** DropKick in not in process
+
+
+If (%1 = SetUp)
+
+* Subroutine toggles, 1 is on, 0 is off
+  Let x0 = 1 ** All Quick keys are on
+  * x1 - Activate the Speed Switching subroutine
+  * x2 - Phake Physics overides SS controls
+  * x3 - Avtivate the Drop Kick subroutine
+  * x4 - Activate the TurnTable subroutine
+  * x5 - Activate the o2o subroutine
+  * x6 - Activate the JobTimer subroutine
+  * x7 - Activate RandomRoads subroutine
+
+  Let F = 0 ** In full screen mode
+  Let H = 0 ** Help note
+  Let L = 0 ** o2o work List note
+  Let U = 0 ** Utility note
+  Let W = 1 ** Welcome screen note
+
+  Echo QuickKeys Version 3
+
+  Call NoteWindow @welcBundle 1
+
+EndIf
+***************************************************************************

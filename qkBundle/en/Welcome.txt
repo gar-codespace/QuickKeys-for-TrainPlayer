@@ -1,0 +1,6 @@
+"
+*** Quick Keys Version 3 ***
+Welcome
+Press the H key for help.
+Press any key to close this window.
+"

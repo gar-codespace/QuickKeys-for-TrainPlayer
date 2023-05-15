@@ -1,8 +1,7 @@
 ** Personalized Settings
-Echo Personalized Settings for B&O W 26th St 1915
 
 ** Turn off AO display of track attributes if needed
-    *Call ao_reInit
+    Call ao_reInit
 
 ** Override Registry values with personal preferences
     Let AutoOpenMode = 1 ** Preferences/Switches/Auto-throw when crossed
@@ -25,10 +24,10 @@ Echo Personalized Settings for B&O W 26th St 1915
     Let ViewList8 = Main Tools,View Options,Build Tools,Script Tools,Ops Tools,Schedule
     Let TbarAuto = 0
 
-** Optional for o2o; railroad details
-    Let OperatingRoad = "Baltimore & Ohio Railroad"
-    Let Territory = "West 26th Street Freight Station"
-    Let Location = "Manhattan, New York"
+** Optional railroad details
+    Let OperatingRoad = "Central Railroad of New Jersey"
+    Let Territory = "Bronx Terminal & Railroad"
+    Let Location = "Mott Haven, the Bronx, New York"
     Let Year = "1915"
     Let Divisions = ""
     Let ModelScale = "HO"

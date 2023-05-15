@@ -55,6 +55,12 @@ Proc SetLanguage
   Let o2oBundle = $File(@o2oFile, ReadAll)
   Call $File(@o2oLoc, Close)
 
+** Read in text for the welcome message
+  Let welcLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Welcome.txt"
+  Let welcFile = $File(@welcLoc, Open)
+  Let welcBundle = $File(@welcFile, ReadAll)
+  Call $File(@welcLoc, Close)
+
 EndProc
 ***************************************************************************
 
@@ -153,8 +159,8 @@ Proc MakeProcXYZ
   While (@i < 3)
 
     Let procFileName = $DATADIR + "\Subroutines\QuickKeys\" + $Set(@xyzPrefix, get, @i) + ".txt"
-    Let procNoteContents = $Note(@procNoteNumber)
     Let procNoteNumber = $Set(@xyzNoteNumber, get, @i)
+    Let procNoteContents = $Note(@procNoteNumber)
     If (@procNoteNumber = 0)
       Let procNoteContents = "Echo No script is mapped to this key press"
     EndIf

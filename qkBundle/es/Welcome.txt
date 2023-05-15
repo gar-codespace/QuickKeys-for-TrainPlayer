@@ -1,0 +1,6 @@
+"
+*** Quick Keys Version 3 ***
+Bienvenido
+Pulsa la tecla H para obtener ayuda.
+Pulse cualquier tecla para cerrar esta ventana.
+"

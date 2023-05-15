@@ -6,8 +6,8 @@
 
 ** Set Up QuickKeys
     Call InitializeQuickKeys
-    Call PersonalizedSettings
     Call ApplyVersionItems
+    Call SetLanguage en  ** Language choices are: en, de, fr, es
 
 ** Select which subroutines to use
     Call JobTimer *Setup
@@ -17,10 +17,6 @@
     Call DropKick Setup
     Call SpeedSwitching Setup
     Call QuickKeys Setup
-
-Call SetLanguage en  ** Language choices are: en, de, fr, es
-Call NoteWindow
-Let R = 1
 
 StartingPoint:
 

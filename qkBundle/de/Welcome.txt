@@ -1,0 +1,6 @@
+"
+*** Quick Keys Version 3 ***
+Willkommen
+Drücken Sie die Taste H, um Hilfe zu erhalten.
+Drücken Sie eine beliebige Taste, um dieses Fenster zu schließen.
+"
