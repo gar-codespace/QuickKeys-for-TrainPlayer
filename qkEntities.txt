@@ -1,19 +1,6 @@
 ** Quick Keys Entities
 
 
-Proc ao_reInit
-** Reworks the Advanced Ops setup
-
-  Call $View(Hide,"Track Labels")
-  Call $View(hide,tracks)
-  Call $View(hide,rails)
-  Call $View(hide,ties)
-  Call $View(hide,roadbed)
-  tools run
-
-EndProc
-****************************************************************************
-
 Proc ApplyVersionItems
 ** Apply version specific stuff
 
