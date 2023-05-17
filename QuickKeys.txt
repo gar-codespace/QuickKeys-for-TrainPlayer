@@ -6,6 +6,7 @@ If (@W = 1)
 
   Call NoteWindow
   Call PersonalizedSettings
+  Call ApplyVersionItems
   View Refresh
   Let W = 0
 
@@ -536,6 +537,7 @@ If (%1 = SetUp)
   Let L = 0 ** o2o work List note
   Let U = 0 ** Utility note
   Let W = 1 ** Welcome screen note
+  Let V = 1 ** View mode toggle
 
   Echo QuickKeys Version 3
 

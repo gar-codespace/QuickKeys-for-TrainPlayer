@@ -1,39 +1,24 @@
 ** Quick Keys Entities
 
 
-Proc ApplyVersionItems
-** Apply version specific stuff
-
-  Let Version = $Setting(InstalledVer)
-
-  If ($String(@Version, StartsWith, 7) = 1)
-    Let ViewList = @ViewList7
-  EndIf
-  If ($String(@Version, StartsWith, 8) = 1)
-    Let ViewList = @ViewList8
-  EndIf
-
-EndProc
-****************************************************************************
-
 Proc SetLanguage
 
 ** Read in text for Quick Keys help page
   Let HelpLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Help.txt"
   Let HelpFile = $File(@HelpLoc, Open)
-  Let helpBundle = $file(@HelpFile, ReadAll)
+  Let helpBundle = $File(@HelpFile, ReadAll)
   Call $File(@HelpLoc, Close)
 
 ** Read in text for Quick Keys pop up messages
   Let MessageLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Message.txt"
   Let MessageFile = $File(@MessageLoc, Open)
-  Let messageBundle = $file(@MessageFile, ReadAll)
+  Let messageBundle = $File(@MessageFile, ReadAll)
   Call $File(@MessageLoc, Close)
 
 ** Read in text for Quick Keys utility menu
   Let UtilityLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Utility.txt"
   Let UtilityFile = $File(@UtilityLoc, Open)
-  Let utilityBundle = $file(@UtilityFile, ReadAll)
+  Let utilityBundle = $File(@UtilityFile, ReadAll)
   Call $File(@UtilityLoc, Close)
 
 ** Read in text for o2o reports
@@ -184,7 +169,7 @@ Proc CopyRandomRoadsTemplate
 ** Read in RandomRoads template
   Let rrTemplate = $DataDir + "\Subroutines\QuickKeys\qkSupport\RandomRoadsTemplate.txt"
   Let rrFile = $File(@rrTemplate, Open)
-  Let rrText = $file(@rrFile, ReadAll)
+  Let rrText = $File(@rrFile, ReadAll)
   Call $File(@rrFile, Close)
 ** Copy to note
   Let $Note(@noteId) = @rrText
@@ -261,13 +246,21 @@ Proc ToggleToolBars
 
   Let i = 0
   While (@i < $Set(@ViewList, Count))
-
     Let temp = $Set(@ViewList, get, @i)
-    Call $View(Toggle, @temp)
+    If (@V = 1)
+      Call $View(Hide, @temp)
+    Else
+      Call $View(Show, @temp)
+    EndIf
 
     Let i = @i + 1
-
   EndWhile
+
+  If (@V = 1)
+    Let V = 0
+  Else
+    Let V = 1
+  EndIf
 
 EndProc
 ***************************************************************************

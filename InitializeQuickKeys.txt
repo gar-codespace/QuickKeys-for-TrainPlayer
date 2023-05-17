@@ -9,6 +9,21 @@ Let xCR = "
 EndProc
 ***************************************************************************
 
+Proc ApplyVersionItems
+** Apply version specific stuff
+
+  Let Version = $Setting(InstalledVer)
+
+  If ($String(@Version, StartsWith, 7) = 1)
+    Let ViewList = @ViewList7
+  EndIf
+  If ($String(@Version, StartsWith, 8) = 1)
+    Let ViewList = @ViewList8
+  EndIf
+
+EndProc
+****************************************************************************
+
 Proc NoteWindow
 ** Open or close the note window
 

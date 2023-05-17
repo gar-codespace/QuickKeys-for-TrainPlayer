@@ -1,11 +1,11 @@
 "
 Backspace   -  8 - Cancel Turntable
-Ctrl        - 17 - Call PersonalizedSettings
+Ctrl        - 17 - 
 Escape      - 27 - Escape
-Page Up     - 33 - Previous work event
-Page Down   - 34 - Next work event
-End         - 35 - End of worklist
-Home        - 36 - Beginning of worklist
+Page Up     - 33 - Previous o2o work event
+Page Down   - 34 - Next o2o work event
+End         - 35 - End of o2o worklist
+Home        - 36 - Beginning of o2o worklist
 
 0           - 48 - Turntable approach track
 1           - 49 - Turntable approach track
@@ -20,15 +20,15 @@ Home        - 36 - Beginning of worklist
 
 a           - 65 - Auto follow (SpeedSwitching and PhakePhysics)
 b           - 66 - Brake (PhakePhysics)
-c           - 67 - Cut
-d           - 68 - Drop cars
+c           - 67 - Cut cars (DropKick)
+d           - 68 - Drop cars (DropKick)
 e           - 69 - Emergency (stop, PhakePhysics)
 f           - 70 - Full screen (QuickKeys)
-g           - 71 - Go (increase speed, SpeedWwitching)
+g           - 71 - Go (increase speed, SpeedSwitching)
 h           - 72 - Help note (QuickKeys)
 I           - 73 - 
-j           - 74 - Job timer
-k           - 75 - Kick cars
+j           - 74 - Job timer (Start and stop timer)
+k           - 75 - Kick cars (DropKick)
 l           - 76 - List (display o2o work list)
 m           - 77 - 
 n           - 78 - Neutral (PhakePhysics)
@@ -36,12 +36,12 @@ o           - 79 - o2o (read in o2o workevents)
 p           - 80 - Pause (QuickKeys)
 q           - 81 - 
 r           - 82 - Reverser (SpeedSwitching and PhakePhysics)
-s           - 83 - Slow/Stop (SpeedWwitching)
+s           - 83 - Slow/Stop (SpeedSwitching)
 t           - 84 - Throttle (SpeedSwitching and PhakePhysics)
 u           - 85 - Utilities menu (QuickKeys)
-v           - 86 - 
+v           - 86 - Toggle user defined view mode
 w           - 87 - fit to Window (QuickKeys)
-x           - 88 - ProcX (QuickKeys)
-y           - 89 - ProcY (QuickKeys)
-z           - 90 - ProcZ (QuickKeys)
+x           - 88 - PressX (QuickKeys, user defined script)
+y           - 89 - PressY (QuickKeys, user defined script)
+z           - 90 - PressZ (QuickKeys, user defined script)
 "
