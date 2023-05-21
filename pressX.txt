@@ -1,1 +1,1 @@
-Echo No script is mapped to this key press
+* script for key press x
