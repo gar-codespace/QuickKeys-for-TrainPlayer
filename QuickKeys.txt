@@ -267,21 +267,21 @@ If (@x4 <> 2) ** TurnTable in not in process
 
     If ($Key = 88) ** key x
 
-      Call pressX
+      Call PressX
 
     EndIf
     ***************************************************************************
 
     If ($Key = 89) ** key y
 
-      Call pressY
+      Call PressY
 
     EndIf
     ***************************************************************************
     
     If ($Key = 90) ** key z
 
-      Call pressZ
+      Call PressZ
 
     EndIf
     ***************************************************************************

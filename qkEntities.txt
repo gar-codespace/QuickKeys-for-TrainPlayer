@@ -125,7 +125,7 @@ EndProc
 Proc MakeProcXYZ
 ** Make the code snippet in the selected notes into a procedure
 
-  Let xyzPrefix = pressX,pressY,pressZ
+  Let xyzPrefix = PressX,PressY,PressZ
   Let xyzNoteNumber = @NoteForPressX,@NoteForPressY,@NoteForPressZ
   Let i = 0
   While (@i < 3)
