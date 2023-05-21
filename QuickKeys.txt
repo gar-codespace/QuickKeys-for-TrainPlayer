@@ -369,7 +369,7 @@ If (@x4 <> 2) ** TurnTable in not in process
     EndIf
     If (@U = 1) ** Utility menu is displayed
       
-      Call CopyPersonalizedSettingsTemplate
+      Call CopyPersonalizedSettings
       Let $Key = 0
       Let U = 0
       Call NoteWindow

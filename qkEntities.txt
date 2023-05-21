@@ -146,13 +146,13 @@ Proc MakeProcXYZ
 EndProc
 ***************************************************************************
 
-Proc CopyPersonalizedSettingsTemplate
+Proc CopyPersonalizedSettings
 
 ** Input a note number
   Input noteId $Set(@messageBundle, Get, 20)
 
 ** Read in RandomRoads template
-  Let rrTemplate = $DataDir + "\Subroutines\QuickKeys\qkSupport\PersonalizedSettingsTemplate.txt"
+  Let rrTemplate = $DataDir + "\Subroutines\QuickKeys\qkSupport\PersonalizedSettings.txt"
   Let rrText = $Read(@rrTemplate)
 
 ** Copy to note
