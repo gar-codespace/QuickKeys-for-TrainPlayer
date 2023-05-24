@@ -1,6 +1,18 @@
 ** Quick Keys Entities
 
 
+Proc aoAdjustments
+
+** Turn off AO display of track attributes
+    Call $View(Hide,"Track Labels")
+    Call $View(hide,rails)
+    Call $View(hide,roadbed)
+    Call $View(hide,ties)
+    Call $View(hide,tracks)
+
+EndProc
+***************************************************************************
+
 Proc SetLanguage
 
 ** Read in text for Quick Keys help page
