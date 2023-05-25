@@ -34,4 +34,4 @@
 ,
 "Recoge"
 ,
-"Set out"
+"Establece"

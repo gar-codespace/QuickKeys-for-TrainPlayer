@@ -32,6 +32,6 @@
 ,
 "A"
 ,
-"Pick up"
+"Ramassez"
 ,
-"Set out"
+"Définissez"
