@@ -141,12 +141,15 @@ Proc ReportTpLocations
 ** Test that the line has 5 semi colons
     Let j = 0
     Let jTest = @jLine
-    While (@jTest <> "")
-       Let token = $String(@jTest, NextToken, ";")
+    While (1 = 1)
+        Call $String(@jTest, NextToken, ";")
+        If (@jTest = "")
+          Break
+        EndIf
        Let j = @j + 1
     EndWhile
 
-    If (@j <> 6)
+    If (@j <> 5)
       Let message = $Ops(Get, Locs.Locale, @i) + \n$Set(@messageBundle, Get, 21)
       Call $Msgbox(@message)
     EndIf
@@ -181,12 +184,15 @@ Proc ReportTpIndustries
 ** Test that the line has 9 semi colons
     Let j = 0
     Let jTest = @jLine
-    While (@jTest <> "")
-       Let token = $String(@jTest, NextToken, ";")
-       Let j = @j + 1
+    While (1 = 1)
+        Call $String(@jTest, NextToken, ";")
+        If (@jTest = "")
+          Break
+        EndIf
+        Let j = @j + 1
     EndWhile
 
-    If (@j <> 10)
+    If (@j <> 9)
       Let message = "Track label " + $Ops(Get, ind.Industry, @i) + \n$Set(@messageBundle, Get, 24)
       Call $Msgbox(@message)
     EndIf
