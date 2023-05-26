@@ -79,3 +79,19 @@ Arbeiten Sie...
 "
 Notiznummer eingeben
 "
+,
+"
+hat einen Fehler: Bitte prüfen Sie, ob zusätzliche oder fehlende Doppelpunkte vorhanden sind.
+"
+,
+"
+hat einen Fehler: Ort, aber keine Spur.
+"
+,
+"
+hat einen Fehler: Spur, aber kein Ort.
+"
+,
+"
+hat einen Fehler: track hat kein Gebietsschema.
+"

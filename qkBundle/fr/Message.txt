@@ -75,7 +75,23 @@ ou appuyez sur 'Backspace' pour quitter.
 "
 ouvré...
 "
-'
+,
 "
 Saisir le numéro de la note
+"
+,
+"
+contient une erreur : veuillez vérifier si des points-virgules sont manquants ou en trop.
+"
+,
+"
+a une erreur : emplacement mais pas de trace.
+"
+,
+"
+a une erreur : la piste n'est pas localisée.
+"
+,
+"
+a une erreur : track n'a pas de locale.
 "

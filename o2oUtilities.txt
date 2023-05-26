@@ -130,11 +130,11 @@ Proc ReportTpLocations
   Let jTest = $Ops(Get, Locs.Locale, @i)
   Let kTest = $String(@jTest, NextToken, ";")
   If (@jTest = "")
-    Let message = $Ops(Get, Locs.Locale, @i) + " has an error:\nlocation but no track."
+    Let message = $Ops(Get, Locs.Locale, @i) + \n$Set(@messageBundle, Get, 23)
     Call $Msgbox(@message)
   EndIf
   If (@kTest = "")
-    Let message = $Ops(Get, Locs.Locale, @i) + " has an error:\ntrack but no location."
+    Let message = $Ops(Get, Locs.Locale, @i) + \n$Set(@messageBundle, Get, 22)
     Call $Msgbox(@message)
   EndIf
 
@@ -147,7 +147,7 @@ Proc ReportTpLocations
     EndWhile
 
     If (@j <> 6)
-      Let message = $Ops(Get, Locs.Locale, @i) + " has an error:\nplease check for extra or missing semi colons."
+      Let message = $Ops(Get, Locs.Locale, @i) + \n$Set(@messageBundle, Get, 21)
       Call $Msgbox(@message)
     EndIf
 
@@ -187,7 +187,7 @@ Proc ReportTpIndustries
     EndWhile
 
     If (@j <> 10)
-      Let message = "Track label " + $Ops(Get, ind.Industry, @i) + " has an error:\ntrack has no locale."
+      Let message = "Track label " + $Ops(Get, ind.Industry, @i) + \n$Set(@messageBundle, Get, 24)
       Call $Msgbox(@message)
     EndIf
 

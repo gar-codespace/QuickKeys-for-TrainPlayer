@@ -79,3 +79,19 @@ Working...
 "
 Enter note number
 "
+,
+"
+has an error: please check for extra or missing semi colons.
+"
+,
+"
+has an error: location but no track.
+"
+,
+"
+has an error: track but no location.
+"
+,
+"
+has an error: track has no locale.
+"
