@@ -35,6 +35,8 @@ EndProc
 ****************************************************************************
 
 Proc o2oReadManifest
+
+  Let U = 1 ** So ProcY is not run when Y is pressed
   
   Let jMessage = $Set(@messageBundle, Get, 11) ** Read in jManifest
   Let jManifest = $Msgbox(YN, @jMessage)
@@ -58,6 +60,8 @@ Proc o2oReadManifest
   Let jWEIndex = 1
   Call IncrementWE
   View Refresh
+
+  Let U = 0
 
 EndProc
 ****************************************************************************

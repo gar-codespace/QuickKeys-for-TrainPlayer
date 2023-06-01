@@ -34,6 +34,9 @@ Proc SpeedCheck
 ** If the selected train is stopped, call Scrubber
 
 If ($Train($Train, Speed) = 0)
+
+  Let U = 1 ** So ProcY is not run when Y is pressed
+
   Let xMessage = $Set(@messageBundle, Get, 2)
   Let kCleanToggle = $MsgBox(yn, @xMessage)
   If (@kCleanToggle = 1)
@@ -41,6 +44,9 @@ If ($Train($Train, Speed) = 0)
     Let x3 = 1
   EndIf
   Let kCleanToggle = 0
+
+  Let U = 0
+
   Exit
 EndIf
 

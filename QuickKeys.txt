@@ -42,7 +42,7 @@ If (@x4 <> 2) ** TurnTable in not in process
 
   If (@x0 = 1) ** QK is active
     
-    If ($Key = 75) ** the k key
+    If ($Key = 75) ** key k
       If (@x3 = 1) ** DropKick activated
 
         Call DropKickKick
