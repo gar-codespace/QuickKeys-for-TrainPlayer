@@ -245,9 +245,9 @@ Proc ReportTpInventory
 
 
     Let carAAR = $Ops(Get, Cars.AAR, @i)
-    ** If (carAAR <> "EQDK")
+    If (carAAR <> "EQDK")
       Let jInventory = @jInventory +\n@jCar + ";" + $Ops(Get, Cars.Type, @i) + ";" + $Ops(Get, Cars.AAR, @i) + ";" +  @jLocale + ";" + $Ops(Get, Cars.Load, @i) + ";" + @jKernel + ";" + $Car(@jCar, Car_ID)
-    ** EndIf
+    EndIf
     Let i = @i + 1
 
   EndWhile
