@@ -243,7 +243,11 @@ Proc ReportTpInventory
       Let jLocale = "Unreported;~"
     EndIf
 
-    Let jInventory = @jInventory +\n@jCar + ";" + $Ops(Get, Cars.Type, @i) + ";" + $Ops(Get, Cars.AAR, @i) + ";" +  @jLocale + ";" + $Ops(Get, Cars.Load, @i) + ";" + @jKernel + ";" + $Car(@jCar, Car_ID)
+
+    Let carAAR = $Ops(Get, Cars.AAR, @i)
+    ** If (carAAR <> "EQDK")
+      Let jInventory = @jInventory +\n@jCar + ";" + $Ops(Get, Cars.Type, @i) + ";" + $Ops(Get, Cars.AAR, @i) + ";" +  @jLocale + ";" + $Ops(Get, Cars.Load, @i) + ";" + @jKernel + ";" + $Car(@jCar, Car_ID)
+    ** EndIf
     Let i = @i + 1
 
   EndWhile
