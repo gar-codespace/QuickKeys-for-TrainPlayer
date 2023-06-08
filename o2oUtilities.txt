@@ -20,15 +20,15 @@ EndProc
 
 Proc InitCars
 
-  Echo o2o Utility - set all or train rolling stock destinations
-
   If(%1 = "")
     Let jXmessage = $Set(@messageBundle, Get, 8)
     Let jX = $Msgbox("YN", @jXmessage)
     If (@jX = 1)
       Let jLabels = $Layout(IDSet, CarLabels) ** all trains on layout
+      Echo o2o Utility - set all rolling stock locations
     Else
       Let jLabels = $Train($Train, CarIDs) ** selected train
+      Echo o2o Utility - set locations for selected train
     EndIf
   Else
     Let jLabels = %1 ** passed in train label set
