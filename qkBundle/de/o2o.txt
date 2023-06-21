@@ -35,3 +35,7 @@
 "Abholen"
 ,
 "Aufbrechen"
+,
+"Gleiskapazitätsbericht - Gleiskapazität in Wagenlängen"
+,
+""Drücken Sie die Taste l, um dieses Fenster zu schließen"

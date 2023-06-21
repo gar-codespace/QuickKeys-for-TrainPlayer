@@ -31,7 +31,8 @@ Pulsa 1: Desactiva todas las Quick Keys.
 Pulsa 6: Inicializar pistas de trazado.
 Pulsa 7: Fije los coches en su posición actual.
 Pulsa 8: Hacer un JMRI consist o kernel.
-Pulsa 9: Exportar diseño TrainPlayer.
+Pulsa 9: Informe sobre la vía férrea.
+Pulsa 0: Exportar diseño TrainPlayer.
 "
 ,
 "Pulsa 0:

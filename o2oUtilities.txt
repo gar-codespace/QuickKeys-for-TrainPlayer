@@ -94,6 +94,44 @@ Proc AddKernels
 EndProc
 ****************************************************************************
 
+Proc TrackReport
+
+  Echo o2o Utility - Report track capacity by car quantity
+
+  Let tcReport = $Set(@o2oBundle, Get, 19) + \n\n
+  Let allLocales = $Ops(Find, Locations.ID, All)
+  Let allLocalesCount = $Set(@allLocales, Count)
+  Let trackData = ""
+  Let i = 1
+  While (i <= @allLocalesCount)
+
+    Let locale = $Ops(Get, Locations.Locale, @i)
+    Let label = $Ops(Get, Locations.Track, @i)
+    Let lineData = @locale + ";" + @label
+    Let trackData = @trackData + @lineData + ','
+
+    Let i = @i + 1
+  EndWhile
+
+  Let trackData = $Set(@trackData, Sort)
+  
+  While($Set(@trackData, Count) <> 0)
+
+    Let currentLine = $String(@trackData, NextToken, ",")
+    Let currentLocation = $String(@currentLine, NextToken, ";")
+    Let currentTrack = $String(@currentLine, NextToken, ";")
+    Let currentLabel = @currentLine
+    Let currentCapacity = $CAPAC(@currentLabel, All)
+
+    Let tcReport = @tcReport + @currentLocation + ' ' + @currentTrack + ' - ' + @currentCapacity + \n
+
+  EndWhile
+
+  Let tcReport = @tcReport + \n\n + $Set(@o2oBundle, Get, 20) + \n
+
+EndProc
+****************************************************************************
+
 Proc ReportTpLocations
 
   Echo o2o Utility - create TrainPlayer Report - Locations.txt

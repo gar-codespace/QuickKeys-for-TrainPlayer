@@ -35,3 +35,7 @@
 "Recoge"
 ,
 "Establece"
+,
+"Informe de capacidad de vía - capacidad de vía en longitudes de vagón"
+,
+" Pulse la tecla l para cerrar esta ventana"

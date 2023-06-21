@@ -31,7 +31,8 @@ Drücken Sie 1: Schalten Sie alle Quick Keys aus.
 Drücken Sie 6: Initialisierung der Layoutspuren.
 Drücken Sie 7: Setzen Sie die Fahrzeuge auf ihren aktuellen Standort.
 Drücken Sie 8: Machen Sie einen JMRI-Kern oder -Kern.
-Drücken Sie 9: TrainPlayer-Layout exportieren.
+Drücken Sie 9: Bericht über die Eisenbahnstrecke.
+Drücken Sie 0: TrainPlayer-Layout exportieren.
 "
 ,
 "Drücken Sie 0:

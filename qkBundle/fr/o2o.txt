@@ -35,3 +35,7 @@
 "Ramassez"
 ,
 "Définissez"
+,
+"Rapport sur la capacité des voies - capacité des voies en longueurs de wagons"
+,
+"Appuyez sur la touche l pour fermer cette fenêtre"

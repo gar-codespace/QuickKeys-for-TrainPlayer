@@ -31,7 +31,8 @@ Appuyer sur 1 : Désactiver toutes les Quick Keys.
 Appuyer sur 6 : Initialiser les pistes de mise en page.
 Appuyez sur 7 : pour ramener les voitures à leur emplacement actuel.
 Appuyer sur 8 : Faire un consist ou kernel JMRI.
-Appuyer sur 9 : Exporter la mise en page de TrainPlayer.
+Appuyer sur 9 : Rapport sur les voies ferrées.
+Appuyer sur 0 : Exporter la mise en page de TrainPlayer.
 "
 ,
 "Appuyez sur 0 :

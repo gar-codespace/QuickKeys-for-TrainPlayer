@@ -30,7 +30,8 @@ Press 1: Turn all Quick Keys off.
 Press 6: Initialize layout tracks.
 Press 7: Set cars to their current location.
 Press 8: Make a JMRI consist or kernel.
-Press 9: Export TrainPlayer layout.
+Press 9: Track report.
+Press 0: Export TrainPlayer layout.
 "
 ,
 "Press 0:
