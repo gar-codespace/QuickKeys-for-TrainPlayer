@@ -38,4 +38,4 @@
 ,
 "Informe de capacidad de vía - capacidad de vía en longitudes de vagón"
 ,
-" Pulse la tecla l para cerrar esta ventana"
+"Pulse la tecla u para cerrar esta ventana"

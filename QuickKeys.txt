@@ -497,11 +497,8 @@ If (@x4 <> 2) ** TurnTable in not in process
 
       Call TrackReport
       Call NoteWindow @tcReport 1
-      Let L = 1
 
       Let $Key = 0
-      Let U = 0
-      ** Call NoteWindow
 
     EndIf
   Exit

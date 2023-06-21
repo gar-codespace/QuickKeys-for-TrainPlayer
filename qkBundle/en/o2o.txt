@@ -38,4 +38,4 @@
 ,
 "Track Capacity Report - track capacity in car lengths"
 ,
-"Press the l key to close this window"
+"Press the u key to close this window"
