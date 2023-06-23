@@ -72,6 +72,10 @@ Proc ResetPreviousWorkEvent
 
   While($Set(@jResetCarIDs, Count) <> 0)
     Let jCarID = $String(@jResetCarIDs, NextToken)
+
+    *echo jCarID @jCarID
+
+
     Let jTemp = $Car(@jCarID, Track)
     Let jTemp = $Track(@jTemp, Label)
     If(@jTemp = "")
@@ -221,6 +225,7 @@ Proc ParseLine ** (All Cars) parse out all variables for each car in the manifes
   ** "       j1,j2,j3 ,j4   ,j5,j6,j7   ,j8                    ,j9   "
 
   Let jID = $String(@jLine, NextToken)
+
   Let j2 = @jID + "     "
   Let j2 = $Substr(0, 3, @j2) ** truncate to 3 char
 
@@ -260,7 +265,8 @@ Proc TagCar
   Let jTag = $Set(@jTrackLabelSet, Get, @jLocaleIndex)
 
   Let $Car(@jID, Dest) = @jTag
-  Let jResetCarIDs = $Set(@jResetCarIDs, Add, "@jID")
+  Let jResetCarIDs = @jResetCarIDs + @jID + ","
+  ** Let jResetCarIDs = $Set(@jResetCarIDs, Add, "@jID")
 
 EndProc
 ****************************************************************************
