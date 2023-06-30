@@ -165,31 +165,35 @@ Proc ReportTpLocations
 
     Let jLine = $Ops(Get, Locations.ID, @i) + ";" + $Ops(Get, Locs.Locale, @i) + ";" + @thisTrack + ";" + $Ops(Get, Locs.Class, @i) + ";" + @cap
 
-** Test that the semi colon is in a valid place
-  Let jTest = $Ops(Get, Locs.Locale, @i)
-  Let kTest = $String(@jTest, NextToken, ";")
-  If (@jTest = "")
-    Let message = $Ops(Get, Locs.Locale, @i) + \n$Set(@messageBundle, Get, 23)
-    Call $Msgbox(@message)
-  EndIf
-  If (@kTest = "")
-    Let message = $Ops(Get, Locs.Locale, @i) + \n$Set(@messageBundle, Get, 22)
-    Call $Msgbox(@message)
-  EndIf
+  ** Test that the semi colon is in a valid place
+    Let jTest = $Ops(Get, Locs.Locale, @i)
+    Let kTest = $String(@jTest, NextToken, ";")
+    If (@jTest = "")
+      Let message = $Ops(Get, Locs.Locale, @i) + \n$Set(@messageBundle, Get, 23)
+      Call $Msgbox(@message)
+    EndIf
+    If (@kTest = "")
+      Let message = $Ops(Get, Locs.Locale, @i) + \n$Set(@messageBundle, Get, 22)
+      Call $Msgbox(@message)
+    EndIf
 
 ** Test that the line has 5 semi colons
     Let j = 0
     Let jTest = @jLine
+    If ($String(@jTest, EndsWith, ;) = 1)
+      Let jTest = @jTest + 1
+    EndIf
     While (1 = 1)
         Call $String(@jTest, NextToken, ";")
         If (@jTest = "")
           Break
         EndIf
-       Let j = @j + 1
+        Let j = @j + 1
     EndWhile
 
     If (@j <> 5)
       Let message = $Ops(Get, Locs.Locale, @i) + \n$Set(@messageBundle, Get, 21)
+      echo maybe here
       Call $Msgbox(@message)
     EndIf
 
