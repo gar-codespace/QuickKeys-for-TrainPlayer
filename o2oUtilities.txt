@@ -163,6 +163,10 @@ Proc ReportTpLocations
       EndIf
     EndIf
 
+    If($Ops(Get, Locs.Class, @i) <> "industry")
+      Let cap = $Capac(@thisTrack, all)
+    EndIf
+    
     Let jLine = $Ops(Get, Locations.ID, @i) + ";" + $Ops(Get, Locs.Locale, @i) + ";" + @thisTrack + ";" + $Ops(Get, Locs.Class, @i) + ";" + @cap
 
   ** Test that the semi colon is in a valid place
