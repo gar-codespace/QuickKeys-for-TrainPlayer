@@ -1,7 +1,7 @@
 ** Personalized Settings
 
 ** Make adjustments to an AO enabled layout if necessary
-    *Call aoAdjustments
+    Call aoAdjustments
 
 ** Override Registry values with personal preferences
     Let AutoOpenMode = 1 ** Preferences/Switches/Auto-throw when crossed

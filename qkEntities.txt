@@ -17,9 +17,10 @@ Proc SetLanguage
 
 ** Read in text for Quick Keys help page
   Let HelpLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Help.txt"
-  Let HelpFile = $File(@HelpLoc, Open)
-  Let helpBundle = $File(@HelpFile, ReadAll)
-  Call $File(@HelpLoc, Close)
+  Let helpBundle = $Read(@HelpLoc)
+  ** Let HelpFile = $File(@HelpLoc, Open)
+  ** Let helpBundle = $File(@HelpFile, ReadAll)
+  ** Call $File(@HelpLoc, Close)
 
 ** Read in text for Quick Keys pop up messages
   Let MessageLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Message.txt"
@@ -126,10 +127,19 @@ EndProc
 ***************************************************************************
 
 Proc MakePersonalizedSettings
+** Makes the personalized settings note into a script
 
-  Let SettingsNote = $Note(@NoteForPersonalizedSettings)
+  Let settingsNote = $Note(@NoteForPersonalizedSettings)
   Let settingsFile = $DATADIR + "\Subroutines\QuickKeys\PersonalizedSettings.txt"
-  Call $Write(@settingsFile, @SettingsNote)
+
+  echo @NoteForPersonalizedSettings
+
+  If (@NoteForPersonalizedSettings = 0)
+    Let settingsNote = $Note(No note is mapped to personalized settings)
+    Echo No note is mapped to personalized settings
+  EndIf
+
+  Call $Write(@settingsFile, @settingsNote)
 
 EndProc
 ***************************************************************************
@@ -137,16 +147,17 @@ EndProc
 Proc MakeProcXYZ
 ** Make the code snippet in the selected notes into a procedure
 
-  Let xyzPrefix = PressX,PressY,PressZ
-  Let xyzNoteNumber = @NoteForPressX,@NoteForPressY,@NoteForPressZ
+  Let xyzPrefix = PressX PressY PressZ
+  Let xyzNoteNumber = @NoteForPressX @NoteForPressY @NoteForPressZ
   Let i = 0
   While (@i < 3)
 
-    Let procFileName = $DATADIR + "\Subroutines\QuickKeys\" + $Set(@xyzPrefix, get, @i) + ".txt"
     Let procNoteNumber = $Set(@xyzNoteNumber, get, @i)
+    Let procFileName = $DATADIR + "\Subroutines\QuickKeys\" + $Set(@xyzPrefix, get, @i) + ".txt"
     Let procNoteContents = $Note(@procNoteNumber)
     If (@procNoteNumber = 0)
       Let procNoteContents = "Echo No script is mapped to this key press"
+      Echo No note is mapped to $Set(@xyzPrefix, get, @i)
     EndIf
 
     Call $Write(@procFileName, @procNoteContents)

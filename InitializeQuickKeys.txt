@@ -54,10 +54,5 @@ Let x6 = 0
 Let x7 = 0
 
 Call DefineCarrageReturn
-Call qkEntities
-
 Call SpecificToQuickKeys
-Call MakePersonalizedSettings
-Call MakeProcXYZ
-
 ***************************************************************************
