@@ -1,0 +1,1 @@
+Call $System("%homepath%\AppData\Roaming\TrainPlayer\Subroutines\QuickKeys\qkSupport\copyMasterScript.bat")
