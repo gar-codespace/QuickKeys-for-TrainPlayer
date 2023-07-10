@@ -1,49 +1,20 @@
 ** InitializeQuickKeys version 2
 
-Proc DefineCarrageReturn
+** Set various Quick Keys variables and system settings
+  Call qkToggles
+  Call qkPreferences
+  Call DefineCarrageReturn
 
-** Simulate ReadLine for text strings
-Let xCR = "
-"
+** Load Quick Keys support processes
+  Call qkEntities
 
-EndProc
+** Layout specific Quick Keys settings
+  Call MakePersonalizedSettings
+  Call MakeProcXYZ
 ***************************************************************************
 
-Proc ApplyVersionItems
-** Apply version specific stuff
-
-  Let Version = $Setting(InstalledVer)
-
-  If ($String(@Version, StartsWith, 7) = 1)
-    Let ViewList = @ViewList7
-  EndIf
-  If ($String(@Version, StartsWith, 8) = 1)
-    Let ViewList = @ViewList8
-  EndIf
-
-EndProc
-****************************************************************************
-
-Proc NoteWindow
-** Open or close the note window
-
-If (%2 = 1) ** force window open
-  Note %1
-Else
-  Note %1
-EndIf
-
-EndProc
-***************************************************************************
-
-Proc SpecificToQuickKeys
-
-  Let $Key = 0
-  Let NoteDownOnEsc = 0
-  Let JunctionActions = 255
-
-EndProc
-***************************************************************************
+Proc qkToggles
+** Initialize all the Quick Keys subroutines as off
 
 Let x1 = 1
 Let x2 = 0
@@ -53,6 +24,24 @@ Let x5 = 0
 Let x6 = 0
 Let x7 = 0
 
-Call DefineCarrageReturn
-Call SpecificToQuickKeys
+EndProc
+***************************************************************************
+
+Proc qkPreferences
+** A few system settings Quick Keys prefers
+
+  Let $Key = 0
+  Let NoteDownOnEsc = 0
+  Let JunctionActions = 255
+
+EndProc
+***************************************************************************
+
+Proc DefineCarrageReturn
+** Simulate ReadLine for text strings
+
+Let xCR = "
+"
+
+EndProc
 ***************************************************************************

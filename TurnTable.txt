@@ -1,4 +1,4 @@
-** TurnTable Version 2
+** TurnTable version 2
 
 
 ** How to:

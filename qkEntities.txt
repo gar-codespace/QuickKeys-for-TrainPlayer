@@ -1,5 +1,32 @@
-** Quick Keys Entities
+** qkEntities version 2
 
+
+Proc NoteWindow
+** Open or close the note window
+
+If (%2 = 1) ** force window open
+  Note %1
+Else
+  Note %1
+EndIf
+
+EndProc
+***************************************************************************
+
+Proc ApplyVersionItems
+** Apply TrainPlayer version specific stuff
+
+  Let Version = $Setting(InstalledVer)
+
+  If ($String(@Version, StartsWith, 7) = 1)
+    Let ViewList = @ViewList7
+  EndIf
+  If ($String(@Version, StartsWith, 8) = 1)
+    Let ViewList = @ViewList8
+  EndIf
+
+EndProc
+****************************************************************************
 
 Proc aoAdjustments
 

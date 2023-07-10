@@ -1,4 +1,4 @@
-** RandomRoads Version 2
+** RandomRoads version 2
 
 
 If (%1 = SetUp)

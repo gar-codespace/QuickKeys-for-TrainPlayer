@@ -1,4 +1,4 @@
-** o2o - ops 2 ops Workevent Switching - Version 3
+** o2oUtilities version 3
 
 
 Proc InitTracks

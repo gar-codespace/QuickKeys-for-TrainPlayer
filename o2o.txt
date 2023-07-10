@@ -1,4 +1,4 @@
-** o2o Workevents - Version 3
+** o2o version 3
 
 
 If (%1 = SetUp)

@@ -8,10 +8,7 @@
 
 ** Set Up QuickKeys
     Call InitializeQuickKeys
-    Call qkEntities
-        Call SetLanguage en  ** Language choices are: en, de, fr, es
-        Call MakePersonalizedSettings
-        Call MakeProcXYZ
+    Call SetLanguage en  ** Language choices are: en, de, fr, es
 
 ** Select which subroutines to use
     Call JobTimer *Setup

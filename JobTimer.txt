@@ -1,4 +1,4 @@
-** Job Timer version 1
+** JobTimer version 1
 
 
 If (%1 = SetUp)
