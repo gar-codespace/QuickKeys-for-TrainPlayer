@@ -49,9 +49,7 @@ Proc o2oReadManifest
   Call ReadAoLocations
 
   Let jReportManifest = $DataDir + "\Reports\JMRI Report - o2o Workevents.csv"
-  Let jManifest = $File(@jReportManifest, Open)
-  Let jManifestAll = $File(@jManifest, ReadAll)
-  Call $File(@jReportManifest, Close)
+  Let jManifestAll = $Read(@jReportManifest)
   Call CreateReportHeader
 
   Let jNote = \n$Set(@o2oBundle, Get, 0)\n\n$Set(@o2oBundle, Get, 3) \n

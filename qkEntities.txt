@@ -16,35 +16,24 @@ EndProc
 Proc SetLanguage
 
 ** Read in text for Quick Keys help page
-  Let HelpLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Help.txt"
-  Let helpBundle = $Read(@HelpLoc)
-  ** Let HelpFile = $File(@HelpLoc, Open)
-  ** Let helpBundle = $File(@HelpFile, ReadAll)
-  ** Call $File(@HelpLoc, Close)
+  Let BundleLocation = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Help.txt"
+  Let helpBundle = $Read(@BundleLocation)
 
 ** Read in text for Quick Keys pop up messages
-  Let MessageLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Message.txt"
-  Let MessageFile = $File(@MessageLoc, Open)
-  Let messageBundle = $File(@MessageFile, ReadAll)
-  Call $File(@MessageLoc, Close)
+  Let BundleLocation = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Message.txt"
+  Let messageBundle = $Read(@BundleLocation)
 
 ** Read in text for Quick Keys utility menu
-  Let UtilityLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Utility.txt"
-  Let UtilityFile = $File(@UtilityLoc, Open)
-  Let utilityBundle = $File(@UtilityFile, ReadAll)
-  Call $File(@UtilityLoc, Close)
+  Let BundleLocation = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Utility.txt"
+  Let utilityBundle = $Read(@BundleLocation)
 
 ** Read in text for o2o reports
-  Let o2oLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\o2o.txt"
-  Let o2oFile = $File(@o2oLoc, Open)
-  Let o2oBundle = $File(@o2oFile, ReadAll)
-  Call $File(@o2oLoc, Close)
+  Let BundleLocation = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\o2o.txt"
+  Let o2oBundle = $Read(@BundleLocation)
 
 ** Read in text for the welcome message
-  Let welcLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Welcome.txt"
-  Let welcFile = $File(@welcLoc, Open)
-  Let welcBundle = $File(@welcFile, ReadAll)
-  Call $File(@welcLoc, Close)
+  Let BundleLocation = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Welcome.txt"
+  Let welcBundle = $Read(@BundleLocation)
 
 EndProc
 ***************************************************************************
@@ -174,7 +163,7 @@ Proc CopyPersonalizedSettings
 ** Input a note number
   Input noteId $Set(@messageBundle, Get, 20)
 
-** Read in RandomRoads template
+** Read in the PersonalizedSettings template
   Let rrTemplate = $DataDir + "\Subroutines\QuickKeys\qkSupport\PersonalizedSettings.txt"
   Let rrText = $Read(@rrTemplate)
 
@@ -191,9 +180,8 @@ Proc CopyRandomRoadsTemplate
 
 ** Read in RandomRoads template
   Let rrTemplate = $DataDir + "\Subroutines\QuickKeys\qkSupport\RandomRoadsTemplate.txt"
-  Let rrFile = $File(@rrTemplate, Open)
-  Let rrText = $File(@rrFile, ReadAll)
-  Call $File(@rrFile, Close)
+  Let rrText = $Read(@rrTemplate)
+
 ** Copy to note
   Let $Note(@noteId) = @rrText
 
