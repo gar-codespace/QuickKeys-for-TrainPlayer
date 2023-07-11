@@ -1,10 +1,9 @@
-** DropKick Version 3
+** DropKick version 3
 
 
 If (%1 = SetUp)
 
   Let x3 = 1
-
   Echo DropKick Version 3
   
 EndIf
@@ -68,6 +67,7 @@ EndProc
 ****************************************************************************
 
 Proc FindEngineAndCarPosition
+** Find the engine and cut car relative to each other
   
   Let kTemp = $Train($Train, CarLabels)
   Let kTrainCount = $Set(@kTemp, Count)
@@ -92,6 +92,7 @@ EndProc
 ****************************************************************************
 
 Proc CutOffCars
+** Add the kick moter and cut the train
 
 Train "Add Car" "diesel"
 Let $Car($Car, ShowLabel) = 0
@@ -104,6 +105,7 @@ EndProc
 ****************************************************************************
 
 Proc DropKickKick
+** Kick em
 
   Let x3 = 2
 
@@ -141,6 +143,7 @@ EndProc
 ****************************************************************************
 
 Proc DropKickDrop
+** Drop em
 
   Let x3 = 2
 

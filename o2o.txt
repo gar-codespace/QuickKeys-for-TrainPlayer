@@ -71,9 +71,6 @@ Proc ResetPreviousWorkEvent
   While($Set(@jResetCarIDs, Count) <> 0)
     Let jCarID = $String(@jResetCarIDs, NextToken)
 
-    *echo jCarID @jCarID
-
-
     Let jTemp = $Car(@jCarID, Track)
     Let jTemp = $Track(@jTemp, Label)
     If(@jTemp = "")

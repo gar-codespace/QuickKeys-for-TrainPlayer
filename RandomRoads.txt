@@ -4,14 +4,13 @@
 If (%1 = SetUp)
 
   Let x7 = 1
-  
   Echo RandomRoads Version 2
 
 EndIf
 ****************************************************************************
 
 Proc ApplyRandomRoads
-  Echo o2o Utility - Assign random road names and numbers to rolling stock
+Echo o2o Utility - Assign random road names and numbers to rolling stock
 
   Input noteId $Set(@messageBundle, Get, 3)
   Let inputData = $Note(@noteId)
@@ -157,6 +156,7 @@ EndProc
 *********************************************
 
 Proc NoteParser
+** Parses the Random Roads - Source Data SC note
 
 Call $String(@inputData, NextToken, @xCR)
 

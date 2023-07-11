@@ -2,8 +2,8 @@
 
 
 Proc InitTracks
-
 Echo o2o Utility - Set all  ~ tracks to null
+
 Let jIDs = $Layout(IDSet, TrackIDs)
 Let i = 0
 While(@i < $Set(@jIDs, Count))
@@ -19,6 +19,7 @@ EndProc
 ****************************************************************************
 
 Proc InitCars
+Echo o2o Utility - Set all car destinations to their current location
 
   If(%1 = "")
     Let jXmessage = $Set(@messageBundle, Get, 8)
@@ -80,8 +81,7 @@ EndProc
 ****************************************************************************
 
 Proc AddKernels
-
-  Echo o2o Utility - Group equipment together into a JMRI like consist or kernel
+Echo o2o Utility - Group equipment together into a JMRI like consist or kernel
 
   Let jKernelSet = $Train($Train, CarLabels)
   Input jK $Set(@messageBundle, Get, 7)
@@ -95,8 +95,7 @@ EndProc
 ****************************************************************************
 
 Proc TrackReport
-
-  Echo o2o Utility - Report track capacity by car quantity
+Echo o2o Utility - Report track capacity by car quantity
 
   Let tcReport = $Set(@o2oBundle, Get, 19) + \n\n
   Let allLocales = $Ops(Find, Locations.ID, All)
@@ -133,8 +132,7 @@ EndProc
 ****************************************************************************
 
 Proc ReportTpLocations
-
-  Echo o2o Utility - create TrainPlayer Report - Locations.txt
+Echo o2o Utility - create TrainPlayer Report - Locations.txt
 
   Let jID = $Ops(find, Locs.Class, All, ID)
   Let jCount = $Set(@jID, Count)
@@ -197,7 +195,6 @@ Proc ReportTpLocations
 
     If (@j <> 5)
       Let message = $Ops(Get, Locs.Locale, @i) + \n$Set(@messageBundle, Get, 21)
-      echo maybe here
       Call $Msgbox(@message)
     EndIf
 
@@ -215,8 +212,7 @@ EndProc
 ****************************************************************************
 
 Proc ReportTpIndustries
-
-  Echo o2o Utility - create TrainPlayer Report - Industries.txt
+Echo o2o Utility - create TrainPlayer Report - Industries.txt
 
   Let jID = $Ops(find, Industries.Locale, All, ID)
   Let jCount = $Set(@jID, Count)
@@ -258,8 +254,7 @@ EndProc
 ****************************************************************************
 
 Proc ReportTpInventory
-
-  Echo o2o Utility - create TrainPlayer Report - Rolling Stock.txt
+Echo o2o Utility - create TrainPlayer Report - Rolling Stock.txt
 
   Echo Working on it......
 

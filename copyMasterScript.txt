@@ -1,1 +1,4 @@
+Echo copyMasterScript version 1
+** Runs the DOS batch file
+
 Call $System("%homepath%\AppData\Roaming\TrainPlayer\Subroutines\QuickKeys\qkSupport\copyMasterScript.bat")

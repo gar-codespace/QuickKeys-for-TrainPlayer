@@ -4,13 +4,13 @@
 If (%1 = SetUp)
 
   Let x6 = 1 ** Activate the job timer
-  
   Echo JobTimer Version 1
 
 EndIf
 ****************************************************************************
 
 Proc TimeInSeconds
+** converts TP time into seconds
 
   Let jTime = %1
   Let jT1 = $String(@jTime, NextToken, ":")
@@ -62,6 +62,7 @@ EndProc
 ****************************************************************************
 
 Proc JobTimerStart
+** Starts and stops this subroutine
 
   If(@jTimer <> 1)
     Call StartTimer

@@ -1,22 +1,21 @@
 ** TurnTable version 2
 
-
 ** How to:
-** Add a command box
-** Edit in script editor
-** press record
-** manually move the turntable around
-** copy from command box into Turntable Matrices note window
-** edit to add turntable lead number or letter, IE
-** Edit:
-** rotate 1 386
-** Into:
-** rotate d 1 386
+  ** Add a command box
+  ** Edit in script editor
+  ** press record
+  ** manually move the turntable around
+  ** copy from command box into Turntable Matrices note window
+  ** edit to add turntable lead number or letter, IE
+  ** Edit:
+  ** rotate 1 386
+  ** Into:
+  ** rotate d 1 386
 
-** after the Turntable matrices note is finished,
-** press apply
-** save the layout
-** restart the master script
+  ** after the Turntable matrices note is finished,
+  ** press apply
+  ** save the layout
+  ** restart the master script
 
 If (%1 = SetUp)
   Let x4 = 1
@@ -33,6 +32,7 @@ EndIf
 ****************************************************************************
 
 Proc SetUpTurntable
+** Read in the Turntable Matrices SC note
 
   Let ttMatrix = ""
   While(@ttNoteText <> "")

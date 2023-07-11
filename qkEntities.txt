@@ -29,8 +29,8 @@ EndProc
 ****************************************************************************
 
 Proc aoAdjustments
-
 ** Turn off AO display of track attributes
+
     Call $View(Hide,"Track Labels")
     Call $View(hide,rails)
     Call $View(hide,roadbed)
@@ -41,6 +41,7 @@ EndProc
 ***************************************************************************
 
 Proc SetLanguage
+** Read the bundle files for the chosen language
 
 ** Read in text for Quick Keys help page
   Let BundleLocation = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Help.txt"
@@ -66,6 +67,7 @@ EndProc
 ***************************************************************************
 
 Proc makeHelpPage
+** Includes active subroutines only
 
   Let helpPage = ""
 
@@ -105,6 +107,7 @@ EndProc
 ***************************************************************************
 
 Proc makeUtilityMenu
+** Includes active subroutines only
 
   Let utilityMenu = ""
 
@@ -143,12 +146,10 @@ EndProc
 ***************************************************************************
 
 Proc MakePersonalizedSettings
-** Makes the personalized settings note into a script
+** Makes the personalized settings note into a subroutine
 
   Let settingsNote = $Note(@NoteForPersonalizedSettings)
   Let settingsFile = $DATADIR + "\Subroutines\QuickKeys\PersonalizedSettings.txt"
-
-  echo @NoteForPersonalizedSettings
 
   If (@NoteForPersonalizedSettings = 0)
     Let settingsNote = $Note(No note is mapped to personalized settings)
@@ -161,7 +162,7 @@ EndProc
 ***************************************************************************
 
 Proc MakeProcXYZ
-** Make the code snippet in the selected notes into a procedure
+** Make the code snippet in the selected SC notes into a subroutine
 
   Let xyzPrefix = PressX PressY PressZ
   Let xyzNoteNumber = @NoteForPressX @NoteForPressY @NoteForPressZ
@@ -173,7 +174,6 @@ Proc MakeProcXYZ
     Let procNoteContents = $Note(@procNoteNumber)
     If (@procNoteNumber = 0)
       Let procNoteContents = "Echo No script is mapped to this key press"
-      Echo No note is mapped to $Set(@xyzPrefix, get, @i)
     EndIf
 
     Call $Write(@procFileName, @procNoteContents)
@@ -186,6 +186,7 @@ EndProc
 ***************************************************************************
 
 Proc CopyPersonalizedSettings
+** Make the code snippet in the selected SC note into the personalized settings script
 
 ** Input a note number
   Input noteId $Set(@messageBundle, Get, 20)
@@ -201,6 +202,7 @@ EndProc
 ***************************************************************************
 
 Proc CopyRandomRoadsTemplate
+** The template is copied into a SC note
 
 ** Input a note number
   Input noteId $Set(@messageBundle, Get, 20)
@@ -216,6 +218,7 @@ EndProc
 ***************************************************************************
 
 Proc OpenHelpNote
+** Displays the help page as a note window
 
   If (@H = 0)
     Let H = 1
@@ -234,6 +237,7 @@ EndProc
 ****************************************************************************
 
 Proc OpenUtilityNote
+** Displays the utility menu as a note window
 
   If (@U = 0) ** Create message for utility menu
     Call makeUtilityMenu
@@ -251,6 +255,7 @@ EndProc
 ****************************************************************************
 
 Proc DisplayFullScreen
+** Toggle full screen mode
 
   If (@F = 0)
     Let F = 1
@@ -266,6 +271,7 @@ EndProc
 ****************************************************************************
 
 Proc ToggleQuickKeys
+** Turn all Quick Keys on or off
 
   If (@x0 = 0)
     Let x0 = 1 ** activate all Quick keys
@@ -281,6 +287,7 @@ EndProc
 ****************************************************************************
 
 Proc ToggleToolBars
+** Toggles the display of the items in ViewList
 
   Let i = 0
   While (@i < $Set(@ViewList, Count))
@@ -304,6 +311,7 @@ EndProc
 ***************************************************************************
 
 Proc ProcessorAdjustment
+** Retrieves a bit of info about the computer being used
 
 Echo Phake Physics adjustment for processor speed
 
