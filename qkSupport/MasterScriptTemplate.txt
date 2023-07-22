@@ -1,6 +1,7 @@
 
 
 ** Assign a note to a subroutine
+    Let NoteForRandomRoads = 0
     Let NoteForPersonalizedSettings = 0
     Let NoteForPressX = 0
     Let NoteForPressY = 0

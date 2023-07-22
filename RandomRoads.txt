@@ -4,16 +4,60 @@
 If (%1 = SetUp)
 
   Let x7 = 1
+  Call aarGetter
   Echo RandomRoads Version 2
 
 EndIf
 ****************************************************************************
 
+proc aarGetter
+
+  If (@NoteForRandomRoads = 0)
+  Echo No note assigned to Random Roads
+    Return
+  EndIf
+
+  Echo Getting select Random Roads AAR data
+
+  Let inputData = $Note(@NoteForRandomRoads)
+
+  Call $String(@inputData, NextToken, @xCR)
+  Call $String(@inputData, NextToken, @xCR)
+  Call $String(@inputData, NextToken, @xCR)
+  Call $String(@inputData, NextToken, @xCR)
+  Call $String(@inputData, NextToken, @xCR)
+  Call $String(@inputData, NextToken, @xCR)
+  Call $String(@inputData, NextToken, @xCR)
+  Call $String(@inputData, NextToken, @xCR)
+  Call $String(@inputData, NextToken, @xCR)
+  Call $String(@inputData, NextToken, @xCR)
+
+  Let engineAar = $String(@inputData, NextToken, @xCR)
+  Call $String(@engineAar, NextToken, " ")
+
+  Let cabooseAar = $String(@inputData, NextToken, @xCR)
+  Call $String(@cabooseAar, NextToken, " ")
+
+  Call $String(@inputData, NextToken, @xCR)
+
+  Let passAar = $String(@inputData, NextToken, @xCR)
+  Call $String(@passAar, NextToken, " ")
+
+  Let mowAar = $String(@inputData, NextToken, @xCR)
+  Call $String(@mowAar, NextToken, " ")
+
+  Let inputData = ""
+
+EndProc
+*********************************************
+
 Proc ApplyRandomRoads
 Echo o2o Utility - Assign random road names and numbers to rolling stock
 
-  Input noteId $Set(@messageBundle, Get, 3)
-  Let inputData = $Note(@noteId)
+  ** Input noteId $Set(@messageBundle, Get, 3)
+  ** Let inputData = $Note(@noteId)
+
+  Let inputData = $Note(@NoteForRandomRoads)
 
   Let message = $Set(@messageBundle, Get, 4)
   Let toggleAll = $msgbox("YN", @message)
@@ -34,8 +78,16 @@ Echo o2o Utility - Assign random road names and numbers to rolling stock
     Let rsId = $String(@allCarIds, NextToken, ",")
     Let rsAar = $Car(@rsId, AAR)
 
-  ** Relabel home equipment
-    If ($Set(@RR21_HOME_AAR, Contains, @rsAar) = 1)
+  ** Relabel engine equipment
+    If ($Set(@RR20_ENGINE_AAR, Contains, @rsAar) = 1)
+      Let roadNumberLength = @RR40_HOME_LENGTH
+      Let workingPool = @RR01_HOME_ROADS
+      Let eqptNamesLen = $Set(@RR01_HOME_ROADS, Count) - 1
+      Call RelabelRollingStock
+    EndIf
+
+  ** Relabel caboose equipment
+    If ($Set(@RR21_CABOOSE_AAR, Contains, @rsAar) = 1)
       Let roadNumberLength = @RR40_HOME_LENGTH
       Let workingPool = @RR01_HOME_ROADS
       Let eqptNamesLen = $Set(@RR01_HOME_ROADS, Count) - 1
@@ -115,6 +167,8 @@ Echo o2o Utility - Assign random road names and numbers to rolling stock
     EndIf
 
   EndWhile
+
+  Echo Random Roads complete
 
   View Refresh
 
@@ -202,11 +256,11 @@ Call $String(@inputData, NextToken, @xCR)
 
   Let x = $String(@inputData, NextToken, @xCR)
   Call $String(@x, NextToken, " ")
-  Let RR20_OPERATING_AAR = @x
+  Let RR20_ENGINE_AAR = @x
 
   Let x = $String(@inputData, NextToken, @xCR)
   Call $String(@x, NextToken, " ")
-  Let RR21_HOME_AAR = @x
+  Let RR21_CABOOSE_AAR = @x
 
   Let x = $String(@inputData, NextToken, @xCR)
   Call $String(@x, NextToken, " ")

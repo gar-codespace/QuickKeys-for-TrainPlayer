@@ -262,6 +262,10 @@ Echo o2o Utility - create TrainPlayer Report - Rolling Stock.txt
   Let jCount = $Set(@jID, Count)
 
   Let jInventory = $DATE + "-" + $TIME
+  Let jInventory = @jInventory + \n + "engine_AAR;" + @engineAar + ";;;;;;"
+  Let jInventory = @jInventory + \n + "caboose_AAR;" + @cabooseAar + ";;;;;;"
+  Let jInventory = @jInventory + \n + "passenger_AAR;" + @passAar + ";;;;;;"
+  Let jInventory = @jInventory + \n + "mow_AAR;" + @mowAar + ";;;;;;"
   Let jKey = "TP Car; TP Type; TP AAR; JMRI Location; JMRI Track; TP Load; TP Kernel; Car ID"
   Let jInventory = @jInventory + \n@jKey
 
