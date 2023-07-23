@@ -140,6 +140,10 @@ Echo o2o Utility - create TrainPlayer Report - Locations.txt
   Let jName = $Layout(Name)
 
   Let jLocation = $DATE + "-" + $TIME + ";" + $Layout(Name) + ";;;;"
+  Let jLocation = @jLocation + \n@engineAar + ";;;;;"
+  Let jLocation = @jLocation + \n@cabooseAar + ";;;;;"
+  Let jLocation = @jLocation + \n@passAar + ";;;;;"
+  Let jLocation = @jLocation + \n@mowAar + ";;;;;"
 
   If ($String(@OperatingRoad, Length) = 0)
     Let OperatingRoad = $Layout(Name)
@@ -261,13 +265,7 @@ Echo o2o Utility - create TrainPlayer Report - Rolling Stock.txt
   Let jID = $Ops(find, Cars.Car, All, Car)
   Let jCount = $Set(@jID, Count)
 
-  Let jInventory = $DATE + "-" + $TIME
-  Let jInventory = @jInventory + \n + "engine_AAR;" + @engineAar + ";;;;;;"
-  Let jInventory = @jInventory + \n + "caboose_AAR;" + @cabooseAar + ";;;;;;"
-  Let jInventory = @jInventory + \n + "passenger_AAR;" + @passAar + ";;;;;;"
-  Let jInventory = @jInventory + \n + "mow_AAR;" + @mowAar + ";;;;;;"
-  Let jKey = "TP Car; TP Type; TP AAR; JMRI Location; JMRI Track; TP Load; TP Kernel; Car ID"
-  Let jInventory = @jInventory + \n@jKey
+  Let jInventory = ""
 
   Let i = 1
   While (i <= @jCount)
@@ -292,8 +290,12 @@ Echo o2o Utility - create TrainPlayer Report - Rolling Stock.txt
 
     Let carAAR = $Ops(Get, Cars.AAR, @i)
     If (carAAR <> "EQDK")
-      Let jInventory = @jInventory +\n@jCar + ";" + $Ops(Get, Cars.Type, @i) + ";" + $Ops(Get, Cars.AAR, @i) + ";" +  @jLocale + ";" + $Ops(Get, Cars.Load, @i) + ";" + @jKernel + ";" + $Car(@jCar, Car_ID)
+      Let jInventory = @jInventory + @jCar + ";" + $Ops(Get, Cars.Type, @i) + ";" + $Ops(Get, Cars.AAR, @i) + ";" +  @jLocale + ";" + $Ops(Get, Cars.Load, @i) + ";" + @jKernel + ";" + $Car(@jCar, Car_ID)
     EndIf
+    If (@i < @jCount)
+      Let jInventory = @jInventory + \n
+    EndIf
+
     Let i = @i + 1
 
   EndWhile
