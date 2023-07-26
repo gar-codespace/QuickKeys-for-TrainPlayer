@@ -137,21 +137,18 @@ Echo o2o Utility - create TrainPlayer Report - Locations.txt
   Let jID = $Ops(find, Locs.Class, All, ID)
   Let jCount = $Set(@jID, Count)
 
-  Let jName = $Layout(Name)
-
   Let jLocation = $DATE + "-" + $TIME + ";" + $Layout(Name) + ";;;;"
+  If ($String(@OperatingRoad, Length) = 0)
+    Let OperatingRoad = $Layout(Name)
+  EndIf
+  Let jLocation = @jLocation +\n@OperatingRoad + ";" + @Territory + ";" + @Location + ";" + @Year + ";" + @Divisions + ";" + @ModelScale
+
   Let jLocation = @jLocation + \n@engineAar + ";;;;;"
   Let jLocation = @jLocation + \n@cabooseAar + ";;;;;"
   Let jLocation = @jLocation + \n@passAar + ";;;;;"
   Let jLocation = @jLocation + \n@mowAar + ";;;;;"
 
-  If ($String(@OperatingRoad, Length) = 0)
-    Let OperatingRoad = $Layout(Name)
-  EndIf
-
-  Let jLocation = @jLocation +\n@OperatingRoad + ";" + @Territory + ";" + @Location + ";" + @Year + ";" + @Divisions + ";" + @ModelScale
-
-  Let jLocation = @jLocation +\n + "TP ID;JMRI Location;JMRI Track;TP Track;TP Class;TP Spaces"
+  Let jLocation = @jLocation +\n + ";;;;;"
 
   Let i = 1
   While (i <= @jCount)
