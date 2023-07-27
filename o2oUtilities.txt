@@ -67,7 +67,7 @@ Echo o2o Utility - Set all car destinations to their current location
       Continue
     EndIf
 
-** Set loccos and cabin cars
+** Set locos and cabin cars
     If ($Car(@jTemp, LoadName) = "") ** car is unloadable
       Let $Car(@jTemp, Dest) = "~"
       Continue
