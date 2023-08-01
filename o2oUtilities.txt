@@ -143,11 +143,8 @@ Echo o2o Utility - create TrainPlayer Report - Locations.txt
   EndIf
   Let jLocation = @jLocation +\n@OperatingRoad + ";" + @Territory + ";" + @Location + ";" + @Year + ";" + @Divisions + ";" + @ModelScale
 
-  Let jLocation = @jLocation + \n@engineAar + ";;;;;"
-  Let jLocation = @jLocation + \n@cabooseAar + ";;;;;"
-  Let jLocation = @jLocation + \n@passAar + ";;;;;"
-  Let jLocation = @jLocation + \n@mowAar + ";;;;;"
-
+  Let jLocation = @jLocation +\n + ";;;;;"
+  Let jLocation = @jLocation +\n + ";;;;;"
   Let jLocation = @jLocation +\n + ";;;;;"
 
   Let i = 1
@@ -220,7 +217,10 @@ Echo o2o Utility - create TrainPlayer Report - Industries.txt
 
   Let jIndustry = $DATE + "-" + $TIME + ";;;;;;;;;;"
   Let jIndustry = @jIndustry + \n + "JMRI Location;JMRI Track;TP Industry;TP AAR;TP S/R;Load;TP Staging;TP ViaIn;TP Via Out;TP ID;"
-
+  Let jIndustry = @jIndustry + \n + ";;;;;;;;;;"
+  Let jIndustry = @jIndustry + \n + ";;;;;;;;;;"
+  Let jIndustry = @jIndustry + \n + ";;;;;;;;;;"
+  
   Let i = 1
   While (i <= @jCount)
 
@@ -262,7 +262,14 @@ Echo o2o Utility - create TrainPlayer Report - Rolling Stock.txt
   Let jID = $Ops(find, Cars.Car, All, Car)
   Let jCount = $Set(@jID, Count)
 
-  Let jInventory = ""
+  Let jInventory = "Engine AAR;" + @Aar_engine + ";;;;"
+  Let jInventory = @jInventory + \n + "Caboose AAR;" + @Aar_caboose + ";;;;"
+  Let jInventory = @jInventory + \n + "MOW AAR;" + @Aar_mow + ";;;;"
+  Let jInventory = @jInventory + \n + "Passenger AAR;" + @Aar_passenger + ";;;;"
+  Let jInventory = @jInventory + \n + "Express AAR;" + @Aar_express + ";;;;"
+  Let jInventory = @jInventory + \n + ";;;;;\n"
+  Let jInventory = @jInventory + ";;;;;\n"
+  Let jInventory = @jInventory + ";;;;;\n"
 
   Let i = 1
   While (i <= @jCount)
