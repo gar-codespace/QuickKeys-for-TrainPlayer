@@ -293,9 +293,11 @@ Echo o2o Utility - create TrainPlayer Report - Rolling Stock.txt
 
 
     Let carAAR = $Ops(Get, Cars.AAR, @i)
-    If (carAAR <> "EQDK")
-      Let jInventory = @jInventory + @jCar + ";" + $Ops(Get, Cars.Type, @i) + ";" + $Ops(Get, Cars.AAR, @i) + ";" +  @jLocale + ";" + $Ops(Get, Cars.Load, @i) + ";" + @jKernel + ";" + $Car(@jCar, Car_ID)
+    If (carAAR = "EQDK")
+      Let i = @i + 1
+      Continue
     EndIf
+    Let jInventory = @jInventory + @jCar + ";" + $Ops(Get, Cars.Type, @i) + ";" + $Ops(Get, Cars.AAR, @i) + ";" +  @jLocale + ";" + $Ops(Get, Cars.Load, @i) + ";" + @jKernel + ";" + $Car(@jCar, Car_ID)
     If (@i < @jCount)
       Let jInventory = @jInventory + \n
     EndIf
