@@ -1,0 +1,27 @@
+** TrackScanner version 1
+
+** %1 is the scanner name
+** %2 is the scan direction, E or W
+** %3 is the train on the scanner
+
+** Use:
+** Let sName = "Scanner Name"
+** Let sDirection = "E" Enter E or W
+** Call TrackScanner @sName @sDirection $X_Train
+
+Let sTrainList = %1 + "," + %2 + "\n"
+
+Let sScanList = $Train(%3, CarLabels)
+While($String(@sScanList, Length) <> 0)
+    Let carID = $String(@sScanList, NextToken)
+    Let carAAR = $Car(@carID, AAR)
+    Let carLine = @carID + , + @carAAR
+
+    Let sTrainList = @sTrainList + @carLine + "\n"
+
+EndWhile
+
+Let sFilePath = $DataDir + "\Reports\Scanners\" + %1 + ".txt"
+Call $Write(@sFilePath, @sTrainList)
+
+Echo Train scanned at %1

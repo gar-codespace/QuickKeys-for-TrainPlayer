@@ -17,5 +17,6 @@ set "dktDir=%homepath%\AppData\Roaming\TrainPlayer\Cartypes\Defaults\"
 xcopy %dksDir% %dktDir% /H /S /C /Y
 
 md "%homepath%\AppData\Roaming\TrainPlayer\Reports"
+md "%homepath%\AppData\Roaming\TrainPlayer\Reports\Scanners"
 
 wmic path win32_processor get CurrentClockSpeed, DeviceID, MaxClockSpeed, Name, NumberOfCores /format:LIST |more > %homepath%\AppData\Roaming\TrainPlayer\Reports\ProcessorInfo.txt
