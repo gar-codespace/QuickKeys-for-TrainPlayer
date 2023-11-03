@@ -4,20 +4,20 @@
 ** %2 is the scan direction, E or W
 ** %3 is the train on the scanner
 
-** Use:
+** Use as a junction action:
 ** Let sName = "Scanner Name"
 ** Let sDirection = "E" Enter E or W
 ** Call TrackScanner @sName @sDirection $X_Train
 
-Let sTrainList = %1 + "," + %2 + "\n"
+Let sTrainList = %1 + "\n"
+Let sTrainList = @sTrainList + %2
 
 Let sScanList = $Train(%3, CarLabels)
 While($String(@sScanList, Length) <> 0)
     Let carID = $String(@sScanList, NextToken)
-    Let carAAR = $Car(@carID, AAR)
-    Let carLine = @carID + , + @carAAR
+    Let carQR = $Car(@carID, rfid)
 
-    Let sTrainList = @sTrainList + @carLine + "\n"
+    Let sTrainList = @sTrainList + "\n" + @carQR
 
 EndWhile
 
