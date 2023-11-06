@@ -15,6 +15,9 @@ Let sTrainList = @sTrainList + %2
 Let sScanList = $Train(%3, CarLabels)
 While($String(@sScanList, Length) <> 0)
     Let carID = $String(@sScanList, NextToken)
+    If($Car(@carID, AAR) = ET)
+        Continue
+    EndIf
     Let carQR = $Car(@carID, rfid)
 
     Let sTrainList = @sTrainList + "\n" + @carQR

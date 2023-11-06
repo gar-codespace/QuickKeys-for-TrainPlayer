@@ -12,11 +12,14 @@ Echo Adding a random QR Code to each rolling stock...
 While($String(@rsIDs, Length) <> 0)
 
     Let rsID = $String(@rsIDs, NextToken)
+    If($Car(@rsID, AAR) = ET)
+        Continue
+    EndIf
     Let carLabel = $Car(@rsID, Label)
     Call makeRFID
     Echo @carLabel @rfid
     Let $Car(@rsID, "rfid") = @rfid
-    Let rfidRoster = @rfidRoster + "\n" + @carLabel + "," + @rfid    
+    Let rfidRoster = @rfidRoster + @carLabel + "," + @rfid + "\n"
 
 EndWhile
 
