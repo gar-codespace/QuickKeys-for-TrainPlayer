@@ -190,20 +190,27 @@ Proc ParseManifest ** Parse the whole manifest from JMRI
         Call TagCar
         Let PickUpCount = @PickUpCount + 1
       EndIf
+
       If(@j1 = "SC")
         Call TagCar
         Call SetOutCar
-        ** Call LoadCar
         Let SetOutCount = @SetOutCount + 1
       EndIf
+
       If(@j1 = "PL")
-        Call TagCar
+        If(@suppressAward <> True)
+          Call TagCar
+        EndIf
         Call PickUpLoco
       EndIf
+
       If(@j1 = "SL")
-        Call TagCar
+        If(@suppressAward <> True)
+          Call TagCar
+        EndIf
         Call SetOutLoco
       EndIf
+
     EndIf
 
   EndWhile

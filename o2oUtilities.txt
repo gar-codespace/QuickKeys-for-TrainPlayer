@@ -40,6 +40,14 @@ Echo o2o Utility - Set all car destinations to their current location
     Let jTemp = $String(@jLabels, NextToken) ** car label
     Let jCarLoc = $Car(@jTemp, Track) ** track ID
     Let jCarLoc = $Track(@jCarLoc, Label) ** track label
+
+    Let xyz = $Car(@jTemp, AAR)
+    If($String(@xyz, StartsWith, "E") = 1)
+    If(@suppressAward = True)
+      Let jCarLoc = "~"
+    EndIf
+    EndIf
+
     Let $Car(@jTemp, Dest) = @jCarLoc
 
 ** Set the car to AO Industries load and state
