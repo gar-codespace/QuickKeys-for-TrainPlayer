@@ -126,17 +126,6 @@ Proc CreateReportHeader
     Let jHeader = @jHeader + \n@jTemp
   EndIf
 
-  **** Train comment is not in the JMRI train.json file.
-  * Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Train comment
-  * If($String(@jTemp, StartsWith, "HC") = 1)
-  *   Call $String(@jTemp, NextToken)
-  * Else
-  *   Let jTemp = "Train comment not found"
-  * Endif
-  * If($String(@jTemp, Length) <> 0)
-  *   Let jHeader = @jHeader + \n@jTemp
-  * EndIf
-
   Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Valid time
   If($String(@jTemp, StartsWith, "HV") = 1)
     Call $String(@jTemp, NextToken)
@@ -145,6 +134,17 @@ Proc CreateReportHeader
   Endif
   Let jHeader = @jHeader + \n@jTemp
 
+  **** Train comment is not in the JMRI train.json file.
+  Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Train comment
+  If($String(@jTemp, StartsWith, "HC") = 1)
+    Call $String(@jTemp, NextToken)
+  Else
+    Let jTemp = "Train comment not found"
+  Endif
+  If($String(@jTemp, Length) <> 0)
+    Let jHeader = @jHeader + \n@jTemp
+  EndIf
+  
   Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Work event total
   If($String(@jTemp, StartsWith, "WT") = 1)
     Call $String(@jTemp, NextToken)
@@ -185,9 +185,9 @@ Proc ParseManifest ** Parse the whole manifest from JMRI
       Call ParseLine
 
       If(@j1 = "PC")
+        Call TagCar
         Call PickUpCar
         Call LoadCar
-        Call TagCar
         Let PickUpCount = @PickUpCount + 1
       EndIf
 
@@ -279,6 +279,10 @@ Proc PickupCar ** Tag the TP car to be picked up
 
   Let jMText = @jMText + \n$Set(@o2oBundle, Get, 17) @j3 @j4 @j5 @j6 @j7 $Set(@o2oBundle, Get, 15) @j8
   Let $Car(@jID, ExcludeOps) = 0 ** set the tags color
+  Let carAAR = $Car(@jID, AAR)
+  If($String(@carAAR, StartsWith, "N") = 1)
+    Let $Car(@jID, Dest) = @jID ** Caboose gets tagged with label
+  EndIf
 
 EndProc
 ****************************************************************************
@@ -295,6 +299,7 @@ Proc PickUpLoco ** Tag the engine to be picked up
 
   Let jMText = @jMText + \n$Set(@o2oBundle, Get, 17) @j3 @j4 @j5 @j6 @j7 $Set(@o2oBundle, Get, 15) @j8
   Let $Car(@jID, ExcludeOps) = 0 ** set the tags color
+  Let $Car(@jID, Dest) = @jID ** Engine gets tagged with label
 
 EndProc
 ****************************************************************************
