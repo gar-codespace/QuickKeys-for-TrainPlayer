@@ -198,14 +198,14 @@ Proc ParseManifest ** Parse the whole manifest from JMRI
       EndIf
 
       If(@j1 = "PL")
-        If(@suppressAward <> True)
+        If(@TagNonRevenue = 1)
           Call TagCar
         EndIf
         Call PickUpLoco
       EndIf
 
       If(@j1 = "SL")
-        If(@suppressAward <> True)
+        If(@TagNonRevenue = 1)
           Call TagCar
         EndIf
         Call SetOutLoco

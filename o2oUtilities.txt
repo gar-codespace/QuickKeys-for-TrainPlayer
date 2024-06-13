@@ -41,13 +41,6 @@ Echo o2o Utility - Set all car destinations to their current location
     Let jCarLoc = $Car(@jTemp, Track) ** track ID
     Let jCarLoc = $Track(@jCarLoc, Label) ** track label
 
-    Let xyz = $Car(@jTemp, AAR)
-    If($String(@xyz, StartsWith, "E") = 1)
-    If(@suppressAward = True)
-      Let jCarLoc = "~"
-    EndIf
-    EndIf
-
     Let $Car(@jTemp, Dest) = @jCarLoc
 
 ** Set the car to AO Industries load and state
@@ -75,10 +68,19 @@ Echo o2o Utility - Set all car destinations to their current location
       Continue
     EndIf
 
-** Set locos and cabin cars
-    If ($Car(@jTemp, LoadName) = "") ** car is unloadable
-      Let $Car(@jTemp, Dest) = "~"
+    If (@TagNonRevenue = 1)
       Continue
+    EndIf
+
+** Exclude locos and cabin cars if "TagNonRevenue" = 0
+    Let eqptAar = $Car(@jTemp, AAR)
+
+    If ($string(@eqptAar, startswith, "E") = 1)
+      Let $Car(@jTemp, Dest) = "~"
+    EndIf
+
+    If ($string(@eqptAar, startswith, "N") = 1)
+      Let $Car(@jTemp, Dest) = "~"
     EndIf
 
   EndWhile

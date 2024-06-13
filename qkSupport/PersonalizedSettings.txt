@@ -15,10 +15,10 @@
     Let HiliteSize = 18 ** How the switch position is displayed
 
 ** Set QuickKeys variables
-    Let suppressAward = True
     Let maximumTrainSpeed = 40
     Let "Min Coupling Dist" = 1
     Let "Uncouple Gap" = 20 ** For DropKick, make bigger if dropped cars re-couple
+    Let "TagNonRevenue" = 0
 
 ** Toolbars and windows to include when toggling View mode
     Let ViewList7 = Main Tools,Track Tools,Script Tools,Ops Tools,Schedule
