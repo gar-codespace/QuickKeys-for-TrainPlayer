@@ -198,16 +198,12 @@ Proc ParseManifest ** Parse the whole manifest from JMRI
       EndIf
 
       If(@j1 = "PL")
-        If(@TagNonRevenue = 1)
-          Call TagCar
-        EndIf
+        Call TagCar
         Call PickUpLoco
       EndIf
 
       If(@j1 = "SL")
-        If(@TagNonRevenue = 1)
-          Call TagCar
-        EndIf
+        Call TagCar
         Call SetOutLoco
       EndIf
 
@@ -279,9 +275,16 @@ Proc PickupCar ** Tag the TP car to be picked up
 
   Let jMText = @jMText + \n$Set(@o2oBundle, Get, 17) @j3 @j4 @j5 @j6 @j7 $Set(@o2oBundle, Get, 15) @j8
   Let $Car(@jID, ExcludeOps) = 0 ** set the tags color
+
   Let carAAR = $Car(@jID, AAR)
-  If($String(@carAAR, StartsWith, "N") = 1)
-    Let $Car(@jID, Dest) = @jID ** Caboose gets tagged with label
+  If (@TagNonRevenue = 0)
+    If($String(@carAAR, StartsWith, "N") = 1)
+      Let $Car(@jID, Dest) = "~"
+    EndIf
+
+    If($String(@carAAR, StartsWith, "M") = 1)
+      Let $Car(@jID, Dest) = "~"
+    EndIf  
   EndIf
 
 EndProc
@@ -299,7 +302,9 @@ Proc PickUpLoco ** Tag the engine to be picked up
 
   Let jMText = @jMText + \n$Set(@o2oBundle, Get, 17) @j3 @j4 @j5 @j6 @j7 $Set(@o2oBundle, Get, 15) @j8
   Let $Car(@jID, ExcludeOps) = 0 ** set the tags color
-  Let $Car(@jID, Dest) = @jID ** Engine gets tagged with label
+  If (@TagNonRevenue = 0)
+    Let $Car(@jID, Dest) = "~"
+  EndIf
 
 EndProc
 ****************************************************************************
