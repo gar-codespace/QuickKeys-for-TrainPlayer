@@ -70,13 +70,7 @@ Proc ResetPreviousWorkEvent
 
   While($Set(@jResetCarIDs, Count) <> 0)
     Let jCarID = $String(@jResetCarIDs, NextToken)
-
-    Let jTemp = $Car(@jCarID, Track)
-    Let jTemp = $Track(@jTemp, Label)
-    If(@jTemp = "")
-      Let jTemp = "~"
-    EndIf
-    Let $Car(@jCarID, Dest) = @jTemp
+    Let $Car(@jCarID, Dest) = ~
     Let $Car(@jCarID, ExcludeOps) = 0
   EndWhile
   View Refresh
@@ -261,10 +255,23 @@ Proc TagCar
 
   Let jLocaleIndex = $Set(@jLocaleSet, Find, @jToLoc)
   Let jTag = $Set(@jTrackLabelSet, Get, @jLocaleIndex)
+  Let jResetCarIDs = @jResetCarIDs + @jID + ","
 
   Let $Car(@jID, Dest) = @jTag
-  Let jResetCarIDs = @jResetCarIDs + @jID + ","
-  ** Let jResetCarIDs = $Set(@jResetCarIDs, Add, "@jID")
+  If (@TagNonRevenue = 0)
+    Let carAAR = $Car(@jID, AAR)
+    If($String(@carAAR, StartsWith, "E") = 1)
+      Let $Car(@jID, Dest) = "~"
+    EndIf
+
+    If($String(@carAAR, StartsWith, "N") = 1)
+      Let $Car(@jID, Dest) = "~"
+    EndIf
+
+    If($String(@carAAR, StartsWith, "M") = 1)
+      Let $Car(@jID, Dest) = "~"
+    EndIf  
+  EndIf
 
 EndProc
 ****************************************************************************
@@ -276,16 +283,7 @@ Proc PickupCar ** Tag the TP car to be picked up
   Let jMText = @jMText + \n$Set(@o2oBundle, Get, 17) @j3 @j4 @j5 @j6 @j7 $Set(@o2oBundle, Get, 15) @j8
   Let $Car(@jID, ExcludeOps) = 0 ** set the tags color
 
-  Let carAAR = $Car(@jID, AAR)
-  If (@TagNonRevenue = 0)
-    If($String(@carAAR, StartsWith, "N") = 1)
-      Let $Car(@jID, Dest) = "~"
-    EndIf
 
-    If($String(@carAAR, StartsWith, "M") = 1)
-      Let $Car(@jID, Dest) = "~"
-    EndIf  
-  EndIf
 
 EndProc
 ****************************************************************************
@@ -302,9 +300,7 @@ Proc PickUpLoco ** Tag the engine to be picked up
 
   Let jMText = @jMText + \n$Set(@o2oBundle, Get, 17) @j3 @j4 @j5 @j6 @j7 $Set(@o2oBundle, Get, 15) @j8
   Let $Car(@jID, ExcludeOps) = 0 ** set the tags color
-  If (@TagNonRevenue = 0)
-    Let $Car(@jID, Dest) = "~"
-  EndIf
+
 
 EndProc
 ****************************************************************************
