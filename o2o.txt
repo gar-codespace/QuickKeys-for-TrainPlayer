@@ -283,8 +283,6 @@ Proc PickupCar ** Tag the TP car to be picked up
   Let jMText = @jMText + \n$Set(@o2oBundle, Get, 17) @j3 @j4 @j5 @j6 @j7 $Set(@o2oBundle, Get, 15) @j8
   Let $Car(@jID, ExcludeOps) = 0 ** set the tags color
 
-
-
 EndProc
 ****************************************************************************
 
@@ -300,7 +298,6 @@ Proc PickUpLoco ** Tag the engine to be picked up
 
   Let jMText = @jMText + \n$Set(@o2oBundle, Get, 17) @j3 @j4 @j5 @j6 @j7 $Set(@o2oBundle, Get, 15) @j8
   Let $Car(@jID, ExcludeOps) = 0 ** set the tags color
-
 
 EndProc
 ****************************************************************************
@@ -321,7 +318,6 @@ Let $Car(@jID, Loaded) = 1
 If (@jLT = L)
   Let $Car(@jID, Loaded) = 0
 EndIf
-
 
 EndProc
 ****************************************************************************
