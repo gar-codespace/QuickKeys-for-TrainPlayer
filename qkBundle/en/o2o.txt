@@ -2,7 +2,7 @@
 ,
 "The manifest is empty."
 ,
-"Press the m key to read in the manifest."
+"Press the o key to read in the o2o manifest."
 ,
 "Reading the manifest."
 ,

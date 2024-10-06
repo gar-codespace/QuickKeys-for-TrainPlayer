@@ -2,7 +2,7 @@
 ,
 "El manifiesto está vacío".
 ,
-"Pulse la tecla m para leer el manifiesto".
+"Pulse la tecla o para leer el manifiesto o2o".
 ,
 "Leyendo el manifiesto".
 ,
