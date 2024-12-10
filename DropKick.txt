@@ -78,8 +78,10 @@ Proc FindEngineAndCarPosition
     Let kTestAAR = $Car(@kTestLabel, AAR)
 
     If ($String(@kTestAAR, StartsWith, "E") = 1)
+    If ($String(@kTestAAR, Contains, "EQDK") = 0)
       Let kEngineLabel = @kTestLabel
       Let E = @i ** E is position of Engine in train
+    EndIf
     EndIf
 
     If (@kTestLabel = $Car)
@@ -137,6 +139,7 @@ Proc DropKickKick
   EndIf
 
   Train @kEngineLabel
+
   Let x3 = 1
 
 EndProc
