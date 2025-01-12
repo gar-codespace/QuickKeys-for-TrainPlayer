@@ -1,4 +1,6 @@
 ## QuickKeys
+Richard Fletcher, 1942-2024  
+This suite of TrainPlayer scripts is dedicated to the memory of Richard Fletcher, without whos help all subsequent work would not have happened.  
 QuickKeys is a suite of TrainPlayer scripts that map train commands to the keyboard. The scripts are written in TrainPlayer Programming Language,  or TPL, TrainPlayers native scripting language. These TPL scripts are contained in standard txt files, and can be copied directly into Subroutines folder in the users TrainPlayer folder. The following are a set of YouTube videos that cover the use of these scripts.  
 ### How To Videos
 [QuickKeys Setup]  
