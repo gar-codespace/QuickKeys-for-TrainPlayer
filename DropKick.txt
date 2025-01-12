@@ -46,7 +46,7 @@ If ($Train($Train, Speed) = 0)
 
   Let U = 0
 
-  Exit
+  ** Exit
 EndIf
 
 
