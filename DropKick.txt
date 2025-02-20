@@ -26,6 +26,22 @@ Echo @i KickMotors deleted.
 
 Train @kThisTrain
 
+
+** Let kThisTrain = $Train
+** let kKickMotors = $ops(find, Cars.AAR, all, Car_ID)
+** Let i = 0
+** While ($Set(@kKickMotors, Count) <> 0)
+**   Let kCarId = $String(@kKickMotors, NextToken)
+**   Let kCarAar = $Car(@kCarId, AAR)
+**   If (@kCarAar = "EQDK")
+**     ** Train @kCarId
+**     Train car @kCarId
+**     "Train" "Car" "Delete Car"
+**     Let i = @i + 1
+**   EndIf
+** EndWhile
+
+
 EndProc
 ****************************************************************************
 
@@ -123,7 +139,6 @@ Proc DropKickKick
     Call CutOffCars     
   Else
     Echo Wrong direction to kick.
-    Echo No, here
   Endif
   EndIf
 
