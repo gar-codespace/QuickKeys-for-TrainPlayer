@@ -1,4 +1,4 @@
-** o2o Workevents - Version 3
+** o2o version 3
 
 
 If (%1 = SetUp)
@@ -49,9 +49,7 @@ Proc o2oReadManifest
   Call ReadAoLocations
 
   Let jReportManifest = $DataDir + "\Reports\JMRI Report - o2o Workevents.csv"
-  Let jManifest = $File(@jReportManifest, Open)
-  Let jManifestAll = $File(@jManifest, ReadAll)
-  Call $File(@jReportManifest, Close)
+  Let jManifestAll = $Read(@jReportManifest)
   Call CreateReportHeader
 
   Let jNote = \n$Set(@o2oBundle, Get, 0)\n\n$Set(@o2oBundle, Get, 3) \n
@@ -72,16 +70,7 @@ Proc ResetPreviousWorkEvent
 
   While($Set(@jResetCarIDs, Count) <> 0)
     Let jCarID = $String(@jResetCarIDs, NextToken)
-
-    *echo jCarID @jCarID
-
-
-    Let jTemp = $Car(@jCarID, Track)
-    Let jTemp = $Track(@jTemp, Label)
-    If(@jTemp = "")
-      Let jTemp = "~"
-    EndIf
-    Let $Car(@jCarID, Dest) = @jTemp
+    Let $Car(@jCarID, Dest) = ~
     Let $Car(@jCarID, ExcludeOps) = 0
   EndWhile
   View Refresh
@@ -131,17 +120,6 @@ Proc CreateReportHeader
     Let jHeader = @jHeader + \n@jTemp
   EndIf
 
-  **** Train comment is not in the JMRI train.json file.
-  * Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Train comment
-  * If($String(@jTemp, StartsWith, "HC") = 1)
-  *   Call $String(@jTemp, NextToken)
-  * Else
-  *   Let jTemp = "Train comment not found"
-  * Endif
-  * If($String(@jTemp, Length) <> 0)
-  *   Let jHeader = @jHeader + \n@jTemp
-  * EndIf
-
   Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Valid time
   If($String(@jTemp, StartsWith, "HV") = 1)
     Call $String(@jTemp, NextToken)
@@ -150,6 +128,17 @@ Proc CreateReportHeader
   Endif
   Let jHeader = @jHeader + \n@jTemp
 
+  **** Train comment is not in the JMRI train.json file.
+  Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Train comment
+  If($String(@jTemp, StartsWith, "HC") = 1)
+    Call $String(@jTemp, NextToken)
+  Else
+    Let jTemp = "Train comment not found"
+  Endif
+  If($String(@jTemp, Length) <> 0)
+    Let jHeader = @jHeader + \n@jTemp
+  EndIf
+  
   Let jTemp = $String(@jManifestCopy, NextToken, @xCR)  ** Work event total
   If($String(@jTemp, StartsWith, "WT") = 1)
     Call $String(@jTemp, NextToken)
@@ -190,25 +179,28 @@ Proc ParseManifest ** Parse the whole manifest from JMRI
       Call ParseLine
 
       If(@j1 = "PC")
+        Call TagCar
         Call PickUpCar
         Call LoadCar
-        Call TagCar
         Let PickUpCount = @PickUpCount + 1
       EndIf
+
       If(@j1 = "SC")
         Call TagCar
         Call SetOutCar
-        ** Call LoadCar
         Let SetOutCount = @SetOutCount + 1
       EndIf
+
       If(@j1 = "PL")
         Call TagCar
         Call PickUpLoco
       EndIf
+
       If(@j1 = "SL")
         Call TagCar
         Call SetOutLoco
       EndIf
+
     EndIf
 
   EndWhile
@@ -263,10 +255,23 @@ Proc TagCar
 
   Let jLocaleIndex = $Set(@jLocaleSet, Find, @jToLoc)
   Let jTag = $Set(@jTrackLabelSet, Get, @jLocaleIndex)
+  Let jResetCarIDs = @jResetCarIDs + @jID + ","
 
   Let $Car(@jID, Dest) = @jTag
-  Let jResetCarIDs = @jResetCarIDs + @jID + ","
-  ** Let jResetCarIDs = $Set(@jResetCarIDs, Add, "@jID")
+  If (@TagNonRevenue = 0)
+    Let carAAR = $Car(@jID, AAR)
+    If($String(@carAAR, StartsWith, "E") = 1)
+      Let $Car(@jID, Dest) = "~"
+    EndIf
+
+    If($String(@carAAR, StartsWith, "N") = 1)
+      Let $Car(@jID, Dest) = "~"
+    EndIf
+
+    If($String(@carAAR, StartsWith, "M") = 1)
+      Let $Car(@jID, Dest) = "~"
+    EndIf  
+  EndIf
 
 EndProc
 ****************************************************************************
@@ -313,7 +318,6 @@ Let $Car(@jID, Loaded) = 1
 If (@jLT = L)
   Let $Car(@jID, Loaded) = 0
 EndIf
-
 
 EndProc
 ****************************************************************************

@@ -1,10 +1,9 @@
-** DropKick Version 3
+** DropKick version 3
 
 
 If (%1 = SetUp)
 
   Let x3 = 1
-
   Echo DropKick Version 3
   
 EndIf
@@ -27,6 +26,22 @@ Echo @i KickMotors deleted.
 
 Train @kThisTrain
 
+
+** Let kThisTrain = $Train
+** let kKickMotors = $ops(find, Cars.AAR, all, Car_ID)
+** Let i = 0
+** While ($Set(@kKickMotors, Count) <> 0)
+**   Let kCarId = $String(@kKickMotors, NextToken)
+**   Let kCarAar = $Car(@kCarId, AAR)
+**   If (@kCarAar = "EQDK")
+**     ** Train @kCarId
+**     Train car @kCarId
+**     "Train" "Car" "Delete Car"
+**     Let i = @i + 1
+**   EndIf
+** EndWhile
+
+
 EndProc
 ****************************************************************************
 
@@ -47,7 +62,6 @@ If ($Train($Train, Speed) = 0)
 
   Let U = 0
 
-  Exit
 EndIf
 
 EndProc
@@ -67,6 +81,7 @@ EndProc
 ****************************************************************************
 
 Proc FindEngineAndCarPosition
+** Find the engine and cut car relative to each other
   
   Let kTemp = $Train($Train, CarLabels)
   Let kTrainCount = $Set(@kTemp, Count)
@@ -77,8 +92,10 @@ Proc FindEngineAndCarPosition
     Let kTestAAR = $Car(@kTestLabel, AAR)
 
     If ($String(@kTestAAR, StartsWith, "E") = 1)
+    If ($String(@kTestAAR, Contains, "EQDK") = 0)
       Let kEngineLabel = @kTestLabel
       Let E = @i ** E is position of Engine in train
+    EndIf
     EndIf
 
     If (@kTestLabel = $Car)
@@ -91,6 +108,7 @@ EndProc
 ****************************************************************************
 
 Proc CutOffCars
+** Add the kick moter and cut the train
 
 Train "Add Car" "diesel"
 Let $Car($Car, ShowLabel) = 0
@@ -103,6 +121,7 @@ EndProc
 ****************************************************************************
 
 Proc DropKickKick
+** Kick em
 
   Let x3 = 2
 
@@ -119,7 +138,6 @@ Proc DropKickKick
     Call CutOffCars     
   Else
     Echo Wrong direction to kick.
-    Echo No, here
   Endif
   EndIf
 
@@ -134,12 +152,14 @@ Proc DropKickKick
   EndIf
 
   Train @kEngineLabel
+
   Let x3 = 1
 
 EndProc
 ****************************************************************************
 
 Proc DropKickDrop
+** Drop em
 
   Let x3 = 2
 

@@ -1,8 +1,0 @@
-** Copy the MasterScript Template to the layouts Master Script note
-
-  Let msLoc = $DataDir + "\Subroutines\QuickKeys\qkSupport\MasterScript Template.txt"
-  Let msFile = $File(@msLoc, Open)
-  Let msTemplate = $File(@msFile, ReadAll)
-  Call $File(@msLoc, Close)
-
-  Let $Note(%1) = @msTemplate

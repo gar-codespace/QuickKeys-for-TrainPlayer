@@ -1,4 +1,4 @@
-** QuickKeys Version 3
+** QuickKeys version 3
 ** All the key presses are here
 
 

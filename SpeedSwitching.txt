@@ -1,4 +1,5 @@
-** Speed Switching/Phake Physics Version 4
+** SpeedSwitching version 4
+** Includes Phake Physics
 
 
 If (%1 = SetUp)

@@ -2,7 +2,7 @@
 ,
 "Le manifeste est vide."
 ,
-"Appuyez sur 'm' pour lire le manifeste."
+"Appuyez sur 'o' pour lire le manifeste o2o."
 ,
 "Lire le manifeste."
 ,

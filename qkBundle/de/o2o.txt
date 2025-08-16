@@ -2,7 +2,7 @@
 ,
 "Das Manifest ist leer."
 ,
-"Drücken Sie die Taste m, um das Manifest einzulesen."
+"Drücken Sie die Taste o, um das o2o Manifest einzulesen."
 ,
 "Lesen des Manifests".
 ,

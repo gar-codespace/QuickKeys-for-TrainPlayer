@@ -1,9 +1,9 @@
-** o2o - ops 2 ops Workevent Switching - Version 3
+** o2oUtilities version 3
 
 
 Proc InitTracks
-
 Echo o2o Utility - Set all  ~ tracks to null
+
 Let jIDs = $Layout(IDSet, TrackIDs)
 Let i = 0
 While(@i < $Set(@jIDs, Count))
@@ -19,6 +19,7 @@ EndProc
 ****************************************************************************
 
 Proc InitCars
+Echo o2o Utility - Set all car destinations to their current location
 
   If(%1 = "")
     Let jXmessage = $Set(@messageBundle, Get, 8)
@@ -39,6 +40,7 @@ Proc InitCars
     Let jTemp = $String(@jLabels, NextToken) ** car label
     Let jCarLoc = $Car(@jTemp, Track) ** track ID
     Let jCarLoc = $Track(@jCarLoc, Label) ** track label
+
     Let $Car(@jTemp, Dest) = @jCarLoc
 
 ** Set the car to AO Industries load and state
@@ -66,10 +68,19 @@ Proc InitCars
       Continue
     EndIf
 
-** Set loccos and cabin cars
-    If ($Car(@jTemp, LoadName) = "") ** car is unloadable
-      Let $Car(@jTemp, Dest) = "~"
+    If (@TagNonRevenue = 1)
       Continue
+    EndIf
+
+** Exclude locos and cabin cars if "TagNonRevenue" = 0
+    Let eqptAar = $Car(@jTemp, AAR)
+
+    If ($string(@eqptAar, startswith, "E") = 1)
+      Let $Car(@jTemp, Dest) = "~"
+    EndIf
+
+    If ($string(@eqptAar, startswith, "N") = 1)
+      Let $Car(@jTemp, Dest) = "~"
     EndIf
 
   EndWhile
@@ -80,8 +91,7 @@ EndProc
 ****************************************************************************
 
 Proc AddKernels
-
-  Echo o2o Utility - Group equipment together into a JMRI like consist or kernel
+Echo o2o Utility - Group equipment together into a JMRI like consist or kernel
 
   Let jKernelSet = $Train($Train, CarLabels)
   Input jK $Set(@messageBundle, Get, 7)
@@ -95,8 +105,7 @@ EndProc
 ****************************************************************************
 
 Proc TrackReport
-
-  Echo o2o Utility - Report track capacity by car quantity
+Echo o2o Utility - Report track capacity by car quantity
 
   Let tcReport = $Set(@o2oBundle, Get, 19) + \n\n
   Let allLocales = $Ops(Find, Locations.ID, All)
@@ -133,23 +142,20 @@ EndProc
 ****************************************************************************
 
 Proc ReportTpLocations
-
-  Echo o2o Utility - create TrainPlayer Report - Locations.txt
+Echo o2o Utility - create TrainPlayer Report - Locations.txt
 
   Let jID = $Ops(find, Locs.Class, All, ID)
   Let jCount = $Set(@jID, Count)
 
-  Let jName = $Layout(Name)
-
   Let jLocation = $DATE + "-" + $TIME + ";" + $Layout(Name) + ";;;;"
-
   If ($String(@OperatingRoad, Length) = 0)
     Let OperatingRoad = $Layout(Name)
   EndIf
-
   Let jLocation = @jLocation +\n@OperatingRoad + ";" + @Territory + ";" + @Location + ";" + @Year + ";" + @Divisions + ";" + @ModelScale
 
-  Let jLocation = @jLocation +\n + "TP ID;JMRI Location;JMRI Track;TP Track;TP Class;TP Spaces"
+  Let jLocation = @jLocation +\n + ";;;;;"
+  Let jLocation = @jLocation +\n + ";;;;;"
+  Let jLocation = @jLocation +\n + ";;;;;"
 
   Let i = 1
   While (i <= @jCount)
@@ -197,7 +203,6 @@ Proc ReportTpLocations
 
     If (@j <> 5)
       Let message = $Ops(Get, Locs.Locale, @i) + \n$Set(@messageBundle, Get, 21)
-      echo maybe here
       Call $Msgbox(@message)
     EndIf
 
@@ -215,15 +220,17 @@ EndProc
 ****************************************************************************
 
 Proc ReportTpIndustries
-
-  Echo o2o Utility - create TrainPlayer Report - Industries.txt
+Echo o2o Utility - create TrainPlayer Report - Industries.txt
 
   Let jID = $Ops(find, Industries.Locale, All, ID)
   Let jCount = $Set(@jID, Count)
 
   Let jIndustry = $DATE + "-" + $TIME + ";;;;;;;;;;"
   Let jIndustry = @jIndustry + \n + "JMRI Location;JMRI Track;TP Industry;TP AAR;TP S/R;Load;TP Staging;TP ViaIn;TP Via Out;TP ID;"
-
+  Let jIndustry = @jIndustry + \n + ";;;;;;;;;;"
+  Let jIndustry = @jIndustry + \n + ";;;;;;;;;;"
+  Let jIndustry = @jIndustry + \n + ";;;;;;;;;;"
+  
   Let i = 1
   While (i <= @jCount)
 
@@ -258,17 +265,21 @@ EndProc
 ****************************************************************************
 
 Proc ReportTpInventory
-
-  Echo o2o Utility - create TrainPlayer Report - Rolling Stock.txt
+Echo o2o Utility - create TrainPlayer Report - Rolling Stock.txt
 
   Echo Working on it......
 
   Let jID = $Ops(find, Cars.Car, All, Car)
   Let jCount = $Set(@jID, Count)
 
-  Let jInventory = $DATE + "-" + $TIME
-  Let jKey = "TP Car; TP Type; TP AAR; JMRI Location; JMRI Track; TP Load; TP Kernel; Car ID"
-  Let jInventory = @jInventory + \n@jKey
+  Let jInventory = "Engine AAR;" + @Aar_engine + ";;;;;;"
+  Let jInventory = @jInventory + \n + "Caboose AAR;" + @Aar_caboose + ";;;;;;"
+  Let jInventory = @jInventory + \n + "MOW AAR;" + @Aar_mow + ";;;;;;"
+  Let jInventory = @jInventory + \n + "Passenger AAR;" + @Aar_passenger + ";;;;;;"
+  Let jInventory = @jInventory + \n + "Express AAR;" + @Aar_express + ";;;;;;"
+  Let jInventory = @jInventory + \n + ";;;;;;;\n"
+  Let jInventory = @jInventory + ";;;;;;;\n"
+  Let jInventory = @jInventory + ";;;;;;;\n"
 
   Let i = 1
   While (i <= @jCount)
@@ -292,9 +303,15 @@ Proc ReportTpInventory
 
 
     Let carAAR = $Ops(Get, Cars.AAR, @i)
-    If (carAAR <> "EQDK")
-      Let jInventory = @jInventory +\n@jCar + ";" + $Ops(Get, Cars.Type, @i) + ";" + $Ops(Get, Cars.AAR, @i) + ";" +  @jLocale + ";" + $Ops(Get, Cars.Load, @i) + ";" + @jKernel + ";" + $Car(@jCar, Car_ID)
+    If (carAAR = "EQDK")
+      Let i = @i + 1
+      Continue
     EndIf
+    Let jInventory = @jInventory + @jCar + ";" + $Ops(Get, Cars.Type, @i) + ";" + $Ops(Get, Cars.AAR, @i) + ";" +  @jLocale + ";" + $Ops(Get, Cars.Load, @i) + ";" + @jKernel + ";" + $Car(@jCar, Car_ID)
+    If (@i < @jCount)
+      Let jInventory = @jInventory + \n
+    EndIf
+
     Let i = @i + 1
 
   EndWhile

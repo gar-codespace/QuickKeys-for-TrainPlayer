@@ -1,9 +1,36 @@
-** Quick Keys Entities
+** qkEntities version 2
 
+
+Proc NoteWindow
+** Open or close the note window
+
+If (%2 = 1) ** force window open
+  Note %1
+Else
+  Note %1
+EndIf
+
+EndProc
+***************************************************************************
+
+Proc ApplyVersionItems
+** Apply TrainPlayer version specific stuff
+
+  Let Version = $Setting(InstalledVer)
+
+  If ($String(@Version, StartsWith, 7) = 1)
+    Let ViewList = @ViewList7
+  EndIf
+  If ($String(@Version, StartsWith, 8) = 1)
+    Let ViewList = @ViewList8
+  EndIf
+
+EndProc
+****************************************************************************
 
 Proc aoAdjustments
-
 ** Turn off AO display of track attributes
+
     Call $View(Hide,"Track Labels")
     Call $View(hide,rails)
     Call $View(hide,roadbed)
@@ -14,41 +41,33 @@ EndProc
 ***************************************************************************
 
 Proc SetLanguage
+** Read the bundle files for the chosen language
 
 ** Read in text for Quick Keys help page
-  Let HelpLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Help.txt"
-  Let HelpFile = $File(@HelpLoc, Open)
-  Let helpBundle = $File(@HelpFile, ReadAll)
-  Call $File(@HelpLoc, Close)
+  Let BundleLocation = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Help.txt"
+  Let helpBundle = $Read(@BundleLocation)
 
 ** Read in text for Quick Keys pop up messages
-  Let MessageLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Message.txt"
-  Let MessageFile = $File(@MessageLoc, Open)
-  Let messageBundle = $File(@MessageFile, ReadAll)
-  Call $File(@MessageLoc, Close)
+  Let BundleLocation = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Message.txt"
+  Let messageBundle = $Read(@BundleLocation)
 
 ** Read in text for Quick Keys utility menu
-  Let UtilityLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Utility.txt"
-  Let UtilityFile = $File(@UtilityLoc, Open)
-  Let utilityBundle = $File(@UtilityFile, ReadAll)
-  Call $File(@UtilityLoc, Close)
+  Let BundleLocation = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Utility.txt"
+  Let utilityBundle = $Read(@BundleLocation)
 
 ** Read in text for o2o reports
-  Let o2oLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\o2o.txt"
-  Let o2oFile = $File(@o2oLoc, Open)
-  Let o2oBundle = $File(@o2oFile, ReadAll)
-  Call $File(@o2oLoc, Close)
+  Let BundleLocation = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\o2o.txt"
+  Let o2oBundle = $Read(@BundleLocation)
 
 ** Read in text for the welcome message
-  Let welcLoc = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Welcome.txt"
-  Let welcFile = $File(@welcLoc, Open)
-  Let welcBundle = $File(@welcFile, ReadAll)
-  Call $File(@welcLoc, Close)
+  Let BundleLocation = $DataDir + "\Subroutines\QuickKeys\qkBundle\" + %1 + "\Welcome.txt"
+  Let welcBundle = $Read(@BundleLocation)
 
 EndProc
 ***************************************************************************
 
 Proc makeHelpPage
+** Includes active subroutines only
 
   Let helpPage = ""
 
@@ -88,6 +107,7 @@ EndProc
 ***************************************************************************
 
 Proc makeUtilityMenu
+** Includes active subroutines only
 
   Let utilityMenu = ""
 
@@ -126,24 +146,31 @@ EndProc
 ***************************************************************************
 
 Proc MakePersonalizedSettings
+** Makes the personalized settings note into a subroutine
 
-  Let SettingsNote = $Note(@NoteForPersonalizedSettings)
+  Let settingsNote = $Note(@NoteForPersonalizedSettings)
   Let settingsFile = $DATADIR + "\Subroutines\QuickKeys\PersonalizedSettings.txt"
-  Call $Write(@settingsFile, @SettingsNote)
+
+  If (@NoteForPersonalizedSettings = 0)
+    Let settingsNote = $Note(No note is mapped to personalized settings)
+    Echo No note is mapped to personalized settings
+  EndIf
+
+  Call $Write(@settingsFile, @settingsNote)
 
 EndProc
 ***************************************************************************
 
 Proc MakeProcXYZ
-** Make the code snippet in the selected notes into a procedure
+** Make the code snippet in the selected SC notes into a subroutine
 
-  Let xyzPrefix = PressX,PressY,PressZ
-  Let xyzNoteNumber = @NoteForPressX,@NoteForPressY,@NoteForPressZ
+  Let xyzPrefix = PressX PressY PressZ
+  Let xyzNoteNumber = @NoteForPressX @NoteForPressY @NoteForPressZ
   Let i = 0
   While (@i < 3)
 
-    Let procFileName = $DATADIR + "\Subroutines\QuickKeys\" + $Set(@xyzPrefix, get, @i) + ".txt"
     Let procNoteNumber = $Set(@xyzNoteNumber, get, @i)
+    Let procFileName = $DATADIR + "\Subroutines\QuickKeys\" + $Set(@xyzPrefix, get, @i) + ".txt"
     Let procNoteContents = $Note(@procNoteNumber)
     If (@procNoteNumber = 0)
       Let procNoteContents = "Echo No script is mapped to this key press"
@@ -159,11 +186,12 @@ EndProc
 ***************************************************************************
 
 Proc CopyPersonalizedSettings
+** Make the code snippet in the selected SC note into the personalized settings script
 
 ** Input a note number
   Input noteId $Set(@messageBundle, Get, 20)
 
-** Read in RandomRoads template
+** Read in the PersonalizedSettings template
   Let rrTemplate = $DataDir + "\Subroutines\QuickKeys\qkSupport\PersonalizedSettings.txt"
   Let rrText = $Read(@rrTemplate)
 
@@ -174,15 +202,15 @@ EndProc
 ***************************************************************************
 
 Proc CopyRandomRoadsTemplate
+** The template is copied into a SC note
 
 ** Input a note number
   Input noteId $Set(@messageBundle, Get, 20)
 
 ** Read in RandomRoads template
   Let rrTemplate = $DataDir + "\Subroutines\QuickKeys\qkSupport\RandomRoadsTemplate.txt"
-  Let rrFile = $File(@rrTemplate, Open)
-  Let rrText = $File(@rrFile, ReadAll)
-  Call $File(@rrFile, Close)
+  Let rrText = $Read(@rrTemplate)
+
 ** Copy to note
   Let $Note(@noteId) = @rrText
 
@@ -190,6 +218,7 @@ EndProc
 ***************************************************************************
 
 Proc OpenHelpNote
+** Displays the help page as a note window
 
   If (@H = 0)
     Let H = 1
@@ -208,6 +237,7 @@ EndProc
 ****************************************************************************
 
 Proc OpenUtilityNote
+** Displays the utility menu as a note window
 
   If (@U = 0) ** Create message for utility menu
     Call makeUtilityMenu
@@ -225,6 +255,7 @@ EndProc
 ****************************************************************************
 
 Proc DisplayFullScreen
+** Toggle full screen mode
 
   If (@F = 0)
     Let F = 1
@@ -240,6 +271,7 @@ EndProc
 ****************************************************************************
 
 Proc ToggleQuickKeys
+** Turn all Quick Keys on or off
 
   If (@x0 = 0)
     Let x0 = 1 ** activate all Quick keys
@@ -255,6 +287,7 @@ EndProc
 ****************************************************************************
 
 Proc ToggleToolBars
+** Toggles the display of the items in ViewList
 
   Let i = 0
   While (@i < $Set(@ViewList, Count))
@@ -278,6 +311,7 @@ EndProc
 ***************************************************************************
 
 Proc ProcessorAdjustment
+** Retrieves a bit of info about the computer being used
 
 Echo Phake Physics adjustment for processor speed
 

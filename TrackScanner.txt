@@ -1,0 +1,30 @@
+** TrackScanner version 1
+
+** %1 is the scanner name
+** %2 is the scan direction, E or W
+** %3 is the train on the scanner
+
+** Use as a junction action:
+** Let sName = "Scanner Name"
+** Let sDirection = "E" Enter E or W
+** Call TrackScanner @sName @sDirection $X_Train
+
+Let sTrainList = %1 + "\n"
+Let sTrainList = @sTrainList + %2
+
+Let sScanList = $Train(%3, CarLabels)
+While($String(@sScanList, Length) <> 0)
+    Let carID = $String(@sScanList, NextToken)
+    If($Car(@carID, AAR) = ET)
+        Continue
+    EndIf
+    Let carQR = $Car(@carID, rfid)
+
+    Let sTrainList = @sTrainList + "\n" + @carQR
+
+EndWhile
+
+Let sFilePath = $DataDir + "\Reports\Scanners\" + %1 + ".txt"
+Call $Write(@sFilePath, @sTrainList)
+
+Echo Train scanned at %1
