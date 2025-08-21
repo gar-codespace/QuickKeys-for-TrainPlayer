@@ -1,7 +1,6 @@
 ** DropKick version 3
 
 
-
 If (%1 = SetUp)
 
   Let x3 = 1
